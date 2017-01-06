@@ -18,6 +18,14 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="colorstring.h" />
+    <ClInclude Include="utilities.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="colorstring.cpp" />
+    <ClCompile Include="utilities.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{31C8607F-B359-4A59-B1C1-610E2378FF50}</ProjectGuid>
     <RootNamespace>DungeonProject</RootNamespace>
@@ -109,8 +117,6 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
