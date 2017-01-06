@@ -45,6 +45,12 @@ namespace dngutil
         YELLOW,
         WHITE
     };
+
+    enum class TID
+    {
+        Player,
+        Potion
+    };
 }
 
 void errorMessage(std::string error, int line, std::string file);

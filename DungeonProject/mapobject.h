@@ -3,6 +3,8 @@
 
 #include "colorstring.h"
 #include "coordinate.h"
+#include "collision.h"
+#include "utilities.h"
 
 #include <string>
 
@@ -20,7 +22,7 @@ public:
         bool moveable,
         bool rawoutput,
         bool aggressive,
-        int typeId
+        dngutil::TID typeId
     );
 
     // Save Constructor, used when saving the game. Takes the new game
@@ -32,10 +34,12 @@ public:
     const bool& isMoveable() const;
     const bool& isRawoutput() const;
     const bool& isAggressive() const;
-    const int& getTypeId() const;
+    const dngutil::TID& getTypeId() const;
     
-    virtual MapObject* makeNew(Game* game) = 0;
+    virtual MapObject* makeNew(Game* game, Coordinate coord) = 0;
     virtual MapObject* makeSave(Game* game) = 0;
+
+    virtual Collision mapAction(MapObject* collider) = 0;
 private:
     // Pointer to the game
     Game* pgame;
@@ -57,7 +61,7 @@ private:
     bool aggressive;
 
     // Identification to tell apart different types of objects
-    int typeId;
+    dngutil::TID typeId;
 };
 
 #endif

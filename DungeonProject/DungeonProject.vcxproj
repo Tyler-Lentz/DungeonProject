@@ -19,15 +19,18 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="collision.h" />
     <ClInclude Include="colorstring.h" />
     <ClInclude Include="console.h" />
     <ClInclude Include="coordinate.h" />
+    <ClInclude Include="item.h" />
     <ClInclude Include="mapobject.h" />
     <ClInclude Include="utilities.h" />
     <ClInclude Include="virtualwindow.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="colorstring.cpp" />
+    <ClCompile Include="item.cpp" />
     <ClCompile Include="mapobject.cpp" />
     <ClCompile Include="utilities.cpp" />
     <ClCompile Include="virtualwindow.cpp" />

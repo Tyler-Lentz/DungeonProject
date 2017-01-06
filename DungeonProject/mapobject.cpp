@@ -1,4 +1,5 @@
 #include "mapobject.h"
+#include "utilities.h"
 
 class Game; // TODO: change to include when game is implemented
 
@@ -13,7 +14,7 @@ MapObject::MapObject(
     bool moveable,
     bool rawoutput,
     bool aggressive,
-    int typeId
+    dngutil::TID typeId
 )
     :coord(coord.x, coord.y)
 {
@@ -69,7 +70,7 @@ const bool& MapObject::isAggressive() const
     return aggressive;
 }
 
-const int& MapObject::getTypeId() const
+const dngutil::TID& MapObject::getTypeId() const
 {
     return typeId;
 }
