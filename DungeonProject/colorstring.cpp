@@ -7,10 +7,26 @@
 //---------------------------------------------------------------------
 // ColorChar functions
 
+ColorChar::ColorChar()
+{
+    character = ' ';
+    color = getColor(dngutil::LIGHTGRAY, dngutil::BLACK);
+}
+
 ColorChar::ColorChar(char character, int color)
 {
     this->character = character;
     this->color = color;
+}
+
+bool ColorChar::operator==(const ColorChar& other)
+{
+    return (character == other.character && color == other.color);
+}
+
+bool ColorChar::operator!=(const ColorChar& other)
+{
+    return !(*this == other);
 }
 
 //---------------------------------------------------------------------

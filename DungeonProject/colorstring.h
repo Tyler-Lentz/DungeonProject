@@ -6,7 +6,11 @@
 
 struct ColorChar
 {
+    ColorChar();
     ColorChar(char character, int color);
+
+    bool operator==(const ColorChar& other);
+    bool operator!=(const ColorChar& other);
 
     int color;
     char character;
@@ -15,7 +19,7 @@ struct ColorChar
 struct ColorString : public std::vector<ColorChar>
 {
     // Default constructor, the vector will be empty
-    ColorString() {}
+    ColorString();
 
     // Creates a colorstring that contains colorchars of all the same color
     ColorString(std::string, int color);

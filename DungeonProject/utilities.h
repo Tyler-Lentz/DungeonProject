@@ -26,7 +26,7 @@ The different color codes are
 
 namespace dngutil
 {
-    enum class colors
+    enum colors
     {
         BLACK,
         BLUE,
@@ -48,5 +48,7 @@ namespace dngutil
 }
 
 void errorMessage(std::string error, int line, std::string file);
+
+int getColor(int letterColor, int backgroundColor, int numberOfColors = 16);
 
 #endif
