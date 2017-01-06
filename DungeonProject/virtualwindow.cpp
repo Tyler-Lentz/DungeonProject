@@ -2,7 +2,9 @@
 #include "colorstring.h"
 #include "utilities.h"
 #include "coordinate.h"
+#include "console.h"
 
+#include <iostream>
 #include <cmath>
 #include <string>
 
@@ -10,6 +12,7 @@
 // VirtualWindow functions
 
 VirtualWindow::VirtualWindow(size_t width, size_t height)
+    :console(width, height)
 {
     vwin.resize(height, ColorString(std::string(width, ' '), getColor(dngutil::LIGHTGRAY, dngutil::BLACK)));
 }
@@ -51,15 +54,14 @@ void VirtualWindow::refresh()
 {
     for (auto it = posToDraw.begin(); it != posToDraw.end(); it++)
     {
-       /* TODO: when this class has access to a Console struct, add this in
-       console->setCursorPos(*it);
-       ColorChar charToDraw = vwin[it->x][it->y];
-       console->setColor(charToDraw.color);
+        ColorChar charToDraw = vwin[it->x][it->y];
+       console.setCursorPos(*it);
+       console.setColor(charToDraw.color);
        std::cout << charToDraw.character;
-       */
     }
 
     posToDraw.clear();
+    console.setColor(dngutil::LIGHTGRAY);
 }
 
 //-------------------------------------------------------------

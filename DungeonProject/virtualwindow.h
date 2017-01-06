@@ -3,6 +3,7 @@
 
 #include "colorstring.h"
 #include "coordinate.h"
+#include "console.h"
 
 #include <vector>
 #include <list>
@@ -29,6 +30,8 @@ public:
 private:
     // Vector that holds the updated information to draw to the console
     VWIN vwin;
+
+    Console console;
 
     // List that holds all of the updated positions in the virtual window
     std::list<Coordinate> posToDraw;
