@@ -40,6 +40,11 @@ MapObject::MapObject(const MapObject& other, Game* newGame)
     this->typeId = other.typeId;
 }
 
+void MapObject::setPosition(Coordinate coord)
+{
+    this->coord = coord;
+}
+
 const Coordinate& MapObject::getCoord() const
 {
     return coord;
@@ -50,7 +55,7 @@ const ColorChar& MapObject::getMapRep() const
     return mapRep;
 }
 
-const std::string MapObject::getName() const
+const std::string& MapObject::getName() const
 {
     return name;
 }

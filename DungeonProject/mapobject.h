@@ -30,12 +30,14 @@ public:
 
     const Coordinate& getCoord() const;
     const ColorChar& getMapRep() const;
-    const std::string getName() const;
+    const std::string& getName() const;
     const bool& isMoveable() const;
     const bool& isRawoutput() const;
     const bool& isAggressive() const;
     const dngutil::TID& getTypeId() const;
     
+    void setPosition(Coordinate coord);
+
     virtual MapObject* makeNew(Game* game, Coordinate coord) = 0;
     virtual MapObject* makeSave(Game* game) = 0;
 

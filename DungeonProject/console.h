@@ -8,7 +8,7 @@
 
 struct Console
 {
-    Console(size_t width, size_t height)
+    Console(unsigned width, unsigned height)
     {
         SMALL_RECT r;
         COORD      c;

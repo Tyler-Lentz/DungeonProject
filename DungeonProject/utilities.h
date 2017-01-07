@@ -3,27 +3,6 @@
 
 #include <string>
 
-/*
-The different color codes are
-
-0   BLACK
-1   BLUE
-2   GREEN
-3   CYAN
-4   RED
-5   MAGENTA
-6   BROWN
-7   LIGHTGRAY
-8   DARKGRAY
-9   LIGHTBLUE
-10  LIGHTGREEN
-11  LIGHTCYAN
-12  LIGHTRED
-13  LIGHTMAGENTA
-14  YELLOW
-15  WHITE
-*/
-
 namespace dngutil
 {
     enum colors
@@ -51,6 +30,17 @@ namespace dngutil
         Player,
         Potion
     };
+
+    enum class Movement
+    {
+        UP,
+        DOWN,
+        LEFT,
+        RIGHT
+    };
+
+    const int CONSOLEX = 80;
+    const int CONSOLEY = 45;
 }
 
 void errorMessage(std::string error, int line, std::string file);

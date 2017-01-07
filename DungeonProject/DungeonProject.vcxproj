@@ -23,6 +23,7 @@
     <ClInclude Include="colorstring.h" />
     <ClInclude Include="console.h" />
     <ClInclude Include="coordinate.h" />
+    <ClInclude Include="creature.h" />
     <ClInclude Include="item.h" />
     <ClInclude Include="mapobject.h" />
     <ClInclude Include="utilities.h" />
@@ -30,6 +31,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="colorstring.cpp" />
+    <ClCompile Include="creature.cpp" />
     <ClCompile Include="item.cpp" />
     <ClCompile Include="mapobject.cpp" />
     <ClCompile Include="utilities.cpp" />
