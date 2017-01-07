@@ -1,6 +1,7 @@
 #include "creature.h"
 #include "mapobject.h"
 #include "utilities.h"
+#include "item.h"
 
 #include <string>
 
@@ -81,12 +82,12 @@ const size_t& Creature::getSpd() const
 
 const Primary& Creature::getPrimary() const
 {
-    return primary;
+    return *primary;
 }
 
 const Secondary& Creature::getSecondary() const
 {
-    return secondary;
+    return *secondary;
 }
 
 const size_t& Creature::increaseHealth(size_t amount)

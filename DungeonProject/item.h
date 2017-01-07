@@ -63,6 +63,103 @@ public:
     virtual void action() = 0;
 };
 
+class Primary : public RItem
+{
+public:
+    Primary(
+        Game* pgame,
+        ColorChar mapRep,
+        Coordinate coord,
+        std::string name,
+        bool rawoutput,
+        dngutil::TID typeId,
+        int dmgMultiplier,
+        int attSpeed,
+        int accuracy,
+        bool startReady
+    ) :RItem(pgame, mapRep, coord, name, true, rawoutput, false, typeId, false)
+    {
+        this->dmgMultiplier = dmgMultiplier;
+        this->attSpeed = attSpeed;
+        this->accuracy = accuracy;
+        this->startReady = startReady;
+    }
+
+    // Save constructor
+    Primary(const Primary& other, Game* game)
+        :RItem(other, game)
+    {
+        this->dmgMultiplier = other.dmgMultiplier;
+        this->attSpeed = other.attSpeed;
+        this->accuracy = other.accuracy;
+        this->startReady = other.startReady;
+    }
+
+    virtual MapObject* makeNew(Game* game, Coordinate coord);
+    virtual MapObject* makeSave(Game* game);
+
+    virtual void action();
+
+    const int& getDmgMultiplier() const;
+    const int& getAttSpeed() const;
+    const int& getAccuracy() const;
+    const bool& getStartReady() const;
+private:
+    // The damage multiplier that is given to the attackers attack during battle
+    int dmgMultiplier;
+
+    // How many seconds it takes to fully charge a weapon
+    int attSpeed;
+
+    // A number from 0 - 100 that is the weapons chance as a percentage to hit
+    int accuracy;
+
+    // If this is true, when entering a battle the weapon's charge meter
+    // will be fully charged.
+    bool startReady;
+};
+
+class Secondary : public RItem
+{
+public:
+    Secondary(
+        Game* pgame,
+        ColorChar mapRep,
+        Coordinate coord,
+        std::string name,
+        bool rawoutput,
+        dngutil::TID typeId,
+        int deflectTime,
+        int dmgReductMult
+    ) :RItem(pgame, mapRep, coord, name, true, rawoutput, false, typeId, false)
+    {
+        this->deflectTime = deflectTime;
+        this->dmgReductMult = dmgReductMult;
+    }
+
+    // Save constructor
+    Secondary(const Secondary& other, Game* game)
+        :RItem(other, game)
+    {
+        this->deflectTime = other.deflectTime;
+        this->dmgReductMult = other.dmgReductMult;
+    }
+
+    virtual MapObject* makeNew(Game* game, Coordinate coord);
+    virtual MapObject* makeSave(Game* game);
+
+    virtual void action();
+
+    const int& getDmdReductMult() const;
+    const int& getDeflectTime() const;
+private:
+    // The attackers attack is multiplied by this amount
+    int dmgReductMult;
+
+    // The amount of time in miliseconds you have to deflect
+    int deflectTime;
+};
+
 class Potion : public RItem
 {
 public:
