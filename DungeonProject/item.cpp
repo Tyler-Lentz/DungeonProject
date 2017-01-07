@@ -88,9 +88,9 @@ void Potion::action()
     // display amount of health healed
 }
 
-MapObject* Potion::makeNew(Game* game, Coordinate coord)
+Item* Potion::makeSaveInv(Game* game)
 {
-    return new Potion(game, coord, healAmount);
+    return new Potion(*this, game);
 }
 
 MapObject* Potion::makeSave(Game* game)
@@ -103,20 +103,9 @@ MapObject* Potion::makeSave(Game* game)
 //-------------------------------------------------------
 // Primary and Secondary Functions
 
-MapObject* Primary::makeNew(Game* game, Coordinate coord)
+Item* Primary::makeSaveInv(Game* game)
 {
-    return new Primary(
-        game,
-        getMapRep(),
-        coord,
-        getName(),
-        isRawoutput(),
-        getTypeId(),
-        dmgMultiplier,
-        attSpeed,
-        accuracy,
-        startReady
-    );
+    return new Primary(*this, game);
 }
 
 MapObject* Primary::makeSave(Game* game)
@@ -152,9 +141,9 @@ const bool& Primary::getStartReady() const
 
 
 
-MapObject* Secondary::makeNew(Game* game, Coordinate coord)
+Item* Secondary::makeSaveInv(Game* game)
 {
-    return new Secondary(game, getMapRep(), coord, getName(), isRawoutput(), getTypeId(), deflectTime, dmgReductMult);
+    return new Secondary(*this, game);
 }
 
 MapObject* Secondary::makeSave(Game* game)

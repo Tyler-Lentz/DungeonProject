@@ -28,7 +28,9 @@ namespace dngutil
     enum class TID
     {
         Player,
-        Potion
+        Potion,
+        Primary,
+        Secondary
     };
 
     enum class Movement
@@ -46,5 +48,16 @@ namespace dngutil
 void errorMessage(std::string error, int line, std::string file);
 
 int getColor(int letterColor, int backgroundColor, int numberOfColors = 16);
+
+bool keypress(int key);
+
+bool keyrelease(int key);
+
+int random(int max);
+
+int random(int min, int max);
+
+void clearScreen();
+
 
 #endif

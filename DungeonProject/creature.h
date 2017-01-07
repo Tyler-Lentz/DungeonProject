@@ -29,11 +29,17 @@ public:
         size_t att,
         size_t def,
         size_t lck,
-        size_t spd
+        size_t spd,
+        size_t lvl,
+        Primary* primary,
+        Secondary* secondary
     );
 
     // Save Constructor
     Creature(const Creature& other, Game* game);
+
+    // Deletes primary and secondary
+    ~Creature();
 
     // Returns the healthbar of the creature as a ColorString, color
     // depends on percentage of health compared to max health.
@@ -48,6 +54,7 @@ public:
     const size_t& getDef() const;
     const size_t& getLck() const;
     const size_t& getSpd() const;
+    const size_t& getLvl() const;
 
     const size_t& increaseHealth(size_t amount);
     const size_t& decreaseHealth(size_t amount);
@@ -68,6 +75,7 @@ private:
     size_t def;
     size_t lck;
     size_t spd;
+    size_t lvl;
 };
 
 #endif

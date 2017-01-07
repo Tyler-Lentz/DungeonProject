@@ -64,4 +64,9 @@ void VirtualWindow::refresh()
     console.setColor(dngutil::LIGHTGRAY);
 }
 
+const Console& VirtualWindow::getConsole() const
+{
+    return console;
+}
+
 //-------------------------------------------------------------

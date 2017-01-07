@@ -27,6 +27,7 @@ public:
     void putcen(ColorChar colchar, size_t line);
     void putcen(ColorString colstr, size_t line);
 
+    const Console& getConsole() const;
 private:
     // Vector that holds the updated information to draw to the console
     VWIN vwin;

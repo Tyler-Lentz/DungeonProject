@@ -20,7 +20,10 @@ Creature::Creature(
     size_t att,
     size_t def,
     size_t lck,
-    size_t spd
+    size_t spd,
+    size_t lvl,
+    Primary* primary,
+    Secondary* secondary
 )
     :MapObject(pgame, mapRep, coord, name, moveable, rawoutput, aggressive, typeId)
 {
@@ -30,24 +33,36 @@ Creature::Creature(
     this->def = def;
     this->lck = lck;
     this->spd = spd;
+    this->lvl = lvl;
 
-    primary = nullptr;
-    secondary = nullptr;
+    this->primary = primary;
+    this->secondary = secondary;
 }
 
 // Save Constructor
 Creature::Creature(const Creature& other, Game* game)
     :MapObject(other, game)
 {
-    // TODO: assign primary and secondary when i implement their save constructors
-    // this->primary = new Primary(*primary, game);
-    // this->secondary = new Secondary(*secondary, game);
+    this->primary = new Primary(*primary, game);
+    this->secondary = new Secondary(*secondary, game);
 
     this->maxhp = other.hp;
     this->att = other.att;
     this->def = other.def;
     this->lck = other.lck;
     this->spd = other.spd;
+    this->lvl = other.lvl;
+}
+Creature::~Creature()
+{
+    if (primary != nullptr)
+    {
+        delete primary;
+    }
+    if (secondary != nullptr)
+    {
+        delete secondary;
+    }
 }
 
 const size_t& Creature::getMaxhp() const
@@ -78,6 +93,11 @@ const size_t& Creature::getLck() const
 const size_t& Creature::getSpd() const
 {
     return spd;
+}
+
+const size_t& Creature::getLvl() const
+{
+    return lvl;
 }
 
 const Primary& Creature::getPrimary() const

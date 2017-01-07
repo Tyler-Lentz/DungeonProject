@@ -38,7 +38,6 @@ public:
     
     void setPosition(Coordinate coord);
 
-    virtual MapObject* makeNew(Game* game, Coordinate coord) = 0;
     virtual MapObject* makeSave(Game* game) = 0;
 
     virtual Collision mapAction(MapObject* collider) = 0;

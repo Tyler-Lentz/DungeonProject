@@ -28,6 +28,9 @@ public:
     // Save constructor
     Item(const Item& other, Game* game);
 
+    // This is the same as make save, but it returns an Item. Used in inventory copying.
+    virtual Item* makeSaveInv(Game* game) = 0;
+
     const bool& isConsumable() const;
 private:
     // consumable tells it to delete if after using it in the inventory, or
@@ -95,7 +98,7 @@ public:
         this->startReady = other.startReady;
     }
 
-    virtual MapObject* makeNew(Game* game, Coordinate coord);
+    virtual Item* makeSaveInv(Game* game);
     virtual MapObject* makeSave(Game* game);
 
     virtual void action();
@@ -145,7 +148,7 @@ public:
         this->dmgReductMult = other.dmgReductMult;
     }
 
-    virtual MapObject* makeNew(Game* game, Coordinate coord);
+    virtual Item* makeSaveInv(Game* game);
     virtual MapObject* makeSave(Game* game);
 
     virtual void action();
@@ -168,7 +171,7 @@ public:
     // Save constructor
     Potion(const Potion& other, Game* game);
 
-    virtual MapObject* makeNew(Game* game, Coordinate coord);
+    virtual Item* makeSaveInv(Game* game);
     virtual MapObject* makeSave(Game* game);
 
     virtual void action();
