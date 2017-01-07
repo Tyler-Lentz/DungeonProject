@@ -45,7 +45,7 @@ public:
 
     Player(const Player& other, Game* game);
 
-    virtual bool movement() = 0;
+    virtual bool movement();
 
     void addToInventory(Item* item);
     void removeFromInventory(size_t index);

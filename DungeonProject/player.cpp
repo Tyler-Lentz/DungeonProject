@@ -75,4 +75,9 @@ void Player::removeFromInventory(size_t index)
     inventory.erase(it);
 }
 
+bool Player::movement()
+{
+    // TODO: based on keypresses, move the player.
+}
+
 //------------------------------------------------------------
