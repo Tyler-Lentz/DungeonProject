@@ -32,7 +32,8 @@ public:
         size_t spd,
         size_t lvl,
         Primary* primary,
-        Secondary* secondary
+        Secondary* secondary,
+        int priority
     );
 
     // Save Constructor

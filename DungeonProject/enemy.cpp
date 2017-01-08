@@ -43,7 +43,8 @@ Enemy::Enemy(
     spd,
     lvl,
     primary,
-    secondary
+    secondary,
+    dngutil::P_ENEMY
 )
 {
     this->battleMusic = battleMusic;

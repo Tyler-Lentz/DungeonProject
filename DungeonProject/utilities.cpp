@@ -1,4 +1,5 @@
 #include "utilities.h"
+#include "mapobject.h"
 
 #include <Windows.h>
 #include <string>
@@ -97,4 +98,19 @@ bool keyrelease(int key)
         return true;
     }
     return false;
+}
+
+void sortPriority(std::list<MapObject*>& list, MapObject* objectToAdd)
+{
+    int p = objectToAdd->getPriority();
+    for (std::list<MapObject*>::const_iterator it = list.begin(); it != list.end(); it++)
+    {
+        if ((*it)->getPriority() > p)
+        {
+            list.insert(it, objectToAdd);
+            return;
+        }
+    }
+
+    list.push_back(objectToAdd);
 }

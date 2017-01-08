@@ -1,7 +1,6 @@
 #include "mapobject.h"
 #include "utilities.h"
-
-class Game; // TODO: change to include when game is implemented
+#include "game.h"
 
 //---------------------------------------------------------------
 // MapObject functions
@@ -14,7 +13,9 @@ MapObject::MapObject(
     bool moveable,
     bool rawoutput,
     bool aggressive,
-    dngutil::TID typeId
+    dngutil::TID typeId,
+    int priority,
+    dngutil::BTID bTypeId
 )
     :coord(coord.x, coord.y)
 {
@@ -25,19 +26,22 @@ MapObject::MapObject(
     this->rawoutput = rawoutput;
     this->aggressive = aggressive;
     this->typeId = typeId;
+    this->priority = priority;
+    this->bTypeId = bTypeId;
 }
 
 MapObject::MapObject(const MapObject& other, Game* newGame)
     :coord(other.coord)
 {
-    // TODO: put real code here when game is implemented
-    /* this->pgame = new Game(newGame); */
+    this->pgame = new Game(*newGame);
     this->mapRep = other.mapRep;
     this->name = other.name;
     this->moveable = other.moveable;
     this->rawoutput = other.rawoutput;
     this->aggressive = other.aggressive;
     this->typeId = other.typeId;
+    this->priority = other.priority;
+    this->bTypeId = other.bTypeId;
 }
 
 void MapObject::setPosition(Coordinate coord)
@@ -78,6 +82,26 @@ const bool& MapObject::isAggressive() const
 const dngutil::TID& MapObject::getTypeId() const
 {
     return typeId;
+}
+
+const dngutil::BTID& MapObject::getBTypeId() const
+{
+    return bTypeId;
+}
+
+const int& MapObject::getPriority() const
+{
+    return priority;
+}
+
+//---------------------------------------------------------------
+
+//---------------------------------------------------------------
+// Exit Object Functions
+
+Collision ExitObject::mapAction(MapObject* collider)
+{
+    // TODO: implement this
 }
 
 //---------------------------------------------------------------

@@ -29,6 +29,7 @@
     <ClInclude Include="item.h" />
     <ClInclude Include="mapobject.h" />
     <ClInclude Include="player.h" />
+    <ClInclude Include="room.h" />
     <ClInclude Include="utilities.h" />
     <ClInclude Include="virtualwindow.h" />
   </ItemGroup>
@@ -41,6 +42,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mapobject.cpp" />
     <ClCompile Include="player.cpp" />
+    <ClCompile Include="room.cpp" />
     <ClCompile Include="utilities.cpp" />
     <ClCompile Include="virtualwindow.cpp" />
   </ItemGroup>

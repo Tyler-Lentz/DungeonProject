@@ -6,6 +6,9 @@ struct Coordinate
     int x;
     int y;
 
+    // Default constructor, leaves the values undefined
+    Coordinate() {}
+
     // Sets the x and y to the specified amounts
     Coordinate(int x, int y)
     {

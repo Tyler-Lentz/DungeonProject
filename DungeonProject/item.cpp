@@ -2,6 +2,7 @@
 #include "mapobject.h"
 #include "colorstring.h"
 #include "coordinate.h"
+#include "utilities.h"
 
 #include <string>
 //-------------------------------------------------------
@@ -17,7 +18,7 @@ Item::Item(
     bool aggressive,
     dngutil::TID typeId,
     bool consumable
-) :MapObject(pgame, mapRep, coord, name, moveable, rawoutput, aggressive, typeId)
+) :MapObject(pgame, mapRep, coord, name, moveable, rawoutput, aggressive, typeId, dngutil::P_ITEM, dngutil::BTID::Item)
 {
     this->consumable = consumable;
 }

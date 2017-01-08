@@ -49,7 +49,8 @@ Player::Player(
             dngutil::TID::Secondary,
             50,
             .95
-        )
+        ),
+        dngutil::P_PLAYER
     )
 {
     this->exp = 0;
