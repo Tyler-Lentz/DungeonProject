@@ -77,7 +77,7 @@ void Player::removeFromInventory(size_t index)
 
 bool Player::movement()
 {
-    // TODO: based on keypresses, move the player.
+    // TODO: based on keypresses, move the player
 }
 
 //------------------------------------------------------------
