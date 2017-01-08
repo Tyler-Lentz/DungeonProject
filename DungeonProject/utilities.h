@@ -41,8 +41,17 @@ namespace dngutil
         RIGHT
     };
 
+    enum class ReturnVal
+    {
+        EXIT,
+        RESTART,
+        RESTART_SAVE
+    };
+
     const int CONSOLEX = 80;
     const int CONSOLEY = 45;
+
+    const int NUMFLOORS = 1;
 }
 
 void errorMessage(std::string error, int line, std::string file);

@@ -47,6 +47,9 @@ public:
 
     virtual bool movement();
 
+    virtual MapObject* makeSave(Game* game);
+    virtual Collision mapAction(MapObject* collider);
+
     void addToInventory(Item* item);
     void removeFromInventory(size_t index);
 private:

@@ -80,4 +80,15 @@ bool Player::movement()
     // TODO: based on keypresses, move the player
 }
 
+
+MapObject* Player::makeSave(Game* game)
+{
+    return new Player(*this, game);
+}
+
+Collision Player::mapAction(MapObject* collider)
+{
+    // TODO: implement this
+}
+
 //------------------------------------------------------------

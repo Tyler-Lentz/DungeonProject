@@ -25,6 +25,7 @@
     <ClInclude Include="coordinate.h" />
     <ClInclude Include="creature.h" />
     <ClInclude Include="enemy.h" />
+    <ClInclude Include="game.h" />
     <ClInclude Include="item.h" />
     <ClInclude Include="mapobject.h" />
     <ClInclude Include="player.h" />
@@ -35,6 +36,7 @@
     <ClCompile Include="colorstring.cpp" />
     <ClCompile Include="creature.cpp" />
     <ClCompile Include="enemy.cpp" />
+    <ClCompile Include="game.cpp" />
     <ClCompile Include="item.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mapobject.cpp" />
