@@ -1,9 +1,15 @@
 #include "game.h"
 #include "virtualwindow.h"
 #include "player.h"
+#include "utilities.h"
 
 //-------------------------------------------------------
 // Game Functions
+
+dngutil::ReturnVal Game::run()
+{
+    // TODO: this entire function
+}
 
 Game::Game(const Game& other)
 {

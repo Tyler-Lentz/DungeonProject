@@ -1,7 +1,31 @@
 #include "virtualwindow.h"
 #include "utilities.h"
+#include "game.h"
 
 int main()
 {
-    VirtualWindow vwin(dngutil::CONSOLEX, dngutil::CONSOLEY);
+    VirtualWindow* vwin = new VirtualWindow(dngutil::CONSOLEX, dngutil::CONSOLEY);
+    
+    Game* game = new Game(vwin);
+    bool exit = false;
+    int returnValue;
+
+    while (!exit)
+    {
+        switch (game->run())
+        {
+            // TODO: this
+        case dngutil::ReturnVal::EXIT:
+
+            break;
+
+        case dngutil::ReturnVal::RESTART:
+
+            break;
+
+        case dngutil::ReturnVal::RESTART_SAVE:
+
+            break;
+        }
+    }
 }

@@ -16,6 +16,8 @@ class MapObject;
 class Game
 {
 public:
+    dngutil::ReturnVal run();
+
     Game(VirtualWindow* vwin)
     {
         this->vwin = vwin;
