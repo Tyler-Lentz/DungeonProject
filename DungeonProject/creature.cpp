@@ -117,9 +117,29 @@ const Primary& Creature::getPrimary() const
     return *primary;
 }
 
+Primary* Creature::getPrimaryMemory()
+{
+    return primary;
+}
+
+void Creature::setPrimary(Primary* primary)
+{
+    this->primary = primary;
+}
+
 const Secondary& Creature::getSecondary() const
 {
     return *secondary;
+}
+
+Secondary* Creature::getSecondaryMemory()
+{
+    return secondary;
+}
+
+void Creature::setSecondary(Secondary* secondary)
+{
+    this->secondary = secondary;
 }
 
 const size_t& Creature::increaseHealth(size_t amount)

@@ -6,6 +6,8 @@
 #include <string>
 #include <list>
 
+class VirtualWindow;
+
 namespace dngutil
 {
     enum colors
@@ -97,6 +99,8 @@ namespace dngutil
     const size_t MAX_SPD = 150;
 
     const int SCROLL_TIME = 60;
+
+    const int POTION_HEAL = 50;
 }
 
 void errorMessage(std::string error, int line, std::string file);

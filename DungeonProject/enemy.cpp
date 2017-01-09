@@ -68,10 +68,31 @@ Enemy::Enemy(const Enemy& other, Game* game)
 
 std::string Enemy::drop()
 {
-    // TODO:
-    // random chance to drop something, returns string of name of item dropped
-    // this will be the default function and may be overloaded for bosses
-    // remember to return "NULL" is there is no drop
+    Item* itemToAdd;
+    if (random(10) == 0)
+    {
+        if (random(1) == 0)
+        {
+            itemToAdd = getPrimaryMemory();
+            setPrimary(nullptr);
+        }
+        else
+        {
+            itemToAdd = getSecondaryMemory();
+            setSecondary(nullptr);
+        }
+
+        getPGame()->getPlayer()->addToInventory(itemToAdd);
+        return itemToAdd->getName();
+    }
+    else if (random(20) == 0)
+    {
+        itemToAdd = new Potion(getPGame(), Coordinate(-1, -1), dngutil::POTION_HEAL);
+        getPGame()->getPlayer()->addToInventory(itemToAdd);
+        return itemToAdd->getName();
+    }
+
+    return "NULL";
 }
 
 bool Enemy::movement()

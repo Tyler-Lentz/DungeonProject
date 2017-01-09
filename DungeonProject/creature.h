@@ -64,7 +64,11 @@ public:
     const size_t& decreaseHealth(size_t amount);
 
     const Primary& getPrimary() const;
+    Primary* getPrimaryMemory();
+    void setPrimary(Primary* primary);
     const Secondary& getSecondary() const;
+    Secondary* getSecondaryMemory();
+    void setSecondary(Secondary* secondary);
 private:
     // Primary is the weapon that deals damage
     Primary* primary;
