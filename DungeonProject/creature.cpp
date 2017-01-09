@@ -2,8 +2,14 @@
 #include "mapobject.h"
 #include "utilities.h"
 #include "item.h"
+#include "enemy.h"
+#include "player.h"
+#include "game.h"
+#include "virtualwindow.h"
+#include "room.h"
 
 #include <string>
+#include <chrono>
 
 //------------------------------------------------------------
 // Creature Functions
@@ -64,6 +70,11 @@ Creature::~Creature()
     {
         delete secondary;
     }
+}
+
+const bool& Creature::isDead() const
+{
+    return (hp < 1);
 }
 
 const size_t& Creature::getMaxhp() const
@@ -156,10 +167,127 @@ const ColorString& Creature::getHealthBar() const
     return ColorString(healthbar, color);
 }
 
-bool Creature::battle(Enemy* enemy)
+bool Creature::battle(MapObject* t_enemy)
 {
-    // TODO: include enemy
-    // TODO: implement this
+    Enemy* enemy = dynamic_cast<Enemy*>(t_enemy);
+    Player* player = getPGame()->getPlayer();
+    VirtualWindow* vwin = getPGame()->getVWin();
+
+    int enemyWeaponSpeed = enemy->getPrimary().getAttSpeed();
+    int enemyTimer = 0;
+
+    int playerWeaponSpeed = player->getPrimary().getAttSpeed();
+    int playerTimer = 0;
+    if (player->getPrimary().getStartReady())
+    {
+        playerTimer = playerWeaponSpeed;
+    }
+
+    if (enemy->getPrimary().getStartReady())
+    {
+        enemyTimer = enemyWeaponSpeed;
+    }
+
+    int prevTime = (int)time(NULL);
+
+    vwin->txtmacs.clearMapArea(true, 20);
+    vwin->txtmacs.clearDivider("bottom");
+
+    // TODO: play enemies battle music
+
+    while (true)
+    {
+        enemy->printSelf();
+        vwin->txtmacs.displayHealthBars(enemy, player);
+
+        while (true)
+        {
+
+            if (prevTime != (int)time(NULL))
+            {
+                if (playerTimer < playerWeaponSpeed)
+                {
+                    if (!keypress(VK_RETURN))
+                    {
+                        playerTimer++;
+                    }
+                }
+                if (enemyTimer < enemyWeaponSpeed)
+                {
+                    enemyTimer++;
+                }
+                prevTime = (int)time(NULL);
+            }
+
+            vwin->txtmacs.outputBattleInfo(playerTimer, playerWeaponSpeed, enemyTimer, enemyWeaponSpeed);
+
+            if (playerTimer >= playerWeaponSpeed && keypress(VK_RETURN))
+            {
+                playerTimer = 0;
+
+                // TODO: implement getDamageDealt
+                int damage;
+                //damage = getDamageDealt(player, enemy, musicPlayer, textOutput, game_pointer);
+                enemy->decreaseHealth(damage);
+
+                vwin->putcen(ColorString("-" + std::to_string(damage), dngutil::GREEN), vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE + 1);
+                Sleep(300);
+
+                if (enemy->isDead())
+                {
+                    // TODO: this musicPlayer->stopMp3();
+
+                    // TODO: put death sound based on the string stored in enemy
+
+                    enemy->deathSequence();
+
+                    getPGame()->getActiveRoom()->setAll();
+                    getPGame()->getVWin()->txtmacs.clearMapArea(true, 20);
+                    getPGame()->getVWin()->txtmacs.clearDivider("bottom");
+                    pressEnter(Coordinate(0, getPGame()->getVWin()->txtmacs.BOTTOM_DIVIDER_TEXT_LINE), getPGame()->getVWin());
+                    getPGame()->getVWin()->txtmacs.clearDivider("bottom");
+                    // TODO: play put this in
+                    // musicPlayer->startMp3("Overworld.mp3");
+                    return true;
+                }
+                break;
+            }
+
+            if (enemyTimer >= enemyWeaponSpeed)
+            {
+                enemyTimer = 0;
+                int damage;
+                // TODO: put this in when getDamageDealt exists
+                // damage = getDamageDealt(enemy, player, musicPlayer, textOutput, game_pointer);
+                player->decreaseHealth(damage);
+
+                vwin->putcen(ColorString("-" + std::to_string(damage), dngutil::RED), vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE + 1);
+                Sleep(300);
+
+                // TODO: musicPlayer->soundEffect("PlayerHit.wav", false, true);
+                if (player->isDead())
+                {
+                    // TODO: musicPlayer->stopMp3();
+                    getPGame()->cleanup(getPGame()->getVWin()->txtmacs.deathScreen());
+                    return false;
+                }
+                break;
+            }
+
+            if (keypress('I'))
+            {
+                // TODO: when inventory menu is implemented, put this in
+                // getPGame()->inventoryMenu();
+                getPGame()->getVWin()->txtmacs.clearDivider("bottom");
+                if (player->getPrimary().getAttSpeed() != playerTimer)
+                {
+                    playerWeaponSpeed = player->getPrimary().getAttSpeed();
+                    playerTimer = 0;
+                }
+                break;
+            }
+        }
+    }
 }
 
 //------------------------------------------------------------

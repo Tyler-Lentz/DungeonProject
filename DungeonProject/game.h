@@ -14,6 +14,8 @@ class VirtualWindow;
 class MapObject;
 class Creature;
 
+// TODO: comment this class
+
 class Game
 {
 public:
@@ -47,6 +49,8 @@ public:
     Game*& getLastSave();
 
     Creature* generateCreature(int difficulty, dngutil::TID tid);
+
+    void cleanup(dngutil::ReturnVal returnval);
 private:
     VirtualWindow* vwin;
     Room* activeRoom;

@@ -78,3 +78,14 @@ void sortPriority(std::list<MapObject*>& list, MapObject* objectToAdd)
 
     list.push_back(objectToAdd);
 }
+
+void pressEnter(Coordinate cursorpos, VirtualWindow* vwin)
+{
+    vwin->putcen(ColorString("Press enter to continue_", dngutil::CYAN), cursorpos.y);
+
+    while (!keyrelease(VK_RETURN));
+
+    while (!keypress(VK_RETURN));
+
+    while (!keyrelease(VK_RETURN));
+}

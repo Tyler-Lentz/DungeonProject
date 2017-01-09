@@ -108,4 +108,9 @@ ColorString Player::getExperienceBar()
     std::string temp = std::string(MAXIMUM_CHARACTERS - numOfCircles, '-');
     return ColorString(((std::string((size_t)numOfCircles, '=')) + temp), dngutil::MAGENTA);
 }
+
+void Player::addExperience(int experience)
+{
+    // TODO: implement this
+}
 //------------------------------------------------------------

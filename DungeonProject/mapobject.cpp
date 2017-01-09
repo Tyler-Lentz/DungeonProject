@@ -94,6 +94,11 @@ const int& MapObject::getPriority() const
     return priority;
 }
 
+Game* MapObject::getPGame()
+{
+    return pgame;
+}
+
 //---------------------------------------------------------------
 
 //---------------------------------------------------------------

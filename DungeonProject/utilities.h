@@ -113,4 +113,6 @@ int random(int min, int max);
 
 void sortPriority(std::list<MapObject*>& list, MapObject* objectToAdd);
 
+void pressEnter(Coordinate cursorpos, VirtualWindow* vwin);
+
 #endif

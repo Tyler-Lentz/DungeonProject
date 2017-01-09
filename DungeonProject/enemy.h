@@ -31,23 +31,27 @@ public:
         Primary* primary,
         Secondary* secondary,
         std::string battleMusic,
-        size_t experienceGiven
+        size_t experienceGiven,
+        std::string deathSound
     );
 
     Enemy(const Enemy& other, Game* game);
 
-    virtual bool battle(Enemy* enemy);
     virtual void printSelf() = 0;
     virtual std::string drop();
     virtual bool movement();
 
     virtual void printStats(int LONGEST_LINE_LENGTH, int startingCursorY) const;
 
+    const std::string& getDeathSound() const;
     const std::string& getBattleMusic() const;
     const size_t& getExpGiven() const;
 
+    virtual void deathSequence();
+
 private:
     std::string battleMusic;
+    std::string deathSound;
     size_t experienceGiven;
 };
 

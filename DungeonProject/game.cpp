@@ -3,6 +3,7 @@
 #include "player.h"
 #include "utilities.h"
 #include "enemy.h"
+#include "room.h"
 
 #include <string>
 
@@ -11,23 +12,51 @@
 
 dngutil::ReturnVal Game::run()
 {
-    // TODO: this entire function
+    if (!exit)
+    {
+        vwin->txtmacs.displayGame(this);
+        // TODO: put this in - musicPlayer->startMp3("Overworld.mp3");
+    }
+
+    while (!exit)
+    {
+        activeRoom->drawRoom();
+
+        for (auto it = activeRoom->getCreatureList().begin(); it != activeRoom->getCreatureList().end(); it++)
+        {
+            // Returns true if player goes to new room/floor
+            if ((*it)->movement())
+            {
+                break;
+            }
+        }
+    }
+
+    return returnVal;
 }
 
 Game::Game(const Game& other)
 {
+    this->exit = other.exit;
+    this->returnVal = other.returnVal;
+    this->floor = other.floor;
+
     this->vwin = other.vwin;
     player = new Player(*other.player, this);
 
     Game* lastSave = other.lastSave;
 
-    // TODO: implement this
-    std::map<Coordinate, Room*> gamespace[dngutil::NUMFLOORS];
-    Room* activeRoom; // initialized after gamespace
+    int f = dngutil::NUMFLOORS;
+    for (int i = 0; i < f; i++)
+    {
+        for (auto it = other.gamespace[i].begin(); it != other.gamespace[i].end(); it++)
+        {
+            this->gamespace[i].emplace(it->first, new Room(*it->second, this));
+        }
+    }
 
-    this->exit = other.exit;
-    this->returnVal = other.returnVal;
-    this->floor = other.floor;
+    Coordinate playerMapCoord = other.activeRoom->getRoomInfo().mapCoord;
+    this->activeRoom = gamespace[floor][playerMapCoord];
 }
 
 Game::~Game()
@@ -62,14 +91,12 @@ void Game::setActiveFloor(size_t floor)
 
 void Game::setActiveRoom(Room* room)
 {
-    /* TODO: uncomment this when it can be implemented
     if (activeRoom != nullptr)
     {
         activeRoom->getCreatureList().remove(player);
     }
     activeRoom = room;
     room->getCreatureList().push_back(player);
-    */
 }
 
 std::map<Coordinate, Room*>& Game::getActiveFloor()
@@ -166,5 +193,11 @@ Creature* Game::generateCreature(int difficulty, dngutil::TID tid)
     }
 
     return enemy;
+}
+
+void Game::cleanup(dngutil::ReturnVal returnval)
+{
+    exit = true;
+    this->returnVal = returnval;
 }
 //-------------------------------------------------------

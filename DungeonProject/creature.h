@@ -48,8 +48,10 @@ public:
 
     virtual bool movement() = 0;
     virtual void printStats(int LONGEST_LINE_LENGTH, int startingCursorY) const = 0;
-    virtual bool battle(Enemy* enemy);
+    virtual bool battle(MapObject* enemy);
 
+
+    const bool& isDead() const;
     const size_t& getMaxhp() const;
     const int& getHp() const;
     const size_t& getAtt() const;

@@ -55,6 +55,8 @@ public:
     void removeFromInventory(size_t index);
 
     ColorString getExperienceBar();
+
+    void addExperience(int experience);
 private:
     size_t exp;
     size_t expToLevel;

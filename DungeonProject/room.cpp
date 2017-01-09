@@ -5,6 +5,7 @@
 #include "item.h"
 #include "utilities.h"
 #include "player.h"
+#include "virtualwindow.h"
 
 #include <list>
 
@@ -99,8 +100,10 @@ Room::Room(Game* t_game_pointer, RoomInfo roomToGenerate)
                 break;
 
             case 'e':
-                // TODO: add this when generate creature, or an equivelant function exists
-                //creature = game_pointer->generateCreature(roomToGenerate, roomInfo.getPossibleEnemies()[random(roomToGenerate.getPossibleEnemies().size() - 1)]);
+                dngutil::TID tid;
+                int index = random(roomInfo.possibleCreatures.size() - 1);
+                tid = roomInfo.possibleCreatures[index];
+                creature = game_pointer->generateCreature(roomInfo.difficulty, tid);
                 gameMap[i][j].push_back(creature);
                 addCreature(creature, Coordinate(j, i));
                 break;
@@ -226,48 +229,53 @@ dngutil::MovementTypes Room::checkMovement(Coordinate coord, Creature* creature)
 
 void Room::drawRoom()
 {
-    /* TODO: when i have implemented text output, put this in
     while (!adjustedPositions.empty())
     {
-        game_pointer->getTextOutput()->setCursorInPositionToDrawMap();
+        Coordinate vcursor(0, game_pointer->getVWin()->txtmacs.DIVIDER_LINES[1] + 1);
+        int emptyWidth = ((dngutil::CONSOLEX - game_pointer->getActiveRoom()->getRoomX()) / 2);
+        vcursor.x += emptyWidth;
 
         Coordinate coord = adjustedPositions.front();
         adjustedPositions.pop_front();
 
-        game_pointer->getTextOutput()->setCursorPos(game_pointer->getTextOutput()->getCursorX() + coord.x, game_pointer->getTextOutput()->getCursorY() + coord.y);
+        vcursor.x += coord.x;
+        vcursor.y += coord.y;
 
-        int color = getObjects(coord).back()->getColorRep();
+        ColorChar cchar = getObjects(coord).back()->getMapRep();
 
-        if (color == lentzdungeon::BACKGROUND_COLOR)
+        if (cchar.color == dngutil::BACKGROUND_COLOR)
         {
-            color = roomInfo.getBackColor();
+            cchar.color = roomInfo.backColor;
         }
 
-        if (!getObjects(coord).back()->isRawOutput())
+        if (!getObjects(coord).back()->isRawoutput())
         {
-            color += (roomInfo.getBackColor() * lentzdungeon::NUM_COLORS);
+            cchar.color = getColor(cchar.color, roomInfo.backColor);
         }
 
-        int enemyNum = 0;
+        int creatureNum = 0;
         for (auto it = getObjects(coord).begin(); it != getObjects(coord).end(); it++)
         {
-            if ((*it)->isAggressive())
+            if ((*it)->getBTypeId() == dngutil::BTID::Creature)
             {
-                enemyNum++;
+                creatureNum++;
             }
         }
 
-        if (enemyNum > 9)
+        if (creatureNum > 9)
         {
-            enemyNum = 9;
+            creatureNum = 9;
         }
 
-        char charToDraw = (enemyNum > 1) ? enemyNum + '0' : getObjects(coord).back()->getCharRep();
+        if (creatureNum > 1)
+        {
+            cchar.character = creatureNum + '0';
+        }
 
-        game_pointer->getTextOutput()->coloroutput(colorstring(charToDraw, color));
+        game_pointer->getVWin()->put(cchar, vcursor);
     }
 
-    game_pointer->getTextOutput()->displayOverworldInfo(false);*/
+    game_pointer->getVWin()->txtmacs.displayOverworldInfo(game_pointer);
 }
 
 void Room::addCoordToList(Coordinate coord)

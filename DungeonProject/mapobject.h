@@ -40,6 +40,7 @@ public:
     const int& getPriority() const;
     const dngutil::BTID& getBTypeId() const;
 
+    Game* getPGame();
 
     void setPosition(Coordinate coord);
 
