@@ -86,4 +86,9 @@ const size_t& Enemy::getExpGiven() const
     return experienceGiven;
 }
 
+void Enemy::printStats(int LONGEST_LINE_LENGTH, int startingCursorY) const
+{
+    // TODO: this
+}
+
 //----------------------------------------------------------------

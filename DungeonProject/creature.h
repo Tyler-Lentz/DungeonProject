@@ -47,6 +47,7 @@ public:
     const ColorString& getHealthBar() const;
 
     virtual bool movement() = 0;
+    virtual void printStats(int LONGEST_LINE_LENGTH, int startingCursorY) const = 0;
     virtual bool battle(Enemy* enemy);
 
     const size_t& getMaxhp() const;

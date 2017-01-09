@@ -86,6 +86,17 @@ namespace dngutil
     const int MAPSIZE = 100;
 
     const int BACKGROUND_COLOR = -1;
+
+    const int STARTING_PLAYER_HP = 50;
+    const int STARTING_ENEMY_HP = 20;
+
+    const int MAX_HP = 120;
+    const size_t MAX_ATT = 75;
+    const size_t MAX_DEF = 60;
+    const size_t MAX_LCK = 100;
+    const size_t MAX_SPD = 150;
+
+    const int SCROLL_TIME = 60;
 }
 
 void errorMessage(std::string error, int line, std::string file);
@@ -99,8 +110,6 @@ bool keyrelease(int key);
 int random(int max);
 
 int random(int min, int max);
-
-void clearScreen();
 
 void sortPriority(std::list<MapObject*>& list, MapObject* objectToAdd);
 

@@ -46,14 +46,18 @@ public:
     Player(const Player& other, Game* game);
 
     virtual bool movement();
+    virtual void printStats(int LONGEST_LINE_LENGTH, int startingCursorY) const;
 
     virtual MapObject* makeSave(Game* game);
     virtual Collision mapAction(MapObject* collider);
 
     void addToInventory(Item* item);
     void removeFromInventory(size_t index);
+
+    ColorString getExperienceBar();
 private:
     size_t exp;
+    size_t expToLevel;
     Inventory inventory;
 };
 

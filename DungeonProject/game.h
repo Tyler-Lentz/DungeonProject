@@ -12,6 +12,7 @@ class Room;
 class Player;
 class VirtualWindow;
 class MapObject;
+class Creature;
 
 class Game
 {
@@ -44,6 +45,8 @@ public:
     void clearDeletionList();
 
     Game*& getLastSave();
+
+    Creature* generateCreature(int difficulty, dngutil::TID tid);
 private:
     VirtualWindow* vwin;
     Room* activeRoom;

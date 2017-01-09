@@ -92,4 +92,20 @@ Collision Player::mapAction(MapObject* collider)
     // TODO: implement this
 }
 
+void Player::printStats(int LONGEST_LINE_LENGTH, int startingCursorY) const
+{
+    // TODO: this
+}
+
+ColorString Player::getExperienceBar()
+{
+    const int MAXIMUM_CHARACTERS = static_cast<int>(dngutil::CONSOLEX / 2.0);
+
+    double scaleFactor = (MAXIMUM_CHARACTERS / static_cast<double>(expToLevel));
+
+    int numOfCircles = static_cast<int>(scaleFactor * exp);
+
+    std::string temp = std::string(MAXIMUM_CHARACTERS - numOfCircles, '-');
+    return ColorString(((std::string((size_t)numOfCircles, '=')) + temp), dngutil::MAGENTA);
+}
 //------------------------------------------------------------

@@ -41,6 +41,8 @@ public:
     virtual std::string drop();
     virtual bool movement();
 
+    virtual void printStats(int LONGEST_LINE_LENGTH, int startingCursorY) const;
+
     const std::string& getBattleMusic() const;
     const size_t& getExpGiven() const;
 
