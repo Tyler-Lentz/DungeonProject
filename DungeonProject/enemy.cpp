@@ -9,6 +9,7 @@
 #include "player.h"
 #include "virtualwindow.h"
 
+#include <Windows.h>
 #include <string>
 
 class Game;
@@ -66,41 +67,6 @@ Enemy::Enemy(const Enemy& other, Game* game)
     this->experienceGiven = other.experienceGiven;
 }
 
-std::string Enemy::drop()
-{
-    Item* itemToAdd;
-    if (random(10) == 0)
-    {
-        if (random(1) == 0)
-        {
-            itemToAdd = getPrimaryMemory();
-            setPrimary(nullptr);
-        }
-        else
-        {
-            itemToAdd = getSecondaryMemory();
-            setSecondary(nullptr);
-        }
-
-        getPGame()->getPlayer()->addToInventory(itemToAdd);
-        return itemToAdd->getName();
-    }
-    else if (random(20) == 0)
-    {
-        itemToAdd = new Potion(getPGame(), Coordinate(-1, -1), dngutil::POTION_HEAL);
-        getPGame()->getPlayer()->addToInventory(itemToAdd);
-        return itemToAdd->getName();
-    }
-
-    return "NULL";
-}
-
-bool Enemy::movement()
-{
-    // TODO:
-    // standard enemy movement
-}
-
 const std::string& Enemy::getBattleMusic() const
 {
     return battleMusic;
@@ -116,9 +82,42 @@ const size_t& Enemy::getExpGiven() const
     return experienceGiven;
 }
 
-void Enemy::printStats(int LONGEST_LINE_LENGTH, int startingCursorY) const
+void Enemy::printStats(int LONGEST_LINE_LENGTH, int startingCursorY)
 {
-    // TODO: this
+    int STATS_LENGTH = 13;
+
+    VirtualWindow* vwin = getPGame()->getVWin();
+
+    Coordinate vcursor(LONGEST_LINE_LENGTH + 1, startingCursorY);
+
+    vwin->put(ColorString("*************", dngutil::YELLOW), vcursor);
+
+    vcursor.x = LONGEST_LINE_LENGTH + 1; vcursor.y++;
+    vwin->put(ColorString("Level: " + std::to_string(getLvl()), dngutil::RED), vcursor);
+
+    vcursor.x = LONGEST_LINE_LENGTH + 1; vcursor.y++;
+    vwin->put(ColorString("Health: " + std::to_string(getHp()) + "    ", dngutil::RED), vcursor);
+
+    vcursor.x = LONGEST_LINE_LENGTH + 1; vcursor.y++;
+    vwin->put(ColorString("Attack: " + std::to_string(getAtt()) + "    ", dngutil::RED), vcursor);
+
+    vcursor.x = LONGEST_LINE_LENGTH + 1; vcursor.y++;
+    vwin->put(ColorString("Defense: " + std::to_string(getDef()) + "    ", dngutil::RED), vcursor);
+
+    vcursor.x = LONGEST_LINE_LENGTH + 1; vcursor.y++;
+    vwin->put(ColorString("Luck: " + std::to_string(getLck()) + "    ", dngutil::RED), vcursor);
+
+    vcursor.x = LONGEST_LINE_LENGTH + 1; vcursor.y++;
+    vwin->put(ColorString("Speed: " + std::to_string(getSpd()) + "    ", dngutil::RED), vcursor);
+
+    vcursor.x = LONGEST_LINE_LENGTH + 1; vcursor.y++;
+    vwin->put(ColorString(getPrimary().getName(), dngutil::BLUE), vcursor);
+
+    vcursor.x = LONGEST_LINE_LENGTH + 1; vcursor.y++;
+    vwin->put(ColorString(getSecondary().getName(), dngutil::BLUE), vcursor);
+
+    vcursor.x = LONGEST_LINE_LENGTH + 1; vcursor.y++;
+    vwin->put(ColorString("*************", dngutil::YELLOW), vcursor);
 }
 
 void Enemy::deathSequence()
@@ -162,4 +161,89 @@ void Enemy::deathSequence()
     }
 }
 
+Collision Enemy::mapAction(MapObject* collider, std::list<MapObject*>::iterator it)
+{
+    // TODO: this
+}
+
+//----------------------------------------------------------------
+
+//----------------------------------------------------------------
+// REnemy Functions
+std::string REnemy::drop()
+{
+    Item* itemToAdd;
+    if (random(10) == 0)
+    {
+        if (random(1) == 0)
+        {
+            itemToAdd = getPrimaryMemory();
+            setPrimary(nullptr);
+        }
+        else
+        {
+            itemToAdd = getSecondaryMemory();
+            setSecondary(nullptr);
+        }
+
+        getPGame()->getPlayer()->addToInventory(itemToAdd);
+        return itemToAdd->getName();
+    }
+    else if (random(20) == 0)
+    {
+        itemToAdd = new Potion(getPGame(), Coordinate(-1, -1), dngutil::POTION_HEAL);
+        getPGame()->getPlayer()->addToInventory(itemToAdd);
+        return itemToAdd->getName();
+    }
+
+    return "NULL";
+}
+bool REnemy::movement()
+{
+    if (!(getLastMoveTime() + ((dngutil::MAX_SPD * 3) - getSpd()) > GetTickCount()))
+    {
+        switch (random(50000))
+        {
+        case 0:
+            return adjustPosition(0, -1);
+            break;
+        case 1:
+            return adjustPosition(-1, 0);
+            break;
+        case 2:
+            return adjustPosition(0, 1);
+            break;
+        case 3:
+            return adjustPosition(1, 0);
+            break;
+        }
+    }
+    return false;
+}
+
+//----------------------------------------------------------------
+
+//----------------------------------------------------------------
+// BEnemy functions
+std::string BEnemy::drop()
+{
+    Item* itemToAdd;
+    int numberOfPotions = random(2);
+    if (numberOfPotions > 0)
+    {
+        for (int i = 0; i < numberOfPotions; i++)
+        {
+            itemToAdd = new Potion(getPGame(), Coordinate(-1, -1), static_cast<int>(dngutil::POTION_HEAL * 1.2));
+            getPGame()->getPlayer()->addToInventory(itemToAdd);
+        }
+        return "Potion (" + std::to_string(numberOfPotions) + ")";
+    }
+
+
+    return "NULL";
+}
+bool BEnemy::movement()
+{
+    return false;
+}
 //----------------------------------------------------------------

@@ -47,7 +47,7 @@ public:
     const ColorString& getHealthBar() const;
 
     virtual bool movement() = 0;
-    virtual void printStats(int LONGEST_LINE_LENGTH, int startingCursorY) const = 0;
+    virtual void printStats(int LONGEST_LINE_LENGTH, int startingCursorY) = 0;
     virtual bool battle(MapObject* enemy);
 
 
@@ -59,6 +59,22 @@ public:
     const size_t& getLck() const;
     const size_t& getSpd() const;
     const size_t& getLvl() const;
+    const unsigned long& getLastMoveTime() const;
+
+    void increaseMaxhp(size_t amount);
+    void increaseAtt(size_t amount);
+    void increaseDef(size_t amount);
+    void increaseSpd(size_t amount);
+    void increaseLvl(size_t amount);
+    void increaseLck(size_t amount);
+
+    void setMaxhp(size_t amount);
+    void setHp(int amount);
+    void setAtt(size_t amount);
+    void setDef(size_t amount);
+    void setSpd(size_t amount);
+    void setLvl(size_t amount);
+    void setLck(size_t amount);
 
     const size_t& increaseHealth(size_t amount);
     const size_t& decreaseHealth(size_t amount);
@@ -69,7 +85,11 @@ public:
     const Secondary& getSecondary() const;
     Secondary* getSecondaryMemory();
     void setSecondary(Secondary* secondary);
+
+    bool adjustPosition(dngutil::Movement movement);
 private:
+    unsigned long lastMoveTime;
+
     // Primary is the weapon that deals damage
     Primary* primary;
 

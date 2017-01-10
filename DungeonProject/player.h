@@ -46,17 +46,17 @@ public:
     Player(const Player& other, Game* game);
 
     virtual bool movement();
-    virtual void printStats(int LONGEST_LINE_LENGTH, int startingCursorY) const;
+    virtual void printStats(int LONGEST_LINE_LENGTH, int startingCursorY);
 
     virtual MapObject* makeSave(Game* game);
-    virtual Collision mapAction(MapObject* collider);
+    virtual Collision mapAction(MapObject* collider, std::list<MapObject*>::iterator it);
 
     void addToInventory(Item* item);
     void removeFromInventory(size_t index);
 
     ColorString getExperienceBar();
 
-    void addExperience(int experience);
+    void addExperience(size_t experience);
 private:
     size_t exp;
     size_t expToLevel;

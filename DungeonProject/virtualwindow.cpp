@@ -429,4 +429,21 @@ void VirtualWindow::clearScreen()
     vwin.resize(height, ColorString(std::string(width, ' '), getColor(dngutil::LIGHTGRAY, dngutil::BLACK)));
 }
 
+void TextMacros::displayLevelupStats(Coordinate cursor, Player* player)
+{
+    vwin->putcen(ColorString("**************************", dngutil::MAGENTA), cursor.y);
+    cursor.y += 2;
+    vwin->putcen(ColorString("Max Health " + std::to_string(player->getMaxhp()), dngutil::RED), cursor.y);
+    cursor.y += 2;
+    vwin->putcen(ColorString("Attack " + std::to_string(player->getAtt()), dngutil::GREEN), cursor.y);
+    cursor.y += 2;
+    vwin->putcen(ColorString("Defense " + std::to_string(player->getDef()), dngutil::BLUE), cursor.y);
+    cursor.y += 2;
+    vwin->putcen(ColorString("Luck " + std::to_string(player->getLck()), dngutil::YELLOW), cursor.y);
+    cursor.y += 2;
+    vwin->putcen(ColorString("Speed " + std::to_string(player->getSpd()), dngutil::CYAN), cursor.y);
+    cursor.y += 2;
+    vwin->putcen(ColorString("**************************", dngutil::MAGENTA), cursor.y);
+}
+
 //-------------------------------------------------------------

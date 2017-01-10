@@ -13,6 +13,7 @@ class Creature;
 class Room;
 class VirtualWindow;
 class Game;
+class Player;
 
 struct TextMacros
 {
@@ -65,6 +66,9 @@ struct TextMacros
 
     // Writes the map name to the top of the screen
     void writeMapName(Game* game);
+
+    // Displays the players stats when leveling up
+    void displayLevelupStats(Coordinate cursor, Player* player);
 
 };
 

@@ -8,6 +8,7 @@
 #include <random>
 #include <algorithm>
 #include <vector>
+#include <list>
 
 void errorMessage(std::string error, int line, std::string file)
 {

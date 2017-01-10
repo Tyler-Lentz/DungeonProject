@@ -7,6 +7,7 @@
 #include "utilities.h"
 
 #include <string>
+#include <list>
 
 class Game;
 
@@ -46,7 +47,9 @@ public:
 
     virtual MapObject* makeSave(Game* game) = 0;
 
-    virtual Collision mapAction(MapObject* collider) { return Collision(); }
+    virtual Collision mapAction(MapObject* collider, std::list<MapObject*>::iterator it) { return Collision(); }
+
+    void removeFromMap(bool deleteit);
 private:
     // Pointer to the game
     Game* pgame;
@@ -164,7 +167,7 @@ public:
     }
 
     // Defined in mapobject.cpp because it is big
-    virtual Collision mapAction(MapObject* collider);
+    virtual Collision mapAction(MapObject* collider, std::list<MapObject*>::iterator it);
 
     const bool& isUp() const
     {

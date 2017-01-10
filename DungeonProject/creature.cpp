@@ -7,7 +7,9 @@
 #include "game.h"
 #include "virtualwindow.h"
 #include "room.h"
+#include "coordinate.h"
 
+#include <list>
 #include <string>
 #include <chrono>
 
@@ -44,6 +46,8 @@ Creature::Creature(
 
     this->primary = primary;
     this->secondary = secondary;
+
+    this->lastMoveTime = 0;
 }
 
 // Save Constructor
@@ -59,6 +63,8 @@ Creature::Creature(const Creature& other, Game* game)
     this->lck = other.lck;
     this->spd = other.spd;
     this->lvl = other.lvl;
+
+    this->lastMoveTime = other.lastMoveTime;
 }
 Creature::~Creature()
 {
@@ -117,6 +123,11 @@ const Primary& Creature::getPrimary() const
     return *primary;
 }
 
+const unsigned long& Creature::getLastMoveTime() const
+{
+    return lastMoveTime;
+}
+
 Primary* Creature::getPrimaryMemory()
 {
     return primary;
@@ -140,6 +151,71 @@ Secondary* Creature::getSecondaryMemory()
 void Creature::setSecondary(Secondary* secondary)
 {
     this->secondary = secondary;
+}
+
+void Creature::increaseMaxhp(size_t amount)
+{
+    maxhp += amount;
+}
+
+void Creature::increaseAtt(size_t amount)
+{
+    att += amount;
+}
+
+void Creature::increaseDef(size_t amount)
+{
+    def += amount;
+}
+
+void Creature::increaseSpd(size_t amount)
+{
+    spd += amount;
+}
+
+void Creature::increaseLvl(size_t amount)
+{
+    lvl += amount;
+}
+
+void Creature::increaseLck(size_t amount)
+{
+    lck += amount;
+}
+
+void Creature::setMaxhp(size_t amount)
+{
+    maxhp = amount;
+}
+
+void Creature::setHp(int amount)
+{
+    hp = amount;
+}
+
+void Creature::setAtt(size_t amount)
+{
+    att = amount;
+}
+
+void Creature::setDef(size_t amount)
+{
+    def = amount;
+}
+
+void Creature::setSpd(size_t amount)
+{
+    spd = amount;
+}
+
+void Creature::setLvl(size_t amount)
+{
+    lvl = amount;
+}
+
+void Creature::setLck(size_t amount)
+{
+    lck = amount;
 }
 
 const size_t& Creature::increaseHealth(size_t amount)
@@ -308,6 +384,142 @@ bool Creature::battle(MapObject* t_enemy)
             }
         }
     }
+}
+
+bool Creature::adjustPosition(dngutil::Movement movement)
+{
+    int newX, newY;
+    switch (movement)
+    {
+    case dngutil::Movement::UP:
+        newX = getCoord().x;
+        newY = getCoord().y - 1;
+        break;
+
+    case dngutil::Movement::DOWN:
+        newX = getCoord().x;
+        newY = getCoord().y + 1;
+        break;
+
+    case dngutil::Movement::LEFT:
+        newX = getCoord().x - 1;
+        newY = getCoord().y;
+        break;
+
+    case dngutil::Movement::RIGHT:
+        newX = getCoord().x + 1;
+        break;
+    }
+
+    Coordinate newCoord(newX, newY);
+    
+    // Setting this to the current map coord in the case it needs it.
+    Coordinate newMapCoord(getPGame()->getActiveRoom()->getRoomInfo().mapCoord);
+
+    switch (getPGame()->getActiveRoom()->checkMovement(newCoord, this))
+    {
+    case dngutil::MovementTypes::VALID:
+        getPGame()->getActiveRoom()->addCoordToList(getCoord());
+        getPGame()->getActiveRoom()->getObjects(getCoord()).remove(this);
+
+        setPosition(newCoord);
+
+        getPGame()->getActiveRoom()->addCoordToList(getCoord());
+
+        std::list<MapObject*>& currentPos = getPGame()->getActiveRoom()->getObjects(getCoord());
+        sortPriority(currentPos, this);
+
+
+        for (auto it = getPGame()->getActiveRoom()->getObjects(getCoord()).begin();
+            it != getPGame()->getActiveRoom()->getObjects(getCoord()).end(); )
+        {
+            Collision c = (*it)->mapAction(this, it);
+            if (c.exitCollisions)
+            {
+                if (c.returnTrue)
+                {
+                    return true;
+                }
+                else
+                {
+                    break;
+                }
+            }
+            if (c.iterate)
+            {
+                it++;
+            }
+        }
+        break;
+    case dngutil::MovementTypes::NEW_ROOM:
+
+        switch (movement)
+        {
+        case dngutil::Movement::UP:
+            newMapCoord.y--;
+            break;
+
+        case dngutil::Movement::DOWN:
+            newMapCoord.y++;
+            break;
+
+        case dngutil::Movement::LEFT:
+            newMapCoord.x--;
+            break;
+
+        case dngutil::Movement::RIGHT:
+            newMapCoord.x++;
+            break;
+        }
+
+        if (getPGame()->getActiveFloor().count(newMapCoord) != 1)
+        {
+            errorMessage("There is not a floor where you are trying to go.", __LINE__, __FILE__);
+        }
+
+        Coordinate* coordToTest = nullptr;
+        switch (movement)
+        {
+        case dngutil::Movement::UP:
+            coordToTest = new Coordinate(getCoord().x, getPGame()->getActiveFloor()[newMapCoord]->getRoomY() - 1);
+            break;
+        case dngutil::Movement::DOWN:
+            coordToTest = new Coordinate(getCoord().x, 0);
+            break;
+        case dngutil::Movement::LEFT:
+            coordToTest = new Coordinate(getPGame()->getActiveFloor()[newMapCoord]->getRoomX() - 1, getCoord().y);
+            break;
+        case dngutil::Movement::RIGHT:
+            coordToTest = new Coordinate(0, getCoord().y);
+            break;
+        }
+        if (coordToTest == nullptr)
+        {
+            errorMessage("coordToTest is a nullptr.", __LINE__, __FILE__);
+        }
+
+        if (getPGame()->getActiveFloor()[newMapCoord]->checkMovement(*coordToTest, this) == dngutil::MovementTypes::VALID)
+        {
+            getPGame()->getActiveRoom()->getObjects(getCoord()).remove(this);
+            Room* tempOldRoom = getPGame()->getActiveRoom();
+            getPGame()->setActiveRoom(getPGame()->getActiveFloor()[newMapCoord]);
+
+            setPosition(*coordToTest);
+
+            getPGame()->getActiveRoom()->getObjects(getCoord()).push_back(this);
+            getPGame()->getVWin()->txtmacs.screenScroll(movement, tempOldRoom, getPGame()->getActiveRoom(), getPGame());
+
+            getPGame()->clearDeletionList();
+            return true;
+        }
+
+        delete coordToTest;
+        break;
+        // invalid movement does nothing
+    }
+
+    lastMoveTime = GetTickCount();
+    return false;
 }
 
 //------------------------------------------------------------

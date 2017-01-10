@@ -1,6 +1,9 @@
 #include "mapobject.h"
 #include "utilities.h"
 #include "game.h"
+#include "room.h"
+
+#include <list>
 
 //---------------------------------------------------------------
 // MapObject functions
@@ -99,12 +102,22 @@ Game* MapObject::getPGame()
     return pgame;
 }
 
+void MapObject::removeFromMap(bool deleteit)
+{
+    getPGame()->getActiveRoom()->addCoordToList(coord);
+    coord = Coordinate(-1, -1);
+    if (deleteit)
+    {
+        getPGame()->getDeletionList().push_back(this);
+    }
+}
+
 //---------------------------------------------------------------
 
 //---------------------------------------------------------------
 // Exit Object Functions
 
-Collision ExitObject::mapAction(MapObject* collider)
+Collision ExitObject::mapAction(MapObject* collider, std::list<MapObject*>::iterator it)
 {
     // TODO: implement this
 }
