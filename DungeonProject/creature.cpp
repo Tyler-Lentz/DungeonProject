@@ -128,7 +128,7 @@ const unsigned long& Creature::getLastMoveTime() const
     return lastMoveTime;
 }
 
-Primary* Creature::getPrimaryMemory()
+Primary*& Creature::getPrimaryMemory()
 {
     return primary;
 }
@@ -143,7 +143,7 @@ const Secondary& Creature::getSecondary() const
     return *secondary;
 }
 
-Secondary* Creature::getSecondaryMemory()
+Secondary*& Creature::getSecondaryMemory()
 {
     return secondary;
 }

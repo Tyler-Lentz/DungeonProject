@@ -4,7 +4,11 @@
 #include "coordinate.h"
 #include "utilities.h"
 #include "player.h"
+#include "game.h"
+#include "virtualwindow.h"
+#include "room.h"
 
+#include <list>
 #include <string>
 //-------------------------------------------------------
 // Item Functions
@@ -70,9 +74,18 @@ RItem::RItem(const RItem& other, Game* game)
 
 }
 
-Collision RItem::mapAction(MapObject* collider)
+Collision RItem::mapAction(MapObject* collider, std::list<MapObject*>::iterator& it)
 {
-    // TODO: implement function where the item is added to inventory and then deleted
+    if (collider == getPGame()->getPlayer())
+    {
+        // TODO: game_pointer->getMusicPlayer()->soundEffect("PickupItem.wav", false, true);
+        getPGame()->getPlayer()->addToInventory(this);
+        it++;
+        getPGame()->getActiveRoom()->getObjects(getCoord()).remove(this);
+        removeFromMap(false);
+        return Collision(false, false);
+    }
+    return Collision(false, true);
 }
 
 //-------------------------------------------------------
@@ -93,11 +106,15 @@ Potion::Potion(const Potion& other, Game* game)
     this->healAmount = other.healAmount;
 }
 
-void Potion::action(Player* player)
+void Potion::action(Player* player, size_t inventoryIndex)
 {
-    // TODO: implement this
-    // increase players health by healAmount
-    // display amount of health healed
+    int amountHealed = player->increaseHealth(healAmount);
+
+    std::string output = "You healed for ";
+    output += std::to_string(amountHealed);
+    output += " health";
+
+    getPGame()->getVWin()->putcen(ColorString(output, dngutil::LIGHTGRAY), getPGame()->getVWin()->txtmacs.BOTTOM_DIVIDER_TEXT_LINE);
 }
 
 Item* Potion::makeSaveInv(Game* game)
@@ -125,10 +142,20 @@ MapObject* Primary::makeSave(Game* game)
     return new Primary(*this, game);
 }
 
-void Primary::action(Player* player)
+void Primary::action(Player* player, size_t inventoryIndex)
 {
-    // TODO:
-    // call players swapprimary function
+    std::string output;
+
+    if (player->swapPrimary(player->getInventoryNotConst()[inventoryIndex]))
+    {
+        output = "Swapped active weapon";
+    }
+    else
+    {
+        output = "Failed to swap active weapon, please report this bug.";
+    }
+
+    getPGame()->getVWin()->putcen(ColorString(output, dngutil::LIGHTGRAY), getPGame()->getVWin()->txtmacs.BOTTOM_DIVIDER_TEXT_LINE);
 }
 
 const int& Primary::getDmgMultiplier() const
@@ -166,9 +193,20 @@ MapObject* Secondary::makeSave(Game* game)
     return new Secondary(*this, game);
 }
 
-void Secondary::action(Player* player)
+void Secondary::action(Player* player, size_t inventoryIndex)
 {
-    // TODO: call players swap secondary function
+    std::string output;
+
+    if (player->swapSecondary(player->getInventoryNotConst()[inventoryIndex]))
+    {
+        output = "Swapped active weapon";
+    }
+    else
+    {
+        output = "Failed to swap active weapon, please report this bug.";
+    }
+
+    getPGame()->getVWin()->putcen(ColorString(output, dngutil::LIGHTGRAY), getPGame()->getVWin()->txtmacs.BOTTOM_DIVIDER_TEXT_LINE);
 }
 
 const int& Secondary::getDeflectTime() const

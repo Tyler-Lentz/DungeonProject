@@ -147,7 +147,7 @@ void Enemy::deathSequence()
     }
 }
 
-Collision Enemy::mapAction(MapObject* collider, std::list<MapObject*>::iterator it)
+Collision Enemy::mapAction(MapObject* collider, std::list<MapObject*>::iterator& it)
 {
     if (collider == getPGame()->getPlayer() && isAggressive())
     {

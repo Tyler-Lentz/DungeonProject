@@ -80,10 +80,10 @@ public:
     const size_t& decreaseHealth(size_t amount);
 
     const Primary& getPrimary() const;
-    Primary* getPrimaryMemory();
+    Primary*& getPrimaryMemory();
     void setPrimary(Primary* primary);
     const Secondary& getSecondary() const;
-    Secondary* getSecondaryMemory();
+    Secondary*& getSecondaryMemory();
     void setSecondary(Secondary* secondary);
 
     bool adjustPosition(dngutil::Movement movement);

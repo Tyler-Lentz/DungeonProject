@@ -108,14 +108,8 @@ bool Player::movement()
         }
         else if (keypress('I'))
         {
-            // TODO: put these in when the requirements exist
-            //game_pointer->inventoryMenu();
-            //game_pointer->getTextOutput()->displayGame();
-        }
-        else if (keypress('U'))
-        {
-            //statsMenu();
-            //game_pointer->getTextOutput()->displayGame();
+            inventoryMenu();
+            getPGame()->getVWin()->txtmacs.displayGame(getPGame());
         }
     }
     return false;
@@ -127,7 +121,7 @@ MapObject* Player::makeSave(Game* game)
     return new Player(*this, game);
 }
 
-Collision Player::mapAction(MapObject* collider, std::list<MapObject*>::iterator it)
+Collision Player::mapAction(MapObject* collider, std::list<MapObject*>::iterator& it)
 {
     if (collider->isAggressive())
     {
@@ -338,7 +332,7 @@ void Player::inventoryMenu() // How not to program in three easy steps. 1: Dont 
                 Sleep(dngutil::MENU_DELAY);
                 size_t itemPosition = (abs(positions[0] - vcursor.y));
                 Item* itemModifying = inventory[itemPosition];
-                itemModifying->action(this);
+                itemModifying->action(this, itemPosition);
 
                 if (itemModifying->isConsumable())
                 {
@@ -361,6 +355,43 @@ void Player::inventoryMenu() // How not to program in three easy steps. 1: Dont 
 }
 
 const Inventory& Player::getInventory() const
+{
+    return inventory;
+}
+
+bool Player::swapPrimary(Item*& itemToSwap)
+{
+    Item* tempItem = itemToSwap;
+    Primary* backupPrimary = getPrimaryMemory();
+
+    itemToSwap = getPrimaryMemory();
+    getPrimaryMemory() = dynamic_cast<Primary*>(tempItem);
+    if (getPrimaryMemory() == nullptr)
+    {
+        getPrimaryMemory() = backupPrimary;
+        itemToSwap = tempItem;
+        return false;
+    }
+    return true;
+}
+
+bool Player::swapSecondary(Item*& itemToSwap)
+{
+    Item* tempItem = itemToSwap;
+    Secondary* backupSecondary = getSecondaryMemory();
+
+    itemToSwap = getSecondaryMemory();
+    getSecondaryMemory() = dynamic_cast<Secondary*>(tempItem);
+    if (getSecondaryMemory() == nullptr)
+    {
+        getSecondaryMemory() = backupSecondary;
+        itemToSwap = tempItem;
+        return false;
+    }
+    return true;
+}
+
+Inventory& Player::getInventoryNotConst()
 {
     return inventory;
 }

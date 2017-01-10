@@ -41,7 +41,7 @@ public:
     virtual void printSelf() = 0;
     virtual std::string drop() = 0;
     virtual bool movement() = 0;
-    virtual Collision mapAction(MapObject* collider, std::list<MapObject*>::iterator it);
+    virtual Collision mapAction(MapObject* collider, std::list<MapObject*>::iterator& it);
     virtual void printStats(int LONGEST_LINE_LENGTH, int startingCursorY);
 
     const std::string& getDeathSound() const;

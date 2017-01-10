@@ -49,7 +49,7 @@ public:
     virtual void printStats(int LONGEST_LINE_LENGTH, int startingCursorY);
 
     virtual MapObject* makeSave(Game* game);
-    virtual Collision mapAction(MapObject* collider, std::list<MapObject*>::iterator it);
+    virtual Collision mapAction(MapObject* collider, std::list<MapObject*>::iterator& it);
 
     void addToInventory(Item* item);
     void removeFromInventory(size_t index);
@@ -61,6 +61,10 @@ public:
     void inventoryMenu();
 
     const Inventory& getInventory() const;
+    Inventory& getInventoryNotConst();
+
+    bool swapPrimary(Item*& itemToSwap);
+    bool swapSecondary(Item*& itemToSwap);
 private:
     size_t exp;
     size_t expToLevel;

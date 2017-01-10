@@ -9,6 +9,7 @@
 #include <string>
 
 class Game;
+class Player;
 
 class Item : public MapObject
 {
@@ -33,7 +34,7 @@ public:
     virtual Item* makeSaveInv(Game* game) = 0;
 
     // The action done when the player uses the item in their inventory
-    virtual void action(Player* player) = 0;
+    virtual void action(Player* player, size_t inventoryIndex) = 0;
 
     const bool& isConsumable() const;
     const std::string& getDescription() const;
@@ -67,7 +68,7 @@ public:
     RItem(const RItem& other, Game* game);
 
     // MapAction for regular items, adds it to the player's inventory
-    virtual Collision mapAction(MapObject* collider);
+    virtual Collision mapAction(MapObject* collider, std::list<MapObject*>::iterator& it);
 };
 
 class Primary : public RItem
@@ -106,7 +107,7 @@ public:
     virtual Item* makeSaveInv(Game* game);
     virtual MapObject* makeSave(Game* game);
 
-    virtual void action(Player* player);
+    virtual void action(Player* player, size_t inventoryIndex);
 
     const int& getDmgMultiplier() const;
     const int& getAttSpeed() const;
@@ -159,7 +160,7 @@ public:
     virtual Item* makeSaveInv(Game* game);
     virtual MapObject* makeSave(Game* game);
 
-    virtual void action(Player* player);
+    virtual void action(Player* player, size_t inventoryIndex);
 
     const int& getDmdReductMult() const;
     const int& getDeflectTime() const;
@@ -182,7 +183,7 @@ public:
     virtual Item* makeSaveInv(Game* game);
     virtual MapObject* makeSave(Game* game);
 
-    virtual void action(Player* player);
+    virtual void action(Player* player, size_t inventoryIndex);
 private:
     int healAmount;
 };
