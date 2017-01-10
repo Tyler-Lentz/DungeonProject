@@ -22,7 +22,8 @@ public:
         bool rawoutput,
         bool aggressive,
         dngutil::TID typeId,
-        bool consumable
+        bool consumable,
+        std::string description
     );
 
     // Save constructor
@@ -31,12 +32,17 @@ public:
     // This is the same as make save, but it returns an Item. Used in inventory copying.
     virtual Item* makeSaveInv(Game* game) = 0;
 
+    // The action done when the player uses the item in their inventory
+    virtual void action(Player* player) = 0;
+
     const bool& isConsumable() const;
+    const std::string& getDescription() const;
 private:
     // consumable tells it to delete if after using it in the inventory, or
     // something more specific for irregular items
     bool consumable;
 
+    std::string description;
 };
 
 //-------------------------------------------------------------
@@ -53,17 +59,15 @@ public:
         bool rawoutput,
         bool aggressive,
         dngutil::TID typeId,
-        bool consumable
-    ) :Item(pgame, mapRep, coord, name, moveable, rawoutput, aggressive, typeId, consumable) {}
+        bool consumable,
+        std::string description
+    ) :Item(pgame, mapRep, coord, name, moveable, rawoutput, aggressive, typeId, consumable, description) {}
 
     // Save Constructor
     RItem(const RItem& other, Game* game);
 
     // MapAction for regular items, adds it to the player's inventory
     virtual Collision mapAction(MapObject* collider);
-
-    // The action done when the player uses the item in their inventory
-    virtual void action() = 0;
 };
 
 class Primary : public RItem
@@ -79,8 +83,9 @@ public:
         int dmgMultiplier,
         int attSpeed,
         int accuracy,
-        bool startReady
-    ) :RItem(pgame, mapRep, coord, name, true, rawoutput, false, typeId, false)
+        bool startReady,
+        std::string description
+    ) :RItem(pgame, mapRep, coord, name, true, rawoutput, false, typeId, false, description)
     {
         this->dmgMultiplier = dmgMultiplier;
         this->attSpeed = attSpeed;
@@ -101,12 +106,14 @@ public:
     virtual Item* makeSaveInv(Game* game);
     virtual MapObject* makeSave(Game* game);
 
-    virtual void action();
+    virtual void action(Player* player);
 
     const int& getDmgMultiplier() const;
     const int& getAttSpeed() const;
     const int& getAccuracy() const;
     const bool& getStartReady() const;
+
+    bool hit() const;
 private:
     // The damage multiplier that is given to the attackers attack during battle
     int dmgMultiplier;
@@ -133,8 +140,9 @@ public:
         bool rawoutput,
         dngutil::TID typeId,
         int deflectTime,
-        int dmgReductMult
-    ) :RItem(pgame, mapRep, coord, name, true, rawoutput, false, typeId, false)
+        int dmgReductMult,
+        std::string description
+    ) :RItem(pgame, mapRep, coord, name, true, rawoutput, false, typeId, false, description)
     {
         this->deflectTime = deflectTime;
         this->dmgReductMult = dmgReductMult;
@@ -151,7 +159,7 @@ public:
     virtual Item* makeSaveInv(Game* game);
     virtual MapObject* makeSave(Game* game);
 
-    virtual void action();
+    virtual void action(Player* player);
 
     const int& getDmdReductMult() const;
     const int& getDeflectTime() const;
@@ -174,7 +182,7 @@ public:
     virtual Item* makeSaveInv(Game* game);
     virtual MapObject* makeSave(Game* game);
 
-    virtual void action();
+    virtual void action(Player* player);
 private:
     int healAmount;
 };

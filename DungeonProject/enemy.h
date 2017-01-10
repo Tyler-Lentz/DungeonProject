@@ -111,6 +111,7 @@ class BEnemy : public Enemy
     
     bool movement();
 
+    virtual void deathSequence();
 };
 
 #endif

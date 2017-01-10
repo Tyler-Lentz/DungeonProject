@@ -1,12 +1,11 @@
 #ifndef UTILITIES_H
 #define UTILITIES_H
 
-#include "mapobject.h"
-
 #include <string>
 #include <list>
 
 class VirtualWindow;
+class MapObject;
 
 namespace dngutil
 {
@@ -101,6 +100,8 @@ namespace dngutil
     const int SCROLL_TIME = 60;
 
     const int POTION_HEAL = 50;
+
+    const int MENU_DELAY = 100;
 }
 
 void errorMessage(std::string error, int line, std::string file);

@@ -70,6 +70,9 @@ struct TextMacros
     // Displays the players stats when leveling up
     void displayLevelupStats(Coordinate cursor, Player* player);
 
+    // Displays the inventory and the array passed through will contain 
+    // the top line and bottom line of the inventory
+    void displayInventory(int positions[], Player* player);
 };
 
 typedef std::vector<ColorString> VWIN;

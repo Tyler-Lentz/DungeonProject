@@ -321,9 +321,7 @@ bool Creature::battle(MapObject* t_enemy)
             {
                 playerTimer = 0;
 
-                // TODO: implement getDamageDealt
-                int damage;
-                //damage = getDamageDealt(player, enemy, musicPlayer, textOutput, game_pointer);
+                int damage = player->getDamageDealt(enemy);
                 enemy->decreaseHealth(damage);
 
                 vwin->putcen(ColorString("-" + std::to_string(damage), dngutil::GREEN), vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE + 1);
@@ -352,9 +350,7 @@ bool Creature::battle(MapObject* t_enemy)
             if (enemyTimer >= enemyWeaponSpeed)
             {
                 enemyTimer = 0;
-                int damage;
-                // TODO: put this in when getDamageDealt exists
-                // damage = getDamageDealt(enemy, player, musicPlayer, textOutput, game_pointer);
+                int damage = enemy->getDamageDealt(player);
                 player->decreaseHealth(damage);
 
                 vwin->putcen(ColorString("-" + std::to_string(damage), dngutil::RED), vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE + 1);
@@ -372,8 +368,7 @@ bool Creature::battle(MapObject* t_enemy)
 
             if (keypress('I'))
             {
-                // TODO: when inventory menu is implemented, put this in
-                // getPGame()->inventoryMenu();
+                player->inventoryMenu();
                 getPGame()->getVWin()->txtmacs.clearDivider("bottom");
                 if (player->getPrimary().getAttSpeed() != playerTimer)
                 {
@@ -520,6 +515,89 @@ bool Creature::adjustPosition(dngutil::Movement movement)
 
     lastMoveTime = GetTickCount();
     return false;
+}
+
+int Creature::getDamageDealt(Creature* defender)
+{
+    double damage;
+    double attack = getAtt();
+    double defense = defender->getDef();
+
+    attack *= getPrimary().getDmgMultiplier();
+    attack *= defender->getSecondary().getDmdReductMult();
+
+    attack += (random(static_cast<int>(attack / 3.0), static_cast<int>(attack / 2.0)));
+    defense += (random(static_cast<int>(defense / 3.0), static_cast<int>(defense / 2.0)));
+
+    if (defender == getPGame()->getPlayer())
+    {
+        bool canDeflect = true;
+
+        // Prevent holding down the key
+        if (keypress(VK_SPACE))
+        {
+            canDeflect = false;
+        }
+
+        auto start = GetTickCount();
+        int timeWindow = defender->getSecondary().getDeflectTime();
+
+        getPGame()->getVWin()->putcen(ColorString("!", dngutil::CYAN), getPGame()->getVWin()->txtmacs.BOTTOM_DIVIDER_TEXT_LINE + 1);
+
+        while ((start + timeWindow) > GetTickCount() && canDeflect)
+        {
+            if (keypress(VK_SPACE))
+            {
+                // TODO: music->soundEffect("ShieldDeflect.wav", false, false);
+                defense *= 1.3;
+            }
+        }
+    }
+
+    bool miss = false;
+    if (getPrimary().hit())
+    {
+        int critChance = dngutil::MAX_LCK;
+        critChance -= getLck();
+        if (critChance < 0)
+        {
+            critChance = 0;
+        }
+
+        bool crit = (random(critChance) == 0);
+
+        if (crit)
+        {
+            attack *= 2;
+            // TODO: music->soundEffect("CriticalHit.wav", false, true);
+        }
+        else
+        {
+            // TODO: music->soundEffect("CreatureHit.wav", false, true);
+        }
+    }
+    else
+    {
+        // TODO: music->soundEffect("WeaponMiss.wav", false, true);
+        miss = true;
+    }
+
+
+    damage = attack - defense;
+
+    if (damage < 1)
+    {
+        damage = 1;
+    }
+
+    if (miss)
+    {
+        damage = 0;
+    }
+
+    int roundedDamage = static_cast<int>(round(damage));
+
+    return roundedDamage;
 }
 
 //------------------------------------------------------------

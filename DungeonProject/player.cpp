@@ -43,7 +43,8 @@ Player::Player(
             1,
             3,
             80,
-            false
+            false,
+            "A sword that has been passed down for generations in your family."
         ),
         new Secondary(
             pgame,
@@ -53,7 +54,8 @@ Player::Player(
             false,
             dngutil::TID::Secondary,
             50,
-            .95
+            .95,
+            "A shield that has been passed down for generations in your family."
         ),
         dngutil::P_PLAYER
     )
@@ -288,5 +290,78 @@ void Player::addExperience(size_t experience)
     {
         addExperience(overFlowXp);
     }
+}
+
+void Player::inventoryMenu() // How not to program in three easy steps. 1: Dont do this.
+{
+    bool exitFunction = false;
+
+    int positions[2];
+
+    getPGame()->getVWin()->txtmacs.displayInventory(positions, this);
+
+    if (false)
+    {
+    beginning:
+        getPGame()->getVWin()->txtmacs.displayInventory(positions, this);
+    }
+
+    getPGame()->getVWin()->txtmacs.clearDivider("bottom");
+    Coordinate vcursor(0, positions[0]);
+
+    while (!exitFunction)
+    {
+        getPGame()->getVWin()->put(ColorString("->", dngutil::CYAN), vcursor);
+
+        while (!exitFunction)
+        {
+            if (keypress(VK_UP) && vcursor.y > positions[0])
+            {
+                Sleep(dngutil::MENU_DELAY);
+                vcursor.x = 0;
+                getPGame()->getVWin()->put(ColorString("   ", dngutil::LIGHTGRAY), vcursor);
+
+                vcursor.y--;
+                break;
+            }
+            else if (keypress(VK_DOWN) && vcursor.y < positions[1])
+            {
+                Sleep(dngutil::MENU_DELAY);
+                vcursor.x = 0;
+                getPGame()->getVWin()->put(ColorString("   ", dngutil::LIGHTGRAY), vcursor);
+
+                vcursor.y++;
+                break;
+            }
+            else if (keypress(VK_RETURN) && !inventory.empty())
+            {
+                Sleep(dngutil::MENU_DELAY);
+                size_t itemPosition = (abs(positions[0] - vcursor.y));
+                Item* itemModifying = inventory[itemPosition];
+                itemModifying->action(this);
+
+                if (itemModifying->isConsumable())
+                {
+                    delete itemModifying;
+                    std::vector<Item*>::iterator it = inventory.begin();
+                    it += itemPosition;
+                    inventory.erase(it);
+                }
+                vcursor.y++;
+                pressEnter(Coordinate(0, getPGame()->getVWin()->txtmacs.BOTTOM_DIVIDER_TEXT_LINE + 1), getPGame()->getVWin());
+                goto beginning;
+            }
+            else if (keypress(VK_ESCAPE))
+            {
+                exitFunction = true;
+            }
+        }
+    }
+    getPGame()->getVWin()->txtmacs.displayGame(getPGame());
+}
+
+const Inventory& Player::getInventory() const
+{
+    return inventory;
 }
 //------------------------------------------------------------

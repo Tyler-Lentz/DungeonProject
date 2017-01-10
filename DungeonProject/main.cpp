@@ -2,6 +2,8 @@
 #include "utilities.h"
 #include "game.h"
 
+// TODO when everything else is done: implement menu class
+
 int main()
 {
     VirtualWindow* vwin = new VirtualWindow(dngutil::CONSOLEX, dngutil::CONSOLEY);

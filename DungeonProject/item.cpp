@@ -3,6 +3,7 @@
 #include "colorstring.h"
 #include "coordinate.h"
 #include "utilities.h"
+#include "player.h"
 
 #include <string>
 //-------------------------------------------------------
@@ -17,21 +18,29 @@ Item::Item(
     bool rawoutput,
     bool aggressive,
     dngutil::TID typeId,
-    bool consumable
+    bool consumable,
+    std::string description
 ) :MapObject(pgame, mapRep, coord, name, moveable, rawoutput, aggressive, typeId, dngutil::P_ITEM, dngutil::BTID::Item)
 {
     this->consumable = consumable;
+    this->description = description;
 }
 
 Item::Item(const Item& other, Game* game)
     :MapObject(other, game)
 {
     this->consumable = other.consumable;
+    this->description = other.description;
 }
 
 const bool& Item::isConsumable() const
 {
     return consumable;
+}
+
+const std::string& Item::getDescription() const
+{
+    return description;
 }
 
 //-------------------------------------------------------
@@ -48,8 +57,9 @@ RItem::RItem(
     bool rawoutput,
     bool aggressive,
     dngutil::TID typeId,
-    bool consumable
-) :Item(pgame, mapRep, coord, name, moveable, rawoutput, aggressive, typeId, consumable) 
+    bool consumable,
+    std::string description
+) :Item(pgame, mapRep, coord, name, moveable, rawoutput, aggressive, typeId, consumable, description) 
 {
 
 }
@@ -71,7 +81,8 @@ Collision RItem::mapAction(MapObject* collider)
 // Potion Functions
 
 Potion::Potion(Game* pgame, Coordinate coord, int healAmount)
-    :RItem(pgame, ColorChar('o', dngutil::RED), coord, "Potion", true, false, false, dngutil::TID::Potion, true)
+    :RItem(pgame, ColorChar('o', dngutil::RED), coord, "Potion",
+        true, false, false, dngutil::TID::Potion, true, "Heals " + std::to_string(healAmount) + "hp")
 {
     this->healAmount = healAmount;
 }
@@ -82,7 +93,7 @@ Potion::Potion(const Potion& other, Game* game)
     this->healAmount = other.healAmount;
 }
 
-void Potion::action()
+void Potion::action(Player* player)
 {
     // TODO: implement this
     // increase players health by healAmount
@@ -114,7 +125,7 @@ MapObject* Primary::makeSave(Game* game)
     return new Primary(*this, game);
 }
 
-void Primary::action()
+void Primary::action(Player* player)
 {
     // TODO:
     // call players swapprimary function
@@ -140,7 +151,10 @@ const bool& Primary::getStartReady() const
     return startReady;
 }
 
-
+bool Primary::hit() const
+{
+    return (random(99) < accuracy);
+}
 
 Item* Secondary::makeSaveInv(Game* game)
 {
@@ -152,7 +166,7 @@ MapObject* Secondary::makeSave(Game* game)
     return new Secondary(*this, game);
 }
 
-void Secondary::action()
+void Secondary::action(Player* player)
 {
     // TODO: call players swap secondary function
 }

@@ -8,6 +8,7 @@
 #include "creature.h"
 #include "player.h"
 #include "virtualwindow.h"
+#include "room.h"
 
 #include <Windows.h>
 #include <string>
@@ -122,21 +123,6 @@ void Enemy::printStats(int LONGEST_LINE_LENGTH, int startingCursorY)
 
 void Enemy::deathSequence()
 {
-    /* TODO: make boss be a derived class of enemy, then put this in their deathsequence
-             call this first, then the regular enemies if it should
-    if (enemy->isBoss())
-    {
-        musicPlayer->startMp3("DefeatBoss.mp3");
-
-        game_pointer->getTextOutput()->clearMapArea(true, 100);
-        game_pointer->getTextOutput()->clearDivider("bottom");
-
-        // Length of the sound effect adjusted for the screen clearing
-        Sleep(5000);
-
-        musicPlayer->stopMp3();
-    }*/
-
     Player* player = getPGame()->getPlayer();
 
     int realExpGiven = experienceGiven + (6 * (getLvl() - (player->getLvl() ) ) );
@@ -163,7 +149,31 @@ void Enemy::deathSequence()
 
 Collision Enemy::mapAction(MapObject* collider, std::list<MapObject*>::iterator it)
 {
-    // TODO: this
+    if (collider == getPGame()->getPlayer() && isAggressive())
+    {
+        // TODO: game_pointer->getMusicPlayer()->stopMp3();
+
+        getPGame()->getActiveRoom()->drawRoom();
+        Sleep(100);
+
+        // TODO: game_pointer->getMusicPlayer()->soundEffect("EnterBattle.wav", false, true);
+        if (battle(this))
+        {
+            getPGame()->getVWin()->txtmacs.displayOverworldInfo(getPGame());
+            it++;
+            getPGame()->getActiveRoom()->getObjects(getCoord()).remove(this);
+            removeFromMap(true);
+            return Collision(false, false);
+        }
+        else
+        {
+            getPGame()->getActiveRoom()->getObjects(getCoord()).remove(collider);
+            collider->removeFromMap(false);
+            return Collision(true, true, true);
+        }
+
+    }
+    return Collision(false, true);
 }
 
 //----------------------------------------------------------------
@@ -205,16 +215,16 @@ bool REnemy::movement()
         switch (random(50000))
         {
         case 0:
-            return adjustPosition(0, -1);
+            return adjustPosition(dngutil::Movement::UP);
             break;
         case 1:
-            return adjustPosition(-1, 0);
+            return adjustPosition(dngutil::Movement::DOWN);
             break;
         case 2:
-            return adjustPosition(0, 1);
+            return adjustPosition(dngutil::Movement::LEFT);
             break;
         case 3:
-            return adjustPosition(1, 0);
+            return adjustPosition(dngutil::Movement::RIGHT);
             break;
         }
     }
@@ -245,5 +255,20 @@ std::string BEnemy::drop()
 bool BEnemy::movement()
 {
     return false;
+}
+
+void BEnemy::deathSequence()
+{
+    // TODO: musicPlayer->startMp3("DefeatBoss.mp3");
+
+    getPGame()->getVWin()->txtmacs.clearMapArea(true, 100);
+    getPGame()->getVWin()->txtmacs.clearDivider("bottom");
+
+    // Length of the sound effect adjusted for the screen clearing
+    Sleep(5000);
+
+    // TODO: musicPlayer->stopMp3();
+
+    Enemy::deathSequence();
 }
 //----------------------------------------------------------------

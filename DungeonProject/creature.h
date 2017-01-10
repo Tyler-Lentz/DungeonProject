@@ -87,6 +87,8 @@ public:
     void setSecondary(Secondary* secondary);
 
     bool adjustPosition(dngutil::Movement movement);
+
+    int getDamageDealt(Creature* defender);
 private:
     unsigned long lastMoveTime;
 

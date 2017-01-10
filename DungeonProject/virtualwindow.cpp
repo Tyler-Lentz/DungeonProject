@@ -7,6 +7,7 @@
 #include "game.h"
 #include "creature.h"
 #include "player.h"
+#include "item.h"
 
 #include <iostream>
 #include <cmath>
@@ -322,6 +323,23 @@ void TextMacros::clearLine(size_t line)
     vwin->putcen(ColorString(std::string(dngutil::CONSOLEX, ' '), dngutil::LIGHTGRAY), line);
 }
 
+void TextMacros::displayInventory(int positions[], Player* player)
+{
+    clearMapArea(false, NULL);
+    Coordinate vcursor(0, DIVIDER_LINES[1] + 3);
+
+    positions[0] = vcursor.y;
+
+    for (auto it = player->getInventory().begin(); it != player->getInventory().end(); it++)
+    {
+        vwin->putcen(ColorString("   " + (*it)->getName() + " - ", dngutil::LIGHTGRAY)
+            + (*it)->getMapRep()
+            + ColorString(" - " + (*it)->getDescription(), dngutil::LIGHTGRAY), vcursor.y);
+        vcursor.y++;
+    }
+
+    positions[1] = --vcursor.y;
+}
 //-------------------------------------------------------------
 
 //-------------------------------------------------------------

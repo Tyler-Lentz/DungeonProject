@@ -57,6 +57,10 @@ public:
     ColorString getExperienceBar();
 
     void addExperience(size_t experience);
+
+    void inventoryMenu();
+
+    const Inventory& getInventory() const;
 private:
     size_t exp;
     size_t expToLevel;
