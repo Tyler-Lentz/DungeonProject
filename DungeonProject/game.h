@@ -21,14 +21,7 @@ class Game
 public:
     dngutil::ReturnVal run();
 
-    Game(VirtualWindow* vwin)
-    {
-        this->vwin = vwin;
-        activeRoom = nullptr;
-        player = nullptr;
-        lastSave = nullptr;
-        floor = 0;
-    }
+    Game(VirtualWindow* vwin);
 
     Game(const Game& other);
     ~Game();

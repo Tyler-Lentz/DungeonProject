@@ -36,6 +36,21 @@ dngutil::ReturnVal Game::run()
     return returnVal;
 }
 
+Game::Game(VirtualWindow* vwin)
+{
+    this->vwin = vwin;
+    activeRoom = nullptr;
+    player = nullptr;
+    lastSave = nullptr;
+    floor = 0;
+
+    titleScreen();
+    if (!exit)
+    {
+        makeRooms();
+    }
+}
+
 Game::Game(const Game& other)
 {
     this->exit = other.exit;
@@ -58,12 +73,6 @@ Game::Game(const Game& other)
 
     Coordinate playerMapCoord = other.activeRoom->getRoomInfo().mapCoord;
     this->activeRoom = gamespace[floor][playerMapCoord];
-
-    titleScreen();
-    if (!exit)
-    {
-        makeRooms();
-    }
 }
 
 Game::~Game()
@@ -108,6 +117,8 @@ void Game::makeRooms()
         Coordinate mapCoord(0, 0);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, floor, mapCoord);
         gamespace->emplace(mapCoord, new Room(this, rminfo));
+
+        activeRoom = gamespace[floor][mapCoord];
     }
     {
         std::vector<std::string> roomTemplate;
