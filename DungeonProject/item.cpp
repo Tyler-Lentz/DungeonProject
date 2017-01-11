@@ -158,7 +158,7 @@ void Primary::action(Player* player, size_t inventoryIndex)
     getPGame()->getVWin()->putcen(ColorString(output, dngutil::LIGHTGRAY), getPGame()->getVWin()->txtmacs.BOTTOM_DIVIDER_TEXT_LINE);
 }
 
-const int& Primary::getDmgMultiplier() const
+const double& Primary::getDmgMultiplier() const
 {
     return dmgMultiplier;
 }
@@ -214,7 +214,7 @@ const int& Secondary::getDeflectTime() const
     return deflectTime;
 }
 
-const int& Secondary::getDmdReductMult() const
+const double& Secondary::getDmdReductMult() const
 {
     return dmgReductMult;
 }

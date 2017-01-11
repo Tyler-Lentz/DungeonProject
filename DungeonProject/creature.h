@@ -44,14 +44,14 @@ public:
 
     // Returns the healthbar of the creature as a ColorString, color
     // depends on percentage of health compared to max health.
-    const ColorString& getHealthBar() const;
+    ColorString getHealthBar() const;
 
     virtual bool movement() = 0;
     virtual void printStats(int LONGEST_LINE_LENGTH, int startingCursorY) = 0;
     virtual bool battle(MapObject* enemy);
 
 
-    const bool& isDead() const;
+    bool isDead() const;
     const size_t& getMaxhp() const;
     const int& getHp() const;
     const size_t& getAtt() const;
@@ -76,8 +76,8 @@ public:
     void setLvl(size_t amount);
     void setLck(size_t amount);
 
-    const size_t& increaseHealth(size_t amount);
-    const size_t& decreaseHealth(size_t amount);
+    size_t increaseHealth(size_t amount);
+    size_t decreaseHealth(size_t amount);
 
     const Primary& getPrimary() const;
     Primary*& getPrimaryMemory();

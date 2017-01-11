@@ -62,7 +62,7 @@ public:
         dngutil::TID typeId,
         bool consumable,
         std::string description
-    ) :Item(pgame, mapRep, coord, name, moveable, rawoutput, aggressive, typeId, consumable, description) {}
+    );
 
     // Save Constructor
     RItem(const RItem& other, Game* game);
@@ -81,7 +81,7 @@ public:
         std::string name,
         bool rawoutput,
         dngutil::TID typeId,
-        int dmgMultiplier,
+        double dmgMultiplier,
         int attSpeed,
         int accuracy,
         bool startReady,
@@ -109,7 +109,7 @@ public:
 
     virtual void action(Player* player, size_t inventoryIndex);
 
-    const int& getDmgMultiplier() const;
+    const double& getDmgMultiplier() const;
     const int& getAttSpeed() const;
     const int& getAccuracy() const;
     const bool& getStartReady() const;
@@ -117,7 +117,7 @@ public:
     bool hit() const;
 private:
     // The damage multiplier that is given to the attackers attack during battle
-    int dmgMultiplier;
+    double dmgMultiplier;
 
     // How many seconds it takes to fully charge a weapon
     int attSpeed;
@@ -141,7 +141,7 @@ public:
         bool rawoutput,
         dngutil::TID typeId,
         int deflectTime,
-        int dmgReductMult,
+        double dmgReductMult,
         std::string description
     ) :RItem(pgame, mapRep, coord, name, true, rawoutput, false, typeId, false, description)
     {
@@ -162,11 +162,11 @@ public:
 
     virtual void action(Player* player, size_t inventoryIndex);
 
-    const int& getDmdReductMult() const;
+    const double& getDmdReductMult() const;
     const int& getDeflectTime() const;
 private:
     // The attackers attack is multiplied by this amount
-    int dmgReductMult;
+    double dmgReductMult;
 
     // The amount of time in miliseconds you have to deflect
     int deflectTime;

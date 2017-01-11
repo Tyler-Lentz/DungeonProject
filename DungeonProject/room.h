@@ -115,7 +115,7 @@ private:
     std::list<MapObject*> gameMap[dngutil::MAPSIZE][dngutil::MAPSIZE];
 
     std::list<Coordinate> adjustedPositions;
-    std::map<Coordinate, Item*> items;
+    std::map<Coordinate, MapObject*> objects;
 
     int roomX;
     int roomY;

@@ -78,7 +78,7 @@ Creature::~Creature()
     }
 }
 
-const bool& Creature::isDead() const
+bool Creature::isDead() const
 {
     return (hp < 1);
 }
@@ -218,24 +218,24 @@ void Creature::setLck(size_t amount)
     lck = amount;
 }
 
-const size_t& Creature::increaseHealth(size_t amount)
+size_t Creature::increaseHealth(size_t amount)
 {
     size_t tempHealth = hp;
     hp += amount;
-    if (hp > maxhp)
+    if (static_cast<size_t>(hp) > maxhp)
     {
         hp = maxhp;
     }
     return hp - tempHealth;
 }
 
-const size_t& Creature::decreaseHealth(size_t amount)
+size_t Creature::decreaseHealth(size_t amount)
 {
     hp -= amount;
     return amount;
 }
 
-const ColorString& Creature::getHealthBar() const
+ColorString Creature::getHealthBar() const
 {
     const int MAXIMUM_CHARACTERS = static_cast<int>(dngutil::CONSOLEX / 2.0);
 
@@ -421,8 +421,7 @@ bool Creature::adjustPosition(dngutil::Movement movement)
 
         getPGame()->getActiveRoom()->addCoordToList(getCoord());
 
-        std::list<MapObject*>& currentPos = getPGame()->getActiveRoom()->getObjects(getCoord());
-        sortPriority(currentPos, this);
+        sortPriority(getPGame()->getActiveRoom()->getObjects(getCoord()), this);
 
 
         for (auto it = getPGame()->getActiveRoom()->getObjects(getCoord()).begin();

@@ -40,7 +40,7 @@ Room::Room(const Room& other, Game* game)
                 }
                 else if ((*it)->getBTypeId() == dngutil::BTID::Item)
                 {
-                    items.emplace(coord, object);
+                    objects.emplace(coord, object);
                 }
 
 
@@ -295,12 +295,12 @@ void Room::setAll()
 
 bool Room::eraseItem(Coordinate coord)
 {
-    if (items.count(coord) == 0)
+    if (objects.count(coord) == 0)
     {
         return false;
     }
 
-    items.erase(coord);
+    objects.erase(coord);
     return true;
 }
 
