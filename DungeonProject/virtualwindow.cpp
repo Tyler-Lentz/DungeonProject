@@ -33,6 +33,10 @@ void TextMacros::clearMapArea(bool rolling, int sleepTime)
     for (int i = DIVIDER_LINES[1] + 1; i < DIVIDER_LINES[2]; i++)
     {
         vwin->put(emptyString, Coordinate(0, i));
+        if (rolling)
+        {
+            Sleep(sleepTime);
+        }
     }
 }
 
@@ -358,6 +362,8 @@ void VirtualWindow::put(ColorChar colchar, Coordinate coord)
         vwin[coord.x][coord.y] = colchar;
         posToDraw.push_back(coord);
     }
+
+    refresh();
 }
 
 void VirtualWindow::put(ColorString colstr, Coordinate coord)
@@ -367,21 +373,27 @@ void VirtualWindow::put(ColorString colstr, Coordinate coord)
         put(*it, coord);
         coord.moveRight(width);
     }
+
+    refresh();
 }
 
 void VirtualWindow::putcen(ColorChar colchar, size_t line)
 {
-    put(colchar, Coordinate(floor((width - 1) / 2), line));
+    put(colchar, Coordinate(static_cast<int>((width - 1) / 2), line));
+
+    refresh();
 }
 
 void VirtualWindow::putcen(ColorString colstr, size_t line)
 {
-    Coordinate coord(floor((width - colstr.size()) / 2), line);
+    Coordinate coord(static_cast<int>((width - colstr.size()) / 2), line);
     for (auto it = colstr.begin(); it != colstr.end(); it++)
     {
         put(*it, coord);
         coord.moveRight(width);
     }
+
+    refresh();
 }
 
 void VirtualWindow::refresh()

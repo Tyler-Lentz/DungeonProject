@@ -39,7 +39,7 @@ struct Console
         SetConsoleWindowInfo(hConOut, TRUE, &csbi.srWindow);
     }
 
-    void setTitle(std::string title)
+    void setTitle(std::string title) const
     {
         SetConsoleTitle(title.c_str());
     }

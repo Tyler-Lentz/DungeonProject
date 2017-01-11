@@ -101,8 +101,7 @@ Room::Room(Game* t_game_pointer, RoomInfo roomToGenerate)
 
             case 'e':
                 dngutil::TID tid;
-                int index = random(roomInfo.possibleCreatures.size() - 1);
-                tid = roomInfo.possibleCreatures[index];
+                tid = roomInfo.possibleCreatures[random(roomInfo.possibleCreatures.size() - 1)];
                 creature = game_pointer->generateCreature(roomInfo.difficulty, tid);
                 gameMap[i][j].push_back(creature);
                 addCreature(creature, Coordinate(j, i));

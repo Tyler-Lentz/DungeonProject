@@ -5,6 +5,7 @@
 #include "enemy.h"
 #include "room.h"
 
+#include <chrono>
 #include <string>
 
 //-------------------------------------------------------
@@ -57,6 +58,12 @@ Game::Game(const Game& other)
 
     Coordinate playerMapCoord = other.activeRoom->getRoomInfo().mapCoord;
     this->activeRoom = gamespace[floor][playerMapCoord];
+
+    titleScreen();
+    if (!exit)
+    {
+        makeRooms();
+    }
 }
 
 Game::~Game()
@@ -81,7 +88,47 @@ VirtualWindow* Game::getVWin()
 
 void Game::makeRooms()
 {
-    // TODO: add all of the new rooms
+    size_t floor = 0;
+    this->floor = floor;
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("###########");
+        roomTemplate.push_back("#A  o   e  ");
+        roomTemplate.push_back("###########");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+        specificObjects.emplace(Coordinate(4, 1), new Potion(this, Coordinate(4, 1), dngutil::POTION_HEAL));
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Skeleton);
+
+        int difficulty = 0;
+        int backColor = dngutil::LIGHTGRAY;
+        std::string name = "START";
+        Coordinate mapCoord(0, 0);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, floor, mapCoord);
+        gamespace->emplace(mapCoord, new Room(this, rminfo));
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("###########");
+        roomTemplate.push_back("          #");
+        roomTemplate.push_back("###########");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Skeleton);
+
+        int difficulty = 0;
+        int backColor = dngutil::LIGHTGRAY;
+        std::string name = "START";
+        Coordinate mapCoord(1, 0);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, floor, mapCoord);
+        gamespace->emplace(mapCoord, new Room(this, rminfo));
+    }
+
+    floor = 1;
 }
 
 void Game::setActiveFloor(size_t floor)
@@ -184,7 +231,9 @@ Creature* Game::generateCreature(int difficulty, dngutil::TID tid)
     Enemy* enemy = nullptr;
     switch (tid)
     {
-        //TODO: put enemies constructors here
+    case dngutil::TID::Skeleton:
+        enemy = new Skeleton(this, Coordinate(-1, -1), health, attack, defense, luck, speed, level);
+        break;
     }
 
     if (enemy == nullptr)
@@ -199,5 +248,30 @@ void Game::cleanup(dngutil::ReturnVal returnval)
 {
     exit = true;
     this->returnVal = returnval;
+}
+
+void Game::titleScreen()
+{
+    // TODO: game_pointer->getMusicPlayer()->startMp3("TitleTheme.mp3");
+
+    vwin->txtmacs.drawDividers();
+    vwin->putcen(ColorString("Dungeon RPG 2", dngutil::RED), vwin->txtmacs.DIVIDER_LINES[0] + 1);
+    vwin->putcen(ColorString("Enter - Continue, Esc - exit", dngutil::LIGHTGRAY), vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE);
+
+    while (true)
+    {
+        if (keypress(VK_RETURN))
+        {
+            break;
+        }
+        else if (keypress(VK_ESCAPE))
+        {
+            cleanup(dngutil::ReturnVal::EXIT);
+            break;
+        }
+    }
+
+    vwin->txtmacs.clearDivider("bottom");
+    // TODO: game_pointer->getMusicPlayer()->stopMp3();
 }
 //-------------------------------------------------------

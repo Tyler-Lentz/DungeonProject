@@ -2,6 +2,9 @@
 #include "utilities.h"
 #include "game.h"
 #include "room.h"
+#include "creature.h"
+#include "player.h"
+#include "virtualwindow.h"
 
 #include <list>
 
@@ -119,7 +122,66 @@ void MapObject::removeFromMap(bool deleteit)
 
 Collision ExitObject::mapAction(MapObject* collider, std::list<MapObject*>::iterator it)
 {
-    // TODO: implement this
+    if (collider == getPGame()->getPlayer())
+    {
+        // TODO: getPGame()->getMusicPlayer()->soundEffect("Stairs.wav", false, false);
+        Coordinate coord(getPGame()->getActiveRoom()->getRoomInfo().mapCoord);
+        if (up)
+        {
+            getPGame()->setActiveFloor(getPGame()->getActiveRoom()->getRoomInfo().floor + 1);
+            if (getPGame()->getActiveFloor().count(coord) == 1)
+            {
+                if (
+                    getPGame()->getActiveFloor()[coord]->checkMovement(collider->getCoord(),
+                    getPGame()->getPlayer()) == dngutil::MovementTypes::VALID
+                   )
+                {
+                    getPGame()->getActiveRoom()->getObjects(collider->getCoord()).remove(collider);
+                    getPGame()->setActiveRoom(getPGame()->getActiveFloor()[coord]);
+                    getPGame()->getActiveRoom()->getObjects(collider->getCoord()).push_back(collider);
+                    getPGame()->getVWin()->txtmacs.displayGame(getPGame());
+                    getPGame()->clearDeletionList();
+                    return Collision(true, true, true);
+                }
+                else
+                {
+                    getPGame()->setActiveFloor(getPGame()->getActiveRoom()->getRoomInfo().floor - 1);
+                }
+            }
+            else
+            {
+                getPGame()->setActiveFloor(getPGame()->getActiveRoom()->getRoomInfo().floor - 1);
+            }
+        }
+        else
+        {
+            getPGame()->setActiveFloor(getPGame()->getActiveRoom()->getRoomInfo().floor - 1);
+            if (getPGame()->getActiveFloor().count(coord) == 1)
+            {
+                if (
+                    getPGame()->getActiveFloor()[coord]->checkMovement(collider->getCoord(),
+                    getPGame()->getPlayer()) == dngutil::MovementTypes::VALID
+                   )
+                {
+                    getPGame()->getActiveRoom()->getObjects(collider->getCoord()).remove(collider);
+                    getPGame()->setActiveRoom(getPGame()->getActiveFloor()[coord]);
+                    getPGame()->getActiveRoom()->getObjects(collider->getCoord()).push_back(collider);
+                    getPGame()->getVWin()->txtmacs.displayGame(getPGame());
+                    getPGame()->clearDeletionList();
+                    return Collision(true, true, true);
+                }
+                else
+                {
+                    getPGame()->setActiveFloor(getPGame()->getActiveRoom()->getRoomInfo().floor + 1);
+                }
+            }
+            else
+            {
+                getPGame()->setActiveFloor(getPGame()->getActiveRoom()->getRoomInfo().floor + 1);
+            }
+        }
+    }
+    return Collision(false, true);
 }
 
 //---------------------------------------------------------------

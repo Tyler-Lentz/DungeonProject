@@ -93,31 +93,31 @@ void Enemy::printStats(int LONGEST_LINE_LENGTH, int startingCursorY)
 
     vwin->put(ColorString("*************", dngutil::YELLOW), vcursor);
 
-    vcursor.x = LONGEST_LINE_LENGTH + 1; vcursor.y++;
+    vcursor.x = LONGEST_LINE_LENGTH + 1; vcursor;
     vwin->put(ColorString("Level: " + std::to_string(getLvl()), dngutil::RED), vcursor);
 
-    vcursor.x = LONGEST_LINE_LENGTH + 1; vcursor.y++;
+    vcursor.x = LONGEST_LINE_LENGTH + 1; vcursor;
     vwin->put(ColorString("Health: " + std::to_string(getHp()) + "    ", dngutil::RED), vcursor);
 
-    vcursor.x = LONGEST_LINE_LENGTH + 1; vcursor.y++;
+    vcursor.x = LONGEST_LINE_LENGTH + 1; vcursor;
     vwin->put(ColorString("Attack: " + std::to_string(getAtt()) + "    ", dngutil::RED), vcursor);
 
-    vcursor.x = LONGEST_LINE_LENGTH + 1; vcursor.y++;
+    vcursor.x = LONGEST_LINE_LENGTH + 1; vcursor;
     vwin->put(ColorString("Defense: " + std::to_string(getDef()) + "    ", dngutil::RED), vcursor);
 
-    vcursor.x = LONGEST_LINE_LENGTH + 1; vcursor.y++;
+    vcursor.x = LONGEST_LINE_LENGTH + 1; vcursor;
     vwin->put(ColorString("Luck: " + std::to_string(getLck()) + "    ", dngutil::RED), vcursor);
 
-    vcursor.x = LONGEST_LINE_LENGTH + 1; vcursor.y++;
+    vcursor.x = LONGEST_LINE_LENGTH + 1; vcursor;
     vwin->put(ColorString("Speed: " + std::to_string(getSpd()) + "    ", dngutil::RED), vcursor);
 
-    vcursor.x = LONGEST_LINE_LENGTH + 1; vcursor.y++;
+    vcursor.x = LONGEST_LINE_LENGTH + 1; vcursor;
     vwin->put(ColorString(getPrimary().getName(), dngutil::BLUE), vcursor);
 
-    vcursor.x = LONGEST_LINE_LENGTH + 1; vcursor.y++;
+    vcursor.x = LONGEST_LINE_LENGTH + 1; vcursor;
     vwin->put(ColorString(getSecondary().getName(), dngutil::BLUE), vcursor);
 
-    vcursor.x = LONGEST_LINE_LENGTH + 1; vcursor.y++;
+    vcursor.x = LONGEST_LINE_LENGTH + 1; vcursor;
     vwin->put(ColorString("*************", dngutil::YELLOW), vcursor);
 }
 
@@ -188,7 +188,7 @@ std::string REnemy::drop()
         if (random(1) == 0)
         {
             itemToAdd = getPrimaryMemory();
-            setPrimary(nullptr);
+setPrimary(nullptr);
         }
         else
         {
@@ -271,4 +271,91 @@ void BEnemy::deathSequence()
 
     Enemy::deathSequence();
 }
+//----------------------------------------------------------------
+
+//----------------------------------------------------------------
+// Skeleton Functions
+Skeleton::Skeleton(
+    Game* pgame,
+    Coordinate coord,
+    int hp,
+    size_t att,
+    size_t def,
+    size_t lck,
+    size_t spd,
+    size_t lvl
+) : REnemy(
+    pgame,
+    ColorChar('T', dngutil::WHITE),
+    coord,
+    "Skeleton",
+    false,
+    dngutil::TID::Skeleton,
+    hp, att, def, lck, spd, lvl,
+    new Primary(
+        pgame,
+        ColorChar('\\', dngutil::BROWN),
+        coord,
+        "Wooden Axe",
+        false,
+        dngutil::TID::Primary,
+        1.5,
+        5,
+        70,
+        false,
+        "A heavy wooden axe that was dropped from a Skeleton"
+    ),
+    new Secondary(
+        pgame,
+        ColorChar('0', dngutil::BROWN),
+        coord,
+        "Wooden Shield",
+        false,
+        dngutil::TID::Secondary,
+        50,
+        .85,
+        "A heavy wooden shield that was dropped from a Skeleton"
+    ),
+    "BattleTheme.mp3",
+    random(15, 23),
+    "EnemyDeath.wav"
+)
+{
+
+}
+
+void Skeleton::printSelf()
+{
+    Coordinate vcursor(0, getPGame()->getVWin()->txtmacs.DIVIDER_LINES[1] + 1);
+    VirtualWindow* t = getPGame()->getVWin();
+    int skeletoncolor = dngutil::WHITE;
+    int weaponcolor = dngutil::BROWN;
+    t->put(ColorString("                              _.--\"\"-._                     \n", skeletoncolor), vcursor); vcursor.y++;
+    t->put(ColorString("  .", weaponcolor) + ColorString("                        .\"         \".                   \n", skeletoncolor), vcursor); vcursor.y++;
+    t->put(ColorString(" / \\    ,^.", weaponcolor) + ColorString("         /(     Y             |      )\\          \n", skeletoncolor), vcursor); vcursor.y++;
+    t->put(ColorString("/   `---. |--\'\\", weaponcolor) + ColorString("    (  \\__..\'--   -   -- -\'\"\"-.-\'  )          \n", skeletoncolor), vcursor); vcursor.y++;
+    t->put(ColorString("|        :|    `> ", weaponcolor) + ColorString("  \'.     l_..-------.._l      .\'          \n", skeletoncolor), vcursor); vcursor.y++;
+    t->put(ColorString("|      __l;__ .\'", weaponcolor) + ColorString("      \"-.__.||_.-\'v\'-._||`\"----\"            \n", skeletoncolor), vcursor); vcursor.y++;
+    t->put(ColorString(" \\  .-\' | |  `", weaponcolor) + ColorString("              l._       _.\'                   \n", skeletoncolor), vcursor); vcursor.y++;
+    t->put(ColorString("  \\/    | |   ", weaponcolor) + ColorString("                l`^^\'^^\'j                     \n", skeletoncolor), vcursor); vcursor.y++;
+    const int TOP_CURSOR_Y = vcursor.y;
+    t->put(ColorString("        | |  ", weaponcolor) + ColorString("              _   \\_____/     _                \n", skeletoncolor), vcursor); vcursor.y++;
+    t->put(ColorString("        j |  ", weaponcolor) + ColorString("             l `--__)-\'(__.--\' |               \n", skeletoncolor), vcursor); vcursor.y++;
+    t->put(ColorString("        | |    ", weaponcolor) + ColorString("           | /`---``-----\'\"1 |", skeletoncolor) + ColorString("  ,-----.      \n", weaponcolor), vcursor); vcursor.y++;
+    t->put(ColorString("        | |    ", weaponcolor) + ColorString("           )/  `--\' \'---\' ", skeletoncolor) + ColorString("   /'-\'  ___  `-.   \n", weaponcolor), vcursor); vcursor.y++;
+    t->put(ColorString("        | |     ", weaponcolor) + ColorString("         //  `-\'  \'`----\'", skeletoncolor) + ColorString("  /  ,-\'   I`.  \\  \n", weaponcolor), vcursor); vcursor.y++;
+    t->put(ColorString("      _ L |_     ", weaponcolor) + ColorString("       //  `-.-.\'`-----\' ", skeletoncolor) + ColorString("/  /  |   |  `. \\ \n", weaponcolor), vcursor); vcursor.y++;
+    t->put(ColorString("     \'._\' / \\         _/(   '-  -'- ---\' ", skeletoncolor) + ColorString(";  /__.J   L.__.\\ :\n", weaponcolor), vcursor); vcursor.y++;
+    t->put(ColorString("      `._;/7(-.......\'  /        ) (  ", skeletoncolor) + ColorString("   |  |            | |\n", weaponcolor), vcursor); vcursor.y++;
+    t->put(ColorString("      `._;l _\'--------_/        )-\'/  ", skeletoncolor) + ColorString("   :  |___.    _._./ ;\n", weaponcolor), vcursor); vcursor.y++;
+    t->put(ColorString("        | |        ", weaponcolor) + ColorString("         .__ )-\'\\  __ ", skeletoncolor) + ColorString(" \\  \\  I   1   / / \n", weaponcolor), vcursor); vcursor.y++;
+    t->put(ColorString("        `-\'    ", weaponcolor) + ColorString("            /   `-\\-(-\'   \\", skeletoncolor) + ColorString(" \\  `.|   | ,\' /  \n", weaponcolor), vcursor); vcursor.y++;
+    t->put(ColorString("                           \\__  `-\'    __/ ", skeletoncolor) + ColorString("  `-. `---\'\',-\'   \n", weaponcolor), vcursor); vcursor.y++;
+    t->put(ColorString("                              )-._.-- (  ", skeletoncolor) + ColorString("      `-----\'      \n", weaponcolor), vcursor); vcursor.y++;
+
+    const int LONGEST_LINE_LENGTH = 62;
+
+    printStats(LONGEST_LINE_LENGTH, TOP_CURSOR_Y);  
+}
+
 //----------------------------------------------------------------

@@ -30,6 +30,28 @@ struct Coordinate
             y++;
         }
     }
+
+    bool operator==(const Coordinate& coord) const
+    {
+        return ((x == coord.x) && (y == coord.y));
+    }
+
+    bool operator<(const Coordinate& coord) const
+    {
+        if (x == coord.x)
+        {
+            return (y < coord.y);
+        }
+        else
+        {
+            return (x < coord.x);
+        }
+    }
+
+    bool operator!=(const Coordinate& coord) const
+    {
+        return (x != coord.x || y != coord.y);
+    }
 };
 
 #endif

@@ -51,6 +51,8 @@ public:
     Creature* generateCreature(int difficulty, dngutil::TID tid);
 
     void cleanup(dngutil::ReturnVal returnval);
+
+    void titleScreen();
 private:
     VirtualWindow* vwin;
     Room* activeRoom;

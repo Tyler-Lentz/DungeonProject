@@ -58,6 +58,7 @@ private:
 
 class REnemy : public Enemy
 {
+public:
     REnemy(
         Game* pgame,
         ColorChar mapRep,
@@ -79,13 +80,43 @@ class REnemy : public Enemy
     ) : Enemy(pgame, mapRep, coord, name, rawoutput, typeId, hp, att, def, lck, spd,
         lvl, primary, secondary, battleMusic, experienceGiven, deathSound) {}
 
+    REnemy(const REnemy& other, Game* game) :Enemy(other, game) {}
+
     std::string drop();
     
     virtual bool movement();
 };
 
+class Skeleton : public REnemy
+{
+public:
+    Skeleton(
+        Game* pgame,
+        Coordinate coord,
+        int hp,
+        size_t att,
+        size_t def,
+        size_t lck,
+        size_t spd,
+        size_t lvl
+    );
+
+    Skeleton(const Skeleton& other, Game* game) : REnemy(other, game) {}
+
+    virtual void printSelf();
+
+    virtual MapObject* makeSave(Game* game)
+    {
+        return new Skeleton(*this, game);
+    }
+
+private:
+
+};
+
 class BEnemy : public Enemy
 {
+public:
     BEnemy(
         Game* pgame,
         ColorChar mapRep,
@@ -106,6 +137,9 @@ class BEnemy : public Enemy
         std::string deathSound
     ) : Enemy(pgame, mapRep, coord, name, rawoutput, typeId, hp, att, def, lck, spd,
         lvl, primary, secondary, battleMusic, experienceGiven, deathSound) {}
+
+    BEnemy(const BEnemy& other, Game* game) :Enemy(other, game) {}
+
 
     std::string drop();
     

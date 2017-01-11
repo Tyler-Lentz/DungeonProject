@@ -1,6 +1,8 @@
 #ifndef UTILITIES_H
 #define UTILITIES_H
 
+#include "coordinate.h"
+
 #include <string>
 #include <list>
 
@@ -37,7 +39,8 @@ namespace dngutil
         Secondary,
         Empty,
         Exit,
-        Wall
+        Wall,
+        Skeleton
     };
 
     enum class BTID
