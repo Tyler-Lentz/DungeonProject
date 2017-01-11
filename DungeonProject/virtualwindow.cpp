@@ -359,9 +359,9 @@ VirtualWindow::VirtualWindow(size_t width, size_t height):
 
 void VirtualWindow::put(ColorChar colchar, Coordinate coord)
 {
-    if (vwin[coord.x][coord.y] != colchar)
+    if (vwin[coord.y][coord.x] != colchar)
     {
-        vwin[coord.x][coord.y] = colchar;
+        vwin[coord.y][coord.x] = colchar;
         posToDraw.push_back(coord);
     }
 
@@ -373,7 +373,13 @@ void VirtualWindow::put(ColorString colstr, Coordinate coord)
     for (auto it = colstr.begin(); it != colstr.end(); it++)
     {
         put(*it, coord);
-        coord.moveRight(width);
+
+        coord.x++;
+        if (coord.x > dngutil::CONSOLEX)
+        {
+            coord.x = 0;
+            coord.y++;
+        }
     }
 
     refresh();
@@ -392,7 +398,12 @@ void VirtualWindow::putcen(ColorString colstr, size_t line)
     for (auto it = colstr.begin(); it != colstr.end(); it++)
     {
         put(*it, coord);
-        coord.moveRight(width);
+        coord.x++;
+        if (coord.x > dngutil::CONSOLEX)
+        {
+            coord.x = 0;
+            coord.y++;
+        }
     }
 
     refresh();
@@ -402,7 +413,7 @@ void VirtualWindow::refresh()
 {
     for (auto it = posToDraw.begin(); it != posToDraw.end(); it++)
     {
-        ColorChar charToDraw = vwin[it->x][it->y];
+        ColorChar charToDraw = vwin[it->y][it->x];
        console.setCursorPos(*it);
        console.setColor(charToDraw.color);
        std::cout << charToDraw.character;

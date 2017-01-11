@@ -24,7 +24,7 @@ struct TextMacros
 
     VirtualWindow* vwin;
 
-    const int DIVIDER_LINES[4] = { 0, 2, dngutil::CONSOLEX - 7, dngutil::CONSOLEY - 2 };
+    const int DIVIDER_LINES[4] = { 0, 2, dngutil::CONSOLEY - 7, dngutil::CONSOLEY - 2 };
     const char DIVIDER_CHARACTER = '-';
 
     const int POSITION_FOR_TOP_DIVIDER_TEXT = 0 + 1;
