@@ -61,6 +61,7 @@ Player::Player(
     )
 {
     this->exp = 0;
+    this->expToLevel = getExpToLevel(getLvl());
     // inventory is initialized as empty
 }
 
@@ -69,6 +70,7 @@ Player::Player(const Player& other, Game* game)
     inventory(other.inventory, game)
 {
     this->exp = other.exp;
+    this->expToLevel = other.expToLevel;
 }
 
 void Player::addToInventory(Item* item)
@@ -213,7 +215,7 @@ void Player::addExperience(size_t experience)
     if (exp >= expToLevel)
     {
         exp -= expToLevel;
-        expToLevel = static_cast<int>((0.5 * (getLvl() * getLvl())) + 50);
+        expToLevel = getExpToLevel(getLvl());
         increaseLvl(1);
 
         Coordinate vcursor(0, vwin->txtmacs.DIVIDER_LINES[1] + 4);

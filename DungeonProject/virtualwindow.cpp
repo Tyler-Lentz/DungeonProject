@@ -192,6 +192,7 @@ void TextMacros::screenScroll(dngutil::Movement direction, Room* oldRoom, Room* 
 void TextMacros::writeMapName(Game* game)
 {
     ColorString name(game->getActiveRoom()->getRoomInfo().name, dngutil::BROWN);
+    vwin->txtmacs.clearLine(DIVIDER_LINES[0] + 1);
     vwin->putcen(name, DIVIDER_LINES[0] + 1);
 }
 

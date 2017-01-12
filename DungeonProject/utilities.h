@@ -123,4 +123,6 @@ void sortPriority(std::list<MapObject*>& list, MapObject* objectToAdd);
 
 void pressEnter(Coordinate cursorpos, VirtualWindow* vwin);
 
+int getExpToLevel(size_t level);
+
 #endif

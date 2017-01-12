@@ -403,6 +403,7 @@ bool Creature::adjustPosition(dngutil::Movement movement)
 
     case dngutil::Movement::RIGHT:
         newX = getCoord().x + 1;
+        newY = getCoord().y;
         break;
     }
 
@@ -414,6 +415,8 @@ bool Creature::adjustPosition(dngutil::Movement movement)
     switch (getPGame()->getActiveRoom()->checkMovement(newCoord, this))
     {
     case dngutil::MovementTypes::VALID:
+        lastMoveTime = GetTickCount();
+
         getPGame()->getActiveRoom()->addCoordToList(getCoord());
         getPGame()->getActiveRoom()->getObjects(getCoord()).remove(this);
 
