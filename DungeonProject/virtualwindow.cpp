@@ -185,8 +185,9 @@ void TextMacros::screenScroll(dngutil::Movement direction, Room* oldRoom, Room* 
         }
         break;
     }
-
-    writeMapName(game);*/
+    */
+    writeMapName(game);
+    displayGame(game);
 }
 
 void TextMacros::writeMapName(Game* game)

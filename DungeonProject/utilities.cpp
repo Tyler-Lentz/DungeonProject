@@ -19,7 +19,7 @@ void errorMessage(std::string error, int line, std::string file)
 
 int getColor(int letterColor, int backgroundColor, int numberOfColors)
 {
-    return (letterColor + (backgroundColor + numberOfColors));
+    return (letterColor + (backgroundColor * numberOfColors));
 }
 
 int random(int max)
