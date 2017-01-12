@@ -355,6 +355,8 @@ VirtualWindow::VirtualWindow(size_t width, size_t height):
     console(width, height), txtmacs(this)
 {
     vwin.resize(height, ColorString(std::string(width, ' '), getColor(dngutil::LIGHTGRAY, dngutil::BLACK)));
+    this->width = width;
+    this->height = height;
 }
 
 void VirtualWindow::put(ColorChar colchar, Coordinate coord)

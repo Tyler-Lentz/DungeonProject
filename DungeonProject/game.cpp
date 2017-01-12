@@ -40,7 +40,7 @@ Game::Game(VirtualWindow* vwin)
 {
     this->vwin = vwin;
     activeRoom = nullptr;
-    player = nullptr;
+    player = new Player(this, Coordinate(-1, -1));
     lastSave = nullptr;
     floor = 0;
 
