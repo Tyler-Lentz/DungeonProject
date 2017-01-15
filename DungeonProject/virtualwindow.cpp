@@ -213,7 +213,7 @@ void TextMacros::clearDivider(std::string divider)
         int topLine = DIVIDER_LINES[1] + 1;
         int bottomLine = DIVIDER_LINES[2] - 1;
 
-        for (int i = topLine; i < bottomLine; i++)
+        for (int i = topLine; i > bottomLine; i--)
         {
             clearLine(i);
         }
@@ -319,6 +319,7 @@ void TextMacros::outputBattleInfo(int leftTimer, int leftMaxTimer, int rightTime
     left += ColorString(" | ", dngutil::LIGHTGRAY);
     left += right;
 
+    clearLine(vcursor.y);
     vwin->putcen(left, vcursor.y);
 
     vcursor.y = BOTTOM_DIVIDER_TEXT_LINE + 1;
@@ -326,7 +327,7 @@ void TextMacros::outputBattleInfo(int leftTimer, int leftMaxTimer, int rightTime
     clearLine(vcursor.y);
 }
 
-void TextMacros::clearLine(size_t line)
+void TextMacros::clearLine(unsigned int line)
 { 
     vwin->putcen(ColorString(std::string(dngutil::CONSOLEX, ' '), dngutil::LIGHTGRAY), line);
 }
@@ -353,7 +354,7 @@ void TextMacros::displayInventory(int positions[], Player* player)
 //-------------------------------------------------------------
 // VirtualWindow functions
 
-VirtualWindow::VirtualWindow(size_t width, size_t height):
+VirtualWindow::VirtualWindow(unsigned int width, unsigned int height):
     console(width, height), txtmacs(this)
 {
     vwin.resize(height, ColorString(std::string(width, ' '), getColor(dngutil::LIGHTGRAY, dngutil::BLACK)));
@@ -389,14 +390,14 @@ void VirtualWindow::put(ColorString colstr, Coordinate coord)
     refresh();
 }
 
-void VirtualWindow::putcen(ColorChar colchar, size_t line)
+void VirtualWindow::putcen(ColorChar colchar, unsigned int line)
 {
     put(colchar, Coordinate(static_cast<int>((width - 1) / 2), line));
 
     refresh();
 }
 
-void VirtualWindow::putcen(ColorString colstr, size_t line)
+void VirtualWindow::putcen(ColorString colstr, unsigned int line)
 {
     Coordinate coord(static_cast<int>((width - colstr.size()) / 2), line);
     for (auto it = colstr.begin(); it != colstr.end(); it++)
@@ -417,7 +418,7 @@ void VirtualWindow::refresh()
 {
     for (auto it = posToDraw.begin(); it != posToDraw.end(); it++)
     {
-        ColorChar charToDraw = vwin[it->y][it->x];
+       ColorChar charToDraw = vwin[it->y][it->x];
        console.setCursorPos(*it);
        console.setColor(charToDraw.color);
        std::cout << charToDraw.character;

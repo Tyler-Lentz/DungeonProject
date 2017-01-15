@@ -25,15 +25,15 @@ Enemy::Enemy(
     bool rawoutput,
     dngutil::TID typeId,
     int hp,
-    size_t att,
-    size_t def,
-    size_t lck,
-    size_t spd,
-    size_t lvl,
+    unsigned int att,
+    unsigned int def,
+    unsigned int lck,
+    unsigned int spd,
+    unsigned int lvl,
     Primary* primary,
     Secondary* secondary,
     std::string battleMusic,
-    size_t experienceGiven,
+    unsigned int experienceGiven,
     std::string deathSound
 ) : Creature(
     pgame,
@@ -78,7 +78,7 @@ const std::string& Enemy::getDeathSound() const
     return deathSound;
 }
 
-const size_t& Enemy::getExpGiven() const
+const unsigned int& Enemy::getExpGiven() const
 {
     return experienceGiven;
 }
@@ -93,31 +93,31 @@ void Enemy::printStats(int LONGEST_LINE_LENGTH, int startingCursorY)
 
     vwin->put(ColorString("*************", dngutil::YELLOW), vcursor);
 
-    vcursor.x = LONGEST_LINE_LENGTH + 1; vcursor;
+    vcursor.x = LONGEST_LINE_LENGTH + 1; vcursor.y++;
     vwin->put(ColorString("Level: " + std::to_string(getLvl()), dngutil::RED), vcursor);
 
-    vcursor.x = LONGEST_LINE_LENGTH + 1; vcursor;
+    vcursor.x = LONGEST_LINE_LENGTH + 1; vcursor.y++;
     vwin->put(ColorString("Health: " + std::to_string(getHp()) + "    ", dngutil::RED), vcursor);
 
-    vcursor.x = LONGEST_LINE_LENGTH + 1; vcursor;
+    vcursor.x = LONGEST_LINE_LENGTH + 1; vcursor.y++;
     vwin->put(ColorString("Attack: " + std::to_string(getAtt()) + "    ", dngutil::RED), vcursor);
 
-    vcursor.x = LONGEST_LINE_LENGTH + 1; vcursor;
+    vcursor.x = LONGEST_LINE_LENGTH + 1; vcursor.y++;
     vwin->put(ColorString("Defense: " + std::to_string(getDef()) + "    ", dngutil::RED), vcursor);
 
-    vcursor.x = LONGEST_LINE_LENGTH + 1; vcursor;
+    vcursor.x = LONGEST_LINE_LENGTH + 1; vcursor.y++;
     vwin->put(ColorString("Luck: " + std::to_string(getLck()) + "    ", dngutil::RED), vcursor);
 
-    vcursor.x = LONGEST_LINE_LENGTH + 1; vcursor;
+    vcursor.x = LONGEST_LINE_LENGTH + 1; vcursor.y++;
     vwin->put(ColorString("Speed: " + std::to_string(getSpd()) + "    ", dngutil::RED), vcursor);
 
-    vcursor.x = LONGEST_LINE_LENGTH + 1; vcursor;
+    vcursor.x = LONGEST_LINE_LENGTH + 1; vcursor.y++;
     vwin->put(ColorString(getPrimary().getName(), dngutil::BLUE), vcursor);
 
-    vcursor.x = LONGEST_LINE_LENGTH + 1; vcursor;
+    vcursor.x = LONGEST_LINE_LENGTH + 1; vcursor.y++;
     vwin->put(ColorString(getSecondary().getName(), dngutil::BLUE), vcursor);
 
-    vcursor.x = LONGEST_LINE_LENGTH + 1; vcursor;
+    vcursor.x = LONGEST_LINE_LENGTH + 1; vcursor.y++;
     vwin->put(ColorString("*************", dngutil::YELLOW), vcursor);
 }
 
@@ -212,7 +212,7 @@ bool REnemy::movement()
 {
     if (!(getLastMoveTime() + ((dngutil::MAX_SPD * 3) - getSpd()) > GetTickCount()))
     {
-        switch (random(50000))
+        switch (random(100))
         {
         case 0:
             return adjustPosition(dngutil::Movement::UP);
@@ -279,11 +279,11 @@ Skeleton::Skeleton(
     Game* pgame,
     Coordinate coord,
     int hp,
-    size_t att,
-    size_t def,
-    size_t lck,
-    size_t spd,
-    size_t lvl
+    unsigned int att,
+    unsigned int def,
+    unsigned int lck,
+    unsigned int spd,
+    unsigned int lvl
 ) : REnemy(
     pgame,
     ColorChar('T', dngutil::WHITE),

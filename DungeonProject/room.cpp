@@ -15,9 +15,9 @@
 Room::Room(const Room& other, Game* game)
     :roomInfo(other.roomInfo)
 {
-    for (size_t y = 0; y < dngutil::MAPSIZE; y++)
+    for (unsigned int y = 0; y < dngutil::MAPSIZE; y++)
     {
-        for (size_t x = 0; x < dngutil::MAPSIZE; x++)
+        for (unsigned int x = 0; x < dngutil::MAPSIZE; x++)
         {
             Coordinate coord(x, y);
             for (auto it = other.gameMap[y][x].begin(); it != other.gameMap[y][x].end(); it++)

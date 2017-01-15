@@ -19,8 +19,6 @@ struct Collision
         this->iterate = iterate;
         this->returnTrue = returnTrue;
     }
-
-    Collision() {}
 };
 
 #endif

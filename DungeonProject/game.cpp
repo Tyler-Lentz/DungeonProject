@@ -97,7 +97,7 @@ VirtualWindow* Game::getVWin()
 
 void Game::makeRooms()
 {
-    size_t floor = 0;
+    unsigned int floor = 0;
     this->floor = floor;
     {
         std::vector<std::string> roomTemplate;
@@ -142,7 +142,7 @@ void Game::makeRooms()
     floor = 1;
 }
 
-void Game::setActiveFloor(size_t floor)
+void Game::setActiveFloor(unsigned int floor)
 {
     this->floor = floor;
 }

@@ -32,7 +32,7 @@ public:
 
     void makeRooms();
 
-    void setActiveFloor(size_t floor);
+    void setActiveFloor(unsigned int floor);
     void setActiveRoom(Room*);
     std::map<Coordinate, Room*>& getActiveFloor();
 

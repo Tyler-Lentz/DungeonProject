@@ -24,15 +24,15 @@ public:
         bool rawoutput,
         dngutil::TID typeId,
         int hp,
-        size_t att,
-        size_t def,
-        size_t lck,
-        size_t spd,
-        size_t lvl,
+        unsigned int att,
+        unsigned int def,
+        unsigned int lck,
+        unsigned int spd,
+        unsigned int lvl,
         Primary* primary,
         Secondary* secondary,
         std::string battleMusic,
-        size_t experienceGiven,
+        unsigned int experienceGiven,
         std::string deathSound
     );
 
@@ -46,14 +46,14 @@ public:
 
     const std::string& getDeathSound() const;
     const std::string& getBattleMusic() const;
-    const size_t& getExpGiven() const;
+    const unsigned int& getExpGiven() const;
 
     virtual void deathSequence();
 
 private:
     std::string battleMusic;
     std::string deathSound;
-    size_t experienceGiven;
+    unsigned int experienceGiven;
 };
 
 class REnemy : public Enemy
@@ -67,15 +67,15 @@ public:
         bool rawoutput,
         dngutil::TID typeId,
         int hp,
-        size_t att,
-        size_t def,
-        size_t lck,
-        size_t spd,
-        size_t lvl,
+        unsigned int att,
+        unsigned int def,
+        unsigned int lck,
+        unsigned int spd,
+        unsigned int lvl,
         Primary* primary,
         Secondary* secondary,
         std::string battleMusic,
-        size_t experienceGiven,
+        unsigned int experienceGiven,
         std::string deathSound
     ) : Enemy(pgame, mapRep, coord, name, rawoutput, typeId, hp, att, def, lck, spd,
         lvl, primary, secondary, battleMusic, experienceGiven, deathSound) {}
@@ -94,11 +94,11 @@ public:
         Game* pgame,
         Coordinate coord,
         int hp,
-        size_t att,
-        size_t def,
-        size_t lck,
-        size_t spd,
-        size_t lvl
+        unsigned int att,
+        unsigned int def,
+        unsigned int lck,
+        unsigned int spd,
+        unsigned int lvl
     );
 
     Skeleton(const Skeleton& other, Game* game) : REnemy(other, game) {}
@@ -125,15 +125,15 @@ public:
         bool rawoutput,
         dngutil::TID typeId,
         int hp,
-        size_t att,
-        size_t def,
-        size_t lck,
-        size_t spd,
-        size_t lvl,
+        unsigned int att,
+        unsigned int def,
+        unsigned int lck,
+        unsigned int spd,
+        unsigned int lvl,
         Primary* primary,
         Secondary* secondary,
         std::string battleMusic,
-        size_t experienceGiven,
+        unsigned int experienceGiven,
         std::string deathSound
     ) : Enemy(pgame, mapRep, coord, name, rawoutput, typeId, hp, att, def, lck, spd,
         lvl, primary, secondary, battleMusic, experienceGiven, deathSound) {}

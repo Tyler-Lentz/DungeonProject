@@ -91,7 +91,7 @@ void pressEnter(Coordinate cursorpos, VirtualWindow* vwin)
     while (!keyrelease(VK_RETURN));
 }
 
-int getExpToLevel(size_t level)
+int getExpToLevel(unsigned int level)
 {
     return static_cast<int>((0.5 * (level * level)) + 50);
 }

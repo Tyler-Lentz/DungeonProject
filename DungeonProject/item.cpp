@@ -106,7 +106,7 @@ Potion::Potion(const Potion& other, Game* game)
     this->healAmount = other.healAmount;
 }
 
-void Potion::action(Player* player, size_t inventoryIndex)
+void Potion::action(Player* player, unsigned int inventoryIndex)
 {
     int amountHealed = player->increaseHealth(healAmount);
 
@@ -142,7 +142,7 @@ MapObject* Primary::makeSave(Game* game)
     return new Primary(*this, game);
 }
 
-void Primary::action(Player* player, size_t inventoryIndex)
+void Primary::action(Player* player, unsigned int inventoryIndex)
 {
     std::string output;
 
@@ -193,7 +193,7 @@ MapObject* Secondary::makeSave(Game* game)
     return new Secondary(*this, game);
 }
 
-void Secondary::action(Player* player, size_t inventoryIndex)
+void Secondary::action(Player* player, unsigned int inventoryIndex)
 {
     std::string output;
 

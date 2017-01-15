@@ -95,10 +95,10 @@ namespace dngutil
     const int STARTING_ENEMY_HP = 20;
 
     const int MAX_HP = 120;
-    const size_t MAX_ATT = 75;
-    const size_t MAX_DEF = 60;
-    const size_t MAX_LCK = 100;
-    const size_t MAX_SPD = 150;
+    const unsigned int MAX_ATT = 75;
+    const unsigned int MAX_DEF = 60;
+    const unsigned int MAX_LCK = 100;
+    const unsigned int MAX_SPD = 150;
 
     const int SCROLL_TIME = 60;
 
@@ -123,6 +123,6 @@ void sortPriority(std::list<MapObject*>& list, MapObject* objectToAdd);
 
 void pressEnter(Coordinate cursorpos, VirtualWindow* vwin);
 
-int getExpToLevel(size_t level);
+int getExpToLevel(unsigned int level);
 
 #endif

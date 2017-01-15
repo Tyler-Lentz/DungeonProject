@@ -52,11 +52,11 @@ public:
     virtual Collision mapAction(MapObject* collider, std::list<MapObject*>::iterator& it);
 
     void addToInventory(Item* item);
-    void removeFromInventory(size_t index);
+    void removeFromInventory(unsigned int index);
 
     ColorString getExperienceBar();
 
-    void addExperience(size_t experience);
+    void addExperience(unsigned int experience);
 
     void inventoryMenu();
 
@@ -66,8 +66,8 @@ public:
     bool swapPrimary(Item*& itemToSwap);
     bool swapSecondary(Item*& itemToSwap);
 private:
-    size_t exp;
-    size_t expToLevel;
+    unsigned int exp;
+    unsigned int expToLevel;
     Inventory inventory;
 };
 

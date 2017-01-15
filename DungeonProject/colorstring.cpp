@@ -51,7 +51,7 @@ ColorString::ColorString(std::string str, std::vector<int> colors)
     }
 
     reserve(str.size());
-    for (size_t i = 0; i < str.size(); i++)
+    for (unsigned int i = 0; i < str.size(); i++)
     {
         push_back(ColorChar(str[i], colors[i]));
     }

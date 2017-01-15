@@ -25,11 +25,11 @@ Creature::Creature(
     bool aggressive,
     dngutil::TID typeId,
     int hp,
-    size_t att,
-    size_t def,
-    size_t lck,
-    size_t spd,
-    size_t lvl,
+    unsigned int att,
+    unsigned int def,
+    unsigned int lck,
+    unsigned int spd,
+    unsigned int lvl,
     Primary* primary,
     Secondary* secondary,
     int priority
@@ -83,7 +83,7 @@ bool Creature::isDead() const
     return (hp < 1);
 }
 
-const size_t& Creature::getMaxhp() const
+const unsigned int& Creature::getMaxhp() const
 {
     return maxhp;
 }
@@ -93,27 +93,27 @@ const int& Creature::getHp() const
     return hp;
 }
 
-const size_t& Creature::getAtt() const
+const unsigned int& Creature::getAtt() const
 {
     return att;
 }
 
-const size_t& Creature::getDef() const
+const unsigned int& Creature::getDef() const
 {
     return def;
 }
 
-const size_t& Creature::getLck() const
+const unsigned int& Creature::getLck() const
 {
     return lck;
 }
 
-const size_t& Creature::getSpd() const
+const unsigned int& Creature::getSpd() const
 {
     return spd;
 }
 
-const size_t& Creature::getLvl() const
+const unsigned int& Creature::getLvl() const
 {
     return lvl;
 }
@@ -153,37 +153,37 @@ void Creature::setSecondary(Secondary* secondary)
     this->secondary = secondary;
 }
 
-void Creature::increaseMaxhp(size_t amount)
+void Creature::increaseMaxhp(unsigned int amount)
 {
     maxhp += amount;
 }
 
-void Creature::increaseAtt(size_t amount)
+void Creature::increaseAtt(unsigned int amount)
 {
     att += amount;
 }
 
-void Creature::increaseDef(size_t amount)
+void Creature::increaseDef(unsigned int amount)
 {
     def += amount;
 }
 
-void Creature::increaseSpd(size_t amount)
+void Creature::increaseSpd(unsigned int amount)
 {
     spd += amount;
 }
 
-void Creature::increaseLvl(size_t amount)
+void Creature::increaseLvl(unsigned int amount)
 {
     lvl += amount;
 }
 
-void Creature::increaseLck(size_t amount)
+void Creature::increaseLck(unsigned int amount)
 {
     lck += amount;
 }
 
-void Creature::setMaxhp(size_t amount)
+void Creature::setMaxhp(unsigned int amount)
 {
     maxhp = amount;
 }
@@ -193,43 +193,43 @@ void Creature::setHp(int amount)
     hp = amount;
 }
 
-void Creature::setAtt(size_t amount)
+void Creature::setAtt(unsigned int amount)
 {
     att = amount;
 }
 
-void Creature::setDef(size_t amount)
+void Creature::setDef(unsigned int amount)
 {
     def = amount;
 }
 
-void Creature::setSpd(size_t amount)
+void Creature::setSpd(unsigned int amount)
 {
     spd = amount;
 }
 
-void Creature::setLvl(size_t amount)
+void Creature::setLvl(unsigned int amount)
 {
     lvl = amount;
 }
 
-void Creature::setLck(size_t amount)
+void Creature::setLck(unsigned int amount)
 {
     lck = amount;
 }
 
-size_t Creature::increaseHealth(size_t amount)
+unsigned int Creature::increaseHealth(unsigned int amount)
 {
-    size_t tempHealth = hp;
+    unsigned int tempHealth = hp;
     hp += amount;
-    if (static_cast<size_t>(hp) > maxhp)
+    if (static_cast<unsigned int>(hp) > maxhp)
     {
         hp = maxhp;
     }
     return hp - tempHealth;
 }
 
-size_t Creature::decreaseHealth(size_t amount)
+unsigned int Creature::decreaseHealth(unsigned int amount)
 {
     hp -= amount;
     return amount;
@@ -244,7 +244,7 @@ ColorString Creature::getHealthBar() const
     int numOfCircles = (int)(scaleFactor * hp);
 
     std::string temp = std::string(MAXIMUM_CHARACTERS - numOfCircles, '-');
-    std::string healthbar = temp + (std::string((size_t)numOfCircles, '='));
+    std::string healthbar = temp + (std::string((unsigned int)numOfCircles, '='));
 
     int color;
     if (hp > static_cast<int>(maxhp * .66))
@@ -342,6 +342,8 @@ bool Creature::battle(MapObject* t_enemy)
                     getPGame()->getVWin()->txtmacs.clearDivider("bottom");
                     // TODO: play put this in
                     // musicPlayer->startMp3("Overworld.mp3");
+
+                    getPGame()->getActiveRoom()->getCreatureList().remove(enemy);
                     return true;
                 }
                 break;

@@ -78,7 +78,7 @@ void Player::addToInventory(Item* item)
     inventory.push_back(item);
 }
 
-void Player::removeFromInventory(size_t index)
+void Player::removeFromInventory(unsigned int index)
 {
     auto it = inventory.begin();
     it += index;
@@ -181,12 +181,12 @@ ColorString Player::getExperienceBar()
     int numOfCircles = static_cast<int>(scaleFactor * exp);
 
     std::string temp = std::string(MAXIMUM_CHARACTERS - numOfCircles, '-');
-    return ColorString(((std::string((size_t)numOfCircles, '=')) + temp), dngutil::MAGENTA);
+    return ColorString(((std::string((unsigned int)numOfCircles, '=')) + temp), dngutil::MAGENTA);
 }
 
-void Player::addExperience(size_t experience)
+void Player::addExperience(unsigned int experience)
 {
-    size_t overFlowXp = 0;
+    unsigned int overFlowXp = 0;
 
     VirtualWindow* vwin = getPGame()->getVWin();
     vwin->txtmacs.clearDivider("bottom");
@@ -332,7 +332,7 @@ void Player::inventoryMenu() // How not to program in three easy steps. 1: Dont 
             else if (keypress(VK_RETURN) && !inventory.empty())
             {
                 Sleep(dngutil::MENU_DELAY);
-                size_t itemPosition = (abs(positions[0] - vcursor.y));
+                unsigned int itemPosition = (abs(positions[0] - vcursor.y));
                 Item* itemModifying = inventory[itemPosition];
                 itemModifying->action(this, itemPosition);
 

@@ -47,7 +47,10 @@ public:
 
     virtual MapObject* makeSave(Game* game) = 0;
 
-    virtual Collision mapAction(MapObject* collider, std::list<MapObject*>::iterator& it) { return Collision(); }
+    virtual Collision mapAction(MapObject* collider, std::list<MapObject*>::iterator& it)
+    {
+        return Collision(false, true);
+    }
 
     void removeFromMap(bool deleteit);
 private:

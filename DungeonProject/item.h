@@ -34,7 +34,7 @@ public:
     virtual Item* makeSaveInv(Game* game) = 0;
 
     // The action done when the player uses the item in their inventory
-    virtual void action(Player* player, size_t inventoryIndex) = 0;
+    virtual void action(Player* player, unsigned int inventoryIndex) = 0;
 
     const bool& isConsumable() const;
     const std::string& getDescription() const;
@@ -107,7 +107,7 @@ public:
     virtual Item* makeSaveInv(Game* game);
     virtual MapObject* makeSave(Game* game);
 
-    virtual void action(Player* player, size_t inventoryIndex);
+    virtual void action(Player* player, unsigned int inventoryIndex);
 
     const double& getDmgMultiplier() const;
     const int& getAttSpeed() const;
@@ -160,7 +160,7 @@ public:
     virtual Item* makeSaveInv(Game* game);
     virtual MapObject* makeSave(Game* game);
 
-    virtual void action(Player* player, size_t inventoryIndex);
+    virtual void action(Player* player, unsigned int inventoryIndex);
 
     const double& getDmdReductMult() const;
     const int& getDeflectTime() const;
@@ -183,7 +183,7 @@ public:
     virtual Item* makeSaveInv(Game* game);
     virtual MapObject* makeSave(Game* game);
 
-    virtual void action(Player* player, size_t inventoryIndex);
+    virtual void action(Player* player, unsigned int inventoryIndex);
 private:
     int healAmount;
 };

@@ -26,11 +26,11 @@ public:
         bool aggressive,
         dngutil::TID typeId,
         int hp,
-        size_t att,
-        size_t def,
-        size_t lck,
-        size_t spd,
-        size_t lvl,
+        unsigned int att,
+        unsigned int def,
+        unsigned int lck,
+        unsigned int spd,
+        unsigned int lvl,
         Primary* primary,
         Secondary* secondary,
         int priority
@@ -52,32 +52,32 @@ public:
 
 
     bool isDead() const;
-    const size_t& getMaxhp() const;
+    const unsigned int& getMaxhp() const;
     const int& getHp() const;
-    const size_t& getAtt() const;
-    const size_t& getDef() const;
-    const size_t& getLck() const;
-    const size_t& getSpd() const;
-    const size_t& getLvl() const;
+    const unsigned int& getAtt() const;
+    const unsigned int& getDef() const;
+    const unsigned int& getLck() const;
+    const unsigned int& getSpd() const;
+    const unsigned int& getLvl() const;
     const unsigned long& getLastMoveTime() const;
 
-    void increaseMaxhp(size_t amount);
-    void increaseAtt(size_t amount);
-    void increaseDef(size_t amount);
-    void increaseSpd(size_t amount);
-    void increaseLvl(size_t amount);
-    void increaseLck(size_t amount);
+    void increaseMaxhp(unsigned int amount);
+    void increaseAtt(unsigned int amount);
+    void increaseDef(unsigned int amount);
+    void increaseSpd(unsigned int amount);
+    void increaseLvl(unsigned int amount);
+    void increaseLck(unsigned int amount);
 
-    void setMaxhp(size_t amount);
+    void setMaxhp(unsigned int amount);
     void setHp(int amount);
-    void setAtt(size_t amount);
-    void setDef(size_t amount);
-    void setSpd(size_t amount);
-    void setLvl(size_t amount);
-    void setLck(size_t amount);
+    void setAtt(unsigned int amount);
+    void setDef(unsigned int amount);
+    void setSpd(unsigned int amount);
+    void setLvl(unsigned int amount);
+    void setLck(unsigned int amount);
 
-    size_t increaseHealth(size_t amount);
-    size_t decreaseHealth(size_t amount);
+    unsigned int increaseHealth(unsigned int amount);
+    unsigned int decreaseHealth(unsigned int amount);
 
     const Primary& getPrimary() const;
     Primary*& getPrimaryMemory();
@@ -99,13 +99,13 @@ private:
     Secondary* secondary;
 
     // Stats all creatures have
-    size_t maxhp;
+    unsigned int maxhp;
     int hp;
-    size_t att;
-    size_t def;
-    size_t lck;
-    size_t spd;
-    size_t lvl;
+    unsigned int att;
+    unsigned int def;
+    unsigned int lck;
+    unsigned int spd;
+    unsigned int lvl;
 };
 
 #endif

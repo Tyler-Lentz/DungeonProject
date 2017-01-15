@@ -62,7 +62,7 @@ struct TextMacros
     void outputBattleInfo(int leftTimer, int leftMaxTimer, int rightTimer, int rightMaxTimer);
 
     // clears the line specified
-    void clearLine(size_t line);
+    void clearLine(unsigned int line);
 
     // Writes the map name to the top of the screen
     void writeMapName(Game* game);
@@ -81,7 +81,7 @@ class VirtualWindow
 {
 public:
     // Sets the VWIN to the size of width,height
-    VirtualWindow(size_t width, size_t height);
+    VirtualWindow(unsigned int width, unsigned int height);
 
     // Outputs the updated information to the console
     void refresh();
@@ -91,8 +91,8 @@ public:
     void put(ColorChar colchar, Coordinate coord);
     void put(ColorString colstr, Coordinate coord);
     // These center the string/char on the specified line
-    void putcen(ColorChar colchar, size_t line);
-    void putcen(ColorString colstr, size_t line);
+    void putcen(ColorChar colchar, unsigned int line);
+    void putcen(ColorString colstr, unsigned int line);
 
     // clears the entire screen
     void clearScreen();
@@ -110,8 +110,8 @@ private:
     std::list<Coordinate> posToDraw;
 
     // width and height of the virtual window
-    size_t width;
-    size_t height;
+    unsigned int width;
+    unsigned int height;
 };
 
 #endif
