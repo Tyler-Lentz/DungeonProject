@@ -125,4 +125,12 @@ void pressEnter(Coordinate cursorpos, VirtualWindow* vwin);
 
 int getExpToLevel(unsigned int level);
 
+void startMp3(std::string fileName);
+
+void stopMp3();
+
+void soundEffect(std::string fileName, bool loop, bool async);
+
+void stopSound();
+
 #endif

@@ -127,12 +127,12 @@ Collision Player::mapAction(MapObject* collider, std::list<MapObject*>::iterator
 {
     if (collider->isAggressive())
     {
-        // TODO: game_pointer->getMusicPlayer()->stopMp3();
+        stopMp3();
 
         getPGame()->getActiveRoom()->drawRoom();
         Sleep(100);
 
-        // TODO: game_pointer->getMusicPlayer()->soundEffect("EnterBattle.wav", false, true);
+        soundEffect("EnterBattle.wav", false, true);
         if (battle(collider))
         {
             getPGame()->getVWin()->txtmacs.displayOverworldInfo(getPGame());
@@ -191,7 +191,7 @@ void Player::addExperience(unsigned int experience)
     VirtualWindow* vwin = getPGame()->getVWin();
     vwin->txtmacs.clearDivider("bottom");
 
-    // TODO: game_pointer->getMusicPlayer()->soundEffect("Experience.wav", true, true);
+    soundEffect("Experience.wav", true, true);
     for (unsigned int i = 0; i < experience; i++)
     {
         vwin->txtmacs.clearMapArea(false, NULL);
@@ -200,7 +200,7 @@ void Player::addExperience(unsigned int experience)
         if (exp >= expToLevel)
         {
             overFlowXp = (experience - i);
-            // TODO: game_pointer->getMusicPlayer()->soundEffect("Levelup.wav", false, false);
+            soundEffect("Levelup.wav", false, false);
             break;
         }
 
@@ -210,7 +210,7 @@ void Player::addExperience(unsigned int experience)
             Sleep(20);
         }
     }
-    // TODO: game_pointer->getMusicPlayer()->stopSound();
+    stopSound();
 
     if (exp >= expToLevel)
     {
@@ -279,7 +279,7 @@ void Player::addExperience(unsigned int experience)
                 break;
             }
             vwin->txtmacs.displayLevelupStats(vcursor, this);
-            // TODO: game_pointer->getMusicPlayer()->soundEffect("PickupItem.wav", false, false);
+            soundEffect("PickupItem.wav", false, false);
         }
     }
     if (overFlowXp > 0)

@@ -41,6 +41,9 @@ struct ColorString : public std::vector<ColorChar>
 
     // Appends a colorchar to the end of this
     void operator+=(const ColorChar& other);
+
+    // Changes all of the characters color to the specified color
+    void setColor(int color);
 };
 
 #endif

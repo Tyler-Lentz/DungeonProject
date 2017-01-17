@@ -210,10 +210,8 @@ void TextMacros::clearDivider(std::string divider)
     }
     else // must be bottom
     {
-        int topLine = DIVIDER_LINES[1] + 1;
-        int bottomLine = DIVIDER_LINES[2] - 1;
 
-        for (int i = topLine; i > bottomLine; i--)
+        for (int i = DIVIDER_LINES[2] + 1; i < DIVIDER_LINES[3]; i++)
         {
             clearLine(i);
         }
@@ -271,7 +269,8 @@ dngutil::ReturnVal TextMacros::deathScreen()
         vwin->putcen(line, i);
     }
 
-    // TODO: play death sound effect then the continue sound effect
+    soundEffect("Death.wav", false, false);
+    startMp3("Continue.mp3");
 
     vwin->putcen(ColorString("Continue? y/n", getColor(dngutil::WHITE, dngutil::RED)), static_cast<int>(dngutil::CONSOLEY / 2.0));
 
@@ -291,7 +290,7 @@ dngutil::ReturnVal TextMacros::deathScreen()
     }
 
 
-    // TODO: stop mp3
+    stopMp3();
 
     vwin->clearScreen();
 
@@ -302,8 +301,8 @@ void TextMacros::outputBattleInfo(int leftTimer, int leftMaxTimer, int rightTime
 { 
     Coordinate vcursor(0, DIVIDER_LINES[2] + 1);
 
-    int circlecolor = dngutil::BLUE;
-    int xcolor = dngutil::CYAN;
+    int circlecolor = dngutil::CYAN;
+    int xcolor = dngutil::LIGHTCYAN;
     int fullcolor = dngutil::LIGHTGREEN;
 
     int circles = leftMaxTimer - leftTimer;
@@ -311,10 +310,20 @@ void TextMacros::outputBattleInfo(int leftTimer, int leftMaxTimer, int rightTime
     ColorString leftXs(std::string(leftTimer, 'x'), xcolor);
     ColorString left = leftCircles + leftXs;
 
+    if (leftTimer == leftMaxTimer)
+    {
+        left.setColor(fullcolor);
+    }
+
     int rcircles = rightMaxTimer - rightTimer;
     ColorString rightCircles(std::string(rcircles, 'o'), circlecolor);
     ColorString rightXs(std::string(rightTimer, 'x'), xcolor);
     ColorString right = rightXs + rightCircles;
+
+    if (rightTimer == rightMaxTimer)
+    {
+        right.setColor(fullcolor);
+    }
 
     left += ColorString(" | ", dngutil::LIGHTGRAY);
     left += right;
@@ -386,15 +395,11 @@ void VirtualWindow::put(ColorString colstr, Coordinate coord)
             coord.y++;
         }
     }
-
-    refresh();
 }
 
 void VirtualWindow::putcen(ColorChar colchar, unsigned int line)
 {
     put(colchar, Coordinate(static_cast<int>((width - 1) / 2), line));
-
-    refresh();
 }
 
 void VirtualWindow::putcen(ColorString colstr, unsigned int line)
@@ -410,8 +415,6 @@ void VirtualWindow::putcen(ColorString colstr, unsigned int line)
             coord.y++;
         }
     }
-
-    refresh();
 }
 
 void VirtualWindow::refresh()

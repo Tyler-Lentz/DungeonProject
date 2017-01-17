@@ -83,7 +83,6 @@ ColorString ColorString::operator+(const ColorString& other)
     return colstr;
 }
 
-    
 ColorString ColorString::operator+(const ColorChar& other)
 {
     ColorString colstr(*this);
@@ -104,6 +103,14 @@ void ColorString::operator+=(const ColorString& other)
 void ColorString::operator+=(const ColorChar& other)
 {
     push_back(other);
+}
+
+void ColorString::setColor(int color)
+{
+    for (auto it = begin(); it != end(); it++)
+    {
+        it->color = color;
+    }
 }
 
 //---------------------------------------------------------------------

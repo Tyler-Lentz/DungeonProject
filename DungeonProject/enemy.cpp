@@ -91,34 +91,34 @@ void Enemy::printStats(int LONGEST_LINE_LENGTH, int startingCursorY)
 
     Coordinate vcursor(LONGEST_LINE_LENGTH + 1, startingCursorY);
 
-    vwin->put(ColorString("*************", dngutil::YELLOW), vcursor);
+    vwin->put(ColorString("*************", dngutil::MAGENTA), vcursor);
 
     vcursor.x = LONGEST_LINE_LENGTH + 1; vcursor.y++;
-    vwin->put(ColorString("Level: " + std::to_string(getLvl()), dngutil::RED), vcursor);
+    vwin->put(ColorString("Level: " + std::to_string(getLvl()), dngutil::GREEN), vcursor);
 
     vcursor.x = LONGEST_LINE_LENGTH + 1; vcursor.y++;
-    vwin->put(ColorString("Health: " + std::to_string(getHp()) + "    ", dngutil::RED), vcursor);
+    vwin->put(ColorString("Health: " + std::to_string(getHp()) + "    ", dngutil::GREEN), vcursor);
 
     vcursor.x = LONGEST_LINE_LENGTH + 1; vcursor.y++;
-    vwin->put(ColorString("Attack: " + std::to_string(getAtt()) + "    ", dngutil::RED), vcursor);
+    vwin->put(ColorString("Attack: " + std::to_string(getAtt()) + "    ", dngutil::GREEN), vcursor);
 
     vcursor.x = LONGEST_LINE_LENGTH + 1; vcursor.y++;
-    vwin->put(ColorString("Defense: " + std::to_string(getDef()) + "    ", dngutil::RED), vcursor);
+    vwin->put(ColorString("Defense: " + std::to_string(getDef()) + "    ", dngutil::GREEN), vcursor);
 
     vcursor.x = LONGEST_LINE_LENGTH + 1; vcursor.y++;
-    vwin->put(ColorString("Luck: " + std::to_string(getLck()) + "    ", dngutil::RED), vcursor);
+    vwin->put(ColorString("Luck: " + std::to_string(getLck()) + "    ", dngutil::GREEN), vcursor);
 
     vcursor.x = LONGEST_LINE_LENGTH + 1; vcursor.y++;
-    vwin->put(ColorString("Speed: " + std::to_string(getSpd()) + "    ", dngutil::RED), vcursor);
+    vwin->put(ColorString("Speed: " + std::to_string(getSpd()) + "    ", dngutil::GREEN), vcursor);
 
     vcursor.x = LONGEST_LINE_LENGTH + 1; vcursor.y++;
-    vwin->put(ColorString(getPrimary().getName(), dngutil::BLUE), vcursor);
+    vwin->put(ColorString(getPrimary().getName(), dngutil::LIGHTCYAN), vcursor);
 
     vcursor.x = LONGEST_LINE_LENGTH + 1; vcursor.y++;
-    vwin->put(ColorString(getSecondary().getName(), dngutil::BLUE), vcursor);
+    vwin->put(ColorString(getSecondary().getName(), dngutil::LIGHTCYAN), vcursor);
 
     vcursor.x = LONGEST_LINE_LENGTH + 1; vcursor.y++;
-    vwin->put(ColorString("*************", dngutil::YELLOW), vcursor);
+    vwin->put(ColorString("*************", dngutil::MAGENTA), vcursor);
 }
 
 void Enemy::deathSequence()
@@ -138,7 +138,7 @@ void Enemy::deathSequence()
     {
         getPGame()->getVWin()->txtmacs.clearDivider("bottom");
 
-        // TODO: item found sound effect musicPlayer->soundEffect("FindItem.wav", false, false);
+        soundEffect("FindItem.wav", false, false);
 
         getPGame()->getVWin()->putcen(
             ColorString("The " + getName() + " drops a " + dropType, dngutil::CYAN),
@@ -151,12 +151,12 @@ Collision Enemy::mapAction(MapObject* collider, std::list<MapObject*>::iterator&
 {
     if (collider == getPGame()->getPlayer() && isAggressive())
     {
-        // TODO: game_pointer->getMusicPlayer()->stopMp3();
+        stopMp3();
 
         getPGame()->getActiveRoom()->drawRoom();
         Sleep(100);
 
-        // TODO: game_pointer->getMusicPlayer()->soundEffect("EnterBattle.wav", false, true);
+        soundEffect("EnterBattle.wav", false, true);
         if (battle(this))
         {
             getPGame()->getVWin()->txtmacs.displayOverworldInfo(getPGame());
@@ -259,7 +259,7 @@ bool BEnemy::movement()
 
 void BEnemy::deathSequence()
 {
-    // TODO: musicPlayer->startMp3("DefeatBoss.mp3");
+    startMp3("DefeatBoss.mp3");
 
     getPGame()->getVWin()->txtmacs.clearMapArea(true, 100);
     getPGame()->getVWin()->txtmacs.clearDivider("bottom");
@@ -267,7 +267,7 @@ void BEnemy::deathSequence()
     // Length of the sound effect adjusted for the screen clearing
     Sleep(5000);
 
-    // TODO: musicPlayer->stopMp3();
+    stopMp3();
 
     Enemy::deathSequence();
 }

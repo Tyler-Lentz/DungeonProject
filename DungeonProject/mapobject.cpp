@@ -124,7 +124,7 @@ Collision ExitObject::mapAction(MapObject* collider, std::list<MapObject*>::iter
 {
     if (collider == getPGame()->getPlayer())
     {
-        // TODO: getPGame()->getMusicPlayer()->soundEffect("Stairs.wav", false, false);
+        soundEffect("Stairs.wav", false, false);
         Coordinate coord(getPGame()->getActiveRoom()->getRoomInfo().mapCoord);
         if (up)
         {

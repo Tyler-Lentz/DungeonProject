@@ -10,6 +10,8 @@
 #include <vector>
 #include <list>
 
+#pragma comment(lib, "Winmm.lib")
+
 void errorMessage(std::string error, int line, std::string file)
 {
     std::cerr << "Error on line " << line << " in the file " << file << "\n- " << error;
@@ -94,4 +96,38 @@ void pressEnter(Coordinate cursorpos, VirtualWindow* vwin)
 int getExpToLevel(unsigned int level)
 {
     return static_cast<int>((0.5 * (level * level)) + 50);
+}
+
+void startMp3(std::string fileName)
+{
+    std::string file = "open \"" + fileName + "\" type mpegvideo alias mp3";
+    mciSendString(file.c_str(), NULL, 0, NULL);
+    mciSendString("play mp3 repeat", NULL, 0, NULL);
+}
+
+void stopMp3()
+{
+    mciSendString("stop mp3", NULL, 0, NULL);
+    mciSendString("close mp3", NULL, 0, NULL);
+}
+
+void soundEffect(std::string fileName, bool loop, bool async)
+{
+    if (loop)
+    {
+        PlaySound(TEXT(fileName.c_str()), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
+    }
+    else if (async)
+    {
+        PlaySound(TEXT(fileName.c_str()), NULL, SND_FILENAME | SND_ASYNC);
+    }
+    else
+    {
+        PlaySound(TEXT(fileName.c_str()), NULL, SND_FILENAME);
+    }
+}
+
+void stopSound()
+{
+    PlaySound(NULL, 0, 0);
 }

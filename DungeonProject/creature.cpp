@@ -289,7 +289,7 @@ bool Creature::battle(MapObject* t_enemy)
     vwin->txtmacs.clearMapArea(true, 20);
     vwin->txtmacs.clearDivider("bottom");
 
-    // TODO: play enemies battle music
+    startMp3(enemy->getBattleMusic());
 
     while (true)
     {
@@ -329,9 +329,9 @@ bool Creature::battle(MapObject* t_enemy)
 
                 if (enemy->isDead())
                 {
-                    // TODO: this musicPlayer->stopMp3();
+                    stopMp3();
 
-                    // TODO: put death sound based on the string stored in enemy
+                    soundEffect(enemy->getDeathSound(), false, false);
 
                     enemy->deathSequence();
 
@@ -340,8 +340,7 @@ bool Creature::battle(MapObject* t_enemy)
                     getPGame()->getVWin()->txtmacs.clearDivider("bottom");
                     pressEnter(Coordinate(0, getPGame()->getVWin()->txtmacs.BOTTOM_DIVIDER_TEXT_LINE), getPGame()->getVWin());
                     getPGame()->getVWin()->txtmacs.clearDivider("bottom");
-                    // TODO: play put this in
-                    // musicPlayer->startMp3("Overworld.mp3");
+                    startMp3("Overworld.mp3");
 
                     getPGame()->getActiveRoom()->getCreatureList().remove(enemy);
                     return true;
@@ -358,10 +357,10 @@ bool Creature::battle(MapObject* t_enemy)
                 vwin->putcen(ColorString("-" + std::to_string(damage), dngutil::RED), vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE + 1);
                 Sleep(300);
 
-                // TODO: musicPlayer->soundEffect("PlayerHit.wav", false, true);
+                soundEffect("PlayerHit.wav", false, true);
                 if (player->isDead())
                 {
-                    // TODO: musicPlayer->stopMp3();
+                    stopMp3();
                     getPGame()->cleanup(getPGame()->getVWin()->txtmacs.deathScreen());
                     return false;
                 }
@@ -552,7 +551,7 @@ int Creature::getDamageDealt(Creature* defender)
         {
             if (keypress(VK_SPACE))
             {
-                // TODO: music->soundEffect("ShieldDeflect.wav", false, false);
+                soundEffect("ShieldDeflect.wav", false, false);
                 defense *= 1.3;
             }
         }
@@ -573,16 +572,16 @@ int Creature::getDamageDealt(Creature* defender)
         if (crit)
         {
             attack *= 2;
-            // TODO: music->soundEffect("CriticalHit.wav", false, true);
+            soundEffect("CriticalHit.wav", false, true);
         }
         else
         {
-            // TODO: music->soundEffect("CreatureHit.wav", false, true);
+            soundEffect("CreatureHit.wav", false, true);
         }
     }
     else
     {
-        // TODO: music->soundEffect("WeaponMiss.wav", false, true);
+        soundEffect("WeaponMiss.wav", false, true);
         miss = true;
     }
 

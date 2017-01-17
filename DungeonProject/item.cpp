@@ -78,7 +78,7 @@ Collision RItem::mapAction(MapObject* collider, std::list<MapObject*>::iterator&
 {
     if (collider == getPGame()->getPlayer())
     {
-        // TODO: game_pointer->getMusicPlayer()->soundEffect("PickupItem.wav", false, true);
+        soundEffect("PickupItem.wav", false, true);
         getPGame()->getPlayer()->addToInventory(this);
         it++;
         getPGame()->getActiveRoom()->getObjects(getCoord()).remove(this);

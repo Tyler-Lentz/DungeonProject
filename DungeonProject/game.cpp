@@ -16,7 +16,7 @@ dngutil::ReturnVal Game::run()
     if (!exit)
     {
         vwin->txtmacs.displayGame(this);
-        // TODO: put this in - musicPlayer->startMp3("Overworld.mp3");
+        startMp3("Overworld.mp3");
     }
 
     while (!exit)
@@ -263,7 +263,7 @@ void Game::cleanup(dngutil::ReturnVal returnval)
 
 void Game::titleScreen()
 {
-    // TODO: game_pointer->getMusicPlayer()->startMp3("TitleTheme.mp3");
+    startMp3("TitleTheme.mp3");
 
     vwin->txtmacs.drawDividers();
     vwin->putcen(ColorString("Dungeon RPG 2", dngutil::RED), vwin->txtmacs.DIVIDER_LINES[0] + 1);
@@ -283,6 +283,6 @@ void Game::titleScreen()
     }
 
     vwin->txtmacs.clearDivider("bottom");
-    // TODO: game_pointer->getMusicPlayer()->stopMp3();
+    stopMp3();
 }
 //-------------------------------------------------------
