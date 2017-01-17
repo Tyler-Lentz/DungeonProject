@@ -77,7 +77,15 @@ Game::Game(const Game& other)
 
 Game::~Game()
 {
-    delete vwin;
+    for (int i = 0; i < dngutil::NUMFLOORS; i++)
+    {
+        for (auto it = gamespace[i].begin(); it != gamespace[i].end(); it++)
+        {
+            delete it->second;
+        }
+    }
+
+    delete player;
 }
 
 Room* Game::getActiveRoom()
