@@ -53,5 +53,7 @@ int main()
         }
     }
 
+    delete vwin;
+
     return returnValue;
 }
