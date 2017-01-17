@@ -73,6 +73,9 @@ struct TextMacros
     // Displays the inventory and the array passed through will contain 
     // the top line and bottom line of the inventory
     void displayInventory(int positions[], Player* player);
+
+    // Screen while the player is falling through a hole
+    void fallingScreen(Game* game);
 };
 
 typedef std::vector<ColorString> VWIN;

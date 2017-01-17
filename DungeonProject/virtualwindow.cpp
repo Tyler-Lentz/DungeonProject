@@ -497,4 +497,11 @@ void TextMacros::displayLevelupStats(Coordinate cursor, Player* player)
     vwin->putcen(ColorString("**************************", dngutil::MAGENTA), cursor.y);
 }
 
+void TextMacros::fallingScreen(Game* game)
+{
+    clearMapArea(false, NULL);
+    soundEffect("Fall.wav", false, false);
+    displayGame(game);
+}
+
 //-------------------------------------------------------------

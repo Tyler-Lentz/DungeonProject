@@ -40,7 +40,10 @@ namespace dngutil
         Empty,
         Exit,
         Wall,
-        Skeleton
+        Skeleton,
+        Key,
+        LockedDoor,
+        Hole
     };
 
     enum class BTID

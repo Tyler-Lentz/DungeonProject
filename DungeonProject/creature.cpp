@@ -34,7 +34,19 @@ Creature::Creature(
     Secondary* secondary,
     int priority
 )
-    :MapObject(pgame, mapRep, coord, name, moveable, rawoutput, aggressive, typeId, priority, dngutil::BTID::Creature)
+    :MapObject(
+        pgame,
+        mapRep,
+        coord,
+        name,
+        moveable,
+        rawoutput,
+        aggressive,
+        typeId,
+        priority,
+        dngutil::BTID::Creature,
+        false
+    )
 {
     this->hp = hp;
     this->maxhp = hp;

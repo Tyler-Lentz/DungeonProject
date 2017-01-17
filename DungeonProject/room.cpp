@@ -126,33 +126,16 @@ Room::Room(Game* t_game_pointer, RoomInfo roomToGenerate)
                 roomInfo.specificObjects.erase(Coordinate(j, i));
                 break;
 
-                // TODO: implement these once they are added
-            /*case 'T':
-                if (roomToGenerate.getItemsNotConst().count(Coordinate(j, i)) != 1)
-                {
-                    std::cerr << "ERROR: on floor " << roomToGenerate.getFloor() << " " << roomToGenerate.getName() << ", trigger not set correctly";
-                    Sleep(10000);
-                    exit(1);
-                }
-                gameMap[i][j].push_back(roomToGenerate.getItemsNotConst()[Coordinate(j, i)]);
-                break;
-
+            case '-':
             case '|':
-                gameMap[i][j].push_back(new DoorObject(game_pointer, Coordinate(j, i)));
+                gameMap[i][j].push_back(new DoorObject(
+                    game_pointer, Coordinate(j, i), ColorChar(roomInfo.roomTemplate[i][j], dngutil::BROWN)
+                ));
                 break;
 
             case 'X':
                 gameMap[i][j].push_back(new HoleObject(game_pointer, Coordinate(j, i)));
                 break;
-
-            case 'S':
-                gameMap[i][j].push_back(new SaveObject(game_pointer, Coordinate(j, i)));
-                break;
-
-            case ']':
-                gameMap[i][j].push_back(new BigDoorObject(game_pointer, Coordinate(j, i)));
-                break;
-                */
             }
         }
     }
@@ -193,17 +176,17 @@ dngutil::MovementTypes Room::checkMovement(Coordinate coord, Creature* creature)
     bool onMap = ((coord.x >= 0 && coord.x <= roomX - 1) && (coord.y >= 0 && coord.y <= roomY - 1));
     if (onMap)
     {
-        /* TODO: implement this when i add in doors
         if (gameMap[coord.y][coord.x].back()->hasPrematureCheck())
         {
             // this doesnt do anything but it needs to be passed through
             std::list<MapObject*>::iterator it;
+            *it = nullptr;
             Collision col = gameMap[coord.y][coord.x].back()->mapAction(creature, it);
             if (col.returnTrue)
             {
-                return lentzdungeon::VALID_MOVEMENT;
+                return dngutil::MovementTypes::VALID;
             }
-        }*/
+        }
     }
 
     if (!onMap && creature == game_pointer->getPlayer())

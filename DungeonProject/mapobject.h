@@ -25,7 +25,8 @@ public:
         bool aggressive,
         dngutil::TID typeId,
         int priority,
-        dngutil::BTID bTypeId
+        dngutil::BTID bTypeId,
+        bool prematureCheck
     );
 
     // Save Constructor, used when saving the game. Takes the new game
@@ -37,6 +38,7 @@ public:
     const bool& isMoveable() const;
     const bool& isRawoutput() const;
     const bool& isAggressive() const;
+    const bool& hasPrematureCheck() const;
     const dngutil::TID& getTypeId() const;
     const int& getPriority() const;
     const dngutil::BTID& getBTypeId() const;
@@ -72,6 +74,7 @@ private:
         // tells the grid when drawing that it should draw this to the map
         // exactly as the ColorChar is
     bool aggressive;
+    bool prematureCheck; // if true, will call mapaction when something tries to move on it
 
     // Identification to tell apart different types of objects
     dngutil::TID typeId;
@@ -100,7 +103,8 @@ public:
             false,
             dngutil::TID::Empty,
             dngutil::P_EMPTY,
-            dngutil::BTID::None
+            dngutil::BTID::None,
+            false
         )
     {
 
@@ -126,7 +130,8 @@ public:
             false,
             dngutil::TID::Wall,
             dngutil::P_WALL,
-            dngutil::BTID::None
+            dngutil::BTID::None,
+            false
         )
     {
 
@@ -152,7 +157,8 @@ public:
             false,
             dngutil::TID::Exit,
             dngutil::P_STAIRCASE,
-            dngutil::BTID::None
+            dngutil::BTID::None,
+            false
         )
     {
         this->up = up;
@@ -179,6 +185,28 @@ public:
 
 private:
     bool up;
+};
+
+class HoleObject : public MapObject
+{
+public:
+    HoleObject(Game* game, Coordinate coord);
+    virtual Collision mapAction(MapObject* collider, std::list<MapObject*>::iterator& it);
+    virtual MapObject* makeSave(Game* game)
+    {
+        return new HoleObject(game, getCoord());
+    }
+};
+
+class DoorObject : public MapObject
+{
+public:
+    DoorObject(Game* game, Coordinate coord, ColorChar mapRep);
+    virtual Collision mapAction(MapObject* collider, std::list<MapObject*>::iterator& it);
+    virtual MapObject* makeSave(Game* game)
+    {
+        return new HoleObject(game, getCoord());
+    }
 };
 
 //----------------------------------------------------

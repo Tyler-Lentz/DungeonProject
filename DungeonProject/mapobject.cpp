@@ -21,7 +21,8 @@ MapObject::MapObject(
     bool aggressive,
     dngutil::TID typeId,
     int priority,
-    dngutil::BTID bTypeId
+    dngutil::BTID bTypeId,
+    bool prematureCheck
 )
     :coord(coord.x, coord.y)
 {
@@ -34,6 +35,7 @@ MapObject::MapObject(
     this->typeId = typeId;
     this->priority = priority;
     this->bTypeId = bTypeId;
+    this->prematureCheck = prematureCheck;
 }
 
 MapObject::MapObject(const MapObject& other, Game* newGame)
@@ -48,6 +50,7 @@ MapObject::MapObject(const MapObject& other, Game* newGame)
     this->typeId = other.typeId;
     this->priority = other.priority;
     this->bTypeId = other.bTypeId;
+    this->prematureCheck = other.prematureCheck;
 }
 
 void MapObject::setPosition(Coordinate coord)
@@ -83,6 +86,11 @@ const bool& MapObject::isRawoutput() const
 const bool& MapObject::isAggressive() const
 {
     return aggressive;
+}
+
+const bool& MapObject::hasPrematureCheck() const
+{
+    return prematureCheck;
 }
 
 const dngutil::TID& MapObject::getTypeId() const
@@ -182,6 +190,102 @@ Collision ExitObject::mapAction(MapObject* collider, std::list<MapObject*>::iter
         }
     }
     return Collision(false, true);
+}
+//---------------------------------------------------------------
+
+//---------------------------------------------------------------
+// HoleObject Functions
+HoleObject::HoleObject(Game* game, Coordinate coord) :
+    MapObject(
+        game,
+        ColorChar(' ', getColor(dngutil::BLACK, dngutil::BLACK)),
+        coord,
+        "HOLE",
+        true,
+        true,
+        false,
+        dngutil::TID::Hole,
+        dngutil::P_STAIRCASE,
+        dngutil::BTID::None,
+        true
+    ) {}
+
+Collision HoleObject::mapAction(MapObject* collider, std::list<MapObject*>::iterator& it)
+{
+    if (collider == getPGame()->getPlayer())
+    {
+        Coordinate coord(getPGame()->getActiveRoom()->getRoomInfo().mapCoord);
+
+        getPGame()->setActiveFloor(getPGame()->getActiveRoom()->getRoomInfo().floor - 1);
+        if (getPGame()->getActiveFloor().count(coord) == 1)
+        {
+            if (getPGame()->getActiveFloor()[coord]->checkMovement(collider->getCoord(), getPGame()->getPlayer()) == dngutil::MovementTypes::VALID)
+            {
+                getPGame()->getActiveRoom()->getObjects(collider->getCoord()).remove(collider);
+                getPGame()->setActiveRoom(getPGame()->getActiveFloor()[coord]);
+                getPGame()->getActiveRoom()->getObjects(collider->getCoord()).push_back(collider);
+                getPGame()->getVWin()->txtmacs.displayGame(getPGame());
+                getPGame()->clearDeletionList();
+                getPGame()->getVWin()->txtmacs.fallingScreen(getPGame());
+                return Collision(true, true, true);
+            }
+            else
+            {
+                getPGame()->setActiveFloor(getPGame()->getActiveRoom()->getRoomInfo().floor + 1);
+            }
+        }
+        else
+        {
+            getPGame()->setActiveFloor(getPGame()->getActiveRoom()->getRoomInfo().floor + 1);
+        }
+    }
+    return Collision(false, true);
+}
+
+//---------------------------------------------------------------
+
+//---------------------------------------------------------------
+// DoorObject Functions
+DoorObject::DoorObject(Game* game, Coordinate coord, ColorChar mapRep) :
+    MapObject(
+        game,
+        mapRep,
+        coord,
+        "LOCKEDDOOR",
+        true,
+        false,
+        false,
+        dngutil::TID::LockedDoor,
+        dngutil::P_WALL,
+        dngutil::BTID::None,
+        true
+    ) {}
+
+Collision DoorObject::mapAction(MapObject* collider, std::list<MapObject*>::iterator& it)
+{
+    // dont use the it passed through in this function
+    if (collider == getPGame()->getPlayer())
+    {
+        Player* p = getPGame()->getPlayer();
+        for (auto it = p->getInventory().begin(); it != p->getInventory().end(); it++)
+        {
+            if ((*it)->getTypeId() == dngutil::TID::Key)
+            {
+                soundEffect("UnlockDoor.wav", false, false);
+                Item* key = (*it);
+                p->getInventoryNotConst().erase(it);
+                delete key;
+                getPGame()->getActiveRoom()->getObjects(getCoord()).remove(this);
+                removeFromMap(true);
+                return Collision(true, false, true);
+            }
+        }
+        return Collision(false, true, false);
+    }
+    else
+    {
+        return Collision(false, true, false);
+    }
 }
 
 //---------------------------------------------------------------

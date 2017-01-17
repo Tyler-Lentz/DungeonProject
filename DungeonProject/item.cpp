@@ -24,7 +24,19 @@ Item::Item(
     dngutil::TID typeId,
     bool consumable,
     std::string description
-) :MapObject(pgame, mapRep, coord, name, moveable, rawoutput, aggressive, typeId, dngutil::P_ITEM, dngutil::BTID::Item)
+) :MapObject(
+    pgame,
+    mapRep,
+    coord,
+    name,
+    moveable,
+    rawoutput,
+    aggressive,
+    typeId,
+    dngutil::P_ITEM,
+    dngutil::BTID::Item,
+    false
+)
 {
     this->consumable = consumable;
     this->description = description;
