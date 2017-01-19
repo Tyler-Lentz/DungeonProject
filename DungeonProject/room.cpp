@@ -190,7 +190,6 @@ dngutil::MovementTypes Room::checkMovement(Coordinate coord, Creature* creature)
         {
             // this doesnt do anything but it needs to be passed through
             std::list<MapObject*>::iterator it;
-            *it = nullptr;
             Collision col = gameMap[coord.y][coord.x].back()->mapAction(creature, it);
             if (col.returnTrue)
             {

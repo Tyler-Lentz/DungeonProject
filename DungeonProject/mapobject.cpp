@@ -252,7 +252,7 @@ DoorObject::DoorObject(Game* game, Coordinate coord, ColorChar mapRep) :
         mapRep,
         coord,
         "LOCKEDDOOR",
-        true,
+        false,
         false,
         false,
         dngutil::TID::LockedDoor,
@@ -267,13 +267,13 @@ Collision DoorObject::mapAction(MapObject* collider, std::list<MapObject*>::iter
     if (collider == getPGame()->getPlayer())
     {
         Player* p = getPGame()->getPlayer();
-        for (auto it = p->getInventory().begin(); it != p->getInventory().end(); it++)
+        for (auto itr = p->getInventory().begin(); itr != p->getInventory().end(); itr++)
         {
-            if ((*it)->getTypeId() == dngutil::TID::Key)
+            if ((*itr)->getTypeId() == dngutil::TID::Key)
             {
                 soundEffect("UnlockDoor.wav", false, false);
-                Item* key = (*it);
-                p->getInventoryNotConst().erase(it);
+                Item* key = (*itr);
+                p->getInventoryNotConst().erase(itr);
                 delete key;
                 getPGame()->getActiveRoom()->getObjects(getCoord()).remove(this);
                 removeFromMap(true);

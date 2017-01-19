@@ -39,6 +39,7 @@ dngutil::ReturnVal Game::run()
             if (activeRoom->getPuzzle().isSolved(activeRoom->getCreatureList(), activeRoom->getGameMap()))
             {
                 activeRoom->getPuzzle().puzzleAction(activeRoom->getCreatureList(), activeRoom->getGameMapNotConst()); 
+                activeRoom->setAll();
                 activeRoom->drawRoom();
                 activeRoom->setPuzzleAsSolved();
                 soundEffect("Secret.wav", false, false);
