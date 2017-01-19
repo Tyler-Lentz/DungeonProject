@@ -7,6 +7,7 @@
 #include "player.h"
 #include "virtualwindow.h"
 
+#include <array>
 #include <list>
 
 //---------------------------------------------------------------
@@ -55,11 +56,15 @@ Room::Room(const Room& other, Game* game)
     this->roomY = other.roomY;
 
     this->game_pointer = game;
+
+    this->puzzle = other.puzzle;
 }
 
-Room::Room(Game* t_game_pointer, RoomInfo roomToGenerate)
+Room::Room(Game* t_game_pointer, RoomInfo roomToGenerate, Puzzle* puzzle)
     :roomInfo(roomToGenerate)
 {
+    this->puzzle = puzzle;
+
     game_pointer = t_game_pointer;
 
     roomX = roomInfo.roomTemplate[0].size();
@@ -158,6 +163,11 @@ Room::~Room()
             }
             getObjects(coord).clear();
         }
+    }
+
+    if (puzzle != nullptr)
+    {
+        delete puzzle;
     }
 }
 
@@ -311,6 +321,27 @@ const RoomInfo& Room::getRoomInfo() const
 const std::list<Coordinate>& Room::getAdjustedPositions() const
 {
     return adjustedPositions;
+}
+
+const Puzzle& Room::getPuzzle() const
+{
+    return *puzzle;
+}
+
+const GAMEMAP& Room::getGameMap() const
+{
+    return gameMap;
+}
+
+GAMEMAP& Room::getGameMapNotConst()
+{
+    return gameMap;
+}
+
+void Room::setPuzzleAsSolved()
+{
+    delete puzzle;
+    puzzle = nullptr;
 }
 
 //---------------------------------------------------------------

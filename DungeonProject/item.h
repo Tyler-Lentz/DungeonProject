@@ -188,5 +188,18 @@ private:
     int healAmount;
 };
 
+class Key : public RItem
+{
+public:
+    Key(Game* pgame, Coordinate coord);
+
+    Key(const Key& other, Game* game);
+
+    virtual Item* makeSaveInv(Game* game);
+    virtual MapObject* makeSave(Game* game);
+
+    virtual void action(Player* player, unsigned int inventoryIndex);
+};
+
 //-------------------------------------------------------------
 #endif

@@ -4,6 +4,7 @@
 #include "utilities.h"
 #include "enemy.h"
 #include "room.h"
+#include "item.h"
 
 #include <chrono>
 #include <string>
@@ -29,6 +30,18 @@ dngutil::ReturnVal Game::run()
             if ((*it)->movement())
             {
                 break;
+            }
+        }
+
+        // The puzzle is set to nullptr if there is no puzzle
+        if (&activeRoom->getPuzzle() != nullptr)
+        {
+            if (activeRoom->getPuzzle().isSolved(activeRoom->getCreatureList(), activeRoom->getGameMap()))
+            {
+                activeRoom->getPuzzle().puzzleAction(activeRoom->getCreatureList(), activeRoom->getGameMapNotConst()); 
+                activeRoom->drawRoom();
+                activeRoom->setPuzzleAsSolved();
+                soundEffect("Secret.wav", false, false);
             }
         }
     }
@@ -110,8 +123,26 @@ void Game::makeRooms()
     {
         std::vector<std::string> roomTemplate;
         roomTemplate.push_back("###########");
-        roomTemplate.push_back("#A  o   e  ");
+        roomTemplate.push_back("#A    | e #");
+        roomTemplate.push_back("#     |   #");
         roomTemplate.push_back("###########");
+
+        auto puzzleSolved = [](const std::list<Creature*>& creatureList, const GAMEMAP& gameMap) -> bool
+        {
+            for (auto it = gameMap[1][2].begin(); it != gameMap[1][2].end(); it++)
+            {
+                if ((*it)->getTypeId() == dngutil::TID::Player)
+                {
+                    return true;
+                }
+            }
+            return false;
+        };
+
+        auto puzzleAction = [this](std::list<Creature*> creatureList, GAMEMAP& gameMap) -> void
+        {
+            gameMap[1][1].push_back(new Key(this, Coordinate(1, 1)));
+        };
 
         std::map<Coordinate, MapObject*> specificObjects;
         specificObjects.emplace(Coordinate(4, 1), new Potion(this, Coordinate(4, 1), dngutil::POTION_HEAL));
@@ -124,27 +155,9 @@ void Game::makeRooms()
         std::string name = "START";
         Coordinate mapCoord(0, 0);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, floor, mapCoord);
-        gamespace->emplace(mapCoord, new Room(this, rminfo));
+        gamespace->emplace(mapCoord, new Room(this, rminfo, new Puzzle(puzzleSolved, puzzleAction)));
 
         activeRoom = gamespace[floor][mapCoord];
-    }
-    {
-        std::vector<std::string> roomTemplate;
-        roomTemplate.push_back("###########");
-        roomTemplate.push_back("          #");
-        roomTemplate.push_back("###########");
-
-        std::map<Coordinate, MapObject*> specificObjects;
-
-        std::vector<dngutil::TID> possibleCreatures;
-        possibleCreatures.push_back(dngutil::TID::Skeleton);
-
-        int difficulty = 0;
-        int backColor = dngutil::LIGHTGRAY;
-        std::string name = "START";
-        Coordinate mapCoord(1, 0);
-        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, floor, mapCoord);
-        gamespace->emplace(mapCoord, new Room(this, rminfo));
     }
 
     floor = 1;

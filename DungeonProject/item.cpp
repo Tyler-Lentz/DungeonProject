@@ -142,6 +142,39 @@ MapObject* Potion::makeSave(Game* game)
 //-------------------------------------------------------
 
 //-------------------------------------------------------
+// Key Functions
+
+Key::Key(Game* pgame, Coordinate coord)
+    :RItem(pgame, ColorChar('l', dngutil::BROWN), coord, "Key",
+        true, false, false, dngutil::TID::Key, true, "Unlocks a door")
+{
+}
+
+Key::Key(const Key& other, Game* game)
+    :RItem(other, game)
+{
+}
+
+void Key::action(Player* player, unsigned int inventoryIndex)
+{
+    std::string output = "You cannot use this right now";
+
+    getPGame()->getVWin()->putcen(ColorString(output, dngutil::LIGHTGRAY), getPGame()->getVWin()->txtmacs.BOTTOM_DIVIDER_TEXT_LINE);
+}
+
+Item* Key::makeSaveInv(Game* game)
+{
+    return new Key(*this, game);
+}
+
+MapObject* Key::makeSave(Game* game)
+{
+    return new Key(*this, game);
+}
+
+//-------------------------------------------------------
+
+//-------------------------------------------------------
 // Primary and Secondary Functions
 
 Item* Primary::makeSaveInv(Game* game)

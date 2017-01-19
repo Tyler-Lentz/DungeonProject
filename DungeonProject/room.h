@@ -8,6 +8,8 @@
 #include <map>
 #include <vector>
 #include <string>
+#include <functional>
+#include <array>
 
 class MapObject;
 class Game;
@@ -72,10 +74,29 @@ struct RoomInfo
     Coordinate mapCoord;
 };
 
+typedef std::array<std::array<std::list<MapObject*>, dngutil::MAPSIZE>, dngutil::MAPSIZE> GAMEMAP;
+
+struct Puzzle
+{
+    Puzzle(
+        std::function<bool(const std::list<Creature*>&, const GAMEMAP&)> solved,
+        std::function<void(std::list<Creature*>, GAMEMAP&)> action
+    )
+    {
+        isSolved = solved;
+        puzzleAction = action;
+    }
+
+    std::function<bool(const std::list<Creature*>&, const GAMEMAP&)> isSolved;
+    std::function<void(std::list<Creature*>, GAMEMAP&)> puzzleAction;
+};
+
+
 class Room
 {
 public:
-    Room(Game* game_pointer, RoomInfo mapToGenerate);
+    // if there is no puzzle pass through a nullptr for the puzzle
+    Room(Game* game_pointer, RoomInfo mapToGenerate, Puzzle* puzzle);
     Room(const Room& other, Game* game);
     ~Room();
 
@@ -111,8 +132,17 @@ public:
 
     // Returns a const ref to the list of positions that have been adjusted
     const std::list<Coordinate>& getAdjustedPositions() const;
+
+    const Puzzle& getPuzzle() const;
+
+    const GAMEMAP& getGameMap() const;
+
+    GAMEMAP& getGameMapNotConst();
+
+    // deletes the puzzle and sets it to a nullptr
+    void setPuzzleAsSolved();
 private:
-    std::list<MapObject*> gameMap[dngutil::MAPSIZE][dngutil::MAPSIZE];
+    GAMEMAP gameMap;
 
     std::list<Coordinate> adjustedPositions;
     std::map<Coordinate, MapObject*> objects;
@@ -124,6 +154,7 @@ private:
     std::list<Creature*> creatureList;
 
     RoomInfo roomInfo;
-};
 
+    Puzzle* puzzle;
+};
 #endif
