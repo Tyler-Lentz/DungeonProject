@@ -42,7 +42,7 @@ void TextMacros::clearMapArea(bool rolling, int sleepTime)
 
 void TextMacros::screenScroll(dngutil::Movement direction, Room* oldRoom, Room* newRoom, Game* game)
 { 
-    /*std::vector<ColorString> oldMap;
+    std::vector<ColorString> oldMap;
     std::vector<ColorString> newMap;
 
     int xDiff = (newRoom->getRoomX() - oldRoom->getRoomX());
@@ -185,9 +185,8 @@ void TextMacros::screenScroll(dngutil::Movement direction, Room* oldRoom, Room* 
         }
         break;
     }
-    */
+    
     writeMapName(game);
-    displayGame(game);
 }
 
 void TextMacros::writeMapName(Game* game)

@@ -34,6 +34,11 @@ bool ColorChar::operator!=(const ColorChar& other)
 //---------------------------------------------------------------------
 // ColorString functions
 
+ColorString::ColorString()
+{
+
+}
+
 ColorString::ColorString(std::string str, int color)
 {
     reserve(str.size());
