@@ -136,7 +136,7 @@ void TextMacros::screenScroll(dngutil::Movement direction, Room* oldRoom, Room* 
             }
             for (int i = abs(yDiff); i > 0; i--)
             {
-                clearLine(true);
+                clearLine(vcursor.y++);
             }
             Sleep(dngutil::SCROLL_TIME);
         }
