@@ -317,7 +317,7 @@ Skeleton::Skeleton(
         "A heavy wooden shield that was dropped from a Skeleton"
     ),
     "BattleTheme.mp3",
-    random(15, 23),
+    random(20, 27),
     "EnemyDeath.wav"
 )
 {
