@@ -156,7 +156,8 @@ void TextMacros::screenScroll(dngutil::Movement direction, Room* oldRoom, Room* 
                 for (int k = 0; k < newRoom->getRoomX() - (i + 1) && j < oldRoom->getRoomY() && k < oldRoom->getRoomX(); k++)
                 {
                     cstr += (oldMap[j][k]);
-                }
+                }            
+                vwin->txtmacs.clearLine(vcursor.y);
                 vwin->putcen(cstr, vcursor.y);
                 vcursor.x = 0, vcursor.y++;
             }
@@ -178,6 +179,7 @@ void TextMacros::screenScroll(dngutil::Movement direction, Room* oldRoom, Room* 
                 {
                     cstr += (newMap[j][k]);
                 }
+                vwin->txtmacs.clearLine(vcursor.y);
                 vwin->putcen(cstr, vcursor.y);
                 vcursor.x = 0, vcursor.y++;
             }
