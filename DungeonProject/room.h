@@ -133,14 +133,8 @@ public:
     // Returns a const ref to the list of positions that have been adjusted
     const std::list<Coordinate>& getAdjustedPositions() const;
 
-    const Puzzle& getPuzzle() const;
-
-    const GAMEMAP& getGameMap() const;
-
-    GAMEMAP& getGameMapNotConst();
-
-    // deletes the puzzle and sets it to a nullptr
-    void setPuzzleAsSolved();
+    // checks if the puzzle is solved and does the action
+    void checkPuzzle();
 private:
     GAMEMAP gameMap;
 

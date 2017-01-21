@@ -33,18 +33,7 @@ dngutil::ReturnVal Game::run()
             }
         }
 
-        // The puzzle is set to nullptr if there is no puzzle
-        if (&activeRoom->getPuzzle() != nullptr)
-        {
-            if (activeRoom->getPuzzle().isSolved(activeRoom->getCreatureList(), activeRoom->getGameMap()))
-            {
-                activeRoom->getPuzzle().puzzleAction(activeRoom->getCreatureList(), activeRoom->getGameMapNotConst()); 
-                activeRoom->setAll();
-                activeRoom->drawRoom();
-                activeRoom->setPuzzleAsSolved();
-                soundEffect("Secret.wav", false, false);
-            }
-        }
+        activeRoom->checkPuzzle();
     }
 
     return returnVal;

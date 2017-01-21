@@ -322,25 +322,21 @@ const std::list<Coordinate>& Room::getAdjustedPositions() const
     return adjustedPositions;
 }
 
-const Puzzle& Room::getPuzzle() const
+void Room::checkPuzzle()
 {
-    return *puzzle;
-}
-
-const GAMEMAP& Room::getGameMap() const
-{
-    return gameMap;
-}
-
-GAMEMAP& Room::getGameMapNotConst()
-{
-    return gameMap;
-}
-
-void Room::setPuzzleAsSolved()
-{
-    delete puzzle;
-    puzzle = nullptr;
+    // The puzzle is set to nullptr if there is no puzzle
+    if (puzzle != nullptr)
+    {
+        if (puzzle->isSolved(creatureList, gameMap))
+        {
+            puzzle->puzzleAction(creatureList, gameMap);
+            setAll();
+            drawRoom();
+            delete puzzle;
+            puzzle = nullptr;
+            soundEffect("Secret.wav", false, false);
+        }
+    }
 }
 
 //---------------------------------------------------------------
