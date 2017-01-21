@@ -153,7 +153,6 @@ void Game::makeRooms()
     // Floor 0
     tfloor = 1;
     this->floor = tfloor;
-    // TODO: moving to 1,1 doesnt work, misallignv 
     {
             std::vector<std::string> roomTemplate;
             roomTemplate.push_back("####### #######");
@@ -193,8 +192,8 @@ void Game::makeRooms()
             roomTemplate.push_back("  ##### #####  ");
             roomTemplate.push_back("# #####^##### #");
             roomTemplate.push_back("# ##### ##### #");
-            roomTemplate.push_back("#  ####o####  #");
-            roomTemplate.push_back("#   #######   #");
+            roomTemplate.push_back("#  #### ####  #");
+            roomTemplate.push_back("#   ######o   #");
             roomTemplate.push_back("##   #####   ##");
             roomTemplate.push_back("###         ###");
             roomTemplate.push_back("####       ####");
@@ -202,7 +201,7 @@ void Game::makeRooms()
             roomTemplate.push_back("####### #######");
 
             std::map<Coordinate, MapObject*> specificObjects;
-            specificObjects.emplace(Coordinate(7, 11), new Potion(this, Coordinate(7, 11), dngutil::POTION_HEAL));
+            specificObjects.emplace(Coordinate(10, 12), new Potion(this, Coordinate(10, 12), dngutil::POTION_HEAL));
 
             std::vector<dngutil::TID> possibleCreatures;
             // TODO: change this to the first boss
