@@ -478,7 +478,9 @@ void Game::makeRooms()
         }
     {
         std::vector<std::string> roomTemplate;
-        roomTemplate.push_back("######   ######");
+        roomTemplate.push_back("######   ######");   
+        roomTemplate.push_back("#XXXX     XXXX#");
+        roomTemplate.push_back("#XXXX     XXXX#");
         roomTemplate.push_back("#XXXX     XXXX#");
         roomTemplate.push_back("#XXXX     XXXX#");
         roomTemplate.push_back("#XXXX     XXXX#");
@@ -514,14 +516,15 @@ void Game::makeRooms()
 
         auto puzzleAction = [this](std::list<Creature*> creatureList, GAMEMAP& gameMap) -> void
         {
-            // Removes all the holes blocking the bridge
-            for (int i = 5; i <= 9; i++)
+            HoleObject* hole = dynamic_cast<HoleObject*>(gameMap[6][7].back());
+
+            if (hole == nullptr)
             {
-                auto obj = gameMap[4][i].end();
-                --obj; // get it pointing to the last element, which is a hole
-                gameMap[4][i].erase(obj);
-                (*obj)->removeFromMap(true);
+                errorMessage("at [6][7] there is not a hole? This shouldn't happen, but apparently it did lol.", __LINE__, __FILE__);
             }
+
+            gameMap[6][7].remove(hole);
+            hole->removeFromMap(true);
         };
 
         std::map<Coordinate, MapObject*> specificObjects;
