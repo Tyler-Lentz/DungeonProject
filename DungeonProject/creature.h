@@ -80,15 +80,17 @@ public:
     unsigned int decreaseHealth(unsigned int amount);
 
     const Primary& getPrimary() const;
-    Primary*& getPrimaryMemory();
     void setPrimary(Primary* primary);
     const Secondary& getSecondary() const;
-    Secondary*& getSecondaryMemory();
     void setSecondary(Secondary* secondary);
 
     bool adjustPosition(dngutil::Movement movement);
 
     int getDamageDealt(Creature* defender);
+protected:
+    Primary*& getPrimaryMemory();
+    Secondary*& getSecondaryMemory();
+
 private:
     unsigned long lastMoveTime;
 
