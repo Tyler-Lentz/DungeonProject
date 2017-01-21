@@ -326,11 +326,9 @@ void TextMacros::outputBattleInfo(int leftTimer, int leftMaxTimer, int rightTime
         right.setColor(fullcolor);
     }
 
-    left += ColorString(" | ", dngutil::LIGHTGRAY);
-    left += right;
+    ColorString info = left + ColorString(" | ", dngutil::LIGHTGRAY) + right;
 
-    clearLine(vcursor.y);
-    vwin->putcen(left, vcursor.y);
+    vwin->putcen(info, vcursor.y);
 
     vcursor.y = BOTTOM_DIVIDER_TEXT_LINE + 1;
 

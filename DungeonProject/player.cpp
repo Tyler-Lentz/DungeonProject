@@ -164,8 +164,6 @@ void Player::printStats(int startingXCoord, int startingCursorY)
         " Speed: " + std::to_string(getSpd()), dngutil::WHITE), vcursor.y);
     vcursor.y++; vcursor.x = 0;
 
-    getPGame()->getVWin()->txtmacs.clearLine(vcursor.y);
-
     getPGame()->getVWin()->putcen(ColorString(
         " " + getPrimary().getName() +
         " and " + getSecondary().getName() +

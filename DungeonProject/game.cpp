@@ -152,7 +152,7 @@ void Game::makeRooms()
 
     // Floor 0
     tfloor = 1;
-    this->floor = tfloor;
+    this->floor = tfloor; // sets the starting floor
     {
             std::vector<std::string> roomTemplate;
             roomTemplate.push_back("####### #######");
@@ -177,7 +177,7 @@ void Game::makeRooms()
             RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
             gamespace[tfloor].emplace(mapCoord, new Room(this, rminfo, nullptr));
 
-            activeRoom = gamespace[tfloor][mapCoord];
+            activeRoom = gamespace[tfloor][mapCoord]; // sets the starting activeRoom
         }
     {
             std::vector<std::string> roomTemplate;
