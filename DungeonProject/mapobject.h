@@ -176,7 +176,7 @@ public:
     }
 
     // Defined in mapobject.cpp because it is big
-    virtual Collision mapAction(MapObject* collider, std::list<MapObject*>::iterator it);
+    Collision mapAction(MapObject* collider, std::list<MapObject*>::iterator& it) override;
 
     const bool& isUp() const
     {

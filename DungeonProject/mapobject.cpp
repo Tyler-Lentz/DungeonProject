@@ -128,7 +128,7 @@ void MapObject::removeFromMap(bool deleteit)
 //---------------------------------------------------------------
 // Exit Object Functions
 
-Collision ExitObject::mapAction(MapObject* collider, std::list<MapObject*>::iterator it)
+Collision ExitObject::mapAction(MapObject* collider, std::list<MapObject*>::iterator& it)
 {
     if (collider == getPGame()->getPlayer())
     {

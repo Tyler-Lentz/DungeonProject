@@ -165,9 +165,9 @@ void Player::printStats(int startingXCoord, int startingCursorY)
     vcursor.y++; vcursor.x = 0;
 
     getPGame()->getVWin()->putcen(ColorString(
-        " " + getPrimary().getName() +
+        "       " + getPrimary().getName() +
         " and " + getSecondary().getName() +
-        " ", dngutil::WHITE), vcursor.y);
+        "       ", dngutil::WHITE), vcursor.y);
 }
 
 ColorString Player::getExperienceBar()

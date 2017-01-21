@@ -497,7 +497,7 @@ void Game::makeRooms()
         roomTemplate.push_back("#XXXX     XXXX#");
         roomTemplate.push_back("#XXXX     XXXX#");
         roomTemplate.push_back("#XXXX     XXXX#");
-        roomTemplate.push_back("#XXXX     XXXX#");
+        roomTemplate.push_back("#XXXX  v  XXXX#");
         roomTemplate.push_back("##### ### #####");
 
         auto puzzleSolved = [](const std::list<Creature*>& creatureList, const GAMEMAP& gameMap) -> bool
