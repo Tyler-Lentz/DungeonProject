@@ -227,7 +227,7 @@ Collision HoleObject::mapAction(MapObject* collider, std::list<MapObject*>::iter
                 getPGame()->getVWin()->txtmacs.displayGame(getPGame());
                 getPGame()->clearDeletionList();
                 getPGame()->getVWin()->txtmacs.fallingScreen(getPGame());
-                return Collision(true, true, true);
+                return Collision(true, true, false);
             }
             else
             {

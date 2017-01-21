@@ -195,6 +195,10 @@ dngutil::MovementTypes Room::checkMovement(Coordinate coord, Creature* creature)
             {
                 return dngutil::MovementTypes::VALID;
             }
+            else
+            {
+                return dngutil::MovementTypes::RETURN_TRUE;
+            }
         }
     }
 

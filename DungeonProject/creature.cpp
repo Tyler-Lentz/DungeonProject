@@ -462,7 +462,7 @@ bool Creature::adjustPosition(dngutil::Movement movement)
         }
         break;
     case dngutil::MovementTypes::NEW_ROOM:
-
+    {
         switch (movement)
         {
         case dngutil::Movement::UP:
@@ -525,7 +525,13 @@ bool Creature::adjustPosition(dngutil::Movement movement)
 
         delete coordToTest;
         break;
-        // invalid movement does nothing
+    }
+
+    case dngutil::MovementTypes::RETURN_TRUE:
+        return true;
+        break; // just in case...
+        
+        // invalid movement does nothinG
     }
 
     lastMoveTime = GetTickCount();

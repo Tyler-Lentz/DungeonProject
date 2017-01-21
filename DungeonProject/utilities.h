@@ -72,7 +72,8 @@ namespace dngutil
     {
         VALID,
         INVALID,
-        NEW_ROOM
+        NEW_ROOM,
+        RETURN_TRUE
     };
 
     enum Priority
