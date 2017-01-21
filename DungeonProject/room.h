@@ -135,6 +135,9 @@ public:
 
     // checks if the puzzle is solved and does the action
     void checkPuzzle();
+
+    // Returns true if there is a puzzle set
+    bool hasPuzzle();
 private:
     GAMEMAP gameMap;
 

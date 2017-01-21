@@ -136,7 +136,169 @@ void Game::makeRooms()
     // Basement
     unsigned int tfloor = 0;
     {
-        
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("###########");
+        roomTemplate.push_back("#        ^#");
+        roomTemplate.push_back("#  ########");
+        roomTemplate.push_back("#  ##  e  #");
+        roomTemplate.push_back("#  ## ### #");
+        roomTemplate.push_back("#  ## ### #");
+        roomTemplate.push_back("#e ## ### #");
+        roomTemplate.push_back("#  ##^### #");
+        roomTemplate.push_back("#  ## ###^#");
+        roomTemplate.push_back("#  ## ### #");
+        roomTemplate.push_back("#  ## ### #");
+        roomTemplate.push_back("#  ## ### #");
+        roomTemplate.push_back("#  ## ### #");
+        roomTemplate.push_back("# e##e### #");
+        roomTemplate.push_back("#  ## ###e#");
+        roomTemplate.push_back("#  ## ### #");
+        roomTemplate.push_back("#  ## ### #");
+        roomTemplate.push_back("#  ## ### #");
+        roomTemplate.push_back("#o ##  o  #");
+        roomTemplate.push_back("###########");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+        specificObjects.emplace(Coordinate(1, 18), new Potion(this, Coordinate(1, 18), dngutil::POTION_HEAL));
+        specificObjects.emplace(Coordinate(7, 18), new Potion(this, Coordinate(7, 18), dngutil::POTION_HEAL));
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Skeleton);
+
+        int difficulty = 1;
+        int backColor = dngutil::DARKGRAY;
+        std::string name = "Rectangular Hallway";
+        Coordinate mapCoord(1, 1);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        gamespace[tfloor].emplace(mapCoord, new Room(this, rminfo, nullptr));
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########");
+        roomTemplate.push_back("########");
+        roomTemplate.push_back("########");
+        roomTemplate.push_back("###^ ###");
+        roomTemplate.push_back("###  ###");
+        roomTemplate.push_back("###  ###");
+        roomTemplate.push_back("###e ###");
+        roomTemplate.push_back("###  ###");
+        roomTemplate.push_back("###  ###");
+        roomTemplate.push_back("###  ###");
+        roomTemplate.push_back("### e###");
+        roomTemplate.push_back("###  ###");
+        roomTemplate.push_back("###  ###");
+        roomTemplate.push_back("###  ###");
+        roomTemplate.push_back("###e ###");
+        roomTemplate.push_back("###  ###");
+        roomTemplate.push_back("###^ ###");
+        roomTemplate.push_back("########");
+        roomTemplate.push_back("########");
+        roomTemplate.push_back("########");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Skeleton);
+
+        int difficulty = 0;
+        int backColor = dngutil::DARKGRAY;
+        std::string name = "Passageway";
+        Coordinate mapCoord(1, 0);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        gamespace[tfloor].emplace(mapCoord, new Room(this, rminfo, nullptr));
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("###############");
+        roomTemplate.push_back("# o           #");
+        roomTemplate.push_back("#       e   o #");
+        roomTemplate.push_back("# e         o #");
+        roomTemplate.push_back("#             #");
+        roomTemplate.push_back("#             #");
+        roomTemplate.push_back("#     e       #");
+        roomTemplate.push_back("#             #");
+        roomTemplate.push_back("#             #");
+        roomTemplate.push_back("#             #");
+        roomTemplate.push_back("#             #");
+        roomTemplate.push_back("#        e    #");
+        roomTemplate.push_back("#             #");
+        roomTemplate.push_back("# e           #");
+        roomTemplate.push_back("#             #");
+        roomTemplate.push_back("#             #");
+        roomTemplate.push_back("#          e  #");
+        roomTemplate.push_back("#    e        #");
+        roomTemplate.push_back("#             #");
+        roomTemplate.push_back("#             #");
+        roomTemplate.push_back("#             #");
+        roomTemplate.push_back("       ^      #");
+        roomTemplate.push_back("###############");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+        specificObjects.emplace(Coordinate(2, 1), new Potion(this, Coordinate(2, 1), dngutil::POTION_HEAL));
+        specificObjects.emplace(Coordinate(12, 2), new Potion(this, Coordinate(12, 2), dngutil::POTION_HEAL));
+        specificObjects.emplace(Coordinate(12, 3), new Potion(this, Coordinate(12, 3), dngutil::POTION_HEAL));
+
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Skeleton);
+
+        int difficulty = 4;
+        int backColor = dngutil::DARKGRAY;
+        std::string name = "Underneath The Bridge - Dangerous Skeletons!";
+        Coordinate mapCoord(0, 0);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        gamespace[tfloor].emplace(mapCoord, new Room(this, rminfo, nullptr));
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("#############");
+        roomTemplate.push_back("#          ^#");
+        roomTemplate.push_back("# ###########");
+        roomTemplate.push_back("# #    #    #");
+        roomTemplate.push_back("# # ## # ## #");
+        roomTemplate.push_back("# # #  # #  #");
+        roomTemplate.push_back("#   #e## ## #");
+        roomTemplate.push_back("### #  #  # #");
+        roomTemplate.push_back("#   #o ## # #");
+        roomTemplate.push_back("# ######### #");
+        roomTemplate.push_back("#           #");
+        roomTemplate.push_back("#   ##### ###");
+        roomTemplate.push_back("###     # # #");
+        roomTemplate.push_back("#o# ##  # # #");
+        roomTemplate.push_back("# #  #  # # #");
+        roomTemplate.push_back("# #  #    # #");
+        roomTemplate.push_back("# ######  # #");
+        roomTemplate.push_back("#        ## #");
+        roomTemplate.push_back("## ##### #  #");
+        roomTemplate.push_back("## #   #   ##");
+        roomTemplate.push_back("## # # ## ###");
+        roomTemplate.push_back("#    #       ");
+        roomTemplate.push_back("#############");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+        specificObjects.emplace(Coordinate(1, 13), new Potion(this, Coordinate(1, 13), dngutil::POTION_HEAL));
+        specificObjects.emplace(Coordinate(5, 8), new Secondary(
+            this,
+            ColorChar('0', dngutil::WHITE),
+            Coordinate(5, 8),
+            "White Shield",
+            false,
+            dngutil::TID::Secondary,
+            117,
+            .86,
+            "A very bright shield."
+            )
+        );
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Skeleton);
+
+        int difficulty = 1;
+        int backColor = dngutil::DARKGRAY;
+        std::string name = "Maze";
+        Coordinate mapCoord(-1, 0);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        gamespace[tfloor].emplace(mapCoord, new Room(this, rminfo, nullptr));
     }
 
     // Floor 0
@@ -314,6 +476,178 @@ void Game::makeRooms()
             RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
             gamespace[tfloor].emplace(mapCoord, new Room(this, rminfo, nullptr));
         }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("######   ######");
+        roomTemplate.push_back("#XXXX     XXXX#");
+        roomTemplate.push_back("#XXXX     XXXX#");
+        roomTemplate.push_back("#XXXX     XXXX#");
+        roomTemplate.push_back("#XXXXXXXXXXXXX#");
+        roomTemplate.push_back("#XXXX     XXXX#");
+        roomTemplate.push_back("#XXXX  e  XXXX#");
+        roomTemplate.push_back("#XXXX     XXXX#");
+        roomTemplate.push_back("#XXXXe   eXXXX#");
+        roomTemplate.push_back("#XXXX     XXXX#");
+        roomTemplate.push_back("#XXXX     XXXX#");
+        roomTemplate.push_back("#XXXX     XXXX#");
+        roomTemplate.push_back("#XXXX     XXXX#");
+        roomTemplate.push_back("#XXXX     XXXX#");
+        roomTemplate.push_back("#XXXX     XXXX#");
+        roomTemplate.push_back("#XXXX     XXXX#");
+        roomTemplate.push_back("#XXXX     XXXX#");
+        roomTemplate.push_back("#XXXX     XXXX#");
+        roomTemplate.push_back("#XXXX     XXXX#");
+        roomTemplate.push_back("#XXXX     XXXX#");
+        roomTemplate.push_back("##### ### #####");
+
+        auto puzzleSolved = [](const std::list<Creature*>& creatureList, const GAMEMAP& gameMap) -> bool
+        {
+            for (auto it = creatureList.begin(); it != creatureList.end(); it++)
+            {
+                if ((*it)->getTypeId() != dngutil::TID::Player)
+                {
+                    return false;
+                }
+            }
+            return true;
+        };
+
+        auto puzzleAction = [this](std::list<Creature*> creatureList, GAMEMAP& gameMap) -> void
+        {
+            // Removes all the holes blocking the bridge
+            for (int i = 5; i <= 9; i++)
+            {
+                auto obj = gameMap[4][i].end();
+                --obj; // get it pointing to the last element, which is a hole
+                gameMap[4][i].erase(obj);
+                (*obj)->removeFromMap(true);
+            }
+        };
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Skeleton);
+
+        int difficulty = 1;
+        int backColor = dngutil::LIGHTGRAY;
+        std::string name = "Dangerous Bridge";
+        Coordinate mapCoord(0, 0);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        gamespace[tfloor].emplace(mapCoord, new Room(this, rminfo, new Puzzle(puzzleSolved, puzzleAction)));
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("###############");
+        roomTemplate.push_back("               ");
+        roomTemplate.push_back("###############");
+        roomTemplate.push_back("###############");
+        roomTemplate.push_back("###############");
+        roomTemplate.push_back("###############");
+        roomTemplate.push_back("#######        ");
+        roomTemplate.push_back("####### #######");
+        roomTemplate.push_back("#######e#######");
+        roomTemplate.push_back("  ##### #######");
+        roomTemplate.push_back("# ####   ######");
+        roomTemplate.push_back("#o####   ######");
+        roomTemplate.push_back("######   ######");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+        specificObjects.emplace(Coordinate(1, 11), new Key(this, Coordinate(1, 11)));
+
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Skeleton);
+
+        int difficulty = 0;
+        int backColor = dngutil::LIGHTGRAY;
+        std::string name = "Tight Hallways";
+        Coordinate mapCoord(0, -1);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        gamespace[tfloor].emplace(mapCoord, new Room(this, rminfo, nullptr));
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("###");
+        roomTemplate.push_back("#  ");
+        roomTemplate.push_back("#e#");
+        roomTemplate.push_back("# #");
+        roomTemplate.push_back("# #");
+        roomTemplate.push_back("# #");
+        roomTemplate.push_back("# #");
+        roomTemplate.push_back("# #");
+        roomTemplate.push_back("#e#");
+        roomTemplate.push_back("#  ");
+        roomTemplate.push_back("###");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Skeleton);
+
+        int difficulty = 0;
+        int backColor = dngutil::LIGHTGRAY;
+        std::string name = "Hallway";
+        Coordinate mapCoord(-1, -1);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        gamespace[tfloor].emplace(mapCoord, new Room(this, rminfo, nullptr));
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########");
+        roomTemplate.push_back("       #");
+        roomTemplate.push_back("###### #");
+        roomTemplate.push_back("###### #");
+        roomTemplate.push_back("###### #");
+        roomTemplate.push_back("###### #");
+        roomTemplate.push_back("       #");
+        roomTemplate.push_back("###### #");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+
+        int difficulty = 0;
+        int backColor = dngutil::LIGHTGRAY;
+        std::string name = "Connector";
+        Coordinate mapCoord(1, -1);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        gamespace[tfloor].emplace(mapCoord, new Room(this, rminfo, nullptr));
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("###### #");
+        roomTemplate.push_back("#      #");
+        roomTemplate.push_back("#      #");
+        roomTemplate.push_back("#  v   #");
+        roomTemplate.push_back("########");
+        roomTemplate.push_back("########");
+        roomTemplate.push_back("########");
+        roomTemplate.push_back("########");
+        roomTemplate.push_back("########");
+        roomTemplate.push_back("########");
+        roomTemplate.push_back("########");
+        roomTemplate.push_back("########");
+        roomTemplate.push_back("########");
+        roomTemplate.push_back("########");
+        roomTemplate.push_back("########");
+        roomTemplate.push_back("########");
+        roomTemplate.push_back("#  v   #");
+        roomTemplate.push_back("#      #");
+        roomTemplate.push_back("#      #");
+        roomTemplate.push_back("########");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+
+        int difficulty = 0;
+        int backColor = dngutil::LIGHTGRAY;
+        std::string name = "Passage Entrance";
+        Coordinate mapCoord(1, 0);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        gamespace[tfloor].emplace(mapCoord, new Room(this, rminfo, nullptr));
+    }
 }
 
 void Game::setActiveFloor(unsigned int floor)

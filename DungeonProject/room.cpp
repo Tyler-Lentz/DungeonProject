@@ -325,7 +325,7 @@ const std::list<Coordinate>& Room::getAdjustedPositions() const
 void Room::checkPuzzle()
 {
     // The puzzle is set to nullptr if there is no puzzle
-    if (puzzle != nullptr)
+    if (hasPuzzle())
     {
         if (puzzle->isSolved(creatureList, gameMap))
         {
@@ -337,6 +337,11 @@ void Room::checkPuzzle()
             soundEffect("Secret.wav", false, false);
         }
     }
+}
+
+bool Room::hasPuzzle()
+{
+    return (puzzle != nullptr);
 }
 
 //---------------------------------------------------------------
