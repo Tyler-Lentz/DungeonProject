@@ -284,7 +284,7 @@ bool Creature::battle(MapObject* t_enemy)
     if (enemy->getLvl() + 1 < player->getLvl())
     {
         enemy->increaseLvl(1);
-
+        enemy->levelUpStats();
     }
 
     int enemyWeaponSpeed = enemy->getPrimary().getAttSpeed();
