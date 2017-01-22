@@ -189,25 +189,27 @@ void Player::addExperience(unsigned int experience)
     VirtualWindow* vwin = getPGame()->getVWin();
     vwin->txtmacs.clearDivider("bottom");
 
-    soundEffect("Experience.wav", true, true);
+    soundEffect("Experience.wav", true, true); 
+    vwin->txtmacs.clearMapArea(false, NULL);
     for (unsigned int i = 0; i < experience; i++)
     {
-        vwin->txtmacs.clearMapArea(false, NULL);
         Coordinate vcursor(0, static_cast<int>(dngutil::CONSOLEY / 2.0));
-        exp++;
+        exp++;     
+        vwin->putcen(getExperienceBar(), vcursor.y);
         if (exp >= expToLevel)
         {
             overFlowXp = (experience - i);
+            Sleep(500);
             soundEffect("Levelup.wav", false, false);
             break;
         }
 
-        vwin->putcen(getExperienceBar(), vcursor.y);
         if (!keypress(VK_RETURN))
         {
-            Sleep(20);
+            Sleep(50);
         }
     }
+    vwin->txtmacs.clearMapArea(false, NULL);
     stopSound();
 
     if (exp >= expToLevel)
