@@ -51,6 +51,8 @@ public:
     virtual bool battle(MapObject* enemy);
 
 
+    void levelUpStats();
+
     bool isDead() const;
     const unsigned int& getMaxhp() const;
     const int& getHp() const;

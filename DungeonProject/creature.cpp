@@ -281,6 +281,12 @@ bool Creature::battle(MapObject* t_enemy)
     Player* player = getPGame()->getPlayer();
     VirtualWindow* vwin = getPGame()->getVWin();
 
+    if (enemy->getLvl() + 1 < player->getLvl())
+    {
+        enemy->increaseLvl(1);
+
+    }
+
     int enemyWeaponSpeed = enemy->getPrimary().getAttSpeed();
     int enemyTimer = 0;
 
@@ -620,6 +626,45 @@ int Creature::getDamageDealt(Creature* defender)
     int roundedDamage = static_cast<int>(round(damage));
 
     return roundedDamage;
+}
+
+void Creature::levelUpStats()
+{
+    int healthIncrease = random(4, 8);
+    increaseMaxhp(healthIncrease);
+    increaseHealth(healthIncrease);
+    if (getMaxhp() > dngutil::MAX_HP)
+    {
+        setMaxhp(dngutil::MAX_HP);
+    }
+    if (getHp() > dngutil::MAX_HP)
+    {
+        setHp(dngutil::MAX_HP);
+    }
+
+    increaseAtt(random(3, 4));
+    if (getAtt() > dngutil::MAX_ATT)
+    {
+        setAtt(dngutil::MAX_ATT);
+    }
+
+    increaseDef(random(2, 4));
+    if (getDef() > dngutil::MAX_DEF)
+    {
+        setDef(dngutil::MAX_DEF);
+    }
+
+    increaseLck(random(2, 6));
+    if (getLck() > dngutil::MAX_LCK)
+    {
+        setLck(dngutil::MAX_LCK);
+    }
+
+    increaseSpd(random(4, 8));
+    if (getSpd() > dngutil::MAX_SPD)
+    {
+        setSpd(dngutil::MAX_SPD);
+    }
 }
 
 //------------------------------------------------------------

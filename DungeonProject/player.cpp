@@ -225,62 +225,27 @@ void Player::addExperience(unsigned int experience)
         vwin->txtmacs.displayLevelupStats(vcursor, this);
         Sleep(1000);
 
-        for (int i = 0; i < 5; i++)
-        {
-            switch (i)
-            {
-            case 0:
-            {
-                int healthIncrease = random(4, 8);
-                increaseMaxhp(healthIncrease);
-                increaseHealth(healthIncrease);
-            }
-            if (getMaxhp() > dngutil::MAX_HP)
-            {
-                setMaxhp(dngutil::MAX_HP);
-            }
-            if (getHp() > dngutil::MAX_HP)
-            {
-                setHp(dngutil::MAX_HP);
-            }
-            break;
+        int prevAtt = getAtt();
+        int prevHp = getHp();
+        int prevDef = getDef();
+        int prevLck = getLck();
+        int prevSpd = getSpd();
 
-            case 1:
-                increaseAtt(random(3, 4));
-                if (getAtt() > dngutil::MAX_ATT)
-                {
-                    setAtt(dngutil::MAX_ATT);
-                }
-                break;
+        levelUpStats();
 
-            case 2:
-                increaseDef(random(2, 4));
-                if (getDef() > dngutil::MAX_DEF)
-                {
-                    setDef(dngutil::MAX_DEF);
-                }
-                break;
+        vwin->txtmacs.displayLevelupStats(vcursor, this);
 
-            case 3:
-                increaseLck(random(2, 6));
-                if (getLck() > dngutil::MAX_LCK)
-                {
-                    setLck(dngutil::MAX_LCK);
-                }
-                break;
+        vcursor.y += 15; vcursor.x = 0;
 
-            case 4:
-                increaseSpd(random(4, 8));
-                if (getSpd() > dngutil::MAX_SPD)
-                {
-                    setSpd(dngutil::MAX_SPD);
-                }
-                break;
-            }
-            vwin->txtmacs.displayLevelupStats(vcursor, this);
-            soundEffect("PickupItem.wav", false, false);
-        }
+        vwin->putcen(ColorString("Health + " + std::to_string(getHp() - prevHp), dngutil::WHITE), vcursor.y++);
+        vwin->putcen(ColorString("Attack + " + std::to_string(getAtt() - prevAtt), dngutil::WHITE), vcursor.y++);
+        vwin->putcen(ColorString("Defense + " + std::to_string(getDef() - prevDef), dngutil::WHITE), vcursor.y++);
+        vwin->putcen(ColorString("Luck + " + std::to_string(getLck() - prevLck), dngutil::WHITE), vcursor.y++);
+        vwin->putcen(ColorString("Speed + " + std::to_string(getSpd() - prevSpd), dngutil::WHITE), vcursor.y);
+        vcursor.y = vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE;
+        pressEnter(vcursor, vwin);
     }
+    
     if (overFlowXp > 0)
     {
         addExperience(overFlowXp);

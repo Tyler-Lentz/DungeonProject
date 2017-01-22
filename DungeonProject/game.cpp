@@ -144,10 +144,10 @@ void Game::makeRooms()
         roomTemplate.push_back("#  ## ### #");
         roomTemplate.push_back("#  ## ### #");
         roomTemplate.push_back("#e ## ### #");
+        roomTemplate.push_back("#  ## ### #");
         roomTemplate.push_back("#  ##^### #");
+        roomTemplate.push_back("#  ## ### #");
         roomTemplate.push_back("#  ## ###^#");
-        roomTemplate.push_back("#  ## ### #");
-        roomTemplate.push_back("#  ## ### #");
         roomTemplate.push_back("#  ## ### #");
         roomTemplate.push_back("#  ## ### #");
         roomTemplate.push_back("# e##e### #");
@@ -446,7 +446,6 @@ void Game::makeRooms()
             roomTemplate.push_back("#  ##     #");
             roomTemplate.push_back("#  ###### #");
             roomTemplate.push_back("#      e  #");
-            roomTemplate.push_back("#         #");
             roomTemplate.push_back("###########");
 
 
@@ -705,50 +704,6 @@ Creature* Game::generateCreature(int difficulty, dngutil::TID tid)
     int defense = 2;
     int luck = 5;
     int speed = 10;
-    for (int i = 0; i < level; i++)
-    {
-        for (int j = 0; j < 5; j++)
-        {
-            switch (j)
-            {
-            case 0:
-                health += (random(5, 10));
-                if (health > dngutil::MAX_HP)
-                {
-                    health = dngutil::MAX_HP;
-                }
-                break;
-            case 1:
-                attack += (random(2, 4));
-                if (attack > dngutil::MAX_ATT)
-                {
-                    attack = dngutil::MAX_ATT;
-                }
-                break;
-            case 2:
-                defense += (random(2, 4));
-                if (defense > dngutil::MAX_DEF)
-                {
-                    defense = dngutil::MAX_DEF;
-                }
-                break;
-            case 3:
-                luck += (random(5, 15));
-                if (luck > dngutil::MAX_LCK)
-                {
-                    luck = dngutil::MAX_LCK;
-                }
-                break;
-            case 4:
-                speed += (random(4, 8));
-                if (speed > dngutil::MAX_SPD)
-                {
-                    speed = dngutil::MAX_SPD;
-                }
-                break;
-            }
-        }
-    }
 
     Enemy* enemy = nullptr;
     switch (tid)
@@ -761,6 +716,11 @@ Creature* Game::generateCreature(int difficulty, dngutil::TID tid)
     if (enemy == nullptr)
     {
         errorMessage("Enemy is a nullptr. TID is " + std::to_string(static_cast<int>(tid)), __LINE__, __FILE__);
+    }
+
+    for (int i = 0; i < enemy->getLvl(); i++)
+    {
+        enemy->levelUpStats();
     }
 
     return enemy;
