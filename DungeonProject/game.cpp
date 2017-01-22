@@ -560,9 +560,9 @@ void Game::makeRooms()
 
 
         std::vector<dngutil::TID> possibleCreatures;
-        possibleCreatures.push_back(dngutil::TID::Skeleton);
+        possibleCreatures.push_back(dngutil::TID::LargeSkeleton);
 
-        int difficulty = 0;
+        int difficulty = 2;
         int backColor = dngutil::LIGHTGRAY;
         std::string name = "Tight Hallways";
         Coordinate mapCoord(0, -1);
@@ -711,6 +711,10 @@ Creature* Game::generateCreature(int difficulty, dngutil::TID tid)
     {
     case dngutil::TID::Skeleton:
         enemy = new Skeleton(this, Coordinate(-1, -1), health, attack, defense, luck, speed, level);
+        break;
+
+    case dngutil::TID::LargeSkeleton:
+        enemy = new LargeSkeleton(this, Coordinate(-1, -1), health, attack, defense, luck, speed, level);
         break;
     }
 

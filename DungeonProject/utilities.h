@@ -43,7 +43,8 @@ namespace dngutil
         Skeleton,
         Key,
         LockedDoor,
-        Hole
+        Hole,
+        LargeSkeleton
     };
 
     enum class BTID

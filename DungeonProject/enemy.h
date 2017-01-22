@@ -147,4 +147,28 @@ public:
     void deathSequence() override;
 };
 
+class LargeSkeleton : public BEnemy
+{
+public:
+    LargeSkeleton(
+        Game* pgame,
+        Coordinate coord,
+        int hp,
+        unsigned int att,
+        unsigned int def,
+        unsigned int lck,
+        unsigned int spd,
+        unsigned int lvl
+    );
+
+    LargeSkeleton(const LargeSkeleton& other, Game* game) : BEnemy(other, game) {}
+
+    void printSelf() override;
+
+    MapObject* makeSave(Game* game) override
+    {
+        return new LargeSkeleton(*this, game);
+    }
+};
+
 #endif
