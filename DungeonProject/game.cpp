@@ -462,7 +462,8 @@ void Game::makeRooms()
                 2,
                 70,
                 false,
-                "A spear that is colored pitch black"
+                "A spear that is colored pitch black",
+                "Attack3.wav"
             ));
 
             std::vector<dngutil::TID> possibleCreatures;
@@ -718,7 +719,7 @@ Creature* Game::generateCreature(int difficulty, dngutil::TID tid)
         errorMessage("Enemy is a nullptr. TID is " + std::to_string(static_cast<int>(tid)), __LINE__, __FILE__);
     }
 
-    for (int i = 0; i < enemy->getLvl(); i++)
+    for (unsigned int i = 0; i < enemy->getLvl(); i++)
     {
         enemy->levelUpStats();
     }

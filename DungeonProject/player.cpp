@@ -44,7 +44,8 @@ Player::Player(
             3,
             80,
             false,
-            "A rusty old sword."
+            "A rusty old sword.",
+            "Attack1.wav"
         ),
         new Secondary(
             pgame,

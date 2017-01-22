@@ -223,6 +223,11 @@ const bool& Primary::getStartReady() const
     return startReady;
 }
 
+const std::string& Primary::getHitsound() const
+{
+    return hitsound;
+}
+
 bool Primary::hit() const
 {
     return (random(99) < accuracy);

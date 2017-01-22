@@ -303,7 +303,8 @@ Skeleton::Skeleton(
         5,
         70,
         false,
-        "A heavy wooden axe that was dropped from a Skeleton"
+        "A heavy wooden axe that was dropped from a Skeleton",
+        "Attack4.wav"
     ),
     new Secondary(
         pgame,

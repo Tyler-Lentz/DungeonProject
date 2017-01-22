@@ -595,14 +595,23 @@ int Creature::getDamageDealt(Creature* defender)
 
         bool crit = (random(critChance) == 0);
 
+        soundEffect(getPrimary().getHitsound(), false, false);
+
         if (crit)
         {
             attack *= 2;
-            soundEffect("CriticalHit.wav", false, true);
+            soundEffect("CriticalHit.wav", false, false);
         }
         else
         {
-            soundEffect("CreatureHit.wav", false, true);
+            if (getTypeId() == dngutil::TID::Player)
+            {
+                soundEffect("PlayerHit.wav", false, true);
+            }
+            else
+            {
+                soundEffect("EnemyHit.wav", false, true);
+            }
         }
     }
     else

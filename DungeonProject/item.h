@@ -85,13 +85,15 @@ public:
         int attSpeed,
         int accuracy,
         bool startReady,
-        std::string description
+        std::string description,
+        std::string hitsound
     ) :RItem(pgame, mapRep, coord, name, true, rawoutput, false, typeId, false, description)
     {
         this->dmgMultiplier = dmgMultiplier;
         this->attSpeed = attSpeed;
         this->accuracy = accuracy;
         this->startReady = startReady;
+        this->hitsound = hitsound;
     }
 
     // Save constructor
@@ -102,6 +104,7 @@ public:
         this->attSpeed = other.attSpeed;
         this->accuracy = other.accuracy;
         this->startReady = other.startReady;
+        this->hitsound = other.hitsound;
     }
 
     Item* makeSaveInv(Game* game) override;
@@ -113,6 +116,7 @@ public:
     const int& getAttSpeed() const;
     const int& getAccuracy() const;
     const bool& getStartReady() const;
+    const std::string& getHitsound() const;
 
     bool hit() const;
 private:
@@ -128,6 +132,9 @@ private:
     // If this is true, when entering a battle the weapon's charge meter
     // will be fully charged.
     bool startReady;
+
+    // name of .wav file that plays when the weapon is used
+    std::string hitsound;
 };
 
 class Secondary : public RItem
