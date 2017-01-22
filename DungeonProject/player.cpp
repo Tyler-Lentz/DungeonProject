@@ -237,11 +237,11 @@ void Player::addExperience(unsigned int experience)
 
         vcursor.y += 15; vcursor.x = 0;
 
-        vwin->putcen(ColorString("Health + " + std::to_string(getHp() - prevHp), dngutil::WHITE), vcursor.y++);
-        vwin->putcen(ColorString("Attack + " + std::to_string(getAtt() - prevAtt), dngutil::WHITE), vcursor.y++);
-        vwin->putcen(ColorString("Defense + " + std::to_string(getDef() - prevDef), dngutil::WHITE), vcursor.y++);
-        vwin->putcen(ColorString("Luck + " + std::to_string(getLck() - prevLck), dngutil::WHITE), vcursor.y++);
-        vwin->putcen(ColorString("Speed + " + std::to_string(getSpd() - prevSpd), dngutil::WHITE), vcursor.y);
+        vwin->putcen(ColorString("Health + " + std::to_string(getHp() - prevHp), dngutil::RED), vcursor.y++);
+        vwin->putcen(ColorString("Attack + " + std::to_string(getAtt() - prevAtt), dngutil::GREEN), vcursor.y++);
+        vwin->putcen(ColorString("Defense + " + std::to_string(getDef() - prevDef), dngutil::BLUE), vcursor.y++);
+        vwin->putcen(ColorString("Luck + " + std::to_string(getLck() - prevLck), dngutil::YELLOW), vcursor.y++);
+        vwin->putcen(ColorString("Speed + " + std::to_string(getSpd() - prevSpd), dngutil::CYAN), vcursor.y);
         vcursor.y = vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE;
         pressEnter(vcursor, vwin);
     }

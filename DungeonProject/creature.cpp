@@ -360,6 +360,7 @@ bool Creature::battle(MapObject* t_enemy)
                     pressEnter(Coordinate(0, getPGame()->getVWin()->txtmacs.BOTTOM_DIVIDER_TEXT_LINE), getPGame()->getVWin());
                     getPGame()->getVWin()->txtmacs.clearDivider("bottom");
                     startMp3("Overworld.mp3");
+                    soundEffect("ExitToMap.wav", false, true);
 
                     getPGame()->getActiveRoom()->getCreatureList().remove(enemy);
                     return true;
