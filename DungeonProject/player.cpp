@@ -44,7 +44,7 @@ Player::Player(
             3,
             80,
             false,
-            "A sword that has been passed down for generations in your family."
+            "A rusty old sword."
         ),
         new Secondary(
             pgame,
@@ -55,14 +55,13 @@ Player::Player(
             dngutil::TID::Secondary,
             50,
             .95,
-            "A shield that has been passed down for generations in your family."
+            "A very simple shield."
         ),
         dngutil::P_PLAYER
     )
 {
     this->exp = 0;
     this->expToLevel = getExpToLevel(getLvl());
-    // inventory is initialized as empty
 }
 
 Player::Player(const Player& other, Game* game)

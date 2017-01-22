@@ -193,7 +193,7 @@ void Primary::action(Player* player, unsigned int inventoryIndex)
 
     if (player->swapPrimary(player->getInventoryNotConst()[inventoryIndex]))
     {
-        output = "Swapped active weapon";
+        output = "Swapped active primary.";
     }
     else
     {
@@ -244,7 +244,7 @@ void Secondary::action(Player* player, unsigned int inventoryIndex)
 
     if (player->swapSecondary(player->getInventoryNotConst()[inventoryIndex]))
     {
-        output = "Swapped active weapon";
+        output = "Swapped active secondary.";
     }
     else
     {
