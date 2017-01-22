@@ -40,9 +40,8 @@ public:
 
     virtual void printSelf() = 0;
     virtual std::string drop() = 0;
-    virtual bool movement() = 0;
-    virtual Collision mapAction(MapObject* collider, std::list<MapObject*>::iterator& it);
-    virtual void printStats(int LONGEST_LINE_LENGTH, int startingCursorY);
+    Collision mapAction(MapObject* collider, std::list<MapObject*>::iterator& it) override;
+    void printStats(int LONGEST_LINE_LENGTH, int startingCursorY) override;
 
     const std::string& getDeathSound() const;
     const std::string& getBattleMusic() const;
@@ -84,7 +83,7 @@ public:
 
     std::string drop();
     
-    virtual bool movement();
+    bool movement() override;
 };
 
 class Skeleton : public REnemy
@@ -103,9 +102,9 @@ public:
 
     Skeleton(const Skeleton& other, Game* game) : REnemy(other, game) {}
 
-    virtual void printSelf();
+    void printSelf() override;
 
-    virtual MapObject* makeSave(Game* game)
+    MapObject* makeSave(Game* game) override
     {
         return new Skeleton(*this, game);
     }
@@ -141,11 +140,11 @@ public:
     BEnemy(const BEnemy& other, Game* game) :Enemy(other, game) {}
 
 
-    std::string drop();
+    std::string drop() override;
     
-    bool movement();
+    bool movement() override;
 
-    virtual void deathSequence();
+    void deathSequence() override;
 };
 
 #endif

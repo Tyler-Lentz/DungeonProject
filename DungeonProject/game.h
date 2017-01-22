@@ -6,6 +6,7 @@
 
 #include <map>
 #include <list>
+#include <array>
 
 class MapObject;
 class Room;
@@ -13,8 +14,6 @@ class Player;
 class VirtualWindow;
 class MapObject;
 class Creature;
-
-// TODO: comment this class
 
 class Game
 {
@@ -54,7 +53,7 @@ private:
     Game* lastSave;
 
     // Holds all of the rooms.
-    std::map<Coordinate, Room*> gamespace[dngutil::NUMFLOORS];
+    std::array<std::map<Coordinate, Room*>, dngutil::NUMFLOORS> gamespace;
 
     // List of items that need to be deleted.
     std::list<MapObject*> deletionList;

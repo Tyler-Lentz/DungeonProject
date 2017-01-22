@@ -92,7 +92,7 @@ private:
 class EmptyObject : public MapObject
 {
 public:
-    EmptyObject(Game* game, Coordinate coord):
+    EmptyObject(Game* game, Coordinate coord) :
         MapObject(
             game,
             ColorChar(' ', dngutil::BACKGROUND_COLOR),
@@ -105,12 +105,9 @@ public:
             dngutil::P_EMPTY,
             dngutil::BTID::None,
             false
-        )
-    {
+        ) {}
 
-    }
-
-    virtual MapObject* makeSave(Game* game)
+    MapObject* makeSave(Game* game) override
     {
         return new EmptyObject(game, getCoord());
     }
@@ -119,7 +116,7 @@ public:
 class WallObject : public MapObject
 {
 public:
-    WallObject(Game* game, Coordinate coord):
+    WallObject(Game* game, Coordinate coord) :
         MapObject(
             game,
             ColorChar('#', dngutil::BLACK),
@@ -132,12 +129,9 @@ public:
             dngutil::P_WALL,
             dngutil::BTID::None,
             false
-        )
-    {
+        ) {}
 
-    }
-
-    virtual MapObject* makeSave(Game* game)
+    MapObject* makeSave(Game* game) override
     {
         return new WallObject(game, getCoord());
     }
@@ -170,7 +164,7 @@ public:
         this->up = other.up;
     }
 
-    virtual MapObject* makeSave(Game* game)
+    MapObject* makeSave(Game* game) override
     {
         return new ExitObject(*this, game);
     }
@@ -191,8 +185,8 @@ class HoleObject : public MapObject
 {
 public:
     HoleObject(Game* game, Coordinate coord);
-    virtual Collision mapAction(MapObject* collider, std::list<MapObject*>::iterator& it);
-    virtual MapObject* makeSave(Game* game)
+    Collision mapAction(MapObject* collider, std::list<MapObject*>::iterator& it) override;
+    MapObject* makeSave(Game* game) override
     {
         return new HoleObject(game, getCoord());
     }
@@ -202,8 +196,8 @@ class DoorObject : public MapObject
 {
 public:
     DoorObject(Game* game, Coordinate coord, ColorChar mapRep);
-    virtual Collision mapAction(MapObject* collider, std::list<MapObject*>::iterator& it);
-    virtual MapObject* makeSave(Game* game)
+    Collision mapAction(MapObject* collider, std::list<MapObject*>::iterator& it) override;
+    MapObject* makeSave(Game* game) override
     {
         return new HoleObject(game, getCoord());
     }

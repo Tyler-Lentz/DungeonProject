@@ -68,7 +68,7 @@ public:
     RItem(const RItem& other, Game* game);
 
     // MapAction for regular items, adds it to the player's inventory
-    virtual Collision mapAction(MapObject* collider, std::list<MapObject*>::iterator& it);
+    Collision mapAction(MapObject* collider, std::list<MapObject*>::iterator& it) override;
 };
 
 class Primary : public RItem
@@ -104,10 +104,10 @@ public:
         this->startReady = other.startReady;
     }
 
-    virtual Item* makeSaveInv(Game* game);
-    virtual MapObject* makeSave(Game* game);
+    Item* makeSaveInv(Game* game) override;
+    MapObject* makeSave(Game* game) override;
 
-    virtual void action(Player* player, unsigned int inventoryIndex);
+    void action(Player* player, unsigned int inventoryIndex) override;
 
     const double& getDmgMultiplier() const;
     const int& getAttSpeed() const;
@@ -157,10 +157,10 @@ public:
         this->dmgReductMult = other.dmgReductMult;
     }
 
-    virtual Item* makeSaveInv(Game* game);
-    virtual MapObject* makeSave(Game* game);
+    Item* makeSaveInv(Game* game) override;
+    MapObject* makeSave(Game* game) override;
 
-    virtual void action(Player* player, unsigned int inventoryIndex);
+    void action(Player* player, unsigned int inventoryIndex) override;
 
     const double& getDmdReductMult() const;
     const int& getDeflectTime() const;
@@ -180,10 +180,10 @@ public:
     // Save constructor
     Potion(const Potion& other, Game* game);
 
-    virtual Item* makeSaveInv(Game* game);
-    virtual MapObject* makeSave(Game* game);
+    Item* makeSaveInv(Game* game) override;
+    MapObject* makeSave(Game* game) override;
 
-    virtual void action(Player* player, unsigned int inventoryIndex);
+    void action(Player* player, unsigned int inventoryIndex) override;
 private:
     int healAmount;
 };
@@ -195,10 +195,10 @@ public:
 
     Key(const Key& other, Game* game);
 
-    virtual Item* makeSaveInv(Game* game);
-    virtual MapObject* makeSave(Game* game);
+    Item* makeSaveInv(Game* game) override;
+    MapObject* makeSave(Game* game) override;
 
-    virtual void action(Player* player, unsigned int inventoryIndex);
+    void action(Player* player, unsigned int inventoryIndex) override;
 };
 
 //-------------------------------------------------------------

@@ -45,11 +45,11 @@ public:
 
     Player(const Player& other, Game* game);
 
-    virtual bool movement();
-    virtual void printStats(int LONGEST_LINE_LENGTH, int startingCursorY);
+    bool movement() override;
+    void printStats(int LONGEST_LINE_LENGTH, int startingCursorY) override;
 
-    virtual MapObject* makeSave(Game* game);
-    virtual Collision mapAction(MapObject* collider, std::list<MapObject*>::iterator& it);
+    MapObject* makeSave(Game* game) override;
+    Collision mapAction(MapObject* collider, std::list<MapObject*>::iterator& it) override;
 
     void addToInventory(Item* item);
     void removeFromInventory(unsigned int index);
