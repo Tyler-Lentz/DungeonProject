@@ -354,9 +354,9 @@ void TextMacros::displayInventory(int positions[], Player* player)
 
     for (auto it = player->getInventory().begin(); it != player->getInventory().end(); it++)
     {
-        vwin->putcen(ColorString("   " + (*it)->getName() + " - ", dngutil::LIGHTGRAY)
+        vwin->put(ColorString("   " + (*it)->getName() + " - ", dngutil::LIGHTGRAY)
             + (*it)->getMapRep()
-            + ColorString(" - " + (*it)->getDescription(), dngutil::LIGHTGRAY), vcursor.y);
+            + ColorString(" - " + (*it)->getDescription(), dngutil::LIGHTGRAY), Coordinate(0, vcursor.y));
         vcursor.y++;
     }
 
