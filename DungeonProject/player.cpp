@@ -222,11 +222,7 @@ void Player::addExperience(unsigned int experience)
         vwin->putcen(ColorString("Level Up! You are now level " + std::to_string(getLvl()), dngutil::WHITE), vcursor.y);
         soundEffect("LevelUp.wav", false, false);
 
-
         vcursor.y++;
-
-        vwin->txtmacs.displayLevelupStats(vcursor, this);
-        soundEffect("PickupItem.wav", false, false);
 
         int prevAtt = getAtt();
         int prevHp = getHp();
@@ -236,15 +232,17 @@ void Player::addExperience(unsigned int experience)
 
         levelUpStats();
 
-        vwin->txtmacs.displayLevelupStats(vcursor, this);
-
-        vcursor.y += 15; vcursor.x = 0;
+        vcursor.y += 2; vcursor.x = 0;
 
         vwin->putcen(ColorString("Health + " + std::to_string(getHp() - prevHp), dngutil::RED), vcursor.y++);
+        soundEffect("PickupItem.wav", false, false);
         vwin->putcen(ColorString("Attack + " + std::to_string(getAtt() - prevAtt), dngutil::GREEN), vcursor.y++);
+        soundEffect("PickupItem.wav", false, false);
         vwin->putcen(ColorString("Defense + " + std::to_string(getDef() - prevDef), dngutil::BLUE), vcursor.y++);
+        soundEffect("PickupItem.wav", false, false);
         vwin->putcen(ColorString("Luck + " + std::to_string(getLck() - prevLck), dngutil::YELLOW), vcursor.y++);
-        vwin->putcen(ColorString("Speed + " + std::to_string(getSpd() - prevSpd), dngutil::CYAN), vcursor.y);  
+        soundEffect("PickupItem.wav", false, false);
+        vwin->putcen(ColorString("Speed + " + std::to_string(getSpd() - prevSpd), dngutil::CYAN), vcursor.y);
         soundEffect("PickupItem.wav", false, false);
 
         vcursor.y = vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE;

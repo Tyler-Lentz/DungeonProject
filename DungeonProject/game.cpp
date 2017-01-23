@@ -252,7 +252,7 @@ void Game::makeRooms()
     {
         std::vector<std::string> roomTemplate;
         roomTemplate.push_back("#############");
-        roomTemplate.push_back("#          ^#");
+        roomTemplate.push_back("#         ^ #");
         roomTemplate.push_back("# ###########");
         roomTemplate.push_back("# #    #    #");
         roomTemplate.push_back("# # ## # ## #");
@@ -304,6 +304,21 @@ void Game::makeRooms()
     // Floor 0
     tfloor = 1;
     this->floor = tfloor; // sets the starting floor
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("###############");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+
+        int difficulty = 0;
+        int backColor = dngutil::LIGHTGRAY;
+        std::string name = "You Shouldn't be here";
+        Coordinate mapCoord(0, 3);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        gamespace[tfloor].emplace(mapCoord, new Room(this, rminfo, nullptr));
+    }
     {
             std::vector<std::string> roomTemplate;
             roomTemplate.push_back("####### #######");
