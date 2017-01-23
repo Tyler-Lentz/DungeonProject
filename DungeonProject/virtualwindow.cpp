@@ -393,7 +393,7 @@ void VirtualWindow::put(ColorString colstr, Coordinate coord)
         put(*it, coord);
 
         coord.x++;
-        if (coord.x > dngutil::CONSOLEX)
+        if (coord.x >= dngutil::CONSOLEX)
         {
             coord.x = 0;
             coord.y++;
@@ -413,7 +413,7 @@ void VirtualWindow::putcen(ColorString colstr, unsigned int line)
     {
         put(*it, coord);
         coord.x++;
-        if (coord.x > dngutil::CONSOLEX)
+        if (coord.x >= dngutil::CONSOLEX)
         {
             coord.x = 0;
             coord.y++;
