@@ -199,8 +199,8 @@ void Player::addExperience(unsigned int experience)
         if (exp >= expToLevel)
         {
             overFlowXp = (experience - i);
-            Sleep(500);
-            soundEffect("Levelup.wav", false, false);
+            Sleep(50);
+            soundEffect("FindItem.wav", false, false);
             break;
         }
 
@@ -220,11 +220,13 @@ void Player::addExperience(unsigned int experience)
 
         Coordinate vcursor(0, vwin->txtmacs.DIVIDER_LINES[1] + 4);
         vwin->putcen(ColorString("Level Up! You are now level " + std::to_string(getLvl()), dngutil::WHITE), vcursor.y);
-        
+        soundEffect("LevelUp.wav", false, false);
+
+
         vcursor.y++;
 
         vwin->txtmacs.displayLevelupStats(vcursor, this);
-        Sleep(1000);
+        soundEffect("PickupItem.wav", false, false);
 
         int prevAtt = getAtt();
         int prevHp = getHp();
@@ -242,7 +244,9 @@ void Player::addExperience(unsigned int experience)
         vwin->putcen(ColorString("Attack + " + std::to_string(getAtt() - prevAtt), dngutil::GREEN), vcursor.y++);
         vwin->putcen(ColorString("Defense + " + std::to_string(getDef() - prevDef), dngutil::BLUE), vcursor.y++);
         vwin->putcen(ColorString("Luck + " + std::to_string(getLck() - prevLck), dngutil::YELLOW), vcursor.y++);
-        vwin->putcen(ColorString("Speed + " + std::to_string(getSpd() - prevSpd), dngutil::CYAN), vcursor.y);
+        vwin->putcen(ColorString("Speed + " + std::to_string(getSpd() - prevSpd), dngutil::CYAN), vcursor.y);  
+        soundEffect("PickupItem.wav", false, false);
+
         vcursor.y = vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE;
         pressEnter(vcursor, vwin);
     }
