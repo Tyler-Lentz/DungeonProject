@@ -212,7 +212,7 @@ void Primary::action(Player* player, unsigned int inventoryIndex)
     }
     else
     {
-        output = "Failed to swap active weapon, please report this bug.";
+        output = "Failed to swap active primary, please report this bug.";
     }
 
     getPGame()->getVWin()->putcen(ColorString(output, dngutil::LIGHTGRAY), getPGame()->getVWin()->txtmacs.BOTTOM_DIVIDER_TEXT_LINE);
@@ -268,7 +268,7 @@ void Secondary::action(Player* player, unsigned int inventoryIndex)
     }
     else
     {
-        output = "Failed to swap active weapon, please report this bug.";
+        output = "Failed to swap active secondary, please report this bug.";
     }
 
     getPGame()->getVWin()->putcen(ColorString(output, dngutil::LIGHTGRAY), getPGame()->getVWin()->txtmacs.BOTTOM_DIVIDER_TEXT_LINE);
