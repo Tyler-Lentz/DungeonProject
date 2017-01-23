@@ -120,13 +120,28 @@ Potion::Potion(const Potion& other, Game* game)
 
 void Potion::action(Player* player, unsigned int inventoryIndex)
 {
-    int amountHealed = player->increaseHealth(healAmount);
+    int healthbarLine = getPGame()->getVWin()->txtmacs.DIVIDER_LINES[2] - 1;
+    int amountHealed = 0;
+
+    soundEffect("RefillHealth.wav", true, true);       
+    getPGame()->getVWin()->putcen(player->getHealthBar(), healthbarLine);
+    Sleep(100);
+
+    for (; amountHealed < healAmount && player->getHp() < player->getMaxhp(); amountHealed++)
+    {
+        player->increaseHealth(1);
+        getPGame()->getVWin()->putcen(player->getHealthBar(), healthbarLine);
+        Sleep(100);
+    }
+    stopSound();
 
     std::string output = "You healed for ";
     output += std::to_string(amountHealed);
     output += " health";
 
     getPGame()->getVWin()->putcen(ColorString(output, dngutil::LIGHTGRAY), getPGame()->getVWin()->txtmacs.BOTTOM_DIVIDER_TEXT_LINE);
+
+    getPGame()->getVWin()->txtmacs.clearLine(healthbarLine);
 }
 
 Item* Potion::makeSaveInv(Game* game)
