@@ -390,14 +390,14 @@ LargeSkeleton::LargeSkeleton(
         pgame,
         ColorChar('|', dngutil::DARKGRAY),
         coord,
-        "Long Spear",
+        "Long Sword",
         false,
         dngutil::TID::Primary,
         1.5,
         3,
         95,
         false,
-        "A very long spear. It is very accurate.",
+        "A very long sword. It is very accurate.",
         "Attack4.wav"
     ),
     new Secondary(
