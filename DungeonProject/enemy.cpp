@@ -10,7 +10,6 @@
 #include "virtualwindow.h"
 #include "room.h"
 
-#include <Windows.h>
 #include <string>
 
 class Game;

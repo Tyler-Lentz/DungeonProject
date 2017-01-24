@@ -9,7 +9,6 @@
 #include "room.h"
 #include "virtualwindow.h"
 
-#include <Windows.h>
 
 //------------------------------------------------------------
 // Player Functions
