@@ -108,9 +108,30 @@ public:
     {
         return new Skeleton(*this, game);
     }
+};
 
-private:
+class BloodSkeleton : public REnemy
+{
+public:
+    BloodSkeleton(
+        Game* pgame,
+        Coordinate coord,
+        int hp,
+        unsigned int att,
+        unsigned int def,
+        unsigned int lck,
+        unsigned int spd,
+        unsigned int lvl
+    );
 
+    BloodSkeleton(const BloodSkeleton& other, Game* game) : REnemy(other, game) {}
+
+    void printSelf() override;
+
+    MapObject* makeSave(Game* game) override
+    {
+        return new BloodSkeleton(*this, game);
+    }
 };
 
 class BEnemy : public Enemy

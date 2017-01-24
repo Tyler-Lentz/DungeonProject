@@ -127,7 +127,9 @@ void Potion::action(Player* player, unsigned int inventoryIndex)
     getPGame()->getVWin()->putcen(player->getHealthBar(), healthbarLine);
     Sleep(100);
 
-    for (; amountHealed < healAmount && player->getHp() < player->getMaxhp(); amountHealed++)
+    for (; amountHealed < healAmount &&
+        static_cast<unsigned int>(player->getHp()) < player->getMaxhp();
+        amountHealed++)
     {
         player->increaseHealth(1);
         getPGame()->getVWin()->putcen(player->getHealthBar(), healthbarLine);

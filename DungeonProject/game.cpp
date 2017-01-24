@@ -230,7 +230,7 @@ void Game::makeRooms()
         roomTemplate.push_back("#             #");
         roomTemplate.push_back("#             #");
         roomTemplate.push_back("#             #");
-        roomTemplate.push_back("       ^      #");
+        roomTemplate.push_back("         ^    #");
         roomTemplate.push_back("###############");
 
         std::map<Coordinate, MapObject*> specificObjects;
@@ -241,10 +241,11 @@ void Game::makeRooms()
 
         std::vector<dngutil::TID> possibleCreatures;
         possibleCreatures.push_back(dngutil::TID::Skeleton);
+        possibleCreatures.push_back(dngutil::TID::BloodSkeleton);
 
         int difficulty = 4;
         int backColor = dngutil::DARKGRAY;
-        std::string name = "Underneath The Bridge - Dangerous Skeletons!";
+        std::string name = "Underneath the Bridge";
         Coordinate mapCoord(0, 0);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
         gamespace[tfloor].emplace(mapCoord, new Room(this, rminfo, nullptr));
@@ -514,7 +515,7 @@ void Game::makeRooms()
         roomTemplate.push_back("#XXXX     XXXX#");
         roomTemplate.push_back("#XXXX     XXXX#");
         roomTemplate.push_back("#XXXX     XXXX#");
-        roomTemplate.push_back("#XXXX  v  XXXX#");
+        roomTemplate.push_back("#XXXX     XXXX#");
         roomTemplate.push_back("##### ### #####");
 
         auto puzzleSolved = [](const std::list<Creature*>& creatureList, const GAMEMAP& gameMap) -> bool
@@ -730,6 +731,10 @@ Creature* Game::generateCreature(int difficulty, dngutil::TID tid)
 
     case dngutil::TID::LargeSkeleton:
         enemy = new LargeSkeleton(this, Coordinate(-1, -1), health, attack, defense, luck, speed, level);
+        break;
+
+    case dngutil::TID::BloodSkeleton:
+        enemy = new BloodSkeleton(this, Coordinate(-1, -1), health, attack, defense, luck, speed, level);
         break;
     }
 

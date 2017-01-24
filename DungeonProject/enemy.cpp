@@ -362,6 +362,95 @@ void Skeleton::printSelf()
 //----------------------------------------------------------------
 
 //----------------------------------------------------------------
+// BloodSkeleton Functions
+BloodSkeleton::BloodSkeleton(
+    Game* pgame,
+    Coordinate coord,
+    int hp,
+    unsigned int att,
+    unsigned int def,
+    unsigned int lck,
+    unsigned int spd,
+    unsigned int lvl
+) : REnemy(
+    pgame,
+    ColorChar('T', dngutil::RED),
+    coord,
+    "Blood Skeleton",
+    false,
+    dngutil::TID::BloodSkeleton,
+    hp, att, def, lck, spd, lvl,
+    new Primary(
+        pgame,
+        ColorChar('/', dngutil::WHITE),
+        coord,
+        "Stained Axe",
+        false,
+        dngutil::TID::Primary,
+        1.7,
+        4,
+        70,
+        false,
+        "An axe from a blood skeleton",
+        "Attack4.wav"
+    ),
+    new Secondary(
+        pgame,
+        ColorChar('0', dngutil::WHITE),
+        coord,
+        "Stained Shield",
+        false,
+        dngutil::TID::Secondary,
+        40,
+        .80,
+        "A shield from a blood skeleton"
+    ),
+    "BattleTheme.mp3",
+    random(23, 29),
+    "EnemyDeath.wav"
+)
+{
+
+}
+
+void BloodSkeleton::printSelf()
+{
+    Coordinate vcursor(0, getPGame()->getVWin()->txtmacs.DIVIDER_LINES[1] + 1);
+    VirtualWindow* t = getPGame()->getVWin();
+    int BloodSkeletoncolor = dngutil::RED;
+    int weaponcolor = dngutil::WHITE;
+    t->put(ColorString("                              _.--\"\"-._                     \n", BloodSkeletoncolor), vcursor); vcursor.y++;
+    t->put(ColorString("  .", weaponcolor) + ColorString("                        .\"         \".                   \n", BloodSkeletoncolor), vcursor); vcursor.y++;
+    t->put(ColorString(" / \\    ,^.", weaponcolor) + ColorString("         /(     Y             |      )\\          \n", BloodSkeletoncolor), vcursor); vcursor.y++;
+    t->put(ColorString("/   `---. |--\'\\", weaponcolor) + ColorString("    (  \\__..\'--   -   -- -\'\"\"-.-\'  )          \n", BloodSkeletoncolor), vcursor); vcursor.y++;
+    t->put(ColorString("|        :|    `> ", weaponcolor) + ColorString("  \'.     l_..-------.._l      .\'          \n", BloodSkeletoncolor), vcursor); vcursor.y++;
+    t->put(ColorString("|      __l;__ .\'", weaponcolor) + ColorString("      \"-.__.||_.-\'v\'-._||`\"----\"            \n", BloodSkeletoncolor), vcursor); vcursor.y++;
+    t->put(ColorString(" \\  .-\' | |  `", weaponcolor) + ColorString("              l._       _.\'                   \n", BloodSkeletoncolor), vcursor); vcursor.y++;
+    t->put(ColorString("  \\/    | |   ", weaponcolor) + ColorString("                l`^^\'^^\'j                     \n", BloodSkeletoncolor), vcursor); vcursor.y++;
+    const int TOP_CURSOR_Y = vcursor.y;
+    t->put(ColorString("        | |  ", weaponcolor) + ColorString("              _   \\_____/     _                \n", BloodSkeletoncolor), vcursor); vcursor.y++;
+    t->put(ColorString("        j |  ", weaponcolor) + ColorString("             l `--__)-\'(__.--\' |               \n", BloodSkeletoncolor), vcursor); vcursor.y++;
+    t->put(ColorString("        | |    ", weaponcolor) + ColorString("           | /`---``-----\'\"1 |", BloodSkeletoncolor) + ColorString("  ,-----.      \n", weaponcolor), vcursor); vcursor.y++;
+    t->put(ColorString("        | |    ", weaponcolor) + ColorString("           )/  `--\' \'---\' ", BloodSkeletoncolor) + ColorString("   /'-\'  ___  `-.   \n", weaponcolor), vcursor); vcursor.y++;
+    t->put(ColorString("        | |     ", weaponcolor) + ColorString("         //  `-\'  \'`----\'", BloodSkeletoncolor) + ColorString("  /  ,-\'   I`.  \\  \n", weaponcolor), vcursor); vcursor.y++;
+    t->put(ColorString("      _ L |_     ", weaponcolor) + ColorString("       //  `-.-.\'`-----\' ", BloodSkeletoncolor) + ColorString("/  /  |   |  `. \\ \n", weaponcolor), vcursor); vcursor.y++;
+    t->put(ColorString("     \'._\' / \\         _/(   '-  -'- ---\' ", BloodSkeletoncolor) + ColorString(";  /__.J   L.__.\\ :\n", weaponcolor), vcursor); vcursor.y++;
+    t->put(ColorString("      `._;/7(-.......\'  /        ) (  ", BloodSkeletoncolor) + ColorString("   |  |            | |\n", weaponcolor), vcursor); vcursor.y++;
+    t->put(ColorString("      `._;l _\'--------_/        )-\'/  ", BloodSkeletoncolor) + ColorString("   :  |___.    _._./ ;\n", weaponcolor), vcursor); vcursor.y++;
+    t->put(ColorString("        | |        ", weaponcolor) + ColorString("         .__ )-\'\\  __ ", BloodSkeletoncolor) + ColorString(" \\  \\  I   1   / / \n", weaponcolor), vcursor); vcursor.y++;
+    t->put(ColorString("        `-\'    ", weaponcolor) + ColorString("            /   `-\\-(-\'   \\", BloodSkeletoncolor) + ColorString(" \\  `.|   | ,\' /  \n", weaponcolor), vcursor); vcursor.y++;
+    t->put(ColorString("                           \\__  `-\'    __/ ", BloodSkeletoncolor) + ColorString("  `-. `---\'\',-\'   \n", weaponcolor), vcursor); vcursor.y++;
+    t->put(ColorString("                              )-._.-- (  ", BloodSkeletoncolor) + ColorString("      `-----\'      \n", weaponcolor), vcursor); vcursor.y++;
+
+    const int LONGEST_LINE_LENGTH = 62;
+
+    printStats(LONGEST_LINE_LENGTH, TOP_CURSOR_Y);
+}
+
+//----------------------------------------------------------------
+
+
+//----------------------------------------------------------------
 // Large Skeleton Functions
 
 LargeSkeleton::LargeSkeleton(
