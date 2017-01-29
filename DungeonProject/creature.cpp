@@ -168,21 +168,37 @@ void Creature::setSecondary(Secondary* secondary)
 void Creature::increaseMaxhp(unsigned int amount)
 {
     maxhp += amount;
+    if (getMaxhp() > dngutil::MAX_HP)
+    {
+        maxhp = dngutil::MAX_HP;
+    }
 }
 
 void Creature::increaseAtt(unsigned int amount)
 {
     att += amount;
+    if (att > dngutil::MAX_ATT)
+    {
+        att = dngutil::MAX_ATT;
+    }
 }
 
 void Creature::increaseDef(unsigned int amount)
 {
     def += amount;
+    if (def > dngutil::MAX_DEF)
+    {
+        def = dngutil::MAX_DEF;
+    }
 }
 
 void Creature::increaseSpd(unsigned int amount)
 {
     spd += amount;
+    if (spd > dngutil::MAX_SPD)
+    {
+        spd = dngutil::MAX_SPD;
+    }
 }
 
 void Creature::increaseLvl(unsigned int amount)
@@ -193,31 +209,55 @@ void Creature::increaseLvl(unsigned int amount)
 void Creature::increaseLck(unsigned int amount)
 {
     lck += amount;
+    if (lck > dngutil::MAX_LCK)
+    {
+        lck = dngutil::MAX_LCK;
+    }
 }
 
 void Creature::setMaxhp(unsigned int amount)
 {
     maxhp = amount;
+    if (maxhp > dngutil::MAX_HP)
+    {
+        maxhp = dngutil::MAX_HP;
+    }
 }
 
 void Creature::setHp(int amount)
 {
     hp = amount;
+    if (hp > static_cast<int>(maxhp))
+    {
+        hp = maxhp;
+    }
 }
 
 void Creature::setAtt(unsigned int amount)
 {
     att = amount;
+    if (att > dngutil::MAX_ATT)
+    {
+        att = dngutil::MAX_ATT;
+    }
 }
 
 void Creature::setDef(unsigned int amount)
 {
     def = amount;
+    if (def > dngutil::MAX_DEF)
+    {
+        def = dngutil::MAX_DEF;
+    }
 }
 
 void Creature::setSpd(unsigned int amount)
 {
     spd = amount;
+    if (spd > dngutil::MAX_SPD)
+    {
+        spd = dngutil::MAX_SPD;
+    }
 }
 
 void Creature::setLvl(unsigned int amount)
@@ -228,6 +268,10 @@ void Creature::setLvl(unsigned int amount)
 void Creature::setLck(unsigned int amount)
 {
     lck = amount;
+    if (lck > dngutil::MAX_LCK)
+    {
+        lck = dngutil::MAX_LCK;
+    }
 }
 
 unsigned int Creature::increaseHealth(unsigned int amount)
@@ -643,38 +687,14 @@ void Creature::levelUpStats()
     int healthIncrease = random(4, 8);
     increaseMaxhp(healthIncrease);
     increaseHealth(healthIncrease);
-    if (getMaxhp() > dngutil::MAX_HP)
-    {
-        setMaxhp(dngutil::MAX_HP);
-    }
-    if (getHp() > dngutil::MAX_HP)
-    {
-        setHp(dngutil::MAX_HP);
-    }
 
     increaseAtt(random(3, 4));
-    if (getAtt() > dngutil::MAX_ATT)
-    {
-        setAtt(dngutil::MAX_ATT);
-    }
 
     increaseDef(random(2, 4));
-    if (getDef() > dngutil::MAX_DEF)
-    {
-        setDef(dngutil::MAX_DEF);
-    }
 
     increaseLck(random(2, 6));
-    if (getLck() > dngutil::MAX_LCK)
-    {
-        setLck(dngutil::MAX_LCK);
-    }
 
     increaseSpd(random(4, 8));
-    if (getSpd() > dngutil::MAX_SPD)
-    {
-        setSpd(dngutil::MAX_SPD);
-    }
 }
 
 //------------------------------------------------------------
