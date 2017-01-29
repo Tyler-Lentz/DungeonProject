@@ -8,6 +8,7 @@
 
 #include <vector>
 #include <list>
+#include <mutex>
 
 class Creature;
 class Room;
@@ -106,6 +107,9 @@ public:
 private:
     // Vector that holds the updated information to draw to the console
     VWIN vwin;
+
+    // Handles locking when accessing posToDraw
+    std::mutex refreshMut;
 
     Console console;
 

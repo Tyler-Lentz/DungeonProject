@@ -12,6 +12,7 @@
 #include <iostream>
 #include <cmath>
 #include <string>
+#include <mutex>
 
 //-------------------------------------------------------------
 // Text Macro Functions
@@ -363,6 +364,32 @@ void TextMacros::displayInventory(int positions[], Player* player)
 
     positions[1] = --vcursor.y;
 }
+
+
+
+void TextMacros::displayLevelupStats(Coordinate cursor, Player* player)
+{
+    vwin->putcen(ColorString("**************************", dngutil::MAGENTA), cursor.y);
+    cursor.y += 2;
+    vwin->putcen(ColorString("Max Health " + std::to_string(player->getMaxhp()), dngutil::RED), cursor.y);
+    cursor.y += 2;
+    vwin->putcen(ColorString("Attack " + std::to_string(player->getAtt()), dngutil::GREEN), cursor.y);
+    cursor.y += 2;
+    vwin->putcen(ColorString("Defense " + std::to_string(player->getDef()), dngutil::BLUE), cursor.y);
+    cursor.y += 2;
+    vwin->putcen(ColorString("Luck " + std::to_string(player->getLck()), dngutil::YELLOW), cursor.y);
+    cursor.y += 2;
+    vwin->putcen(ColorString("Speed " + std::to_string(player->getSpd()), dngutil::CYAN), cursor.y);
+    cursor.y += 2;
+    vwin->putcen(ColorString("**************************", dngutil::MAGENTA), cursor.y);
+}
+
+void TextMacros::fallingScreen(Game* game)
+{
+    clearMapArea(false, NULL);
+    soundEffect("Fall.wav", false, false);
+    displayGame(game);
+}
 //-------------------------------------------------------------
 
 //-------------------------------------------------------------
@@ -378,13 +405,13 @@ VirtualWindow::VirtualWindow(unsigned int width, unsigned int height):
 
 void VirtualWindow::put(ColorChar colchar, Coordinate coord)
 {
+    refreshMut.lock();
     if (vwin[coord.y][coord.x] != colchar)
     {
         vwin[coord.y][coord.x] = colchar;
         posToDraw.push_back(coord);
     }
-
-    refresh();
+    refreshMut.unlock();
 }
 
 void VirtualWindow::put(ColorString colstr, Coordinate coord)
@@ -424,6 +451,8 @@ void VirtualWindow::putcen(ColorString colstr, unsigned int line)
 
 void VirtualWindow::refresh()
 {
+    refreshMut.lock();
+
     for (auto it = posToDraw.begin(); it != posToDraw.end(); it++)
     {
        ColorChar charToDraw = vwin[it->y][it->x];
@@ -434,6 +463,8 @@ void VirtualWindow::refresh()
 
     posToDraw.clear();
     console.setColor(dngutil::LIGHTGRAY);
+
+    refreshMut.unlock();
 }
 
 const Console& VirtualWindow::getConsole() const
@@ -483,30 +514,6 @@ void VirtualWindow::clearScreen()
     int width = vwin[0].size();
 
     vwin.resize(height, ColorString(std::string(width, ' '), getColor(dngutil::LIGHTGRAY, dngutil::BLACK)));
-}
-
-void TextMacros::displayLevelupStats(Coordinate cursor, Player* player)
-{
-    vwin->putcen(ColorString("**************************", dngutil::MAGENTA), cursor.y);
-    cursor.y += 2;
-    vwin->putcen(ColorString("Max Health " + std::to_string(player->getMaxhp()), dngutil::RED), cursor.y);
-    cursor.y += 2;
-    vwin->putcen(ColorString("Attack " + std::to_string(player->getAtt()), dngutil::GREEN), cursor.y);
-    cursor.y += 2;
-    vwin->putcen(ColorString("Defense " + std::to_string(player->getDef()), dngutil::BLUE), cursor.y);
-    cursor.y += 2;
-    vwin->putcen(ColorString("Luck " + std::to_string(player->getLck()), dngutil::YELLOW), cursor.y);
-    cursor.y += 2;
-    vwin->putcen(ColorString("Speed " + std::to_string(player->getSpd()), dngutil::CYAN), cursor.y);
-    cursor.y += 2;
-    vwin->putcen(ColorString("**************************", dngutil::MAGENTA), cursor.y);
-}
-
-void TextMacros::fallingScreen(Game* game)
-{
-    clearMapArea(false, NULL);
-    soundEffect("Fall.wav", false, false);
-    displayGame(game);
 }
 
 //-------------------------------------------------------------

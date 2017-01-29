@@ -2,17 +2,28 @@
 #include "utilities.h"
 #include "game.h"
 
+#include <thread>
+#include <Windows.h>
+
 // TODO when everything else is done: implement menu class
 
 int main()
 {
     VirtualWindow* vwin = new VirtualWindow(dngutil::CONSOLEX, dngutil::CONSOLEY);
     vwin->getConsole().setTitle("Dungeon RPG 2");
+    bool exit = false;
+
+    std::thread framerate([vwin, &exit]()
+    {
+        while (!exit)
+        {
+            vwin->refresh();
+            Sleep(33);
+        }
+    });
 
     Game* game = new Game(vwin);
-    bool exit = false;
     int returnValue;
-
     while (!exit)
     {
         switch (game->run())
@@ -52,6 +63,8 @@ int main()
             break;
         }
     }
+
+    framerate.join();
 
     delete vwin;
 
