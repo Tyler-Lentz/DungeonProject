@@ -208,8 +208,9 @@ void Player::addExperience(unsigned int experience)
             Sleep(50);
         }
     }
-    vwin->txtmacs.clearMapArea(false, NULL);
     stopSound();
+    Sleep(100);
+    vwin->txtmacs.clearMapArea(false, NULL);
 
     if (exp >= expToLevel)
     {
