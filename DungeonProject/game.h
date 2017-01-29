@@ -29,8 +29,6 @@ public:
     Player* getPlayer();
     VirtualWindow* getVWin();
 
-    void makeRooms();
-
     void setActiveFloor(unsigned int floor);
     void setActiveRoom(Room*);
     std::map<Coordinate, Room*>& getActiveFloor();
@@ -61,6 +59,11 @@ private:
     int floor;
     bool exit;
     dngutil::ReturnVal returnVal;
+
+
+    void makeRooms();
+    void makeFloor0();
+    void makeFloor1();
 };
 
 #endif
