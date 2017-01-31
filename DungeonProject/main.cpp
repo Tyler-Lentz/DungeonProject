@@ -5,7 +5,7 @@
 #include <thread>
 #include <Windows.h>
 
-// TODO when everything else is done: implement menu class
+// TODO smart pointers
 
 int main()
 {
