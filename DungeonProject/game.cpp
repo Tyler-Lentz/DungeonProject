@@ -82,6 +82,8 @@ Game::Game(const Game& other)
 
 Game::~Game()
 {
+    // last save will be deleted in here
+
     for (int i = 0; i < dngutil::NUMFLOORS; i++)
     {
         for (auto it = gamespace[i].begin(); it != gamespace[i].end(); it++)

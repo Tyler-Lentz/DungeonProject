@@ -7,6 +7,7 @@
 #include <map>
 #include <list>
 #include <array>
+#include <memory>
 
 class MapObject;
 class Room;

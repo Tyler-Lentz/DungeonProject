@@ -4,16 +4,15 @@
 
 #include <thread>
 #include <Windows.h>
-
-// TODO smart pointers
+#include <memory>
 
 int main()
 {
-    VirtualWindow* vwin = new VirtualWindow(dngutil::CONSOLEX, dngutil::CONSOLEY);
+    std::unique_ptr<VirtualWindow> vwin(new VirtualWindow(dngutil::CONSOLEX, dngutil::CONSOLEY));
     vwin->getConsole().setTitle("Dungeon RPG 2");
     bool exit = false;
 
-    std::thread framerate([vwin, &exit]()
+    std::thread framerate([&vwin, &exit]()
     {
         while (!exit)
         {
@@ -22,7 +21,7 @@ int main()
         }
     });
 
-    Game* game = new Game(vwin);
+    std::unique_ptr<Game> game(new Game(vwin.get()));
     int returnValue;
     while (!exit)
     {
@@ -33,13 +32,11 @@ int main()
             {
                 Game* save = game->getLastSave();
                 save->getLastSave() = save;
-                delete game;
-                game = new Game(*save);
+                game.reset(save);
             }
             else
             {
-                delete game;
-                game = new Game(vwin);
+                game.reset(new Game(vwin.get()));
             }
             break;
 
@@ -48,25 +45,17 @@ int main()
             {
                 delete game->getLastSave();
             }
-            delete game;
-            game = new Game(vwin);
+            game.reset(new Game(vwin.get()));
             break;
 
         case dngutil::ReturnVal::EXIT:
             returnValue = 0;
             exit = true;
-            if (game->getLastSave() != nullptr)
-            {
-                delete game->getLastSave();
-            }
-            delete game;
             break;
         }
     }
 
     framerate.join();
-
-    delete vwin;
 
     return returnValue;
 }
