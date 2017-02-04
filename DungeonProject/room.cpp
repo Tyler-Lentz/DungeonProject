@@ -21,25 +21,25 @@ Room::Room(const Room& other, Game* game)
         for (unsigned int x = 0; x < dngutil::MAPSIZE; x++)
         {
             Coordinate coord(x, y);
-            for (auto it = other.gameMap[y][x].begin(); it != other.gameMap[y][x].end(); it++)
+            for (auto& i : other.gameMap[y][x])
             {
                 MapObject* object = nullptr;
 
-                if ((*it)->getTypeId() != dngutil::TID::Player)
+                if (i->getTypeId() != dngutil::TID::Player)
                 {
-                    object = (*it)->makeSave(game);
+                    object = i->makeSave(game);
                 }
                 else
                 {
                     object = game->getPlayer();
                 }
 
-                if ((*it)->getBTypeId() == dngutil::BTID::Creature)
+                if (i->getBTypeId() == dngutil::BTID::Creature)
                 {
                     Creature* creature = dynamic_cast<Creature*>(object);
                     creatureList.push_back(creature);
                 }
-                else if ((*it)->getBTypeId() == dngutil::BTID::Item)
+                else if (i->getBTypeId() == dngutil::BTID::Item)
                 {
                     objects.emplace(coord, object);
                 }
@@ -154,11 +154,11 @@ Room::~Room()
         coord.y = 0;
         for (; coord.y < dngutil::MAPSIZE; coord.y++)
         {
-            for (std::list<MapObject*>::iterator it = getObjects(coord).begin(); it != getObjects(coord).end(); it++)
+            for (auto& i : getObjects(coord))
             {
-                if (*it != game_pointer->getPlayer())
+                if (i != game_pointer->getPlayer())
                 {
-                    delete (*it);
+                    delete i;
                 }
             }
             getObjects(coord).clear();
@@ -211,9 +211,9 @@ dngutil::MovementTypes Room::checkMovement(Coordinate coord, Creature* creature)
         return dngutil::MovementTypes::INVALID;
     }
 
-    for (std::list<MapObject*>::const_iterator it = gameMap[coord.y][coord.x].begin(); it != gameMap[coord.y][coord.x].end(); it++)
+    for (auto i : gameMap[coord.y][coord.x])
     {
-        if (!(*it)->isMoveable())
+        if (!(i->isMoveable()))
         {
             return dngutil::MovementTypes::INVALID;
         }
@@ -249,9 +249,9 @@ void Room::drawRoom()
         }
 
         int creatureNum = 0;
-        for (auto it = getObjects(coord).begin(); it != getObjects(coord).end(); it++)
+        for (auto i : getObjects(coord))
         {
-            if ((*it)->getBTypeId() == dngutil::BTID::Creature)
+            if (i->getBTypeId() == dngutil::BTID::Creature)
             {
                 creatureNum++;
             }

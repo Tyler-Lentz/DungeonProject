@@ -42,9 +42,9 @@ ColorString::ColorString()
 ColorString::ColorString(std::string str, int color)
 {
     reserve(str.size());
-    for (auto it = str.begin(); it != str.end(); it++)
+    for (char i : str)
     {
-        push_back(ColorChar(*it, color));
+        push_back(ColorChar(i, color));
     }
 }
 
@@ -80,9 +80,9 @@ ColorString ColorString::operator+(const ColorString& other)
     ColorString colstr(*this);
 
     colstr.reserve(size() + other.size());
-    for (auto it = other.begin(); it != other.end(); it++)
+    for (auto i : other)
     {
-        colstr.push_back(*it);
+        colstr.push_back(i);
     }
 
     return colstr;
@@ -99,9 +99,9 @@ ColorString ColorString::operator+(const ColorChar& other)
 void ColorString::operator+=(const ColorString& other)
 {
     reserve(size() + other.size());
-    for (auto it = other.begin(); it != other.end(); it++)
+    for (auto i : other)
     {
-        push_back(*it);
+        push_back(i);
     }
 }
 

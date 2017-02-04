@@ -70,7 +70,7 @@ bool keyrelease(int key)
 void sortPriority(std::list<MapObject*>& list, MapObject* objectToAdd)
 {
     int p = objectToAdd->getPriority();
-    for (std::list<MapObject*>::const_iterator it = list.begin(); it != list.end(); it++)
+    for (auto it = list.begin(); it != list.end(); it++)
     {
         if ((*it)->getPriority() > p)
         {

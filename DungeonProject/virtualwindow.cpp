@@ -353,12 +353,11 @@ void TextMacros::displayInventory(int positions[], Player* player)
     Coordinate vcursor(0, DIVIDER_LINES[1] + 3);
 
     positions[0] = vcursor.y;
-
-    for (auto it = player->getInventory().begin(); it != player->getInventory().end(); it++)
+    for (auto& i : player->getInventory())
     {
-        vwin->put(ColorString("   " + (*it)->getName() + " - ", dngutil::LIGHTGRAY)
-            + (*it)->getMapRep()
-            + ColorString(" - " + (*it)->getDescription(), dngutil::LIGHTGRAY), Coordinate(0, vcursor.y));
+        vwin->put(ColorString("   " + i->getName() + " - ", dngutil::LIGHTGRAY)
+            + i->getMapRep()
+            + ColorString(" - " + i->getDescription(), dngutil::LIGHTGRAY), Coordinate(0, vcursor.y));
         vcursor.y++;
     }
 
@@ -416,9 +415,9 @@ void VirtualWindow::put(ColorChar colchar, Coordinate coord)
 
 void VirtualWindow::put(ColorString colstr, Coordinate coord)
 {
-    for (auto it = colstr.begin(); it != colstr.end(); it++)
+    for (auto i : colstr)
     {
-        put(*it, coord);
+        put(i, coord);
 
         coord.x++;
         if (coord.x >= dngutil::CONSOLEX)
@@ -437,9 +436,9 @@ void VirtualWindow::putcen(ColorChar colchar, unsigned int line)
 void VirtualWindow::putcen(ColorString colstr, unsigned int line)
 {
     Coordinate coord(static_cast<int>((width - colstr.size()) / 2), line);
-    for (auto it = colstr.begin(); it != colstr.end(); it++)
+    for (auto i : colstr)
     {
-        put(*it, coord);
+        put(i, coord);
         coord.x++;
         if (coord.x >= dngutil::CONSOLEX)
         {
@@ -453,10 +452,10 @@ void VirtualWindow::refresh()
 {
     refreshMut.lock();
 
-    for (auto it = posToDraw.begin(); it != posToDraw.end(); it++)
+    for (auto i : posToDraw)
     {
-       ColorChar charToDraw = vwin[it->y][it->x];
-       console.setCursorPos(*it);
+       ColorChar charToDraw = vwin[i.y][i.x];
+       console.setCursorPos(i);
        console.setColor(charToDraw.color);
        std::cout << charToDraw.character;
     }

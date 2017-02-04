@@ -26,10 +26,10 @@ dngutil::ReturnVal Game::run()
     {
         activeRoom->drawRoom();
 
-        for (auto it = activeRoom->getCreatureList().begin(); it != activeRoom->getCreatureList().end(); it++)
+        for (auto& i : activeRoom->getCreatureList())
         {
             // Returns true if player goes to new room/floor
-            if ((*it)->movement())
+            if (i->movement())
             {
                 break;
             }
@@ -84,9 +84,9 @@ Game::~Game()
 {
     for (int i = 0; i < dngutil::NUMFLOORS; i++)
     {
-        for (auto it = gamespace[i].begin(); it != gamespace[i].end(); it++)
+        for (auto& i : gamespace[i])
         {
-            delete it->second;
+            delete i.second;
         }
     }
 
@@ -713,9 +713,9 @@ std::list<MapObject*>& Game::getDeletionList()
 
 void Game::clearDeletionList()
 {
-    for (auto it = deletionList.begin(); it != deletionList.end(); it++)
+    for (auto& i : deletionList)
     {
-        delete (*it);
+        delete i;
     }
     deletionList.clear();
 }
