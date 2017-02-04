@@ -22,8 +22,6 @@ public:
     dngutil::ReturnVal run();
 
     Game(VirtualWindow* vwin);
-
-    Game(const Game& other);
     ~Game();
 
     Room* getActiveRoom();

@@ -15,16 +15,6 @@ struct Inventory : public std::vector<Item*>
 {
     Inventory() {}
 
-    // Goes through every item in the other inventory and makes a new copy
-    // of it.
-    Inventory(const Inventory& other, Game* game)
-    {
-        for (auto it = other.begin(); it != other.end(); it++)
-        {
-            push_back((*it)->makeSaveInv(game));
-        }
-    }
-
     // Deletes all items in the inventory
     ~Inventory()
     {
@@ -43,12 +33,9 @@ public:
         Coordinate coord
     );
 
-    Player(const Player& other, Game* game);
-
     bool movement() override;
     void printStats(int LONGEST_LINE_LENGTH, int startingCursorY) override;
 
-    MapObject* makeSave(Game* game) override;
     Collision mapAction(MapObject* collider, std::list<MapObject*>::iterator& it) override;
 
     void addToInventory(Item* item);

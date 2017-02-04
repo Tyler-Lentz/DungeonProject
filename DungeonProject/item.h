@@ -27,12 +27,6 @@ public:
         std::string description
     );
 
-    // Save constructor
-    Item(const Item& other, Game* game);
-
-    // This is the same as make save, but it returns an Item. Used in inventory copying.
-    virtual Item* makeSaveInv(Game* game) = 0;
-
     // The action done when the player uses the item in their inventory
     virtual void action(Player* player, unsigned int inventoryIndex) = 0;
 
@@ -64,9 +58,6 @@ public:
         std::string description
     );
 
-    // Save Constructor
-    RItem(const RItem& other, Game* game);
-
     // MapAction for regular items, adds it to the player's inventory
     Collision mapAction(MapObject* collider, std::list<MapObject*>::iterator& it) override;
 };
@@ -95,20 +86,6 @@ public:
         this->startReady = startReady;
         this->hitsound = hitsound;
     }
-
-    // Save constructor
-    Primary(const Primary& other, Game* game)
-        :RItem(other, game)
-    {
-        this->dmgMultiplier = other.dmgMultiplier;
-        this->attSpeed = other.attSpeed;
-        this->accuracy = other.accuracy;
-        this->startReady = other.startReady;
-        this->hitsound = other.hitsound;
-    }
-
-    Item* makeSaveInv(Game* game) override;
-    MapObject* makeSave(Game* game) override;
 
     void action(Player* player, unsigned int inventoryIndex) override;
 
@@ -156,17 +133,6 @@ public:
         this->dmgReductMult = dmgReductMult;
     }
 
-    // Save constructor
-    Secondary(const Secondary& other, Game* game)
-        :RItem(other, game)
-    {
-        this->deflectTime = other.deflectTime;
-        this->dmgReductMult = other.dmgReductMult;
-    }
-
-    Item* makeSaveInv(Game* game) override;
-    MapObject* makeSave(Game* game) override;
-
     void action(Player* player, unsigned int inventoryIndex) override;
 
     const double& getDmdReductMult() const;
@@ -183,12 +149,6 @@ class Potion : public RItem
 {
 public:
     Potion(Game* pgame, Coordinate coord, int healAmount);
-    
-    // Save constructor
-    Potion(const Potion& other, Game* game);
-
-    Item* makeSaveInv(Game* game) override;
-    MapObject* makeSave(Game* game) override;
 
     void action(Player* player, unsigned int inventoryIndex) override;
 private:
@@ -199,11 +159,6 @@ class Key : public RItem
 {
 public:
     Key(Game* pgame, Coordinate coord);
-
-    Key(const Key& other, Game* game);
-
-    Item* makeSaveInv(Game* game) override;
-    MapObject* makeSave(Game* game) override;
 
     void action(Player* player, unsigned int inventoryIndex) override;
 };

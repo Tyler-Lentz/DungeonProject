@@ -38,21 +38,6 @@ MapObject::MapObject(
     this->prematureCheck = prematureCheck;
 }
 
-MapObject::MapObject(const MapObject& other, Game* newGame)
-    :coord(other.coord)
-{
-    this->pgame = new Game(*newGame);
-    this->mapRep = other.mapRep;
-    this->name = other.name;
-    this->moveable = other.moveable;
-    this->rawoutput = other.rawoutput;
-    this->aggressive = other.aggressive;
-    this->typeId = other.typeId;
-    this->priority = other.priority;
-    this->bTypeId = other.bTypeId;
-    this->prematureCheck = other.prematureCheck;
-}
-
 void MapObject::setPosition(Coordinate coord)
 {
     this->coord = coord;

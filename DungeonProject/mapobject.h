@@ -29,9 +29,6 @@ public:
         bool prematureCheck
     );
 
-    // Save Constructor, used when saving the game. Takes the new game
-    MapObject(const MapObject& other, Game* newGame);
-
     const Coordinate& getCoord() const;
     const ColorChar& getMapRep() const;
     const std::string& getName() const;
@@ -46,8 +43,6 @@ public:
     Game* getPGame();
 
     void setPosition(Coordinate coord);
-
-    virtual MapObject* makeSave(Game* game) = 0;
 
     virtual Collision mapAction(MapObject* collider, std::list<MapObject*>::iterator& it)
     {
@@ -106,11 +101,6 @@ public:
             dngutil::BTID::None,
             false
         ) {}
-
-    MapObject* makeSave(Game* game) override
-    {
-        return new EmptyObject(game, getCoord());
-    }
 };
 
 class WallObject : public MapObject
@@ -130,11 +120,6 @@ public:
             dngutil::BTID::None,
             false
         ) {}
-
-    MapObject* makeSave(Game* game) override
-    {
-        return new WallObject(game, getCoord());
-    }
 };
 
 class ExitObject : public MapObject
@@ -158,17 +143,6 @@ public:
         this->up = up;
     }
 
-    ExitObject(const ExitObject& other, Game* game)
-        :MapObject(other, game)
-    {
-        this->up = other.up;
-    }
-
-    MapObject* makeSave(Game* game) override
-    {
-        return new ExitObject(*this, game);
-    }
-
     // Defined in mapobject.cpp because it is big
     Collision mapAction(MapObject* collider, std::list<MapObject*>::iterator& it) override;
 
@@ -186,10 +160,6 @@ class HoleObject : public MapObject
 public:
     HoleObject(Game* game, Coordinate coord);
     Collision mapAction(MapObject* collider, std::list<MapObject*>::iterator& it) override;
-    MapObject* makeSave(Game* game) override
-    {
-        return new HoleObject(game, getCoord());
-    }
 };
 
 class DoorObject : public MapObject
@@ -197,10 +167,6 @@ class DoorObject : public MapObject
 public:
     DoorObject(Game* game, Coordinate coord, ColorChar mapRep);
     Collision mapAction(MapObject* collider, std::list<MapObject*>::iterator& it) override;
-    MapObject* makeSave(Game* game) override
-    {
-        return new HoleObject(game, getCoord());
-    }
 };
 
 //----------------------------------------------------

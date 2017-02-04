@@ -62,22 +62,6 @@ Creature::Creature(
     this->lastMoveTime = 0;
 }
 
-// Save Constructor
-Creature::Creature(const Creature& other, Game* game)
-    :MapObject(other, game)
-{
-    this->primary = new Primary(*primary, game);
-    this->secondary = new Secondary(*secondary, game);
-
-    this->maxhp = other.hp;
-    this->att = other.att;
-    this->def = other.def;
-    this->lck = other.lck;
-    this->spd = other.spd;
-    this->lvl = other.lvl;
-
-    this->lastMoveTime = other.lastMoveTime;
-}
 Creature::~Creature()
 {
     if (primary != nullptr)

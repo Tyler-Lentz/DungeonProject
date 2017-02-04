@@ -13,52 +13,6 @@
 //---------------------------------------------------------------
 // Room Functions
 
-Room::Room(const Room& other, Game* game)
-    :roomInfo(other.roomInfo)
-{
-    for (unsigned int y = 0; y < dngutil::MAPSIZE; y++)
-    {
-        for (unsigned int x = 0; x < dngutil::MAPSIZE; x++)
-        {
-            Coordinate coord(x, y);
-            for (auto& i : other.gameMap[y][x])
-            {
-                MapObject* object = nullptr;
-
-                if (i->getTypeId() != dngutil::TID::Player)
-                {
-                    object = i->makeSave(game);
-                }
-                else
-                {
-                    object = game->getPlayer();
-                }
-
-                if (i->getBTypeId() == dngutil::BTID::Creature)
-                {
-                    Creature* creature = dynamic_cast<Creature*>(object);
-                    creatureList.push_back(creature);
-                }
-                else if (i->getBTypeId() == dngutil::BTID::Item)
-                {
-                    objects.emplace(coord, object);
-                }
-
-
-                sortPriority(this->gameMap[y][x], object);
-            }
-        }
-    }
-
-    this->adjustedPositions = other.adjustedPositions;
-
-    this->roomX = other.roomX;
-    this->roomY = other.roomY;
-
-    this->game_pointer = game;
-
-    this->puzzle = other.puzzle;
-}
 
 Room::Room(Game* t_game_pointer, RoomInfo roomToGenerate, Puzzle* puzzle)
     :roomInfo(roomToGenerate)

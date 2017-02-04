@@ -36,9 +36,6 @@ public:
         int priority
     );
 
-    // Save Constructor
-    Creature(const Creature& other, Game* game);
-
     // Deletes primary and secondary
     ~Creature();
 

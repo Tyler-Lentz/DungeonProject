@@ -55,28 +55,6 @@ Game::Game(VirtualWindow* vwin)
     }
 }
 
-Game::Game(const Game& other)
-{
-    this->exit = other.exit;
-    this->returnVal = other.returnVal;
-    this->floor = other.floor;
-
-    this->vwin = other.vwin;
-    player = new Player(*other.player, this);
-
-    int f = dngutil::NUMFLOORS;
-    for (int i = 0; i < f; i++)
-    {
-        for (auto it = other.gamespace[i].begin(); it != other.gamespace[i].end(); it++)
-        {
-            this->gamespace[i].emplace(it->first, new Room(*it->second, this));
-        }
-    }
-
-    Coordinate playerMapCoord = other.activeRoom->getRoomInfo().mapCoord;
-    this->activeRoom = gamespace[floor][playerMapCoord];
-}
-
 Game::~Game()
 {
     for (int i = 0; i < dngutil::NUMFLOORS; i++)

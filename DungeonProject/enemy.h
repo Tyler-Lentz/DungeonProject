@@ -36,8 +36,6 @@ public:
         std::string deathSound
     );
 
-    Enemy(const Enemy& other, Game* game);
-
     virtual void printSelf() = 0;
     virtual std::string drop() = 0;
     Collision mapAction(MapObject* collider, std::list<MapObject*>::iterator& it) override;
@@ -79,8 +77,6 @@ public:
     ) : Enemy(pgame, mapRep, coord, name, rawoutput, typeId, hp, att, def, lck, spd,
         lvl, primary, secondary, battleMusic, experienceGiven, deathSound) {}
 
-    REnemy(const REnemy& other, Game* game) :Enemy(other, game) {}
-
     std::string drop();
     
     bool movement() override;
@@ -100,14 +96,7 @@ public:
         unsigned int lvl
     );
 
-    Skeleton(const Skeleton& other, Game* game) : REnemy(other, game) {}
-
     void printSelf() override;
-
-    MapObject* makeSave(Game* game) override
-    {
-        return new Skeleton(*this, game);
-    }
 };
 
 class BloodSkeleton : public REnemy
@@ -124,14 +113,7 @@ public:
         unsigned int lvl
     );
 
-    BloodSkeleton(const BloodSkeleton& other, Game* game) : REnemy(other, game) {}
-
     void printSelf() override;
-
-    MapObject* makeSave(Game* game) override
-    {
-        return new BloodSkeleton(*this, game);
-    }
 };
 
 class BEnemy : public Enemy
@@ -158,9 +140,6 @@ public:
     ) : Enemy(pgame, mapRep, coord, name, rawoutput, typeId, hp, att, def, lck, spd,
         lvl, primary, secondary, battleMusic, experienceGiven, deathSound) {}
 
-    BEnemy(const BEnemy& other, Game* game) :Enemy(other, game) {}
-
-
     std::string drop() override;
     
     bool movement() override;
@@ -182,14 +161,7 @@ public:
         unsigned int lvl
     );
 
-    LargeSkeleton(const LargeSkeleton& other, Game* game) : BEnemy(other, game) {}
-
     void printSelf() override;
-
-    MapObject* makeSave(Game* game) override
-    {
-        return new LargeSkeleton(*this, game);
-    }
 };
 
 #endif

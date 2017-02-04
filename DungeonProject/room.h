@@ -97,7 +97,6 @@ class Room
 public:
     // if there is no puzzle pass through a nullptr for the puzzle
     Room(Game* game_pointer, RoomInfo mapToGenerate, Puzzle* puzzle);
-    Room(const Room& other, Game* game);
     ~Room();
 
     int getRoomX() const;

@@ -59,14 +59,6 @@ Enemy::Enemy(
     this->experienceGiven = experienceGiven;
 }
 
-Enemy::Enemy(const Enemy& other, Game* game)
-    :Creature(other, game)
-{
-    this->battleMusic = other.battleMusic;
-    this->deathSound = other.deathSound;
-    this->experienceGiven = other.experienceGiven;
-}
-
 const std::string& Enemy::getBattleMusic() const
 {
     return battleMusic;

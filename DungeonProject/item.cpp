@@ -42,13 +42,6 @@ Item::Item(
     this->description = description;
 }
 
-Item::Item(const Item& other, Game* game)
-    :MapObject(other, game)
-{
-    this->consumable = other.consumable;
-    this->description = other.description;
-}
-
 const bool& Item::isConsumable() const
 {
     return consumable;
@@ -80,12 +73,6 @@ RItem::RItem(
 
 }
 
-RItem::RItem(const RItem& other, Game* game)
-    :Item(other, game)
-{
-
-}
-
 Collision RItem::mapAction(MapObject* collider, std::list<MapObject*>::iterator& it)
 {
     if (collider == getPGame()->getPlayer())
@@ -110,12 +97,6 @@ Potion::Potion(Game* pgame, Coordinate coord, int healAmount)
         true, false, false, dngutil::TID::Potion, true, "Heals " + std::to_string(healAmount) + "hp")
 {
     this->healAmount = healAmount;
-}
-
-Potion::Potion(const Potion& other, Game* game)
-    :RItem(other, game)
-{
-    this->healAmount = other.healAmount;
 }
 
 void Potion::action(Player* player, unsigned int inventoryIndex)
@@ -146,16 +127,6 @@ void Potion::action(Player* player, unsigned int inventoryIndex)
     getPGame()->getVWin()->txtmacs.clearLine(healthbarLine);
 }
 
-Item* Potion::makeSaveInv(Game* game)
-{
-    return new Potion(*this, game);
-}
-
-MapObject* Potion::makeSave(Game* game)
-{
-    return new Potion(*this, game);
-}
-
 //-------------------------------------------------------
 
 //-------------------------------------------------------
@@ -167,11 +138,6 @@ Key::Key(Game* pgame, Coordinate coord)
 {
 }
 
-Key::Key(const Key& other, Game* game)
-    :RItem(other, game)
-{
-}
-
 void Key::action(Player* player, unsigned int inventoryIndex)
 {
     std::string output = "You cannot use this right now";
@@ -179,30 +145,10 @@ void Key::action(Player* player, unsigned int inventoryIndex)
     getPGame()->getVWin()->putcen(ColorString(output, dngutil::LIGHTGRAY), getPGame()->getVWin()->txtmacs.BOTTOM_DIVIDER_TEXT_LINE);
 }
 
-Item* Key::makeSaveInv(Game* game)
-{
-    return new Key(*this, game);
-}
-
-MapObject* Key::makeSave(Game* game)
-{
-    return new Key(*this, game);
-}
-
 //-------------------------------------------------------
 
 //-------------------------------------------------------
 // Primary and Secondary Functions
-
-Item* Primary::makeSaveInv(Game* game)
-{
-    return new Primary(*this, game);
-}
-
-MapObject* Primary::makeSave(Game* game)
-{
-    return new Primary(*this, game);
-}
 
 void Primary::action(Player* player, unsigned int inventoryIndex)
 {
@@ -250,15 +196,6 @@ bool Primary::hit() const
     return (random(99) < accuracy);
 }
 
-Item* Secondary::makeSaveInv(Game* game)
-{
-    return new Secondary(*this, game);
-}
-
-MapObject* Secondary::makeSave(Game* game)
-{
-    return new Secondary(*this, game);
-}
 
 void Secondary::action(Player* player, unsigned int inventoryIndex)
 {

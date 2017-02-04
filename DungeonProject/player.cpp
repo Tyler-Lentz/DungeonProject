@@ -64,14 +64,6 @@ Player::Player(
     this->expToLevel = getExpToLevel(getLvl());
 }
 
-Player::Player(const Player& other, Game* game)
-    :Creature(other, game),
-    inventory(other.inventory, game)
-{
-    this->exp = other.exp;
-    this->expToLevel = other.expToLevel;
-}
-
 void Player::addToInventory(Item* item)
 {
     inventory.push_back(item);
@@ -114,12 +106,6 @@ bool Player::movement()
         }
     }
     return false;
-}
-
-
-MapObject* Player::makeSave(Game* game)
-{
-    return new Player(*this, game);
 }
 
 Collision Player::mapAction(MapObject* collider, std::list<MapObject*>::iterator& it)
