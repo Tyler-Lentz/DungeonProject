@@ -468,7 +468,7 @@ void Game::makeFloor1()
         roomTemplate.push_back("#  ## #o  #");
         roomTemplate.push_back("#  ## #####");
         roomTemplate.push_back("#  ##    e#");
-        roomTemplate.push_back("   ##^#####");
+        roomTemplate.push_back("   ##v#####");
         roomTemplate.push_back("#  ########");
         roomTemplate.push_back("#  ###e# v#");
         roomTemplate.push_back("#  ###    #");
