@@ -7,7 +7,7 @@
 #include <map>
 #include <list>
 #include <array>
-#include <memory>
+#include <mutex>
 
 class MapObject;
 class Room;
@@ -62,6 +62,7 @@ private:
     dngutil::ReturnVal returnVal;
 
 
+    std::mutex roomMut;
     void makeRooms();
     void makeFloor0();
     void makeFloor1();

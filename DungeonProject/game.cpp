@@ -110,31 +110,6 @@ VirtualWindow* Game::getVWin()
 
 void Game::makeRooms()
 {
-    /*
-    auto puzzleSolved = [](const std::list<Creature*>& creatureList, const GAMEMAP& gameMap) -> bool
-    {
-    };
-
-    auto puzzleAction = [this](std::list<Creature*> creatureList, GAMEMAP& gameMap) -> void
-    {
-    };
-
-    std::map<Coordinate, MapObject*> specificObjects;
-    specificObjects.emplace(Coordinate(4, 1), new Potion(this, Coordinate(4, 1), dngutil::POTION_HEAL));
-
-    std::vector<dngutil::TID> possibleCreatures;
-    possibleCreatures.push_back(dngutil::TID::Skeleton);
-
-    int difficulty = 0;
-    int backColor = dngutil::LIGHTGRAY;
-    std::string name = "F0: Entrance Hall";
-    Coordinate mapCoord(0, 0);
-    RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, floor, mapCoord);
-    gamespace->emplace(mapCoord, new Room(this, rminfo, nullptr));
-
-    activeRoom = gamespace[floor][mapCoord];
-    */
-
     std::vector<std::thread> threads;
     threads.emplace_back(&Game::makeFloor0, this);
     threads.emplace_back(&Game::makeFloor1, this);
@@ -184,7 +159,10 @@ void Game::makeFloor0()
         std::string name = "Rectangular Hallway";
         Coordinate mapCoord(1, 1);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        roomMut.lock();
         gamespace[tfloor].emplace(mapCoord, new Room(this, rminfo, nullptr));
+        roomMut.unlock();
     }
     {
         std::vector<std::string> roomTemplate;
@@ -219,7 +197,9 @@ void Game::makeFloor0()
         std::string name = "Passageway";
         Coordinate mapCoord(1, 0);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        roomMut.lock();
         gamespace[tfloor].emplace(mapCoord, new Room(this, rminfo, nullptr));
+        roomMut.unlock();
     }
     {
         std::vector<std::string> roomTemplate;
@@ -262,7 +242,9 @@ void Game::makeFloor0()
         std::string name = "Underneath the Bridge";
         Coordinate mapCoord(0, 0);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        roomMut.lock();
         gamespace[tfloor].emplace(mapCoord, new Room(this, rminfo, nullptr));
+        roomMut.unlock();
     }
     {
         std::vector<std::string> roomTemplate;
@@ -313,7 +295,9 @@ void Game::makeFloor0()
         std::string name = "Maze";
         Coordinate mapCoord(-1, 0);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        roomMut.lock();
         gamespace[tfloor].emplace(mapCoord, new Room(this, rminfo, nullptr));
+        roomMut.unlock();
     }
 }
 
@@ -335,7 +319,9 @@ void Game::makeFloor1()
         std::string name = "You Shouldn't be here";
         Coordinate mapCoord(0, 3);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        roomMut.lock();
         gamespace[tfloor].emplace(mapCoord, new Room(this, rminfo, nullptr));
+        roomMut.unlock();
     }
     {
         std::vector<std::string> roomTemplate;
@@ -359,9 +345,11 @@ void Game::makeFloor1()
         std::string name = "Entrance Hall";
         Coordinate mapCoord(0, 2);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
-        gamespace[tfloor].emplace(mapCoord, new Room(this, rminfo, nullptr));
 
+        roomMut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(this, rminfo, nullptr));
         activeRoom = gamespace[tfloor][mapCoord]; // sets the starting activeRoom
+        roomMut.unlock();
     }
     {
         std::vector<std::string> roomTemplate;
@@ -396,7 +384,9 @@ void Game::makeFloor1()
         std::string name = "Main Room";
         Coordinate mapCoord(0, 1);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        roomMut.lock();
         gamespace[tfloor].emplace(mapCoord, new Room(this, rminfo, nullptr));
+        roomMut.unlock();
     }
     {
         std::vector<std::string> roomTemplate;
@@ -439,7 +429,9 @@ void Game::makeFloor1()
         std::string name = "Secret Treasure";
         Coordinate mapCoord(-1, 1);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        roomMut.lock();
         gamespace[tfloor].emplace(mapCoord, new Room(this, rminfo, new Puzzle(puzzleSolved, puzzleAction)));
+        roomMut.unlock();
     }
     {
         std::vector<std::string> roomTemplate;
@@ -456,7 +448,9 @@ void Game::makeFloor1()
         std::string name = "Hallway";
         Coordinate mapCoord(-1, 0);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        roomMut.lock();
         gamespace[tfloor].emplace(mapCoord, new Room(this, rminfo, nullptr));
+        roomMut.unlock();
     }
     {
         std::vector<std::string> roomTemplate;
@@ -507,7 +501,9 @@ void Game::makeFloor1()
         std::string name = "Hallway and Maze";
         Coordinate mapCoord(1, 1);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        roomMut.lock();
         gamespace[tfloor].emplace(mapCoord, new Room(this, rminfo, nullptr));
+        roomMut.unlock();
     }
     {
         std::vector<std::string> roomTemplate;
@@ -570,7 +566,9 @@ void Game::makeFloor1()
         std::string name = "Dangerous Bridge";
         Coordinate mapCoord(0, 0);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        roomMut.lock();
         gamespace[tfloor].emplace(mapCoord, new Room(this, rminfo, new Puzzle(puzzleSolved, puzzleAction)));
+        roomMut.unlock();
     }
     {
         std::vector<std::string> roomTemplate;
@@ -600,7 +598,9 @@ void Game::makeFloor1()
         std::string name = "Tight Hallways";
         Coordinate mapCoord(0, -1);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        roomMut.lock();
         gamespace[tfloor].emplace(mapCoord, new Room(this, rminfo, nullptr));
+        roomMut.unlock();
     }
     {
         std::vector<std::string> roomTemplate;
@@ -626,7 +626,9 @@ void Game::makeFloor1()
         std::string name = "Hallway";
         Coordinate mapCoord(-1, -1);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        roomMut.lock();
         gamespace[tfloor].emplace(mapCoord, new Room(this, rminfo, nullptr));
+        roomMut.unlock();
     }
     {
         std::vector<std::string> roomTemplate;
@@ -648,7 +650,9 @@ void Game::makeFloor1()
         std::string name = "Connector";
         Coordinate mapCoord(1, -1);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        roomMut.lock();
         gamespace[tfloor].emplace(mapCoord, new Room(this, rminfo, nullptr));
+        roomMut.unlock();
     }
     {
         std::vector<std::string> roomTemplate;
@@ -682,7 +686,9 @@ void Game::makeFloor1()
         std::string name = "Passage Entrance";
         Coordinate mapCoord(1, 0);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        roomMut.lock();
         gamespace[tfloor].emplace(mapCoord, new Room(this, rminfo, nullptr));
+        roomMut.unlock();
     }
 }
 
