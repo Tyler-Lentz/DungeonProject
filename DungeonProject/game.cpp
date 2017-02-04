@@ -114,7 +114,7 @@ void Game::makeRooms()
     threads.emplace_back(&Game::makeFloor0, this);
     threads.emplace_back(&Game::makeFloor1, this);
 
-    for (auto&& thread : threads)
+    for (auto& thread : threads)
     {
         thread.join();
     }
@@ -377,7 +377,7 @@ void Game::makeFloor1()
 
         std::vector<dngutil::TID> possibleCreatures;
         // TODO: change this to the first boss
-        possibleCreatures.push_back(dngutil::TID::Skeleton);
+        possibleCreatures.push_back(dngutil::TID::LargeSkeleton);
 
         int difficulty = 3;
         int backColor = dngutil::LIGHTGRAY;
@@ -591,7 +591,7 @@ void Game::makeFloor1()
 
 
         std::vector<dngutil::TID> possibleCreatures;
-        possibleCreatures.push_back(dngutil::TID::LargeSkeleton);
+        possibleCreatures.push_back(dngutil::TID::BloodSkeleton);
 
         int difficulty = 2;
         int backColor = dngutil::LIGHTGRAY;
@@ -785,7 +785,7 @@ void Game::titleScreen()
     startMp3("TitleTheme.mp3");
 
     vwin->txtmacs.drawDividers();
-    vwin->putcen(ColorString("Dungeon RPG 2", dngutil::RED), vwin->txtmacs.DIVIDER_LINES[0] + 1);
+    vwin->putcen(ColorString("Dungeon RPG - Dragon's Lair", dngutil::RED), vwin->txtmacs.DIVIDER_LINES[0] + 1);
     vwin->putcen(ColorString("Enter - Continue, Esc - exit", dngutil::LIGHTGRAY), vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE);
 
     Coordinate vcursor(0, vwin->txtmacs.DIVIDER_LINES[1] + 5);
