@@ -66,8 +66,7 @@ namespace dngutil
     enum class ReturnVal
     {
         EXIT,
-        RESTART,
-        RESTART_SAVE
+        RESTART
     };
 
     enum class MovementTypes

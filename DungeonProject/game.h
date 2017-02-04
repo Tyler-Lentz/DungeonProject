@@ -37,8 +37,6 @@ public:
     std::list<MapObject*>& getDeletionList();
     void clearDeletionList();
 
-    Game*& getLastSave();
-
     Creature* generateCreature(int difficulty, dngutil::TID tid);
 
     void cleanup(dngutil::ReturnVal returnval);
@@ -48,8 +46,6 @@ private:
     VirtualWindow* vwin;
     Room* activeRoom;
     Player* player;
-
-    Game* lastSave;
 
     // Holds all of the rooms.
     std::array<std::map<Coordinate, Room*>, dngutil::NUMFLOORS> gamespace;

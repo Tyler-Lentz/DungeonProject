@@ -279,24 +279,16 @@ dngutil::ReturnVal TextMacros::deathScreen()
 
     soundEffect("Death.wav", false, false);
     startMp3("Continue.mp3");
+    int startingLine = static_cast<int>(dngutil::CONSOLEY / 2.0) + 1;
+    vwin->putcen(ColorString("Oh dear, you have died...", getColor(dngutil::WHITE, dngutil::RED)), startingLine);
+    startingLine += 2;
+    vwin->putcen(ColorString("Press enter to continue", getColor(dngutil::WHITE, dngutil::RED)), startingLine);
+    while (!keyrelease(VK_RETURN));
 
-    vwin->putcen(ColorString("Continue? y/n", getColor(dngutil::WHITE, dngutil::RED)), static_cast<int>(dngutil::CONSOLEY / 2.0));
+    while (!keypress(VK_RETURN));
 
-    dngutil::ReturnVal returnValue;
-    while (true)
-    {
-        if (keypress('Y'))
-        {
-            returnValue = dngutil::ReturnVal::RESTART_SAVE;
-            break;
-        }
-        else if (keypress('N'))
-        {
-            returnValue = dngutil::ReturnVal::RESTART;
-            break;
-        }
-    }
-
+    while (!keyrelease(VK_RETURN));
+    dngutil::ReturnVal returnValue = dngutil::ReturnVal::RESTART;
 
     stopMp3();
 

@@ -46,7 +46,6 @@ Game::Game(VirtualWindow* vwin)
     this->vwin = vwin;
     activeRoom = nullptr;
     player = new Player(this, Coordinate(-1, -1));
-    lastSave = nullptr;
     floor = 0;
 
     titleScreen();
@@ -64,8 +63,6 @@ Game::Game(const Game& other)
 
     this->vwin = other.vwin;
     player = new Player(*other.player, this);
-
-    Game* lastSave = other.lastSave;
 
     int f = dngutil::NUMFLOORS;
     for (int i = 0; i < f; i++)
@@ -724,11 +721,6 @@ void Game::clearDeletionList()
         delete i;
     }
     deletionList.clear();
-}
-
-Game*& Game::getLastSave()
-{
-    return lastSave;
 }
 
 Creature* Game::generateCreature(int difficulty, dngutil::TID tid)

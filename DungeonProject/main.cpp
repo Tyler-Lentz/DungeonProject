@@ -22,34 +22,15 @@ int main()
     });
 
     std::unique_ptr<Game> game(new Game(vwin.get()));
-    int returnValue;
     while (!exit)
     {
         switch (game->run())
         {
-        case dngutil::ReturnVal::RESTART_SAVE:
-            if (game->getLastSave() != nullptr)
-            {
-                Game* save = game->getLastSave();
-                save->getLastSave() = save;
-                game.reset(save);
-            }
-            else
-            {
-                game.reset(new Game(vwin.get()));
-            }
-            break;
-
         case dngutil::ReturnVal::RESTART:
-            if (game->getLastSave() != nullptr)
-            {
-                delete game->getLastSave();
-            }
             game.reset(new Game(vwin.get()));
             break;
 
         case dngutil::ReturnVal::EXIT:
-            returnValue = 0;
             exit = true;
             break;
         }
@@ -57,5 +38,5 @@ int main()
 
     framerate.join();
 
-    return returnValue;
+    return 0;
 }
