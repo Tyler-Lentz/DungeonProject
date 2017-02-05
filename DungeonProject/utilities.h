@@ -127,7 +127,7 @@ namespace dngutil
 
     const int MENU_DELAY = 100;
 
-    const int FULL_STEPS = 300;
+    const int FULL_STEPS = 200;
 }
 
 void errorMessage(std::string error, int line, std::string file);
