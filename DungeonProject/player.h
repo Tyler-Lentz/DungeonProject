@@ -57,6 +57,8 @@ public:
     bool swapSecondary(Item*& itemToSwap);
 
     ColorString getStepString();
+
+    void resetSteps();
 private:
     void dungeonBeastSequence();
 

@@ -277,6 +277,28 @@ void Game::makeFloor0()
         gamespace[tfloor].emplace(mapCoord, new Room(this, rminfo, nullptr));
         roomMut.unlock();
     }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########");
+        roomTemplate.push_back("#      #");
+        roomTemplate.push_back("# ^  + #");
+        roomTemplate.push_back("#      #");
+        roomTemplate.push_back("########");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Skeleton);
+
+        int difficulty = 0;
+        int backColor = dngutil::DARKGRAY;
+        std::string name = "Altar Room";
+        Coordinate mapCoord(0, 1);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        roomMut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(this, rminfo, nullptr));
+        roomMut.unlock();
+    }
 }
 
 void Game::makeFloor1()
@@ -332,12 +354,12 @@ void Game::makeFloor1()
         std::vector<std::string> roomTemplate;
         roomTemplate.push_back("##### ### #####");
         roomTemplate.push_back("#####     #####");
-        roomTemplate.push_back("####  #-#  ####");
+        roomTemplate.push_back("##v   #-#  ####");
         roomTemplate.push_back("#### ## ## ####");
         roomTemplate.push_back("#### ##-## ####");
         roomTemplate.push_back("###  ## ##  ###");
-        roomTemplate.push_back("##   ##-###  ##");
-        roomTemplate.push_back("#   ###e####  #");
+        roomTemplate.push_back("##  ###-###  ##");
+        roomTemplate.push_back("#  ####e####  #");
         roomTemplate.push_back("  ##### #####  ");
         roomTemplate.push_back("# #####^##### #");
         roomTemplate.push_back("# ##### ##### #");

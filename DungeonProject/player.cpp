@@ -89,12 +89,13 @@ void Player::dungeonBeastSequence()
 {
     VirtualWindow* v = getPGame()->getVWin();
     TextMacros& t = v->txtmacs;
+    stopMp3();
+    Sleep(150);
     soundEffect("EnterBattle.wav", false, true);
     t.clearMapArea(true, 20);
     t.clearDivider("bottom");
 
     Coordinate vcursor(15, t.DIVIDER_LINES[1] + 1);
-    stopMp3();
 
     startMp3("MinibossTheme.mp3");
     int color = dngutil::WHITE;
@@ -143,6 +144,7 @@ void Player::dungeonBeastSequence()
     stopMp3();
 
     startMp3("Overworld.mp3");
+    soundEffect("ExitToMap.wav", false, true);
 }
 
 bool Player::movement()
@@ -217,6 +219,11 @@ Collision Player::mapAction(MapObject* collider, std::list<MapObject*>::iterator
         }
     }
     return Collision(false, true);
+}
+
+void Player::resetSteps()
+{
+    steps = dngutil::FULL_STEPS;
 }
 
 void Player::printStats(int startingXCoord, int startingCursorY)

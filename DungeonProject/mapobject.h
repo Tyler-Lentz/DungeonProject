@@ -169,5 +169,11 @@ public:
     Collision mapAction(MapObject* collider, std::list<MapObject*>::iterator& it) override;
 };
 
+class AltarObject : public MapObject
+{
+public:
+    AltarObject(Game* game, Coordinate coord);
+    Collision mapAction(MapObject* collider, std::list<MapObject*>::iterator& it) override;
+};
 //----------------------------------------------------
 #endif

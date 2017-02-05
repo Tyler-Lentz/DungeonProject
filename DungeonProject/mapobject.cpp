@@ -281,3 +281,90 @@ Collision DoorObject::mapAction(MapObject* collider, std::list<MapObject*>::iter
 }
 
 //---------------------------------------------------------------
+
+//---------------------------------------------------------------
+// altar object functions
+
+AltarObject::AltarObject(Game* game, Coordinate coord)
+    :MapObject(
+        game,
+        ColorChar('+', dngutil::WHITE),
+        coord,
+        "ALTAR",
+        true,
+        false,
+        false,
+        dngutil::TID::Altar,
+        dngutil::P_ITEM,
+        dngutil::BTID::None,
+        false
+    )
+{
+
+}
+
+Collision AltarObject::mapAction(MapObject* collider, std::list<MapObject*>::iterator& it)
+{
+    if (collider == getPGame()->getPlayer())
+    {
+        stopMp3();
+        VirtualWindow* v = getPGame()->getVWin();
+        TextMacros& t = v->txtmacs;
+
+        t.clearMapArea(true, 10);
+        t.clearDivider("bottom");
+        int background = dngutil::DARKGRAY;
+        int cross = dngutil::WHITE;
+
+        Coordinate vcursor(15, t.DIVIDER_LINES[1] + 4);
+        v->putcen(ColorString(R"(	            .----------------------------._              )", background), vcursor.y++);
+        v->putcen(ColorString(R"(           _.-'          '-        .           '-._         )", background), vcursor.y++);
+        v->putcen(ColorString(R"(         .'      _|   .    . - .        ._         '.       )", background), vcursor.y++);
+        v->putcen(ColorString(R"(      _.'    '           .'     '.               _| |       )", background), vcursor.y++);
+        v->putcen(ColorString(R"(     /  _|        _|    ''       ''  |_     '    .  '.      )", background), vcursor.y++);
+        v->putcen(ColorString(R"(    |      . -- .      ''         ''      . -- .     |      )", background), vcursor.y++);
+        v->putcen(ColorString(R"(   .'    .'      '.   -||         ||    .'      '.   '.     )", background), vcursor.y++);
+        v->putcen(ColorString(R"(   | '  ''        ''   ||   )", background) + ColorString(".-.", cross) + ColorString(R"(   ||_  ''        ''   |     )", background), vcursor.y++);
+        v->putcen(ColorString(R"(   '.  ''          ''  ||   )", background) + ColorString("| |", cross) + ColorString(R"(   ||  ''          ''  |     )", background), vcursor.y++);
+        v->putcen(ColorString(R"(    | -||          ||- ')", background) + ColorString("____|!|____", cross) + ColorString(R"(' -||          ||- |     )", background), vcursor.y++);
+        v->putcen(ColorString(R"(    |  ||          ||  )", background) + ColorString("|____-+-____|", cross) + ColorString(R"(  ||          ||  '.    )", background), vcursor.y++);
+        v->putcen(ColorString(R"(   .' -||          ||_ ||   )", background) + ColorString("|!|", cross) + ColorString(R"(   ||  ||          ||  _|    )", background), vcursor.y++);
+        v->putcen(ColorString(R"(   |_.-||          ||  ||   )", background) + ColorString("| |", cross) + ColorString(R"(   || _||          ||-._|    )", background), vcursor.y++);
+        v->putcen(ColorString(R"(_.-' |_||          ||  ||   )", background) + ColorString("| |", cross) + ColorString(R"(   ||  ||          ||_| '-._ )", background), vcursor.y++);
+        v->putcen(ColorString(R"(_| |_  |:;;.,::;,.';|--|:;;.)", background) + ColorString("| |", cross) + ColorString(R"(,.';|--|:;;.,::;,.';|     |_ )", background), vcursor.y++);
+        v->putcen(ColorString(R"(         :;;.,::;,.';   :;;.)", background) + ColorString("| |", cross) + ColorString(R"(,.';    :;;.,::;,.';  _|   -')", background), vcursor.y++);
+        v->putcen(ColorString(R"(   |_                       )", background) + ColorString("| |", cross) + ColorString(R"(                         |_. )", background), vcursor.y++);
+        v->putcen(ColorString(R"( _      _|                __)", background) + ColorString("| |", cross) + ColorString(R"(__              |_     _     )", background), vcursor.y++);
+        v->putcen(ColorString(R"(|________________________/_______\___________________|______)", background), vcursor.y++);
+        v->putcen(ColorString(R"(,:.,:.,:.,:.,:.,:.,:.,:.,:.,:.,:.,:.,:.,:.,:.,:.,:.,:.,:.,:.)", background), vcursor.y++);
+        v->putcen(ColorString(R"(------------------------------------------------------------)", background), vcursor.y++);
+
+        startMp3("AltarSong.mp3");
+        
+        for (int i = 0; i < 800; i++)
+        {
+            Sleep(10);
+            if (keypress(VK_RETURN))
+            {
+                break;
+            }
+        }
+
+        stopMp3();
+        
+        getPGame()->getPlayer()->resetSteps();
+
+        vcursor.y = t.BOTTOM_DIVIDER_TEXT_LINE;
+        v->putcen(ColorString("Your step counter has been reset.", dngutil::WHITE), vcursor.y++);
+        pressEnter(vcursor, v);
+        t.clearDivider("bottom");
+        t.clearMapArea(false, NULL);
+        t.displayGame(getPGame());
+
+        startMp3("Overworld.mp3");
+
+    }
+    return Collision(false, true);
+}
+
+//---------------------------------------------------------------

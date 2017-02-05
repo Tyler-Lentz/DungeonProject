@@ -49,7 +49,8 @@ namespace dngutil
         LSKnight,
         SSKnight,
         Mage,
-        MagicalPotion
+        MagicalPotion,
+        Altar
     };
 
     enum class BTID
@@ -126,7 +127,7 @@ namespace dngutil
 
     const int MENU_DELAY = 100;
 
-    const int FULL_STEPS = 150;
+    const int FULL_STEPS = 300;
 }
 
 void errorMessage(std::string error, int line, std::string file);
