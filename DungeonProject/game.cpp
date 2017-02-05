@@ -127,7 +127,9 @@ void Game::makeFloor0()
         specificObjects.emplace(Coordinate(7, 18), new Potion(this, Coordinate(7, 18), dngutil::POTION_HEAL));
 
         std::vector<dngutil::TID> possibleCreatures;
-        possibleCreatures.push_back(dngutil::TID::Skeleton);
+        possibleCreatures.push_back(dngutil::TID::LSKnight);
+        possibleCreatures.push_back(dngutil::TID::SSKnight);
+        possibleCreatures.push_back(dngutil::TID::Mage);
 
         int difficulty = 1;
         int backColor = dngutil::DARKGRAY;
@@ -166,6 +168,7 @@ void Game::makeFloor0()
 
         std::vector<dngutil::TID> possibleCreatures;
         possibleCreatures.push_back(dngutil::TID::Skeleton);
+        possibleCreatures.push_back(dngutil::TID::Mage);
 
         int difficulty = 0;
         int backColor = dngutil::DARKGRAY;

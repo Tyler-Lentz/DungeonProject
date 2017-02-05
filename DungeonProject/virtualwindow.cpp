@@ -250,7 +250,7 @@ void TextMacros::displayHealthBars(Creature* top, Creature* player)
 
     player->printStats(0, ++vcursor.y);
 
-    vwin->putcen(ColorString("ENTER - attack, I - inventory, SPACE - deflect", dngutil::BLUE), BOTTOM_DIVIDER_TEXT_LINE);
+    vwin->putcen(ColorString("ENTER - attack, I - inventory, SPACE - deflect", dngutil::WHITE), BOTTOM_DIVIDER_TEXT_LINE);
 }
 
 void TextMacros::displayOverworldInfo(Game* game)
