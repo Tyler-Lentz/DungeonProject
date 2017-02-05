@@ -88,6 +88,7 @@ void Game::makeRooms()
     std::vector<std::thread> threads;
     threads.emplace_back(&Game::makeFloor0, this);
     threads.emplace_back(&Game::makeFloor1, this);
+    threads.emplace_back(&Game::makeFloor2, this);
 
     for (auto& thread : threads)
     {
@@ -698,7 +699,91 @@ void Game::makeFloor1()
 void Game::makeFloor2()
 {
     unsigned int tfloor = 2;
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("############");
+        roomTemplate.push_back("#          #");
+        roomTemplate.push_back("#          #");
+        roomTemplate.push_back("#          #");
+        roomTemplate.push_back("#  e       #");
+        roomTemplate.push_back("#          #");
+        roomTemplate.push_back("#      e   #");
+        roomTemplate.push_back("#         ##");
+        roomTemplate.push_back("#     ### ##");
+        roomTemplate.push_back("# e   #v# ##");
+        roomTemplate.push_back("#     #   ##");
+        roomTemplate.push_back("############");
 
+        // Will be solved when all of the enemies have been killed
+        auto puzzleSolved = [](const std::list<Creature*>& creatureList, const GAMEMAP& gameMap) -> bool
+        {
+            for (auto i : creatureList)
+            {
+                if (i->getTypeId() != dngutil::TID::Player)
+                {
+                    return false;
+                }
+            }
+            return true;
+        };
+
+        auto puzzleAction = [this](std::list<Creature*> creatureList, GAMEMAP& gameMap) -> void
+        {
+            WallObject* wall = dynamic_cast<WallObject*>(gameMap[0][1].back());
+
+            if (wall == nullptr)
+            {
+                errorMessage("at [0][1] there is not a wall? This shouldn't happen, but apparently it did lol.", __LINE__, __FILE__);
+            }
+
+            gameMap[0][1].remove(wall);
+            wall->removeFromMap(true);
+        };
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::LSKnight);
+        possibleCreatures.push_back(dngutil::TID::SSKnight);
+
+        int difficulty = 3;
+        int backColor = dngutil::DARKGRAY;
+        std::string name = "Trapped?";
+        Coordinate mapCoord(0, 1);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        roomMut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(this, rminfo, new Puzzle(puzzleSolved, puzzleAction)));
+        roomMut.unlock();
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("###");
+        roomTemplate.push_back("###");
+        roomTemplate.push_back("# #");
+        roomTemplate.push_back("# #");
+        roomTemplate.push_back("# #");
+        roomTemplate.push_back("# #");
+        roomTemplate.push_back("# #");
+        roomTemplate.push_back("# #");
+        roomTemplate.push_back("# #");
+        roomTemplate.push_back("# #");
+        roomTemplate.push_back("# #");
+        roomTemplate.push_back("# #");
+        roomTemplate.push_back("# #");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+
+        int difficulty = 0;
+        int backColor = dngutil::DARKGRAY;
+        std::string name = "END OF BETA";
+        Coordinate mapCoord(0, 0);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        roomMut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(this, rminfo, nullptr));
+        roomMut.unlock();
+    }
 }
 
 void Game::setActiveFloor(unsigned int floor)
@@ -801,7 +886,7 @@ void Game::titleScreen()
     startMp3("TitleTheme.mp3");
 
     vwin->txtmacs.drawDividers();
-    vwin->putcen(ColorString("Dungeon RPG - Dragon's Lair", dngutil::RED), vwin->txtmacs.DIVIDER_LINES[0] + 1);
+    vwin->putcen(ColorString("Dungeon RPG - Dragon's Lair (BETA 1)", dngutil::RED), vwin->txtmacs.DIVIDER_LINES[0] + 1);
     vwin->putcen(ColorString("Enter - Continue, Esc - exit", dngutil::LIGHTGRAY), vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE);
 
     Coordinate vcursor(0, vwin->txtmacs.DIVIDER_LINES[1] + 5);
