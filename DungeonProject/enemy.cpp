@@ -33,7 +33,8 @@ Enemy::Enemy(
     Secondary* secondary,
     std::string battleMusic,
     unsigned int experienceGiven,
-    std::string deathSound
+    std::string deathSound,
+    dngutil::EvType ev
 ) : Creature(
     pgame,
     mapRep,
@@ -57,6 +58,7 @@ Enemy::Enemy(
     this->battleMusic = battleMusic;
     this->deathSound = deathSound;
     this->experienceGiven = experienceGiven;
+    this->ev = ev;
 }
 
 const std::string& Enemy::getBattleMusic() const
@@ -122,7 +124,7 @@ void Enemy::deathSequence()
         realExpGiven = 5;
     }
 
-    player->addExperience(realExpGiven);
+    player->addExperience(realExpGiven, ev);
 
     std::string dropType = drop();
     if (dropType != "NULL")
@@ -310,7 +312,8 @@ Skeleton::Skeleton(
     ),
     "BattleTheme.mp3",
     random(23, 29),
-    "EnemyDeath.wav"
+    "EnemyDeath.wav",
+    dngutil::EvType::HEALTH
 )
 {
 
@@ -398,7 +401,8 @@ BloodSkeleton::BloodSkeleton(
     ),
     "BattleTheme.mp3",
     random(23, 29),
-    "EnemyDeath.wav"
+    "EnemyDeath.wav",
+    dngutil::EvType::HEALTH
 )
 {
 
@@ -493,7 +497,8 @@ LargeSkeleton::LargeSkeleton(
     ),
     "MinibossTheme.mp3",
     50,
-    "MinibossDeath.wav"
+    "MinibossDeath.wav",
+    dngutil::EvType::ATTACK
 ) {}
 
 void LargeSkeleton::printSelf()
@@ -586,7 +591,8 @@ LSKnight::LSKnight(
     ),
     "BattleTheme.mp3",
     random(23, 29),
-    "EnemyDeath.wav"
+    "EnemyDeath.wav",
+    dngutil::EvType::DEFENSE
 )
 {
 
@@ -677,7 +683,8 @@ SSKnight::SSKnight(
     ),
     "BattleTheme.mp3",
     random(23, 29),
-    "EnemyDeath.wav"
+    "EnemyDeath.wav",
+    dngutil::EvType::SPEED
 )
 {
 
@@ -768,7 +775,8 @@ Mage::Mage(
     ),
     "BattleTheme.mp3",
     random(23, 29),
-    "EnemyDeath.wav"
+    "EnemyDeath.wav",
+    dngutil::EvType::ATTACK
 )
 {
 

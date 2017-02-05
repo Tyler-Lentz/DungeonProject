@@ -38,12 +38,14 @@ public:
 
     Collision mapAction(MapObject* collider, std::list<MapObject*>::iterator& it) override;
 
+    void levelUpStats() override;
+
     void addToInventory(Item* item);
     void removeFromInventory(unsigned int index);
 
     ColorString getExperienceBar();
 
-    void addExperience(unsigned int experience);
+    void addExperience(unsigned int experience, dngutil::EvType ev);
 
     void inventoryMenu();
     void statsMenu();
@@ -54,6 +56,13 @@ public:
     bool swapPrimary(Item*& itemToSwap);
     bool swapSecondary(Item*& itemToSwap);
 private:
+
+    double hpEv;
+    double attEv;
+    double defEv;
+    double lckEv;
+    double spdEv;
+
     unsigned int exp;
     unsigned int expToLevel;
     Inventory inventory;

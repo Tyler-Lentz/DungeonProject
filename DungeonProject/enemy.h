@@ -33,7 +33,8 @@ public:
         Secondary* secondary,
         std::string battleMusic,
         unsigned int experienceGiven,
-        std::string deathSound
+        std::string deathSound,
+        dngutil::EvType ev
     );
 
     virtual void printSelf() = 0;
@@ -46,11 +47,11 @@ public:
     const unsigned int& getExpGiven() const;
 
     virtual void deathSequence();
-
 private:
     std::string battleMusic;
     std::string deathSound;
     unsigned int experienceGiven;
+    dngutil::EvType ev;
 };
 
 class REnemy : public Enemy
@@ -73,9 +74,10 @@ public:
         Secondary* secondary,
         std::string battleMusic,
         unsigned int experienceGiven,
-        std::string deathSound
+        std::string deathSound,
+        dngutil::EvType ev
     ) : Enemy(pgame, mapRep, coord, name, rawoutput, typeId, hp, att, def, lck, spd,
-        lvl, primary, secondary, battleMusic, experienceGiven, deathSound) {}
+        lvl, primary, secondary, battleMusic, experienceGiven, deathSound, ev) {}
 
     std::string drop();
     
@@ -187,9 +189,10 @@ public:
         Secondary* secondary,
         std::string battleMusic,
         unsigned int experienceGiven,
-        std::string deathSound
+        std::string deathSound,
+        dngutil::EvType ev
     ) : Enemy(pgame, mapRep, coord, name, rawoutput, typeId, hp, att, def, lck, spd,
-        lvl, primary, secondary, battleMusic, experienceGiven, deathSound) {}
+        lvl, primary, secondary, battleMusic, experienceGiven, deathSound, ev) {}
 
     std::string drop() override;
     

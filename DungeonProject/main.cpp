@@ -16,6 +16,7 @@ changes:
 6. revival potion (done)
 7. stats menu (done)
 8. white staircases (done)
+9. running from battles
 */
 
 int main()

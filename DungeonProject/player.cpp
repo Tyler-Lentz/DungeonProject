@@ -63,6 +63,12 @@ Player::Player(
     this->exp = 0;
     this->expToLevel = getExpToLevel(getLvl());
     inventory.push_back(new Potion(getPGame(), Coordinate(-1, -1), dngutil::POTION_HEAL));
+
+    hpEv = 0;
+    attEv = 0;
+    defEv = 0;
+    lckEv = 0;
+    spdEv = 0;
 }
 
 void Player::addToInventory(Item* item)
@@ -172,8 +178,27 @@ ColorString Player::getExperienceBar()
     return ColorString(((std::string((unsigned int)numOfCircles, '=')) + temp), dngutil::MAGENTA);
 }
 
-void Player::addExperience(unsigned int experience)
+void Player::addExperience(unsigned int experience, dngutil::EvType ev)
 {
+    switch (ev)
+    {
+    case dngutil::EvType::HEALTH:
+        hpEv += 0.5;
+        break;
+    case dngutil::EvType::ATTACK:
+        attEv += 0.25;
+        break;
+    case dngutil::EvType::DEFENSE:
+        defEv += 0.25;
+        break;
+    case dngutil::EvType::SPEED:
+        spdEv += 1;
+        break;
+    case dngutil::EvType::LUCK:
+        lckEv += 2;
+        break;
+    }
+
     unsigned int overFlowXp = 0;
 
     VirtualWindow* vwin = getPGame()->getVWin();
@@ -222,6 +247,7 @@ void Player::addExperience(unsigned int experience)
         int prevSpd = getSpd();
 
         levelUpStats();
+        
 
         vcursor.y += 2; vcursor.x = 0;
 
@@ -242,7 +268,42 @@ void Player::addExperience(unsigned int experience)
     
     if (overFlowXp > 0)
     {
-        addExperience(overFlowXp);
+        addExperience(overFlowXp, dngutil::EvType::NONE);
+    }
+}
+
+void Player::levelUpStats()
+{
+    Creature::levelUpStats();
+    std::array<double, 5> stats;
+    stats[0] = hpEv; stats[1] = attEv; stats[2] = defEv; stats[3] = lckEv; stats[4] = spdEv;
+
+    for (unsigned int i = 0; i < stats.size(); i++)
+    {
+        int boost = static_cast<int>(stats[i]);
+        switch (i)
+        {
+        case 0:
+            increaseHealth(boost);
+            hpEv -= boost;
+            break;
+        case 1:
+            increaseAtt(boost);
+            attEv -= boost;
+            break;
+        case 2:
+            increaseDef(boost);
+            defEv -= boost;
+            break;
+        case 3:
+            increaseLck(boost);
+            lckEv -= boost;
+            break;
+        case 4:
+            increaseSpd(boost);
+            spdEv -= boost;
+            break;
+        }
     }
 }
 

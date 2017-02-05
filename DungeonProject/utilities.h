@@ -81,6 +81,16 @@ namespace dngutil
         RETURN_TRUE
     };
 
+    enum class EvType
+    {
+        HEALTH,
+        ATTACK,
+        DEFENSE,
+        LUCK,
+        SPEED,
+        NONE
+    };
+
     enum Priority
     {
         P_EMPTY,
