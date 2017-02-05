@@ -377,7 +377,7 @@ void Game::makeFloor1()
         std::vector<dngutil::TID> possibleCreatures;
         possibleCreatures.push_back(dngutil::TID::LargeSkeleton);
 
-        int difficulty = 3;
+        int difficulty = 6;
         int backColor = dngutil::LIGHTGRAY;
         std::string name = "Main Room";
         Coordinate mapCoord(0, 1);
@@ -672,11 +672,12 @@ void Game::makeFloor1()
         roomTemplate.push_back("########");
         roomTemplate.push_back("#  v   #");
         roomTemplate.push_back("#      #");
-        roomTemplate.push_back("#      #");
+        roomTemplate.push_back("#  o   #");
         roomTemplate.push_back("########");
 
         std::map<Coordinate, MapObject*> specificObjects;
         specificObjects.emplace(Coordinate(4, 11), new MagicalPotion(this, Coordinate(4, 11)));
+        specificObjects.emplace(Coordinate(3, 18), new Key(this, Coordinate(3, 18)));
 
         std::vector<dngutil::TID> possibleCreatures;
         possibleCreatures.push_back(dngutil::TID::BloodSkeleton);

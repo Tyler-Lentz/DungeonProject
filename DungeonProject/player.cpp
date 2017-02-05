@@ -343,6 +343,8 @@ void Player::addExperience(unsigned int experience, dngutil::EvType ev)
 
         vcursor.y = vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE;
         pressEnter(vcursor, vwin);
+
+        setHp(getMaxhp());
     }
     
     if (overFlowXp > 0)

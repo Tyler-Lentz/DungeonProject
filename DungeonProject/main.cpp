@@ -7,19 +7,20 @@
 #include <memory>
 
 /*
-changes:
-1.  make controls more clear (done)
-2.  adjust speed (done)
-3.  dyamic leveling (done)
-4.  fix keys (done)
+beta 2 changes:
+1.  make how to exit inventory more clear (done)
+2.  make starting speed slower (done)
+3.  dyamic stat leveling (done)
+4.  fix keys disapearring (done)
 5.  revival potion (done)
 6.  stats menu (done)
 7.  white staircases (done)
 8.  fixed hit sounds (done)
-9.  slightly nerfed mage's staffs (done)
-10. title screen variants
-
-Major. altars & beasts (done)
+9.  slightly nerfed mage's staff (done)
+10. title screen variants (done)
+11. full health on level (done)
+12. added missing third key (done)
+13. altars & beasts (done)
 */
 
 int main()
