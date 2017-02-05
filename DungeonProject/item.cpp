@@ -224,3 +224,37 @@ const double& Secondary::getDmdReductMult() const
 }
 
 //-------------------------------------------------------
+
+//-------------------------------------------------------
+// MagicalPotion Functions
+
+MagicalPotion::MagicalPotion(Game* pgame, Coordinate coord)
+    :RItem(pgame, ColorChar('o', dngutil::YELLOW), coord, "Magical Potion",
+        true, false, false, dngutil::TID::MagicalPotion, true, "Restores hp to max hp or heals 50 hp on death")
+{
+}
+
+void MagicalPotion::action(Player* player, unsigned int inventoryIndex)
+{
+    int healthbarLine = getPGame()->getVWin()->txtmacs.DIVIDER_LINES[2] - 1;
+
+    soundEffect("RefillHealth.wav", true, true);
+    getPGame()->getVWin()->putcen(player->getHealthBar(), healthbarLine);
+    Sleep(100);
+
+    while (static_cast<unsigned int>(player->getHp()) < player->getMaxhp())
+    {
+        player->increaseHealth(1);
+        getPGame()->getVWin()->putcen(player->getHealthBar(), healthbarLine);
+        Sleep(60);
+    }
+    stopSound();
+
+    std::string output = "You healed to full health";
+
+    getPGame()->getVWin()->putcen(ColorString(output, dngutil::LIGHTGRAY), getPGame()->getVWin()->txtmacs.BOTTOM_DIVIDER_TEXT_LINE);
+
+    getPGame()->getVWin()->txtmacs.clearLine(healthbarLine);
+}
+
+//-------------------------------------------------------

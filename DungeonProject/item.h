@@ -155,6 +155,14 @@ private:
     int healAmount;
 };
 
+class MagicalPotion : public RItem
+{
+public:
+    MagicalPotion(Game* pgame, Coordinate coord);
+
+    void action(Player* player, unsigned int inventoryIndex) override;
+};
+
 class Key : public RItem
 {
 public:

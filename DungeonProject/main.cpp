@@ -13,8 +13,9 @@ changes:
 3. dyamic leveling
 4. altars
 5. fix keys (done)
-6. revival potion 
+6. revival potion (done)
 7. stats menu (done)
+8. white staircases (done)
 */
 
 int main()

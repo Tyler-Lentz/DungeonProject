@@ -48,7 +48,8 @@ namespace dngutil
         BloodSkeleton,
         LSKnight,
         SSKnight,
-        Mage
+        Mage,
+        MagicalPotion
     };
 
     enum class BTID

@@ -67,11 +67,11 @@ Room::Room(Game* t_game_pointer, RoomInfo roomToGenerate, Puzzle* puzzle)
                 break;
 
             case '^':
-                gameMap[i][j].push_back(new ExitObject(game_pointer, Coordinate(j, i), true, ColorChar('^', dngutil::BROWN)));
+                gameMap[i][j].push_back(new ExitObject(game_pointer, Coordinate(j, i), true, ColorChar('^', dngutil::WHITE)));
                 break;
 
             case 'v':
-                gameMap[i][j].push_back(new ExitObject(game_pointer, Coordinate(j, i), false, ColorChar('v', dngutil::BROWN)));
+                gameMap[i][j].push_back(new ExitObject(game_pointer, Coordinate(j, i), false, ColorChar('v', dngutil::WHITE)));
                 break;
 
             case 'o':

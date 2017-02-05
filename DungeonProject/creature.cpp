@@ -408,9 +408,42 @@ bool Creature::battle(MapObject* t_enemy)
                 soundEffect("PlayerHit.wav", false, true);
                 if (player->isDead())
                 {
-                    stopMp3();
-                    getPGame()->cleanup(getPGame()->getVWin()->txtmacs.deathScreen());
-                    return false;
+                    bool revived = false;
+
+                    for (auto it = player->getInventoryNotConst().begin(); it != player->getInventoryNotConst().end(); it++)
+                    {
+                        if ((*it)->getTypeId() == dngutil::TID::MagicalPotion)
+                        {
+                            Item* potion = *it;
+                            player->getInventoryNotConst().erase(it);
+                            delete potion;
+                            revived = true;
+                            break;
+                        }
+                    }
+
+                    if (!revived)
+                    {
+                        stopMp3();
+                        getPGame()->cleanup(getPGame()->getVWin()->txtmacs.deathScreen());
+                        return false;
+                    }
+                    else
+                    {
+                        player->setHp(0);
+                        vwin->txtmacs.displayHealthBars(enemy, player);
+                        vwin->txtmacs.outputBattleInfo(playerTimer, playerWeaponSpeed, enemyTimer, enemyWeaponSpeed);
+
+                        soundEffect("MagicalPotion.wav", false, false);
+                        soundEffect("RefillHealth.wav", true, true);
+                        for (int i = 0; i < 50; i++)
+                        {
+                            player->increaseHealth(1);
+                            vwin->txtmacs.displayHealthBars(enemy, player);
+                            Sleep(40);
+                        }
+                        stopSound();
+                    }
                 }
                 break;
             }
