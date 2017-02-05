@@ -162,22 +162,18 @@ bool Player::movement()
     {
         if (keypress(VK_LEFT))
         {
-            steps--;
             return adjustPosition(dngutil::Movement::LEFT);
         }
         else if (keypress(VK_RIGHT))
         {
-            steps--;
             return adjustPosition(dngutil::Movement::RIGHT);
         }
         else if (keypress(VK_UP))
         {
-            steps--;
             return adjustPosition(dngutil::Movement::UP);
         }
         else if (keypress(VK_DOWN))
         {
-            steps--;
             return adjustPosition(dngutil::Movement::DOWN);
         }
         else if (keypress('I'))
@@ -191,6 +187,11 @@ bool Player::movement()
         }
     }
     return false;
+}
+
+void Player::minusStep()
+{
+    steps--;
 }
 
 Collision Player::mapAction(MapObject* collider, std::list<MapObject*>::iterator& it)

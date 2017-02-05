@@ -497,6 +497,10 @@ bool Creature::adjustPosition(dngutil::Movement movement)
     {
     case dngutil::MovementTypes::VALID:
         lastMoveTime = GetTickCount();
+        if (this == getPGame()->getPlayer())
+        {
+            getPGame()->getPlayer()->minusStep();
+        }
 
         getPGame()->getActiveRoom()->addCoordToList(getCoord());
         getPGame()->getActiveRoom()->getObjects(getCoord()).remove(this);

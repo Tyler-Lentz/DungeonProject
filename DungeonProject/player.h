@@ -35,8 +35,9 @@ public:
 
     bool movement() override;
     void printStats(int LONGEST_LINE_LENGTH, int startingCursorY) override;
-
     Collision mapAction(MapObject* collider, std::list<MapObject*>::iterator& it) override;
+
+    void minusStep();
 
     void levelUpStats() override;
 

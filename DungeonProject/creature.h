@@ -47,7 +47,6 @@ public:
     virtual void printStats(int LONGEST_LINE_LENGTH, int startingCursorY) = 0;
     virtual bool battle(MapObject* enemy);
 
-
     virtual void levelUpStats();
 
     bool isDead() const;
