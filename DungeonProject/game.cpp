@@ -97,7 +97,6 @@ void Game::makeRooms()
 
 void Game::makeFloor0()
 {
-    // Basement
     unsigned int tfloor = 0;
     {
         std::vector<std::string> roomTemplate;
@@ -278,7 +277,6 @@ void Game::makeFloor0()
 
 void Game::makeFloor1()
 {
-    // Floor 0
     unsigned int tfloor = 1;
     this->floor = tfloor; // sets the starting floor
     {
@@ -638,11 +636,11 @@ void Game::makeFloor1()
         roomTemplate.push_back("########");
         roomTemplate.push_back("########");
         roomTemplate.push_back("########");
-        roomTemplate.push_back("########");
-        roomTemplate.push_back("########");
-        roomTemplate.push_back("########");
-        roomTemplate.push_back("########");
-        roomTemplate.push_back("########");
+        roomTemplate.push_back("####^###");
+        roomTemplate.push_back("#### ###");
+        roomTemplate.push_back("### e ##");
+        roomTemplate.push_back("### # ##");
+        roomTemplate.push_back("### o ##");
         roomTemplate.push_back("########");
         roomTemplate.push_back("########");
         roomTemplate.push_back("########");
@@ -653,10 +651,12 @@ void Game::makeFloor1()
         roomTemplate.push_back("########");
 
         std::map<Coordinate, MapObject*> specificObjects;
+        specificObjects.emplace(Coordinate(4, 11), new Potion(this, Coordinate(4, 11), dngutil::POTION_HEAL));
 
         std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::BloodSkeleton);
 
-        int difficulty = 0;
+        int difficulty = 3;
         int backColor = dngutil::LIGHTGRAY;
         std::string name = "Passage Entrance";
         Coordinate mapCoord(1, 0);
@@ -665,6 +665,40 @@ void Game::makeFloor1()
         gamespace[tfloor].emplace(mapCoord, new Room(this, rminfo, nullptr));
         roomMut.unlock();
     }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("#################");
+        roomTemplate.push_back("#   #     #   # #");
+        roomTemplate.push_back("# ^ # ### # # # #");
+        roomTemplate.push_back("#   # #   # # # #");
+        roomTemplate.push_back("#     # ### # # #");
+        roomTemplate.push_back("#     #     #  o#");
+        roomTemplate.push_back("#     # # ### ###");
+        roomTemplate.push_back("##### ### ###  ##");
+        roomTemplate.push_back("##### # # ####  #");
+        roomTemplate.push_back("#####   #       #");
+        roomTemplate.push_back("#################");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+        specificObjects.emplace(Coordinate(15, 5), new Key(this, Coordinate(15, 5)));
+
+        std::vector<dngutil::TID> possibleCreatures;
+
+        int difficulty = 0;
+        int backColor = dngutil::BLACK;
+        std::string name = "Darkness";
+        Coordinate mapCoord(1, -2);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        roomMut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(this, rminfo, nullptr));
+        roomMut.unlock();
+    }
+}
+
+void Game::makeFloor2()
+{
+    unsigned int tfloor = 2;
+
 }
 
 void Game::setActiveFloor(unsigned int floor)
@@ -728,6 +762,18 @@ Creature* Game::generateCreature(int difficulty, dngutil::TID tid)
 
     case dngutil::TID::BloodSkeleton:
         enemy = new BloodSkeleton(this, Coordinate(-1, -1), health, attack, defense, luck, speed, level);
+        break;
+
+    case dngutil::TID::LSKnight:
+        enemy = new LSKnight(this, Coordinate(-1, -1), health, attack, defense, luck, speed, level);
+        break;
+
+    case dngutil::TID::SSKnight:
+        enemy = new SSKnight(this, Coordinate(-1, -1), health, attack, defense, luck, speed, level);
+        break;
+
+    case dngutil::TID::Mage:
+        enemy = new Mage(this, Coordinate(-1, -1), health, attack, defense, luck, speed, level);
         break;
     }
 

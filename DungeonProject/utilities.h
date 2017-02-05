@@ -45,7 +45,10 @@ namespace dngutil
         LockedDoor,
         Hole,
         LargeSkeleton,
-        BloodSkeleton
+        BloodSkeleton,
+        LSKnight,
+        SSKnight,
+        Mage
     };
 
     enum class BTID

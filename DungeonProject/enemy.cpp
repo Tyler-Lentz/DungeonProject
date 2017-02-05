@@ -539,3 +539,273 @@ void LargeSkeleton::printSelf()
 }
 
 //----------------------------------------------------------------
+
+//----------------------------------------------------------------
+// LSKnight
+LSKnight::LSKnight(
+    Game* pgame,
+    Coordinate coord,
+    int hp,
+    unsigned int att,
+    unsigned int def,
+    unsigned int lck,
+    unsigned int spd,
+    unsigned int lvl
+) : REnemy(
+    pgame,
+    ColorChar('A', dngutil::MAGENTA),
+    coord,
+    "Cursed Knight",
+    false,
+    dngutil::TID::LSKnight,
+    hp, att, def, lck, spd, lvl,
+    new Primary(
+        pgame,
+        ColorChar('T', dngutil::MAGENTA),
+        coord,
+        "Cursed Broadsword",
+        false,
+        dngutil::TID::Primary,
+        2.5,
+        7,
+        85,
+        false,
+        "A broadsword from a cursed knight",
+        "Attack4.wav"
+    ),
+    new Secondary(
+        pgame,
+        ColorChar('0', dngutil::MAGENTA),
+        coord,
+        "Cursed Shield",
+        false,
+        dngutil::TID::Secondary,
+        40,
+        .80,
+        "A shield from a cursed knight"
+    ),
+    "BattleTheme.mp3",
+    random(23, 29),
+    "EnemyDeath.wav"
+)
+{
+
+}
+
+void LSKnight::printSelf()
+{
+    Coordinate vcursor(0, getPGame()->getVWin()->txtmacs.DIVIDER_LINES[1] + 1);
+    VirtualWindow* t = getPGame()->getVWin();
+    int color = dngutil::MAGENTA;
+    t->put(ColorString(R"(              .)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(             /.\)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(             |.|)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(             |.|)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(             |.|)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(             |.|   ,'`.)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(             |.|  ;\  /:)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(             |.| /  \/  \)", color), vcursor); vcursor.y++;
+    const int TOP_CURSOR_Y = vcursor.y;
+    t->put(ColorString(R"(             |.|<.<_\/_>,>)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(             |.| \`.::,'/)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(             |.|,'.'||'/.)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(          ,-'|.|.`.____,'`.)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(        ,' .`|.| `.____,;/ \)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(       ,'=-.`|.|\ .   \ |,':)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(      /_   :)|.|.`.___:,:,'|.)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(     (  `-:;\|.|.`.)  |.`-':,\)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(     /.   /  ;.:--'   |    | ,`.    _____)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(    / _>-'._.'-'.     |.   |' / )._/     \)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(   :.'    ((.__;/     |    |._ /__/   |   |)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(   `.>._.-' |)=(      |.   ;  '--.|  -|-  |)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(            ',--'`-._ | _,:       |   |   |)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(            /_`-. `..`:'/_.\       \  |  /)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(           :__``--..\\_/_..:        \___/)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(           |  ``--..,:;\__.|)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(           |`--..__/:;  :__|)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(           `._____:-;_,':__;)", color), vcursor); vcursor.y++;
+
+    const int LONGEST_LINE_LENGTH = 59;
+
+    printStats(LONGEST_LINE_LENGTH, TOP_CURSOR_Y);
+}
+//----------------------------------------------------------------
+
+//----------------------------------------------------------------
+// SSKnight
+SSKnight::SSKnight(
+    Game* pgame,
+    Coordinate coord,
+    int hp,
+    unsigned int att,
+    unsigned int def,
+    unsigned int lck,
+    unsigned int spd,
+    unsigned int lvl
+) : REnemy(
+    pgame,
+    ColorChar('A', dngutil::MAGENTA),
+    coord,
+    "Cursed Knight",
+    false,
+    dngutil::TID::SSKnight,
+    hp, att, def, lck, spd, lvl,
+    new Primary(
+        pgame,
+        ColorChar('T', dngutil::MAGENTA),
+        coord,
+        "Cursed Shortsword",
+        false,
+        dngutil::TID::Primary,
+        1.5,
+        2,
+        85,
+        false,
+        "A shortsword from a cursed knight",
+        "Attack2.wav"
+    ),
+    new Secondary(
+        pgame,
+        ColorChar('0', dngutil::MAGENTA),
+        coord,
+        "Cursed Shield",
+        false,
+        dngutil::TID::Secondary,
+        40,
+        .80,
+        "A shield from a cursed knight"
+    ),
+    "BattleTheme.mp3",
+    random(23, 29),
+    "EnemyDeath.wav"
+)
+{
+
+}
+
+void SSKnight::printSelf()
+{
+    Coordinate vcursor(0, getPGame()->getVWin()->txtmacs.DIVIDER_LINES[1] + 1);
+    VirtualWindow* t = getPGame()->getVWin();
+    int color = dngutil::MAGENTA;
+    t->put(ColorString(R"(               )", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                )", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                )", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                )", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                )", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                   ,'`.)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                  ;\  /:)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(              .  /  \/  \)", color), vcursor); vcursor.y++;
+    const int TOP_CURSOR_Y = vcursor.y;
+    t->put(ColorString(R"(             /.\<.<_\/_>,>)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(             |.| \`.::,'/)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(             |.|,'.'||'/.)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(          ,-'|.|.`.____,'`.)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(        ,' .`|.| `.____,;/ \)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(       ,'=-.`|.|\ .   \ |,':)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(      /_   :)|.|.`.___:,:,'|.)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(     (  `-:;\|.|.`.)  |.`-':,\)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(     /.   /  ;.:--'   |    | ,`.    _____)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(    / _>-'._.'-'.     |.   |' / )._/     \)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(   :.'    ((.__;/     |    |._ /__/   |   |)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(   `.>._.-' |)=(      |.   ;  '--.|  -|-  |)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(            ',--'`-._ | _,:       |   |   |)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(            /_`-. `..`:'/_.\       \  |  /)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(           :__``--..\\_/_..:        \___/)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(           |  ``--..,:;\__.|)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(           |`--..__/:;  :__|)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(           `._____:-;_,':__;)", color), vcursor); vcursor.y++;
+
+    const int LONGEST_LINE_LENGTH = 59;
+
+    printStats(LONGEST_LINE_LENGTH, TOP_CURSOR_Y);
+}
+//----------------------------------------------------------------
+
+//----------------------------------------------------------------
+// Mage
+Mage::Mage(
+    Game* pgame,
+    Coordinate coord,
+    int hp,
+    unsigned int att,
+    unsigned int def,
+    unsigned int lck,
+    unsigned int spd,
+    unsigned int lvl
+) : REnemy(
+    pgame,
+    ColorChar('I', dngutil::YELLOW),
+    coord,
+    "Mage",
+    false,
+    dngutil::TID::Mage,
+    hp, att, def, lck, spd, lvl,
+    new Primary(
+        pgame,
+        ColorChar('i', dngutil::YELLOW),
+        coord,
+        "Staff",
+        false,
+        dngutil::TID::Primary,
+        3.2,
+        4,
+        85,
+        false,
+        "A Mage's staff - spews electricity",
+        "MagicAttack1.wav"
+    ),
+    new Secondary(
+        pgame,
+        ColorChar('*', dngutil::YELLOW),
+        coord,
+        "Magic Aura",
+        false,
+        dngutil::TID::Secondary,
+        0,
+        .67,
+        "A protecting aura from a mage"
+    ),
+    "BattleTheme.mp3",
+    random(23, 29),
+    "EnemyDeath.wav"
+)
+{
+
+}
+
+void Mage::printSelf()
+{
+    Coordinate vcursor(0, getPGame()->getVWin()->txtmacs.DIVIDER_LINES[1] + 1);
+    VirtualWindow* t = getPGame()->getVWin();
+    int color = dngutil::YELLOW;
+    t->put(ColorString(R"()", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"()", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"()", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                             _,-'|)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                          ,-'._  |)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                .||,      |####\ |)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(               \.`',/     \####| |)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(               = ,. =      |###| |)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(               / || \    ,-'\#/,'`.)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                 ||     ,'   `,,. `.)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                 ,|____,' , ,;' \| |)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                (3|\    _/|/'   _| |)", color), vcursor); vcursor.y++;
+    const int TOP_CURSOR_Y = vcursor.y;
+    t->put(ColorString(R"(                 ||/,-''  | >-'' _,\\)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                 ||'      ==\ ,-'  ,')", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                 ||       |  V \ ,|)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                 ||       |    |` |)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                 ||       |    |   \)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                 ||       |    \    \)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                 ||       |     |    \)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                 ||       |      \_,-')", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                 ||       |___,,--")_\)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                 ||         |_|   ccc/)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                 ||        ccc/)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                 ||         )", color), vcursor); vcursor.y++;
+    const int LONGEST_LINE_LENGTH = 48;
+
+    printStats(LONGEST_LINE_LENGTH, TOP_CURSOR_Y);
+}
+//----------------------------------------------------------------

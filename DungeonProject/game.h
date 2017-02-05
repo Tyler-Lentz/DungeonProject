@@ -60,6 +60,7 @@ private:
     void makeRooms();
     void makeFloor0();
     void makeFloor1();
+    void makeFloor2();
 };
 
 #endif
