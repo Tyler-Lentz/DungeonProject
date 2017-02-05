@@ -206,7 +206,7 @@ void Game::makeFloor0()
         roomTemplate.push_back("###############");
 
         std::map<Coordinate, MapObject*> specificObjects;
-        specificObjects.emplace(Coordinate(2, 1), new Potion(this, Coordinate(2, 1), dngutil::POTION_HEAL));
+        specificObjects.emplace(Coordinate(2, 1), new MagicalPotion(this, Coordinate(2, 1)));
         specificObjects.emplace(Coordinate(12, 2), new Potion(this, Coordinate(12, 2), dngutil::POTION_HEAL));
         specificObjects.emplace(Coordinate(12, 3), new Potion(this, Coordinate(12, 3), dngutil::POTION_HEAL));
 
@@ -888,7 +888,7 @@ void Game::titleScreen()
     startMp3("TitleTheme.mp3");
 
     vwin->txtmacs.drawDividers();
-    vwin->putcen(ColorString("Dungeon RPG - Dragon's Lair (BETA 1)", dngutil::RED), vwin->txtmacs.DIVIDER_LINES[0] + 1);
+    vwin->putcen(ColorString("Dungeon RPG - Dragon's Lair (BETA 2)", dngutil::RED), vwin->txtmacs.DIVIDER_LINES[0] + 1);
     vwin->putcen(ColorString("Enter - Continue, Esc - exit", dngutil::LIGHTGRAY), vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE);
 
     Coordinate vcursor(0, vwin->txtmacs.DIVIDER_LINES[1] + 5);
