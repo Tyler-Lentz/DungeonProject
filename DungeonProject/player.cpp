@@ -248,6 +248,11 @@ void Player::addExperience(unsigned int experience)
 
 void Player::inventoryMenu() // How not to program in three easy steps. 1: Dont do this.
 {
+    int topline = getPGame()->getVWin()->txtmacs.POSITION_FOR_TOP_DIVIDER_TEXT;
+    getPGame()->getVWin()->txtmacs.clearLine(topline);
+    getPGame()->getVWin()->putcen(ColorString("Press Esc to exit inventory", dngutil::WHITE), topline);
+
+
     bool exitFunction = false;
 
     int positions[2];

@@ -8,9 +8,9 @@
 
 /*
 changes:
-1. make controls more clear
+1. make controls more clear (done)
 2. adjust speed (done)
-3. dyamic leveling
+3. dyamic leveling 
 4. altars
 5. fix keys (done)
 6. revival potion (done)
