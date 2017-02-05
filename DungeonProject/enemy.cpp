@@ -755,7 +755,7 @@ Mage::Mage(
         "Staff",
         false,
         dngutil::TID::Primary,
-        3.2,
+        2.8,
         4,
         85,
         false,

@@ -125,6 +125,8 @@ namespace dngutil
     const int POTION_HEAL = 50;
 
     const int MENU_DELAY = 100;
+
+    const int FULL_STEPS = 150;
 }
 
 void errorMessage(std::string error, int line, std::string file);

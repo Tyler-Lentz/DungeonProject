@@ -10,13 +10,14 @@
 changes:
 1. make controls more clear (done)
 2. adjust speed (done)
-3. dyamic leveling 
-4. altars
+3. dyamic leveling (done)
+4. altars 
 5. fix keys (done)
 6. revival potion (done)
 7. stats menu (done)
 8. white staircases (done)
-9. running from battles
+9. fixed hit sounds (done)
+10. slightly nerfed mage's staffs (done)
 */
 
 int main()

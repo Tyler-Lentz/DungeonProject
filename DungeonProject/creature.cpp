@@ -405,7 +405,6 @@ bool Creature::battle(MapObject* t_enemy)
                 vwin->putcen(ColorString("-" + std::to_string(damage), dngutil::RED), vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE + 1);
                 Sleep(300);
 
-                soundEffect("PlayerHit.wav", false, true);
                 if (player->isDead())
                 {
                     bool revived = false;
@@ -667,11 +666,11 @@ int Creature::getDamageDealt(Creature* defender)
         {
             if (getTypeId() == dngutil::TID::Player)
             {
-                soundEffect("PlayerHit.wav", false, true);
+                soundEffect("EnemyHit.wav", false, true);
             }
             else
             {
-                soundEffect("EnemyHit.wav", false, true);
+                soundEffect("PlayerHit.wav", false, true);
             }
         }
     }

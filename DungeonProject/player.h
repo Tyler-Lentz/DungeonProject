@@ -55,7 +55,10 @@ public:
 
     bool swapPrimary(Item*& itemToSwap);
     bool swapSecondary(Item*& itemToSwap);
+
+    ColorString getStepString();
 private:
+    void dungeonBeastSequence();
 
     double hpEv;
     double attEv;
@@ -66,6 +69,8 @@ private:
     unsigned int exp;
     unsigned int expToLevel;
     Inventory inventory;
+
+    int steps;
 };
 
 #endif

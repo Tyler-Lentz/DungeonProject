@@ -262,7 +262,8 @@ void TextMacros::displayOverworldInfo(Game* game)
 
     game->getPlayer()->printStats(0, ++vcursor.y);
 
-    vcursor.y = DIVIDER_LINES[2] - 1;
+    vcursor.y = DIVIDER_LINES[2] - 2;
+    vwin->putcen(game->getPlayer()->getStepString(), vcursor.y++);
     vwin->putcen(ColorString("VALID INPUT {ARROWKEYS, I, U}", dngutil::CYAN), vcursor.y);
 }
 

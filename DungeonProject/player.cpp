@@ -69,6 +69,8 @@ Player::Player(
     defEv = 0;
     lckEv = 0;
     spdEv = 0;
+
+    steps = dngutil::FULL_STEPS;
 }
 
 void Player::addToInventory(Item* item)
@@ -83,27 +85,97 @@ void Player::removeFromInventory(unsigned int index)
     inventory.erase(it);
 }
 
+void Player::dungeonBeastSequence()
+{
+    VirtualWindow* v = getPGame()->getVWin();
+    TextMacros& t = v->txtmacs;
+    soundEffect("EnterBattle.wav", false, true);
+    t.clearMapArea(true, 20);
+    t.clearDivider("bottom");
+
+    Coordinate vcursor(15, t.DIVIDER_LINES[1] + 1);
+    stopMp3();
+
+    startMp3("MinibossTheme.mp3");
+    int color = dngutil::WHITE;
+    v->put(ColorString(R"(		             \                  /)", color), vcursor); Sleep(50); vcursor.y++;
+    v->put(ColorString(R"(		    _________))                ((__________)", color), vcursor); Sleep(50); vcursor.y++;
+    v->put(ColorString(R"(		   /.-------./\\    \    /    //\.--------.\)", color), vcursor); Sleep(50); vcursor.y++;
+    v->put(ColorString(R"(		  //#######//##\\   ))  ((   //##\\########\\)", color), vcursor); Sleep(50); vcursor.y++;
+    v->put(ColorString(R"(		 //#######//###((  ((    ))  ))###\\########\\)", color), vcursor); Sleep(50); vcursor.y++;
+    v->put(ColorString(R"(		((#######((#####\\  \\  //  //#####))########)))", color), vcursor); Sleep(50); vcursor.y++;
+    v->put(ColorString(R"(		 \##' `###\######\\  \)(/  //######/####' `##/)", color), vcursor); Sleep(50); vcursor.y++;
+    v->put(ColorString(R"(		  )'    ``#)'  `##\`->oo<-'/##'  `(#''     `()", color), vcursor); Sleep(50); vcursor.y++;
+    v->put(ColorString(R"(		          (       ``\`..'/''       ))", color), vcursor); Sleep(50); vcursor.y++;
+    v->put(ColorString(R"(		                     \""()", color), vcursor); Sleep(50); vcursor.y++;
+    v->put(ColorString(R"(		                      `- ))", color), vcursor); Sleep(50); vcursor.y++;
+    v->put(ColorString(R"(		                      / /)", color), vcursor); Sleep(50); vcursor.y++;
+    v->put(ColorString(R"(		                     ( /\)", color), vcursor); Sleep(50); vcursor.y++;
+    v->put(ColorString(R"(		                     /\| \)", color), vcursor); Sleep(50); vcursor.y++;
+    v->put(ColorString(R"(		                    (  \)", color), vcursor); Sleep(50); vcursor.y++;
+    v->put(ColorString(R"(		                        ))", color), vcursor); Sleep(50); vcursor.y++;
+    v->put(ColorString(R"(		                       /)", color), vcursor); Sleep(50); vcursor.y++;
+    v->put(ColorString(R"(		                      ()", color), vcursor); Sleep(50); vcursor.y++;
+    v->put(ColorString(R"(		                      ` )", color), vcursor); Sleep(50);
+    
+    soundEffect("MinibossDeath.wav", false, false); 
+
+    vcursor.y = t.BOTTOM_DIVIDER_TEXT_LINE;
+    v->putcen(ColorString("The Dungeon Beast has appeared!", dngutil::WHITE), vcursor.y++);
+    pressEnter(vcursor, v);
+    t.clearDivider("bottom");
+    int healthbarLine = t.DIVIDER_LINES[2] + 4;
+    int healthDecrease = static_cast<int>(getHp() / 2.0);
+    int sleepTime = static_cast<int>(5000.0 / healthDecrease);
+
+    soundEffect("HealthDrain.wav", false, true);
+    for (int i = 0; i < healthDecrease; i++)
+    {
+        decreaseHealth(1);
+        v->putcen(getHealthBar(), healthbarLine);
+        Sleep(sleepTime); vcursor.y++;
+    }
+
+    t.clearMapArea(true, 50);
+    t.clearDivider("bottom");
+    t.displayGame(getPGame());
+
+    stopMp3();
+
+    startMp3("Overworld.mp3");
+}
+
 bool Player::movement()
 {
     int adjustedSpeed = static_cast<int>(dngutil::MAX_SPD * 1.5);
     bool canmove = !((getLastMoveTime() + ((adjustedSpeed - getSpd())) > GetTickCount()));
 
+    if (steps < 1)
+    {
+        dungeonBeastSequence();
+        steps = dngutil::FULL_STEPS;
+    }
+
     if (canmove)
     {
         if (keypress(VK_LEFT))
         {
+            steps--;
             return adjustPosition(dngutil::Movement::LEFT);
         }
         else if (keypress(VK_RIGHT))
         {
+            steps--;
             return adjustPosition(dngutil::Movement::RIGHT);
         }
         else if (keypress(VK_UP))
         {
+            steps--;
             return adjustPosition(dngutil::Movement::UP);
         }
         else if (keypress(VK_DOWN))
         {
+            steps--;
             return adjustPosition(dngutil::Movement::DOWN);
         }
         else if (keypress('I'))
@@ -214,14 +286,14 @@ void Player::addExperience(unsigned int experience, dngutil::EvType ev)
         if (exp >= expToLevel)
         {
             overFlowXp = (experience - i);
-            Sleep(50);
+            Sleep(50); vcursor.y++;
             soundEffect("FindItem.wav", false, false);
             break;
         }
 
         if (!keypress(VK_RETURN))
         {
-            Sleep(50);
+            Sleep(50); vcursor.y++;
         }
     }
     stopSound();
@@ -442,5 +514,24 @@ void Player::statsMenu()
     v->txtmacs.clearMapArea(false, NULL);
     v->txtmacs.clearDivider("bottom");
     v->txtmacs.displayGame(getPGame());
+}
+
+ColorString Player::getStepString()
+{
+    int color;
+    if (steps > static_cast<int>(dngutil::FULL_STEPS * .66))
+    {
+        color = dngutil::GREEN;
+    }
+    else if (steps > static_cast<int>(dngutil::FULL_STEPS * .33))
+    {
+        color = dngutil::YELLOW;
+    }
+    else
+    {
+        color = dngutil::RED;
+    }
+
+    return ColorString("  " + std::to_string(steps) + "  ", color);
 }
 //------------------------------------------------------------
