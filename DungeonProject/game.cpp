@@ -654,7 +654,7 @@ void Game::makeFloor1()
         roomTemplate.push_back("########");
 
         std::map<Coordinate, MapObject*> specificObjects;
-        specificObjects.emplace(Coordinate(4, 11), new Potion(this, Coordinate(4, 11), dngutil::POTION_HEAL));
+        specificObjects.emplace(Coordinate(4, 11), new MagicalPotion(this, Coordinate(4, 11)));
 
         std::vector<dngutil::TID> possibleCreatures;
         possibleCreatures.push_back(dngutil::TID::BloodSkeleton);
