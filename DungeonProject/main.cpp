@@ -20,7 +20,7 @@ beta 2 changes:
 10. title screen variants (done)
 11. full health on level (done)
 12. added missing third key (done)
-13. altars & beasts (done)
+13. altars & beasts (done) 
 */
 
 int main()
