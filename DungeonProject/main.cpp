@@ -9,7 +9,7 @@
 /*
 changes:
 1. make controls more clear
-2. adjust speed
+2. adjust speed (done)
 3. dyamic leveling
 4. altars
 5. fix keys (done)
