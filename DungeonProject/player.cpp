@@ -62,6 +62,7 @@ Player::Player(
 {
     this->exp = 0;
     this->expToLevel = getExpToLevel(getLvl());
+    inventory.push_back(new Potion(getPGame(), Coordinate(-1, -1), dngutil::POTION_HEAL));
 }
 
 void Player::addToInventory(Item* item)
@@ -195,7 +196,7 @@ void Player::addExperience(unsigned int experience)
         }
     }
     stopSound();
-    Sleep(100);
+    Sleep(450);
     vwin->txtmacs.clearMapArea(false, NULL);
 
     if (exp >= expToLevel)
