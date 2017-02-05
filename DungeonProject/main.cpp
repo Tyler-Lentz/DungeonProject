@@ -8,17 +8,18 @@
 
 /*
 changes:
-1. make controls more clear (done)
-2. adjust speed (done)
-3. dyamic leveling (done)
-4. fix keys (done)
-5. revival potion (done)
-6. stats menu (done)
-7. white staircases (done)
-8. fixed hit sounds (done)
-9. slightly nerfed mage's staffs (done)
+1.  make controls more clear (done)
+2.  adjust speed (done)
+3.  dyamic leveling (done)
+4.  fix keys (done)
+5.  revival potion (done)
+6.  stats menu (done)
+7.  white staircases (done)
+8.  fixed hit sounds (done)
+9.  slightly nerfed mage's staffs (done)
+10. title screen variants
 
-10. altars & beasts (done)
+Major. altars & beasts (done)
 */
 
 int main()

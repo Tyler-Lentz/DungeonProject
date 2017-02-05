@@ -913,33 +913,130 @@ void Game::titleScreen()
     vwin->putcen(ColorString("Dungeon RPG - Dragon's Lair (BETA 2)", dngutil::RED), vwin->txtmacs.DIVIDER_LINES[0] + 1);
     vwin->putcen(ColorString("Enter - Continue, Esc - exit", dngutil::LIGHTGRAY), vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE);
 
-    Coordinate vcursor(0, vwin->txtmacs.DIVIDER_LINES[1] + 5);
-    VirtualWindow* t = vwin;
-    int skeletoncolor = dngutil::WHITE;
-    int weaponcolor = dngutil::BROWN;
-    t->putcen(ColorString("                              _.--\"\"-._                     \n", skeletoncolor), vcursor.y); vcursor.y++;
-    t->putcen(ColorString("  .", weaponcolor) + ColorString("                        .\"         \".                   \n", skeletoncolor), vcursor.y); vcursor.y++;
-    t->putcen(ColorString(" / \\    ,^.", weaponcolor) + ColorString("         /(     Y             |      )\\          \n", skeletoncolor), vcursor.y); vcursor.y++;
-    t->putcen(ColorString("/   `---. |--\'\\", weaponcolor) + ColorString("    (  \\__..\'--   -   -- -\'\"\"-.-\'  )          \n", skeletoncolor), vcursor.y); vcursor.y++;
-    t->putcen(ColorString("|        :|    `> ", weaponcolor) + ColorString("  \'.     l_..-------.._l      .\'          \n", skeletoncolor), vcursor.y); vcursor.y++;
-    t->putcen(ColorString("|      __l;__ .\'", weaponcolor) + ColorString("      \"-.__.||_.-\'v\'-._||`\"----\"            \n", skeletoncolor), vcursor.y); vcursor.y++;
-    t->putcen(ColorString(" \\  .-\' | |  `", weaponcolor) + ColorString("              l._       _.\'                   \n", skeletoncolor), vcursor.y); vcursor.y++;
-    t->putcen(ColorString("  \\/    | |   ", weaponcolor) + ColorString("                l`^^\'^^\'j                     \n", skeletoncolor), vcursor.y); vcursor.y++;
-    const int TOP_CURSOR_Y = vcursor.y;
-    t->putcen(ColorString("        | |  ", weaponcolor) + ColorString("              _   \\_____/     _                \n", skeletoncolor), vcursor.y); vcursor.y++;
-    t->putcen(ColorString("        j |  ", weaponcolor) + ColorString("             l `--__)-\'(__.--\' |               \n", skeletoncolor), vcursor.y); vcursor.y++;
-    t->putcen(ColorString("        | |    ", weaponcolor) + ColorString("           | /`---``-----\'\"1 |", skeletoncolor) + ColorString("  ,-----.      \n", weaponcolor), vcursor.y); vcursor.y++;
-    t->putcen(ColorString("        | |    ", weaponcolor) + ColorString("           )/  `--\' \'---\' ", skeletoncolor) + ColorString("   /'-\'  ___  `-.   \n", weaponcolor), vcursor.y); vcursor.y++;
-    t->putcen(ColorString("        | |     ", weaponcolor) + ColorString("         //  `-\'  \'`----\'", skeletoncolor) + ColorString("  /  ,-\'   I`.  \\  \n", weaponcolor), vcursor.y); vcursor.y++;
-    t->putcen(ColorString("      _ L |_     ", weaponcolor) + ColorString("       //  `-.-.\'`-----\' ", skeletoncolor) + ColorString("/  /  |   |  `. \\ \n", weaponcolor), vcursor.y); vcursor.y++;
-    t->putcen(ColorString("     \'._\' / \\         _/(   '-  -'- ---\' ", skeletoncolor) + ColorString(";  /__.J   L.__.\\ :\n", weaponcolor), vcursor.y); vcursor.y++;
-    t->putcen(ColorString("      `._;/7(-.......\'  /        ) (  ", skeletoncolor) + ColorString("   |  |            | |\n", weaponcolor), vcursor.y); vcursor.y++;
-    t->putcen(ColorString("      `._;l _\'--------_/        )-\'/  ", skeletoncolor) + ColorString("   :  |___.    _._./ ;\n", weaponcolor), vcursor.y); vcursor.y++;
-    t->putcen(ColorString("        | |        ", weaponcolor) + ColorString("         .__ )-\'\\  __ ", skeletoncolor) + ColorString(" \\  \\  I   1   / / \n", weaponcolor), vcursor.y); vcursor.y++;
-    t->putcen(ColorString("        `-\'    ", weaponcolor) + ColorString("            /   `-\\-(-\'   \\", skeletoncolor) + ColorString(" \\  `.|   | ,\' /  \n", weaponcolor), vcursor.y); vcursor.y++;
-    t->putcen(ColorString("                           \\__  `-\'    __/ ", skeletoncolor) + ColorString("  `-. `---\'\',-\'   \n", weaponcolor), vcursor.y); vcursor.y++;
-    t->putcen(ColorString("                              )-._.-- (  ", skeletoncolor) + ColorString("      `-----\'      \n", weaponcolor), vcursor.y); vcursor.y++;
+    int r = random(3);
+    if (r == 0)
+    {
+        Coordinate vcursor(0, vwin->txtmacs.DIVIDER_LINES[1] + 5);
+        VirtualWindow* t = vwin;
+        int skeletoncolor = dngutil::WHITE;
+        int weaponcolor = dngutil::BROWN;
+        t->putcen(ColorString("                              _.--\"\"-._                     \n", skeletoncolor), vcursor.y); vcursor.y++;
+        t->putcen(ColorString("  .", weaponcolor) + ColorString("                        .\"         \".                   \n", skeletoncolor), vcursor.y); vcursor.y++;
+        t->putcen(ColorString(" / \\    ,^.", weaponcolor) + ColorString("         /(     Y             |      )\\          \n", skeletoncolor), vcursor.y); vcursor.y++;
+        t->putcen(ColorString("/   `---. |--\'\\", weaponcolor) + ColorString("    (  \\__..\'--   -   -- -\'\"\"-.-\'  )          \n", skeletoncolor), vcursor.y); vcursor.y++;
+        t->putcen(ColorString("|        :|    `> ", weaponcolor) + ColorString("  \'.     l_..-------.._l      .\'          \n", skeletoncolor), vcursor.y); vcursor.y++;
+        t->putcen(ColorString("|      __l;__ .\'", weaponcolor) + ColorString("      \"-.__.||_.-\'v\'-._||`\"----\"            \n", skeletoncolor), vcursor.y); vcursor.y++;
+        t->putcen(ColorString(" \\  .-\' | |  `", weaponcolor) + ColorString("              l._       _.\'                   \n", skeletoncolor), vcursor.y); vcursor.y++;
+        t->putcen(ColorString("  \\/    | |   ", weaponcolor) + ColorString("                l`^^\'^^\'j                     \n", skeletoncolor), vcursor.y); vcursor.y++;
+        t->putcen(ColorString("        | |  ", weaponcolor) + ColorString("              _   \\_____/     _                \n", skeletoncolor), vcursor.y); vcursor.y++;
+        t->putcen(ColorString("        j |  ", weaponcolor) + ColorString("             l `--__)-\'(__.--\' |               \n", skeletoncolor), vcursor.y); vcursor.y++;
+        t->putcen(ColorString("        | |    ", weaponcolor) + ColorString("           | /`---``-----\'\"1 |", skeletoncolor) + ColorString("  ,-----.      \n", weaponcolor), vcursor.y); vcursor.y++;
+        t->putcen(ColorString("        | |    ", weaponcolor) + ColorString("           )/  `--\' \'---\' ", skeletoncolor) + ColorString("   /'-\'  ___  `-.   \n", weaponcolor), vcursor.y); vcursor.y++;
+        t->putcen(ColorString("        | |     ", weaponcolor) + ColorString("         //  `-\'  \'`----\'", skeletoncolor) + ColorString("  /  ,-\'   I`.  \\  \n", weaponcolor), vcursor.y); vcursor.y++;
+        t->putcen(ColorString("      _ L |_     ", weaponcolor) + ColorString("       //  `-.-.\'`-----\' ", skeletoncolor) + ColorString("/  /  |   |  `. \\ \n", weaponcolor), vcursor.y); vcursor.y++;
+        t->putcen(ColorString("     \'._\' / \\         _/(   '-  -'- ---\' ", skeletoncolor) + ColorString(";  /__.J   L.__.\\ :\n", weaponcolor), vcursor.y); vcursor.y++;
+        t->putcen(ColorString("      `._;/7(-.......\'  /        ) (  ", skeletoncolor) + ColorString("   |  |            | |\n", weaponcolor), vcursor.y); vcursor.y++;
+        t->putcen(ColorString("      `._;l _\'--------_/        )-\'/  ", skeletoncolor) + ColorString("   :  |___.    _._./ ;\n", weaponcolor), vcursor.y); vcursor.y++;
+        t->putcen(ColorString("        | |        ", weaponcolor) + ColorString("         .__ )-\'\\  __ ", skeletoncolor) + ColorString(" \\  \\  I   1   / / \n", weaponcolor), vcursor.y); vcursor.y++;
+        t->putcen(ColorString("        `-\'    ", weaponcolor) + ColorString("            /   `-\\-(-\'   \\", skeletoncolor) + ColorString(" \\  `.|   | ,\' /  \n", weaponcolor), vcursor.y); vcursor.y++;
+        t->putcen(ColorString("                           \\__  `-\'    __/ ", skeletoncolor) + ColorString("  `-. `---\'\',-\'   \n", weaponcolor), vcursor.y); vcursor.y++;
+        t->putcen(ColorString("                              )-._.-- (  ", skeletoncolor) + ColorString("      `-----\'      \n", weaponcolor), vcursor.y); vcursor.y++;
 
+    }
+    else if (r == 1)
+    {
+        Coordinate vcursor(15, vwin->txtmacs.DIVIDER_LINES[1] + 1);
+        VirtualWindow* t = vwin;
+        int color = dngutil::YELLOW;
+        t->put(ColorString(R"()", color), vcursor); vcursor.y++;
+        t->put(ColorString(R"()", color), vcursor); vcursor.y++;
+        t->put(ColorString(R"()", color), vcursor); vcursor.y++;
+        t->put(ColorString(R"(                             _,-'|)", color), vcursor); vcursor.y++;
+        t->put(ColorString(R"(                          ,-'._  |)", color), vcursor); vcursor.y++;
+        t->put(ColorString(R"(                .||,      |####\ |)", color), vcursor); vcursor.y++;
+        t->put(ColorString(R"(               \.`',/     \####| |)", color), vcursor); vcursor.y++;
+        t->put(ColorString(R"(               = ,. =      |###| |)", color), vcursor); vcursor.y++;
+        t->put(ColorString(R"(               / || \    ,-'\#/,'`.)", color), vcursor); vcursor.y++;
+        t->put(ColorString(R"(                 ||     ,'   `,,. `.)", color), vcursor); vcursor.y++;
+        t->put(ColorString(R"(                 ,|____,' , ,;' \| |)", color), vcursor); vcursor.y++;
+        t->put(ColorString(R"(                (3|\    _/|/'   _| |)", color), vcursor); vcursor.y++;
+        t->put(ColorString(R"(                 ||/,-''  | >-'' _,\\)", color), vcursor); vcursor.y++;
+        t->put(ColorString(R"(                 ||'      ==\ ,-'  ,')", color), vcursor); vcursor.y++;
+        t->put(ColorString(R"(                 ||       |  V \ ,|)", color), vcursor); vcursor.y++;
+        t->put(ColorString(R"(                 ||       |    |` |)", color), vcursor); vcursor.y++;
+        t->put(ColorString(R"(                 ||       |    |   \)", color), vcursor); vcursor.y++;
+        t->put(ColorString(R"(                 ||       |    \    \)", color), vcursor); vcursor.y++;
+        t->put(ColorString(R"(                 ||       |     |    \)", color), vcursor); vcursor.y++;
+        t->put(ColorString(R"(                 ||       |      \_,-')", color), vcursor); vcursor.y++;
+        t->put(ColorString(R"(                 ||       |___,,--")_\)", color), vcursor); vcursor.y++;
+        t->put(ColorString(R"(                 ||         |_|   ccc/)", color), vcursor); vcursor.y++;
+        t->put(ColorString(R"(                 ||        ccc/)", color), vcursor); vcursor.y++;
+        t->put(ColorString(R"(                 ||         )", color), vcursor); vcursor.y++;
+    }
+    else if (r == 2)
+    {
+        Coordinate vcursor(15, vwin->txtmacs.DIVIDER_LINES[1] + 1);
+        VirtualWindow* t = vwin;
+        int color = dngutil::MAGENTA;
+        t->put(ColorString(R"(               )", color), vcursor); vcursor.y++;
+        t->put(ColorString(R"(                )", color), vcursor); vcursor.y++;
+        t->put(ColorString(R"(                )", color), vcursor); vcursor.y++;
+        t->put(ColorString(R"(                )", color), vcursor); vcursor.y++;
+        t->put(ColorString(R"(                )", color), vcursor); vcursor.y++;
+        t->put(ColorString(R"(                   ,'`.)", color), vcursor); vcursor.y++;
+        t->put(ColorString(R"(                  ;\  /:)", color), vcursor); vcursor.y++;
+        t->put(ColorString(R"(              .  /  \/  \)", color), vcursor); vcursor.y++;
+        t->put(ColorString(R"(             /.\<.<_\/_>,>)", color), vcursor); vcursor.y++;
+        t->put(ColorString(R"(             |.| \`.::,'/)", color), vcursor); vcursor.y++;
+        t->put(ColorString(R"(             |.|,'.'||'/.)", color), vcursor); vcursor.y++;
+        t->put(ColorString(R"(          ,-'|.|.`.____,'`.)", color), vcursor); vcursor.y++;
+        t->put(ColorString(R"(        ,' .`|.| `.____,;/ \)", color), vcursor); vcursor.y++;
+        t->put(ColorString(R"(       ,'=-.`|.|\ .   \ |,':)", color), vcursor); vcursor.y++;
+        t->put(ColorString(R"(      /_   :)|.|.`.___:,:,'|.)", color), vcursor); vcursor.y++;
+        t->put(ColorString(R"(     (  `-:;\|.|.`.)  |.`-':,\)", color), vcursor); vcursor.y++;
+        t->put(ColorString(R"(     /.   /  ;.:--'   |    | ,`.    _____)", color), vcursor); vcursor.y++;
+        t->put(ColorString(R"(    / _>-'._.'-'.     |.   |' / )._/     \)", color), vcursor); vcursor.y++;
+        t->put(ColorString(R"(   :.'    ((.__;/     |    |._ /__/   |   |)", color), vcursor); vcursor.y++;
+        t->put(ColorString(R"(   `.>._.-' |)=(      |.   ;  '--.|  -|-  |)", color), vcursor); vcursor.y++;
+        t->put(ColorString(R"(            ',--'`-._ | _,:       |   |   |)", color), vcursor); vcursor.y++;
+        t->put(ColorString(R"(            /_`-. `..`:'/_.\       \  |  /)", color), vcursor); vcursor.y++;
+        t->put(ColorString(R"(           :__``--..\\_/_..:        \___/)", color), vcursor); vcursor.y++;
+        t->put(ColorString(R"(           |  ``--..,:;\__.|)", color), vcursor); vcursor.y++;
+        t->put(ColorString(R"(           |`--..__/:;  :__|)", color), vcursor); vcursor.y++;
+        t->put(ColorString(R"(           `._____:-;_,':__;)", color), vcursor); vcursor.y++;
+    }
+    else
+    {
+        Coordinate vcursor(15, vwin->txtmacs.DIVIDER_LINES[1] + 1);
+        VirtualWindow* t = vwin;
+        int color = dngutil::MAGENTA;
+        t->put(ColorString(R"(              .)", color), vcursor); vcursor.y++;
+        t->put(ColorString(R"(             /.\)", color), vcursor); vcursor.y++;
+        t->put(ColorString(R"(             |.|)", color), vcursor); vcursor.y++;
+        t->put(ColorString(R"(             |.|)", color), vcursor); vcursor.y++;
+        t->put(ColorString(R"(             |.|)", color), vcursor); vcursor.y++;
+        t->put(ColorString(R"(             |.|   ,'`.)", color), vcursor); vcursor.y++;
+        t->put(ColorString(R"(             |.|  ;\  /:)", color), vcursor); vcursor.y++;
+        t->put(ColorString(R"(             |.| /  \/  \)", color), vcursor); vcursor.y++;
+        t->put(ColorString(R"(             |.|<.<_\/_>,>)", color), vcursor); vcursor.y++;
+        t->put(ColorString(R"(             |.| \`.::,'/)", color), vcursor); vcursor.y++;
+        t->put(ColorString(R"(             |.|,'.'||'/.)", color), vcursor); vcursor.y++;
+        t->put(ColorString(R"(          ,-'|.|.`.____,'`.)", color), vcursor); vcursor.y++;
+        t->put(ColorString(R"(        ,' .`|.| `.____,;/ \)", color), vcursor); vcursor.y++;
+        t->put(ColorString(R"(       ,'=-.`|.|\ .   \ |,':)", color), vcursor); vcursor.y++;
+        t->put(ColorString(R"(      /_   :)|.|.`.___:,:,'|.)", color), vcursor); vcursor.y++;
+        t->put(ColorString(R"(     (  `-:;\|.|.`.)  |.`-':,\)", color), vcursor); vcursor.y++;
+        t->put(ColorString(R"(     /.   /  ;.:--'   |    | ,`.    _____)", color), vcursor); vcursor.y++;
+        t->put(ColorString(R"(    / _>-'._.'-'.     |.   |' / )._/     \)", color), vcursor); vcursor.y++;
+        t->put(ColorString(R"(   :.'    ((.__;/     |    |._ /__/   |   |)", color), vcursor); vcursor.y++;
+        t->put(ColorString(R"(   `.>._.-' |)=(      |.   ;  '--.|  -|-  |)", color), vcursor); vcursor.y++;
+        t->put(ColorString(R"(            ',--'`-._ | _,:       |   |   |)", color), vcursor); vcursor.y++;
+        t->put(ColorString(R"(            /_`-. `..`:'/_.\       \  |  /)", color), vcursor); vcursor.y++;
+        t->put(ColorString(R"(           :__``--..\\_/_..:        \___/)", color), vcursor); vcursor.y++;
+        t->put(ColorString(R"(           |  ``--..,:;\__.|)", color), vcursor); vcursor.y++;
+        t->put(ColorString(R"(           |`--..__/:;  :__|)", color), vcursor); vcursor.y++;
+        t->put(ColorString(R"(           `._____:-;_,':__;)", color), vcursor); vcursor.y++;
+    }
 
     while (true)
     {
