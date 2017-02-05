@@ -46,6 +46,7 @@ public:
     void addExperience(unsigned int experience);
 
     void inventoryMenu();
+    void statsMenu();
 
     const Inventory& getInventory() const;
     Inventory& getInventoryNotConst();

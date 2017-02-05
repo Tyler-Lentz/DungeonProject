@@ -6,6 +6,17 @@
 #include <Windows.h>
 #include <memory>
 
+/*
+changes:
+1. make controls more clear
+2. adjust speed
+3. dyamic leveling
+4. altars
+5. fix keys (done)
+6. revival potion 
+7. stats menu (done)
+*/
+
 int main()
 {
     std::unique_ptr<VirtualWindow> vwin(new VirtualWindow(dngutil::CONSOLEX, dngutil::CONSOLEY));

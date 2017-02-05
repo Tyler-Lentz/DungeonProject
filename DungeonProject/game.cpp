@@ -353,7 +353,6 @@ void Game::makeFloor1()
         specificObjects.emplace(Coordinate(10, 12), new Potion(this, Coordinate(10, 12), dngutil::POTION_HEAL));
 
         std::vector<dngutil::TID> possibleCreatures;
-        // TODO: change this to the first boss
         possibleCreatures.push_back(dngutil::TID::LargeSkeleton);
 
         int difficulty = 3;

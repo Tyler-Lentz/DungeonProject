@@ -134,7 +134,7 @@ void Potion::action(Player* player, unsigned int inventoryIndex)
 
 Key::Key(Game* pgame, Coordinate coord)
     :RItem(pgame, ColorChar('l', dngutil::BROWN), coord, "Key",
-        true, false, false, dngutil::TID::Key, true, "Unlocks a door")
+        true, false, false, dngutil::TID::Key, false, "Unlocks a door")
 {
 }
 
