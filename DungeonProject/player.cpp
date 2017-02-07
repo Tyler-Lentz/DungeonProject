@@ -542,6 +542,6 @@ ColorString Player::getStepString()
         color = dngutil::RED;
     }
 
-    return ColorString("  " + std::to_string(steps) + "  ", color);
+    return ColorString(std::to_string(steps), color);
 }
 //------------------------------------------------------------

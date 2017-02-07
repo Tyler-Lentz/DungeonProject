@@ -478,7 +478,7 @@ LargeSkeleton::LargeSkeleton(
         false,
         dngutil::TID::Primary,
         1.5,
-        3,
+        4,
         95,
         false,
         "A very long sword. It is very accurate.",
