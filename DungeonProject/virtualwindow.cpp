@@ -93,6 +93,8 @@ void TextMacros::screenScroll(dngutil::Movement direction, Room* oldRoom, Room* 
         }
     }
 
+    
+
     int yDiff = newRoom->getRoomY() - oldRoom->getRoomY();
     Coordinate vcursor(0, DIVIDER_LINES[1] + 1);
     switch (direction)
@@ -103,11 +105,13 @@ void TextMacros::screenScroll(dngutil::Movement direction, Room* oldRoom, Room* 
             vcursor.x = 0; vcursor.y = DIVIDER_LINES[1] + 1;
             for (int j = i; j >= 0; j--)
             {
+                clearLine(vcursor.y);
                 vwin->putcen(newMap[newMap.size() - (j + 1)], vcursor.y);
                 vcursor.x = 0; vcursor.y++;
             }
             for (int j = 0; j < oldRoom->getRoomY() - (i + 1) && j < (newRoom->getRoomY() - (i + 1)); j++)
             {
+                clearLine(vcursor.y);
                 vwin->putcen(oldMap[j], vcursor.y);
                 vcursor.x = 0; vcursor.y++;
             }
@@ -128,11 +132,13 @@ void TextMacros::screenScroll(dngutil::Movement direction, Room* oldRoom, Room* 
             vcursor.x = 0; vcursor.y = DIVIDER_LINES[1] + 1;
             for (int j = i + 1; j < oldRoom->getRoomY(); j++)
             {
+                clearLine(vcursor.y);
                 vwin->putcen(oldMap[j], vcursor.y);
                 vcursor.x = 0; vcursor.y++;
             }
             for (int j = 0; j < (i + 1) && j < newRoom->getRoomY(); j++)
             {
+                clearLine(vcursor.y);
                 vwin->putcen(newMap[j], vcursor.y);
                 vcursor.x = 0; vcursor.y++;
             }

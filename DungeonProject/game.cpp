@@ -304,7 +304,7 @@ void Game::makeFloor0()
 void Game::makeFloor1()
 {
     unsigned int tfloor = 1;
-    this->floor = tfloor; // sets the starting floor
+    //this->floor = tfloor; // sets the starting floor
     {
         std::vector<std::string> roomTemplate;
         roomTemplate.push_back("###############");
@@ -331,7 +331,7 @@ void Game::makeFloor1()
         roomTemplate.push_back("####### #######");
         roomTemplate.push_back("####### #######");
         roomTemplate.push_back("####### #######");
-        roomTemplate.push_back("#######A#######");
+        roomTemplate.push_back("####### #######");
         roomTemplate.push_back("####### #######");
 
         std::map<Coordinate, MapObject*> specificObjects;
@@ -347,7 +347,7 @@ void Game::makeFloor1()
 
         roomMut.lock();
         gamespace[tfloor].emplace(mapCoord, new Room(this, rminfo, nullptr));
-        activeRoom = gamespace[tfloor][mapCoord]; // sets the starting activeRoom
+        //activeRoom = gamespace[tfloor][mapCoord]; // sets the starting activeRoom
         roomMut.unlock();
     }
     {
@@ -724,10 +724,11 @@ void Game::makeFloor1()
 void Game::makeFloor2()
 {
     unsigned int tfloor = 2;
+    this->floor = tfloor; // sets the starting floor
     {
         std::vector<std::string> roomTemplate;
-        roomTemplate.push_back("############");
-        roomTemplate.push_back("#          #");
+        roomTemplate.push_back("# ##########");
+        roomTemplate.push_back("#A         #");
         roomTemplate.push_back("#          #");
         roomTemplate.push_back("#          #");
         roomTemplate.push_back("#  e       #");
@@ -778,6 +779,7 @@ void Game::makeFloor2()
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
         roomMut.lock();
         gamespace[tfloor].emplace(mapCoord, new Room(this, rminfo, new Puzzle(puzzleSolved, puzzleAction)));
+        activeRoom = gamespace[tfloor][mapCoord]; // sets the starting activeRoom
         roomMut.unlock();
     }
     {
