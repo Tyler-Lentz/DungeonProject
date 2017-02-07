@@ -50,7 +50,8 @@ namespace dngutil
         SSKnight,
         Mage,
         MagicalPotion,
-        Altar
+        Altar,
+        DungeonBeast
     };
 
     enum class BTID

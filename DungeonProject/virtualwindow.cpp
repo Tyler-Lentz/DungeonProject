@@ -142,9 +142,9 @@ void TextMacros::screenScroll(dngutil::Movement direction, Room* oldRoom, Room* 
                 vwin->putcen(newMap[j], vcursor.y);
                 vcursor.x = 0; vcursor.y++;
             }
-            for (int i = abs(yDiff); i > 0; i--)
+            for (int i = 0; i < abs(yDiff) && i < 10; i++)
             {
-                clearLine(vcursor.y++);
+               clearLine(vcursor.y++);
             }
             Sleep(dngutil::SCROLL_TIME);
         }
@@ -269,7 +269,14 @@ void TextMacros::displayOverworldInfo(Game* game)
     game->getPlayer()->printStats(0, ++vcursor.y);
 
     vcursor.y = DIVIDER_LINES[2] - 2;
-    vwin->putcen(ColorString("  Demon in ", dngutil::RED) + game->getPlayer()->getStepString() + ColorString(" steps...  ", dngutil::RED), vcursor.y++);
+    if (game->shouldSpawnBeast())
+    {
+        vwin->putcen(ColorString("  Demon in ", dngutil::RED) + game->getPlayer()->getStepString() + ColorString(" steps...  ", dngutil::RED), vcursor.y++);
+    }
+    else
+    {
+        clearLine(vcursor.y++);
+    }
     vwin->putcen(ColorString("VALID INPUT {ARROWKEYS, I, U}", dngutil::CYAN), vcursor.y);
 }
 

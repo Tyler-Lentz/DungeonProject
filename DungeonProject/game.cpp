@@ -48,6 +48,8 @@ Game::Game(VirtualWindow* vwin)
     player = new Player(this, Coordinate(-1, -1));
     floor = 0;
 
+    spawnBeast = true;
+
     titleScreen();
     if (!exit)
     {
@@ -804,7 +806,7 @@ void Game::makeFloor2()
 
         int difficulty = 0;
         int backColor = dngutil::DARKGRAY;
-        std::string name = "END OF BETA";
+        std::string name = "Branching Paths";
         Coordinate mapCoord(0, 0);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
         roomMut.lock();
@@ -814,13 +816,13 @@ void Game::makeFloor2()
     {
         std::vector<std::string> roomTemplate;
         roomTemplate.push_back("# ################");
-        roomTemplate.push_back("# ##########     #");
-        roomTemplate.push_back("  ##########     #");
+        roomTemplate.push_back("# ##########      ");
+        roomTemplate.push_back("  ##########      ");
         roomTemplate.push_back("############ #####");
         roomTemplate.push_back("############e#####");
         roomTemplate.push_back("##########   #####");
         roomTemplate.push_back("#####  ###^  #####");
-        roomTemplate.push_back("####X   ##   #####");
+        roomTemplate.push_back("####X        #####");
         roomTemplate.push_back("###   +  #########");
         roomTemplate.push_back("##  X     ########");
         roomTemplate.push_back("#  X      o#######");
@@ -845,13 +847,109 @@ void Game::makeFloor2()
 
         int difficulty = 8;
         int backColor = dngutil::LIGHTGRAY;
-        std::string name = "Cracked Floor";
+        std::string name = "Cracked Floor + Altar Room";
         Coordinate mapCoord(1, 0);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
         roomMut.lock();
         gamespace[tfloor].emplace(mapCoord, new Room(this, rminfo, nullptr));
         roomMut.unlock();
     }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("##############");
+        roomTemplate.push_back("             #");
+        roomTemplate.push_back("      e   e  #");
+        roomTemplate.push_back("#            #");
+        roomTemplate.push_back("#            #");
+        roomTemplate.push_back("#    e     e #");
+        roomTemplate.push_back("#            #");
+        roomTemplate.push_back("#          e #");
+        roomTemplate.push_back("# e     e    #");
+        roomTemplate.push_back("#            #");
+        roomTemplate.push_back("#    e       #");
+        roomTemplate.push_back("#            #");
+        roomTemplate.push_back("#            #");
+        roomTemplate.push_back("#         e  #");
+        roomTemplate.push_back("#  e         #");
+        roomTemplate.push_back("#            #");
+        roomTemplate.push_back("#            #");
+        roomTemplate.push_back("#         e  #");
+        roomTemplate.push_back("#  e         #");
+        roomTemplate.push_back("#        e   #");
+        roomTemplate.push_back("#    e       #");
+        roomTemplate.push_back("# e          #");
+        roomTemplate.push_back("#          e #");
+        roomTemplate.push_back("# ############");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::BloodSkeleton);
+        possibleCreatures.push_back(dngutil::TID::Mage);
+        possibleCreatures.push_back(dngutil::TID::SSKnight);
+        possibleCreatures.push_back(dngutil::TID::LSKnight);
+
+        int difficulty = 8;
+        int backColor = dngutil::BLACK;
+        std::string name = "Pits of Dispair";
+        Coordinate mapCoord(2, 0);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        roomMut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(this, rminfo, nullptr));
+        roomMut.unlock();
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("# ######################");
+        roomTemplate.push_back("#   #   #   #   #   ####");
+        roomTemplate.push_back("#                   # ^#");
+        roomTemplate.push_back("#   #   #   #   #   ####");
+        roomTemplate.push_back("########################");
+
+        auto puzzleSolved = [this](const std::list<Creature*>& creatureList, const GAMEMAP& gameMap) -> bool
+        {
+            return (this->getPlayer()->getStepCount() < 2);
+        };
+
+        auto puzzleAction = [this](std::list<Creature*> creatureList, GAMEMAP& gameMap) -> void
+        {
+            gameMap[0][1].push_back(new WallObject(this, Coordinate(1, 0)));
+
+            WallObject* wall = dynamic_cast<WallObject*>(gameMap[2][20].back());
+
+            if (wall == nullptr)
+            {
+                errorMessage("at [2][20] there is not a wall? This shouldn't happen, but apparently it did lol.", __LINE__, __FILE__);
+            }
+
+            gameMap[2][20].remove(wall);
+            wall->removeFromMap(true);
+
+            Creature* beast = generateCreature(10, dngutil::TID::Skeleton);
+            gameMap[2][20].push_back(beast);
+            this->getActiveRoom()->addCreature(beast, Coordinate(22, 2));
+
+            this->setBeastSpawn(false);
+        };
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+
+        int difficulty = 0;
+        int backColor = dngutil::RED;
+        std::string name = "Room of the Beast";
+        Coordinate mapCoord(2, 1);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        roomMut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(this, rminfo, new Puzzle(puzzleSolved, puzzleAction)));
+        roomMut.unlock();
+    }
+}
+
+bool Game::shouldSpawnBeast()
+{
+    return spawnBeast;
 }
 
 void Game::setActiveFloor(unsigned int floor)
@@ -927,6 +1025,10 @@ Creature* Game::generateCreature(int difficulty, dngutil::TID tid)
 
     case dngutil::TID::Mage:
         enemy = new Mage(this, Coordinate(-1, -1), health, attack, defense, luck, speed, level);
+        break;
+
+    case dngutil::TID::DungeonBeast:
+        errorMessage("NOT IN YET", 1, "asd");
         break;
     }
 
@@ -1097,5 +1199,10 @@ void Game::titleScreen()
 
     vwin->txtmacs.clearDivider("bottom");
     stopMp3();
+}
+
+void Game::setBeastSpawn(bool spawn)
+{
+    spawnBeast = spawn;
 }
 //-------------------------------------------------------

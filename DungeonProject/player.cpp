@@ -69,7 +69,7 @@ Player::Player(
     defEv = 0;
     lckEv = 0;
     spdEv = 0;
-
+    setAtt(100);
     steps = dngutil::FULL_STEPS;
 }
 
@@ -152,7 +152,7 @@ bool Player::movement()
     int adjustedSpeed = static_cast<int>(dngutil::MAX_SPD * 1.5);
     bool canmove = !((getLastMoveTime() + ((adjustedSpeed - getSpd())) > GetTickCount()));
 
-    if (steps < 1)
+    if (steps < 1 && getPGame()->shouldSpawnBeast())
     {
         dungeonBeastSequence();
         steps = dngutil::FULL_STEPS;
@@ -543,5 +543,10 @@ ColorString Player::getStepString()
     }
 
     return ColorString(std::to_string(steps), color);
+}
+
+int Player::getStepCount()
+{
+    return steps;
 }
 //------------------------------------------------------------

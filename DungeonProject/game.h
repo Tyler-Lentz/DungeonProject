@@ -40,6 +40,9 @@ public:
     void cleanup(dngutil::ReturnVal returnval);
 
     void titleScreen();
+
+    bool shouldSpawnBeast();
+    void setBeastSpawn(bool spawn);
 private:
     VirtualWindow* vwin;
     Room* activeRoom;
@@ -61,6 +64,9 @@ private:
     void makeFloor0();
     void makeFloor1();
     void makeFloor2();
+
+    // is false after beast has been summoned
+    bool spawnBeast;
 };
 
 #endif
