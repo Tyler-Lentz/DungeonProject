@@ -211,8 +211,27 @@ Collision HoleObject::mapAction(MapObject* collider, std::list<MapObject*>::iter
         getPGame()->setActiveFloor(getPGame()->getActiveRoom()->getRoomInfo().floor - 1);
         if (getPGame()->getActiveFloor().count(coord) == 1)
         {
-            if (getPGame()->getActiveFloor()[coord]->checkMovement(collider->getCoord(), getPGame()->getPlayer()) == dngutil::MovementTypes::VALID)
+            Coordinate coordToTest = collider->getCoord();
+            Creature* temp = dynamic_cast<Creature*>(collider);
+            switch (temp->getLastMovement())
             {
+            case dngutil::Movement::UP:
+                coordToTest.y--;
+                break;
+            case dngutil::Movement::DOWN:
+                coordToTest.y++;
+                break;
+            case dngutil::Movement::LEFT:
+                coordToTest.x--;
+                break;
+            case dngutil::Movement::RIGHT:
+                coordToTest.x++;
+                break;
+            }
+
+            if (getPGame()->getActiveFloor()[coord]->checkMovement(coordToTest, getPGame()->getPlayer()) == dngutil::MovementTypes::VALID)
+            {
+                collider->setPosition(coordToTest);
                 getPGame()->getActiveRoom()->getObjects(collider->getCoord()).remove(collider);
                 getPGame()->setActiveRoom(getPGame()->getActiveFloor()[coord]);
                 getPGame()->getActiveRoom()->getObjects(collider->getCoord()).push_back(collider);

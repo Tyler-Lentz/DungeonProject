@@ -661,7 +661,7 @@ void Game::makeFloor1()
         roomTemplate.push_back("########");
         roomTemplate.push_back("########");
         roomTemplate.push_back("########");
-        roomTemplate.push_back("####^###");
+        roomTemplate.push_back("#### ^##");
         roomTemplate.push_back("#### ###");
         roomTemplate.push_back("### e ##");
         roomTemplate.push_back("### # ##");
@@ -786,6 +786,7 @@ void Game::makeFloor2()
         std::vector<std::string> roomTemplate;
         roomTemplate.push_back("###");
         roomTemplate.push_back("###");
+        roomTemplate.push_back("   ");
         roomTemplate.push_back("# #");
         roomTemplate.push_back("# #");
         roomTemplate.push_back("# #");
@@ -794,8 +795,7 @@ void Game::makeFloor2()
         roomTemplate.push_back("# #");
         roomTemplate.push_back("# #");
         roomTemplate.push_back("# #");
-        roomTemplate.push_back("# #");
-        roomTemplate.push_back("# #");
+        roomTemplate.push_back("   ");
         roomTemplate.push_back("# #");
 
         std::map<Coordinate, MapObject*> specificObjects;
@@ -806,6 +806,47 @@ void Game::makeFloor2()
         int backColor = dngutil::DARKGRAY;
         std::string name = "END OF BETA";
         Coordinate mapCoord(0, 0);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        roomMut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(this, rminfo, nullptr));
+        roomMut.unlock();
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("# ################");
+        roomTemplate.push_back("# ##########     #");
+        roomTemplate.push_back("  ##########     #");
+        roomTemplate.push_back("############ #####");
+        roomTemplate.push_back("############e#####");
+        roomTemplate.push_back("##########   #####");
+        roomTemplate.push_back("#####  ###^  #####");
+        roomTemplate.push_back("####X   ##   #####");
+        roomTemplate.push_back("###   +  #########");
+        roomTemplate.push_back("##  X     ########");
+        roomTemplate.push_back("#  X      o#######");
+        roomTemplate.push_back("     X    ########");
+        roomTemplate.push_back("##################");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+        specificObjects.emplace(Coordinate(10, 10), new Secondary(
+            this,
+            ColorChar('.', dngutil::LIGHTRED),
+            Coordinate(10, 10),
+            "Sparking Gem",
+            false,
+            dngutil::TID::Secondary,
+            0,
+            0.71,
+            "A shining red gem that protects you from damage"
+        ));
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::LSKnight);
+
+        int difficulty = 8;
+        int backColor = dngutil::LIGHTGRAY;
+        std::string name = "Cracked Floor";
+        Coordinate mapCoord(1, 0);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
         roomMut.lock();
         gamespace[tfloor].emplace(mapCoord, new Room(this, rminfo, nullptr));

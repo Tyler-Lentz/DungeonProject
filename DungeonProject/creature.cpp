@@ -60,6 +60,7 @@ Creature::Creature(
     this->secondary = secondary;
 
     this->lastMoveTime = 0;
+    this->lastMovement = dngutil::Movement::UP;
 }
 
 Creature::~Creature()
@@ -465,6 +466,7 @@ bool Creature::battle(MapObject* t_enemy)
 bool Creature::adjustPosition(dngutil::Movement movement)
 {
     int newX, newY;
+    lastMovement = movement;
     switch (movement)
     {
     case dngutil::Movement::UP:
@@ -717,4 +719,8 @@ void Creature::levelUpStats()
     increaseSpd(random(4, 8));
 }
 
+dngutil::Movement Creature::getLastMovement()
+{
+    return lastMovement;
+}
 //------------------------------------------------------------

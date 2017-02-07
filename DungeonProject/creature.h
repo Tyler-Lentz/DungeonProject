@@ -85,11 +85,15 @@ public:
     bool adjustPosition(dngutil::Movement movement);
 
     int getDamageDealt(Creature* defender);
+
+    dngutil::Movement getLastMovement();
 protected:
     Primary*& getPrimaryMemory();
     Secondary*& getSecondaryMemory();
 
 private:
+    dngutil::Movement lastMovement;
+
     unsigned long lastMoveTime;
 
     // Primary is the weapon that deals damage
