@@ -1686,7 +1686,7 @@ void Game::titleScreen()
 
             vwin->putcen(ColorString("Avenge your village!", dngutil::YELLOW), vcursor.y++);
             vcursor.y += 2;
-            pressEnter(vcursor, vwin);
+            pressEnter(vcursor, vwin); 
             break;
         }
         else if (keypress(VK_ESCAPE))
