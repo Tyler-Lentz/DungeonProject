@@ -1430,6 +1430,27 @@ void Game::makeFloor3()
         gamespace[tfloor].emplace(mapCoord, new Room(this, rminfo, nullptr));
         roomMut.unlock();
     }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("#   #   #   #   #      #");
+        roomTemplate.push_back("#                      #");
+        roomTemplate.push_back("#   #   #   #   #      #");
+        roomTemplate.push_back("########################");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+
+        int difficulty = 0;
+        int backColor = dngutil::WHITE;
+        std::string name = "end of beta";
+        Coordinate mapCoord(2, 1);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        roomMut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(this, rminfo, nullptr));
+        roomMut.unlock();
+    }
 }
 
 bool Game::shouldSpawnBeast()
