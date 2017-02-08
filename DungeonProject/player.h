@@ -58,12 +58,10 @@ public:
     bool swapSecondary(Item*& itemToSwap);
 
     ColorString getStepString();
-
     void resetSteps();
-
     int getStepCount();
-private:
     void dungeonBeastSequence();
+private:
 
     double hpEv;
     double attEv;

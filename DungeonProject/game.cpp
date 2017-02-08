@@ -48,7 +48,7 @@ Game::Game(VirtualWindow* vwin)
     player = new Player(this, Coordinate(-1, -1));
     floor = 0;
 
-    spawnBeast = true;
+    spawnBeast = false;
 
     titleScreen();
     if (!exit)
@@ -371,7 +371,7 @@ void Game::makeFloor1()
         roomTemplate.push_back("##   #####   ##");
         roomTemplate.push_back("###         ###");
         roomTemplate.push_back("####       ####");
-        roomTemplate.push_back("#####     #####");
+        roomTemplate.push_back("#####  @  #####");
         roomTemplate.push_back("####### #######");
 
         std::map<Coordinate, MapObject*> specificObjects;

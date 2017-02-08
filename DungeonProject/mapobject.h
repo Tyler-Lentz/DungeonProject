@@ -175,5 +175,12 @@ public:
     AltarObject(Game* game, Coordinate coord);
     Collision mapAction(MapObject* collider, std::list<MapObject*>::iterator& it) override;
 };
+
+class BeastTrigger : public MapObject
+{
+public:
+    BeastTrigger(Game* game, Coordinate coord);
+    Collision mapAction(MapObject* collider, std::list<MapObject*>::iterator& it) override;
+};
 //----------------------------------------------------
 #endif

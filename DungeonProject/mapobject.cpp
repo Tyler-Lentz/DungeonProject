@@ -387,3 +387,40 @@ Collision AltarObject::mapAction(MapObject* collider, std::list<MapObject*>::ite
 }
 
 //---------------------------------------------------------------
+
+//---------------------------------------------------------------
+// beast trigger
+BeastTrigger::BeastTrigger(Game* game, Coordinate coord)
+    :MapObject(
+        game,
+        ColorChar(' ', dngutil::BACKGROUND_COLOR),
+        coord,
+        "beasttrigger",
+        true,
+        false,
+        false,
+        dngutil::TID::BeastTrigger,
+        dngutil::P_EMPTY,
+        dngutil::BTID::None,
+        false
+    )
+{
+
+}
+Collision BeastTrigger::mapAction(MapObject* collider, std::list<MapObject*>::iterator& it)
+{
+    if (collider == getPGame()->getPlayer())
+    {
+        getPGame()->getPlayer()->dungeonBeastSequence();
+        getPGame()->setBeastSpawn(true);
+        getPGame()->getPlayer()->resetSteps();
+        it++;
+        getPGame()->getActiveRoom()->getObjects(getCoord()).remove(this);
+        removeFromMap(true);
+        getPGame()->getVWin()->txtmacs.displayGame(getPGame());
+        return Collision(false, false);
+    }
+    return Collision(false, true);
+}
+
+//---------------------------------------------------------------

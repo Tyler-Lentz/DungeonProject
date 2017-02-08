@@ -51,7 +51,8 @@ namespace dngutil
         Mage,
         MagicalPotion,
         Altar,
-        DungeonBeast
+        DungeonBeast,
+        BeastTrigger
     };
 
     enum class BTID

@@ -99,6 +99,10 @@ Room::Room(Game* t_game_pointer, RoomInfo roomToGenerate, Puzzle* puzzle)
             case '+':
                 gameMap[i][j].push_back(new AltarObject(game_pointer, Coordinate(j, i)));
                 break;
+
+            case '@':
+                gameMap[i][j].push_back(new BeastTrigger(game_pointer, Coordinate(j, i)));
+                break;
             }
         }
     }
