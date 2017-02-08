@@ -1197,7 +1197,21 @@ void Game::titleScreen()
         }
     }
 
+    vwin->txtmacs.clearMapArea(false, NULL);
     vwin->txtmacs.clearDivider("bottom");
+
+    Coordinate vcursor(0, vwin->txtmacs.DIVIDER_LINES[1] + 5);
+    vwin->putcen(ColorString("Your village has been destroyed by a dragon,", dngutil::WHITE), vcursor.y++);
+    vwin->putcen(ColorString("and you are the sole survivor...", dngutil::WHITE), vcursor.y++);
+    vcursor.y += 2;
+    vwin->putcen(ColorString("You have tracked the dragon back to its lair.", dngutil::WHITE), vcursor.y++);   
+    vwin->putcen(ColorString("With your trusty sword and shield you pass through the entrance.", dngutil::WHITE), vcursor.y++);
+    vcursor.y += 5;
+
+    vwin->putcen(ColorString("Avenge your village!", dngutil::YELLOW), vcursor.y++);
+    vcursor.y += 2;
+    pressEnter(vcursor, vwin);
+
     stopMp3();
 }
 
