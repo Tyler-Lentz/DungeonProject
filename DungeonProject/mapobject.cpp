@@ -231,9 +231,9 @@ Collision HoleObject::mapAction(MapObject* collider, std::list<MapObject*>::iter
 
             if (getPGame()->getActiveFloor()[coord]->checkMovement(coordToTest, getPGame()->getPlayer()) == dngutil::MovementTypes::VALID)
             {
-                collider->setPosition(coordToTest);
                 getPGame()->getActiveRoom()->getObjects(collider->getCoord()).remove(collider);
                 getPGame()->setActiveRoom(getPGame()->getActiveFloor()[coord]);
+                collider->setPosition(coordToTest);
                 getPGame()->getActiveRoom()->getObjects(collider->getCoord()).push_back(collider);
                 getPGame()->getVWin()->txtmacs.displayGame(getPGame());
                 getPGame()->clearDeletionList();
