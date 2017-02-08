@@ -1058,7 +1058,7 @@ void Game::makeFloor2()
             "Musket",
             false,
             dngutil::TID::Primary,
-            5,
+            3,
             7,
             50,
             true,
