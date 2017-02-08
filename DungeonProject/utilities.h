@@ -107,7 +107,7 @@ namespace dngutil
     const int CONSOLEY = 45;
 
     // TODO: change this to use gamespaces size
-    const int NUMFLOORS = 3;
+    const int NUMFLOORS = 4;
 
     const int MAPSIZE = 100;
 

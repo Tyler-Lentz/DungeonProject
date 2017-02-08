@@ -64,6 +64,7 @@ private:
     void makeFloor0();
     void makeFloor1();
     void makeFloor2();
+    void makeFloor3();
 
     // is false after beast has been summoned
     bool spawnBeast;

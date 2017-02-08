@@ -88,7 +88,7 @@ Room::Room(Game* t_game_pointer, RoomInfo roomToGenerate, Puzzle* puzzle)
             case '-':
             case '|':
                 gameMap[i][j].push_back(new DoorObject(
-                    game_pointer, Coordinate(j, i), ColorChar(roomInfo.roomTemplate[i][j], dngutil::BROWN)
+                    game_pointer, Coordinate(j, i), ColorChar(roomInfo.roomTemplate[i][j], dngutil::WHITE)
                 ));
                 break;
 
