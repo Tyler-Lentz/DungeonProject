@@ -695,9 +695,9 @@ void Game::makeFloor1()
     }
     {
         std::vector<std::string> roomTemplate;
-        roomTemplate.push_back("#################");
+        roomTemplate.push_back("##^##############");
         roomTemplate.push_back("#   #     #   # #");
-        roomTemplate.push_back("# ^ # ### # # # #");
+        roomTemplate.push_back("#   # ### # # # #");
         roomTemplate.push_back("#   # #   # # # #");
         roomTemplate.push_back("#     # ### # # #");
         roomTemplate.push_back("#     #     #  o#");
@@ -716,6 +716,23 @@ void Game::makeFloor1()
         int backColor = dngutil::BLACK;
         std::string name = "Darkness";
         Coordinate mapCoord(1, -2);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        roomMut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(this, rminfo, nullptr));
+        roomMut.unlock();
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("#################");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+
+        int difficulty = 0;
+        int backColor = dngutil::BLACK;
+        std::string name = "you shouldnt be here";
+        Coordinate mapCoord(1, -3);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
         roomMut.lock();
         gamespace[tfloor].emplace(mapCoord, new Room(this, rminfo, nullptr));
@@ -1018,9 +1035,9 @@ void Game::makeFloor2()
     }
     {
         std::vector<std::string> roomTemplate;
-        roomTemplate.push_back("## ##############");
+        roomTemplate.push_back("##v##############");
         roomTemplate.push_back("## ##     #   # #");
-        roomTemplate.push_back("##v## ### # # # #");
+        roomTemplate.push_back("## ## ### # # # #");
         roomTemplate.push_back("#   # #   # # # #");
         roomTemplate.push_back("#   # # ### # # #");
         roomTemplate.push_back("#   # #     #   #");
@@ -1045,10 +1062,10 @@ void Game::makeFloor2()
     }
     {
         std::vector<std::string> roomTemplate;
-        roomTemplate.push_back("#####");
-        roomTemplate.push_back("# o #");
-        roomTemplate.push_back("#   #");
-        roomTemplate.push_back("## ##");
+        roomTemplate.push_back("#################");
+        roomTemplate.push_back("# o #############");
+        roomTemplate.push_back("#   #############");
+        roomTemplate.push_back("## ##############");
 
         std::map<Coordinate, MapObject*> specificObjects;
         specificObjects.emplace(Coordinate(2, 1), new Primary(
