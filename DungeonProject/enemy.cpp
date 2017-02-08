@@ -446,9 +446,9 @@ void BloodSkeleton::printSelf()
 
 
 //----------------------------------------------------------------
-// Large Skeleton Functions
+// Skeleton King Functions
 
-LargeSkeleton::LargeSkeleton(
+SkeletonKing::SkeletonKing(
     Game* pgame,
     Coordinate coord,
     int hp,
@@ -461,9 +461,9 @@ LargeSkeleton::LargeSkeleton(
     pgame,
     ColorChar('T', dngutil::DARKGRAY),
     coord,
-    "Large Skeleton",
+    "Skeleton King",
     false,
-    dngutil::TID::LargeSkeleton,
+    dngutil::TID::SkeletonKing,
     hp,
     att,
     def,
@@ -493,15 +493,15 @@ LargeSkeleton::LargeSkeleton(
         dngutil::TID::Secondary,
         0,
         .7,
-        "A corpsed head, cursed by a large skeleton."
+        "A corpsed head, cursed by the skeleton king."
     ),
-    "MinibossTheme.mp3",
+    "SkeletonKingTheme.mp3",
     50,
-    "MinibossDeath.wav",
+    "Screech.wav",
     dngutil::EvType::ATTACK
 ) {}
 
-void LargeSkeleton::printSelf()
+void SkeletonKing::printSelf()
 {
     Coordinate vcursor(0, getPGame()->getVWin()->txtmacs.DIVIDER_LINES[1] + 1);
     VirtualWindow* t = getPGame()->getVWin();
@@ -595,7 +595,7 @@ DungeonBeast::DungeonBeast(
         .25,
         "Beast's armor."
     ),
-    "MinibossTheme.mp3",
+    "BeastTheme.mp3",
     85,
     "KillDemon.wav",
     dngutil::EvType::DEFENSE

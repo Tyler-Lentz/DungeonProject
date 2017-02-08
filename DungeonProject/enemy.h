@@ -201,10 +201,10 @@ public:
     void deathSequence() override;
 };
 
-class LargeSkeleton : public BEnemy
+class SkeletonKing : public BEnemy
 {
 public:
-    LargeSkeleton(
+    SkeletonKing(
         Game* pgame,
         Coordinate coord,
         int hp,

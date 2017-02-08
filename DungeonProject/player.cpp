@@ -97,7 +97,7 @@ void Player::dungeonBeastSequence()
 
     Coordinate vcursor(15, t.DIVIDER_LINES[1] + 1);
 
-    startMp3("MinibossTheme.mp3");
+    startMp3("BeastTheme.mp3");
     int color = dngutil::WHITE;
     v->put(ColorString(R"(		             \                  /)", color), vcursor); Sleep(50); vcursor.y++;
     v->put(ColorString(R"(		    _________))                ((__________)", color), vcursor); Sleep(50); vcursor.y++;
@@ -119,7 +119,7 @@ void Player::dungeonBeastSequence()
     v->put(ColorString(R"(		                      ()", color), vcursor); Sleep(50); vcursor.y++;
     v->put(ColorString(R"(		                      ` )", color), vcursor); Sleep(50);
     
-    soundEffect("MinibossDeath.wav", false, false); 
+    soundEffect("Screech.wav", false, false); 
 
     vcursor.y = t.BOTTOM_DIVIDER_TEXT_LINE;
     v->putcen(ColorString("The Dungeon Beast has appeared!", dngutil::WHITE), vcursor.y++);

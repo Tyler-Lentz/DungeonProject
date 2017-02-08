@@ -44,7 +44,7 @@ namespace dngutil
         Key,
         LockedDoor,
         Hole,
-        LargeSkeleton,
+        SkeletonKing,
         BloodSkeleton,
         LSKnight,
         SSKnight,

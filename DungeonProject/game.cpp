@@ -378,7 +378,7 @@ void Game::makeFloor1()
         specificObjects.emplace(Coordinate(10, 12), new Potion(this, Coordinate(10, 12), dngutil::POTION_HEAL));
 
         std::vector<dngutil::TID> possibleCreatures;
-        possibleCreatures.push_back(dngutil::TID::LargeSkeleton);
+        possibleCreatures.push_back(dngutil::TID::SkeletonKing);
 
         int difficulty = 6;
         int backColor = dngutil::LIGHTGRAY;
@@ -1492,8 +1492,8 @@ Creature* Game::generateCreature(int difficulty, dngutil::TID tid)
         enemy = new Skeleton(this, Coordinate(-1, -1), health, attack, defense, luck, speed, level);
         break;
 
-    case dngutil::TID::LargeSkeleton:
-        enemy = new LargeSkeleton(this, Coordinate(-1, -1), health, attack, defense, luck, speed, level);
+    case dngutil::TID::SkeletonKing:
+        enemy = new SkeletonKing(this, Coordinate(-1, -1), health, attack, defense, luck, speed, level);
         break;
 
     case dngutil::TID::BloodSkeleton:
