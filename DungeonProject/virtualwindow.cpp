@@ -271,7 +271,7 @@ void TextMacros::displayOverworldInfo(Game* game)
     vcursor.y = DIVIDER_LINES[2] - 2;
     if (game->shouldSpawnBeast())
     {
-        vwin->putcen(ColorString("  Demon in ", dngutil::RED) + game->getPlayer()->getStepString() + ColorString(" steps...  ", dngutil::RED), vcursor.y++);
+        vwin->putcen(ColorString("  Beast in ", dngutil::RED) + game->getPlayer()->getStepString() + ColorString(" steps...  ", dngutil::RED), vcursor.y++);
     }
     else
     {

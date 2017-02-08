@@ -925,7 +925,7 @@ void Game::makeFloor2()
             gameMap[2][20].remove(wall);
             wall->removeFromMap(true);
 
-            Creature* beast = generateCreature(10, dngutil::TID::Skeleton);
+            Creature* beast = generateCreature(10, dngutil::TID::DungeonBeast);
             gameMap[2][20].push_back(beast);
             this->getActiveRoom()->addCreature(beast, Coordinate(22, 2));
 
@@ -1028,7 +1028,7 @@ Creature* Game::generateCreature(int difficulty, dngutil::TID tid)
         break;
 
     case dngutil::TID::DungeonBeast:
-        errorMessage("NOT IN YET", 1, "asd");
+        enemy = new DungeonBeast(this, Coordinate(-1, -1), health, attack, defense, luck, speed, level);
         break;
     }
 
@@ -1056,7 +1056,7 @@ void Game::titleScreen()
     startMp3("TitleTheme.mp3");
 
     vwin->txtmacs.drawDividers();
-    vwin->putcen(ColorString("Dungeon RPG - Dragon's Lair (BETA 2)", dngutil::RED), vwin->txtmacs.DIVIDER_LINES[0] + 1);
+    vwin->putcen(ColorString("Dungeon RPG - Dragon's Lair (BETA 3)", dngutil::RED), vwin->txtmacs.DIVIDER_LINES[0] + 1);
     vwin->putcen(ColorString("Enter - Continue, Esc - exit", dngutil::LIGHTGRAY), vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE);
 
     int r = random(3);

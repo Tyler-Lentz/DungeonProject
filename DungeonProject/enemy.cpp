@@ -400,7 +400,7 @@ BloodSkeleton::BloodSkeleton(
         "A shield from a blood skeleton"
     ),
     "BattleTheme.mp3",
-    random(23, 29),
+    random(31, 40),
     "EnemyDeath.wav",
     dngutil::EvType::HEALTH
 )
@@ -546,6 +546,100 @@ void LargeSkeleton::printSelf()
 //----------------------------------------------------------------
 
 //----------------------------------------------------------------
+// Large Skeleton Functions
+
+DungeonBeast::DungeonBeast(
+    Game* pgame,
+    Coordinate coord,
+    int hp,
+    unsigned int att,
+    unsigned int def,
+    unsigned int lck,
+    unsigned int spd,
+    unsigned int lvl
+) : BEnemy(
+    pgame,
+    ColorChar('S', dngutil::WHITE),
+    coord,
+    "Dungeon Beast",
+    false,
+    dngutil::TID::DungeonBeast,
+    hp,
+    att,
+    def,
+    lck,
+    spd,
+    lvl,
+    new Primary(
+        pgame,
+        ColorChar('?', dngutil::LIGHTRED),
+        coord,
+        "Magical Beam",
+        false,
+        dngutil::TID::Primary,
+        2.5,
+        6,
+        100,
+        false,
+        "A magical beam.",
+        "MagicAttack1.wav"
+    ),
+    new Secondary(
+        pgame,
+        ColorChar('?', dngutil::GREEN),
+        coord,
+        "Beast Armor",
+        false,
+        dngutil::TID::Secondary,
+        0,
+        .25,
+        "Beast's armor."
+    ),
+    "MinibossTheme.mp3",
+    85,
+    "KillDemon.wav",
+    dngutil::EvType::DEFENSE
+) 
+{
+    setMaxhp(getMaxhp() * 2);
+    setHp(getMaxhp());
+}
+
+void DungeonBeast::printSelf()
+{
+    Coordinate vcursor(0, getPGame()->getVWin()->txtmacs.DIVIDER_LINES[1] + 1);
+    VirtualWindow* t = getPGame()->getVWin();
+    int color = dngutil::WHITE;
+    t->put(ColorString(R"(		             \                  /)", color), vcursor);  vcursor.y++;
+    t->put(ColorString(R"(		    _________))                ((__________)", color), vcursor);  vcursor.y++;
+    t->put(ColorString(R"(		   /.-------./\\    \    /    //\.--------.\)", color), vcursor);  vcursor.y++;
+    t->put(ColorString(R"(		  //#######//##\\   ))  ((   //##\\########\\)", color), vcursor);  vcursor.y++;
+    t->put(ColorString(R"(		 //#######//###((  ((    ))  ))###\\########\\)", color), vcursor);  vcursor.y++;
+    t->put(ColorString(R"(		((#######((#####\\  \\  //  //#####))########)))", color), vcursor);  vcursor.y++;
+    t->put(ColorString(R"(		 \##' `###\######\\  \)(/  //######/####' `##/)", color), vcursor);  vcursor.y++;
+    t->put(ColorString(R"(		  )'    ``#)'  `##\`->oo<-'/##'  `(#''     `()", color), vcursor);  vcursor.y++;
+    const int TOP_CURSOR_Y = vcursor.y;
+    t->put(ColorString(R"(		          (       ``\`..'/''       ))", color), vcursor);  vcursor.y++;
+    t->put(ColorString(R"(		                     \""()", color), vcursor);  vcursor.y++;
+    t->put(ColorString(R"(		                      `- ))", color), vcursor);  vcursor.y++;
+    t->put(ColorString(R"(		                      / /)", color), vcursor);  vcursor.y++;
+    t->put(ColorString(R"(		                     ( /\)", color), vcursor);  vcursor.y++;
+    t->put(ColorString(R"(		                     /\| \)", color), vcursor);  vcursor.y++;
+    t->put(ColorString(R"(		                    (  \)", color), vcursor);  vcursor.y++;
+    t->put(ColorString(R"(		                        ))", color), vcursor);  vcursor.y++;
+    t->put(ColorString(R"(		                       /)", color), vcursor);  vcursor.y++;
+    t->put(ColorString(R"(		                      ()", color), vcursor);  vcursor.y++;
+    t->put(ColorString(R"(		                      ` )", color), vcursor);
+
+    const int LONGEST_LINE_LENGTH = 59;
+
+    printStats(LONGEST_LINE_LENGTH, TOP_CURSOR_Y);
+}
+
+//----------------------------------------------------------------
+
+
+//----------------------------------------------------------------
 // LSKnight
 LSKnight::LSKnight(
     Game* pgame,
@@ -590,7 +684,7 @@ LSKnight::LSKnight(
         "A shield from a cursed knight"
     ),
     "BattleTheme.mp3",
-    random(23, 29),
+    random(26, 33),
     "EnemyDeath.wav",
     dngutil::EvType::DEFENSE
 )
@@ -682,7 +776,7 @@ SSKnight::SSKnight(
         "A shield from a cursed knight"
     ),
     "BattleTheme.mp3",
-    random(23, 29),
+    random(26, 33),
     "EnemyDeath.wav",
     dngutil::EvType::SPEED
 )
@@ -774,7 +868,7 @@ Mage::Mage(
         "A protecting aura from a mage"
     ),
     "BattleTheme.mp3",
-    random(23, 29),
+    random(35, 40),
     "EnemyDeath.wav",
     dngutil::EvType::ATTACK
 )

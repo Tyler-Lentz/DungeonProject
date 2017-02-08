@@ -374,7 +374,7 @@ Collision AltarObject::mapAction(MapObject* collider, std::list<MapObject*>::ite
         getPGame()->getPlayer()->resetSteps();
 
         vcursor.y = t.BOTTOM_DIVIDER_TEXT_LINE;
-        v->putcen(ColorString("Your prayers have warded away the demon", dngutil::WHITE), vcursor.y++);
+        v->putcen(ColorString("Your prayers have warded away the beast", dngutil::WHITE), vcursor.y++);
         pressEnter(vcursor, v);
         t.clearDivider("bottom");
         t.clearMapArea(false, NULL);
