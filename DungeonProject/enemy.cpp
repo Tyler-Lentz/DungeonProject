@@ -849,7 +849,7 @@ Mage::Mage(
         "Staff",
         false,
         dngutil::TID::Primary,
-        2.3,
+        1.8,
         4,
         85,
         false,
