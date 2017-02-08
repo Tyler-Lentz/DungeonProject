@@ -746,7 +746,7 @@ void Game::makeFloor2()
     unsigned int tfloor = 2;
     {
         std::vector<std::string> roomTemplate;
-        roomTemplate.push_back("# ##########");
+        roomTemplate.push_back("############");
         roomTemplate.push_back("#          #");
         roomTemplate.push_back("#          #");
         roomTemplate.push_back("#          #");
