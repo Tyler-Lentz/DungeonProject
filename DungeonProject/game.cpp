@@ -1593,6 +1593,18 @@ Creature* Game::generateCreature(int difficulty, dngutil::TID tid)
     case dngutil::TID::DungeonBeast:
         enemy = new DungeonBeast(this, Coordinate(-1, -1), health, attack, defense, luck, speed, level);
         break;
+
+    case dngutil::TID::DragonHead:
+        enemy = new DragonHead(this, Coordinate(-1, -1), health, attack, defense, luck, speed, level);
+        break;
+
+    case dngutil::TID::DragonTail:
+        enemy = new DragonTail(this, Coordinate(-1, -1), health, attack, defense, luck, speed, level);
+        break;
+
+    case dngutil::TID::DragonWings:
+        enemy = new DragonWings(this, Coordinate(-1, -1), health, attack, defense, luck, speed, level);
+        break;
     }
 
     if (enemy == nullptr)

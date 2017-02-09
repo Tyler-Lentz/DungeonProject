@@ -235,4 +235,84 @@ public:
     void printSelf() override;
 };
 
+class SegEnemy : public BEnemy
+{
+public:
+    SegEnemy(
+        Game* pgame,
+        ColorChar mapRep,
+        Coordinate coord,
+        std::string name,
+        bool rawoutput,
+        dngutil::TID typeId,
+        int hp,
+        unsigned int att,
+        unsigned int def,
+        unsigned int lck,
+        unsigned int spd,
+        unsigned int lvl,
+        Primary* primary,
+        Secondary* secondary,
+        std::string battleMusic,
+        unsigned int experienceGiven,
+        std::string deathSound,
+        dngutil::EvType ev
+    ) : BEnemy(pgame, mapRep, coord, name, rawoutput, typeId, hp, att, def, lck, spd,
+        lvl, primary, secondary, battleMusic, experienceGiven, deathSound, ev) {}
+
+    void deathSequence() override {}
+    bool battle(MapObject* enemy);
+};
+
+
+class DragonTail : public SegEnemy
+{
+public:
+    DragonTail(
+        Game* pgame,
+        Coordinate coord,
+        int hp,
+        unsigned int att,
+        unsigned int def,
+        unsigned int lck,
+        unsigned int spd,
+        unsigned int lvl
+    );
+    void printSelf() override;
+
+};
+
+class DragonWings : public SegEnemy
+{
+public:
+    DragonWings(
+        Game* pgame,
+        Coordinate coord,
+        int hp,
+        unsigned int att,
+        unsigned int def,
+        unsigned int lck,
+        unsigned int spd,
+        unsigned int lvl
+    );    
+    void printSelf() override;
+
+};
+
+class DragonHead : public SegEnemy
+{
+public:
+    DragonHead(
+        Game* pgame,
+        Coordinate coord,
+        int hp,
+        unsigned int att,
+        unsigned int def,
+        unsigned int lck,
+        unsigned int spd,
+        unsigned int lvl
+    );
+    void printSelf() override;
+
+};
 #endif
