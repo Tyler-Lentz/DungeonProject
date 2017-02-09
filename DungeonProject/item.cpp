@@ -114,8 +114,12 @@ void Potion::action(Player* player, unsigned int inventoryIndex)
     {
         player->increaseHealth(1);
         getPGame()->getVWin()->putcen(player->getHealthBar(), healthbarLine);
-        Sleep(100);
+        if (!keypress(VK_RETURN))
+        {
+            Sleep(30);
+        }
     }
+
     stopSound();
 
     std::string output = "You healed for ";
@@ -230,7 +234,7 @@ const double& Secondary::getDmdReductMult() const
 
 MagicalPotion::MagicalPotion(Game* pgame, Coordinate coord)
     :RItem(pgame, ColorChar('o', dngutil::YELLOW), coord, "Magical Potion",
-        true, false, false, dngutil::TID::MagicalPotion, true, "Restores hp to max hp or heals 50 hp on death")
+        true, false, false, dngutil::TID::MagicalPotion, true, "Restores hp to max hp or heals 3/4 hp on death")
 {
 }
 
@@ -246,7 +250,10 @@ void MagicalPotion::action(Player* player, unsigned int inventoryIndex)
     {
         player->increaseHealth(1);
         getPGame()->getVWin()->putcen(player->getHealthBar(), healthbarLine);
-        Sleep(60);
+        if (!keypress(VK_RETURN))
+        {
+            Sleep(30);
+        }
     }
     stopSound();
 

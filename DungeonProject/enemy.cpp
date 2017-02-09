@@ -1036,7 +1036,7 @@ bool SegEnemy::battle(MapObject* t_enemy)
 
                         soundEffect("MagicalPotion.wav", false, false);
                         soundEffect("RefillHealth.wav", true, true);
-                        for (int i = 0; i < 50; i++)
+                        for (int i = 0; i < (player->getMaxhp() * .75); i++)
                         {
                             player->increaseHealth(1);
                             vwin->txtmacs.displayHealthBars(enemy, player);

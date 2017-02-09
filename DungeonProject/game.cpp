@@ -1498,9 +1498,9 @@ void Game::makeFloor3()
         roomTemplate.push_back("#XXXXXXX   XXXXXXX#");
 
         std::vector<SegEnemy*> bossparts;
-        bossparts.push_back(dynamic_cast<SegEnemy*>(generateCreature(10, dngutil::TID::DragonTail)));
-        bossparts.push_back(dynamic_cast<SegEnemy*>(generateCreature(10, dngutil::TID::DragonWings)));
-        bossparts.push_back(dynamic_cast<SegEnemy*>(generateCreature(10, dngutil::TID::DragonHead)));
+        bossparts.push_back(dynamic_cast<SegEnemy*>(generateCreature(11, dngutil::TID::DragonTail)));
+        bossparts.push_back(dynamic_cast<SegEnemy*>(generateCreature(11, dngutil::TID::DragonWings)));
+        bossparts.push_back(dynamic_cast<SegEnemy*>(generateCreature(12, dngutil::TID::DragonHead)));
 
         std::map<Coordinate, MapObject*> specificObjects;
         specificObjects.emplace(Coordinate(9, 8), new SegbossTrigger(
@@ -1583,7 +1583,7 @@ Creature* Game::generateCreature(int difficulty, dngutil::TID tid)
         break;
 
     case dngutil::TID::SkeletonKing:
-        enemy = new SkeletonKing(this, Coordinate(-1, -1), health, attack, defense, luck, speed, level);
+        enemy = new SkeletonKing(this, Coordinate(-1, -1), health, attack, defense, luck, speed, difficulty);
         break;
 
     case dngutil::TID::BloodSkeleton:
@@ -1603,19 +1603,19 @@ Creature* Game::generateCreature(int difficulty, dngutil::TID tid)
         break;
 
     case dngutil::TID::DungeonBeast:
-        enemy = new DungeonBeast(this, Coordinate(-1, -1), health, attack, defense, luck, speed, level);
+        enemy = new DungeonBeast(this, Coordinate(-1, -1), health, attack, defense, luck, speed, difficulty);
         break;
 
     case dngutil::TID::DragonHead:
-        enemy = new DragonHead(this, Coordinate(-1, -1), health, attack, defense, luck, speed, level);
+        enemy = new DragonHead(this, Coordinate(-1, -1), health, attack, defense, luck, speed, difficulty);
         break;
 
     case dngutil::TID::DragonTail:
-        enemy = new DragonTail(this, Coordinate(-1, -1), health, attack, defense, luck, speed, level);
+        enemy = new DragonTail(this, Coordinate(-1, -1), health, attack, defense, luck, speed, difficulty);
         break;
 
     case dngutil::TID::DragonWings:
-        enemy = new DragonWings(this, Coordinate(-1, -1), health, attack, defense, luck, speed, level);
+        enemy = new DragonWings(this, Coordinate(-1, -1), health, attack, defense, luck, speed, difficulty);
         break;
     }
 
