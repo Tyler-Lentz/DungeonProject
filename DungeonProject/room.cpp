@@ -78,7 +78,7 @@ Room::Room(Game* t_game_pointer, RoomInfo roomToGenerate, Puzzle* puzzle)
                 if (roomInfo.specificObjects.count(Coordinate(j, i)) != 1)
                 {
                     errorMessage(
-                        "ERROR: on floor " + std::to_string(roomInfo.floor) + " " + roomInfo.name + ", item not set correctly",
+                        "ERROR: on floor " + std::to_string(roomInfo.floor) + " " + roomInfo.name + ", item/trigger not set correctly",
                         __LINE__, __FILE__);
                 }
                 gameMap[i][j].push_back(roomInfo.specificObjects[Coordinate(j, i)]);

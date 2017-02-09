@@ -1477,7 +1477,7 @@ void Game::makeFloor3()
         roomTemplate.push_back("#XXXXXXXXXXXXXXXXX#");
         roomTemplate.push_back("#XXXXXXXXXXXXXXXXX#");
         roomTemplate.push_back("#XXXXXXXXXXXXXXXXX#");
-        roomTemplate.push_back("#XXXXXXX   XXXXXXX#");
+        roomTemplate.push_back("#XXXXXXX o XXXXXXX#");
         roomTemplate.push_back("#XXXXXXX   XXXXXXX#");
         roomTemplate.push_back("#XXXXXXX   XXXXXXX#");
         roomTemplate.push_back("#XXXXXXX   XXXXXXX#");
@@ -1495,7 +1495,17 @@ void Game::makeFloor3()
         roomTemplate.push_back("#XXXXXXX   XXXXXXX#");
         roomTemplate.push_back("#XXXXXXX   XXXXXXX#");
 
+        std::vector<SegEnemy*> bossparts;
+        bossparts.push_back(dynamic_cast<SegEnemy*>(generateCreature(10, dngutil::TID::DragonTail)));
+        bossparts.push_back(dynamic_cast<SegEnemy*>(generateCreature(10, dngutil::TID::DragonWings)));
+        bossparts.push_back(dynamic_cast<SegEnemy*>(generateCreature(10, dngutil::TID::DragonHead)));
+
         std::map<Coordinate, MapObject*> specificObjects;
+        specificObjects.emplace(Coordinate(9, 8), new SegbossTrigger(
+            this, Coordinate(9, 8),
+            new Segboss(bossparts, this),
+            ColorChar('S', dngutil::LIGHTRED)
+        ));
 
         std::vector<dngutil::TID> possibleCreatures;
 
