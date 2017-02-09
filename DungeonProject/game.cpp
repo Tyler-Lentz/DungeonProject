@@ -1373,7 +1373,7 @@ void Game::makeFloor3()
             4,
             100,
             false,
-            "24in.",
+            "A sword found next to a dead body. \"Danny\" is enscribed on the handle",
             "Attack1.wav"
         ));
 
