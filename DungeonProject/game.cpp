@@ -307,7 +307,7 @@ void Game::makeFloor0()
 void Game::makeFloor1()
 {
     unsigned int tfloor = 1;
-    //this->floor = tfloor; // sets the starting floor
+    this->floor = tfloor; // sets the starting floor
     {
         std::vector<std::string> roomTemplate;
         roomTemplate.push_back("###############");
@@ -334,7 +334,7 @@ void Game::makeFloor1()
         roomTemplate.push_back("####### #######");
         roomTemplate.push_back("####### #######");
         roomTemplate.push_back("####### #######");
-        roomTemplate.push_back("####### #######");
+        roomTemplate.push_back("#######A#######");
         roomTemplate.push_back("####### #######");
 
         std::map<Coordinate, MapObject*> specificObjects;
@@ -350,7 +350,7 @@ void Game::makeFloor1()
 
         roomMut.lock();
         gamespace[tfloor].emplace(mapCoord, new Room(this, rminfo, nullptr));
-        //activeRoom = gamespace[tfloor][mapCoord]; // sets the starting activeRoom
+        activeRoom = gamespace[tfloor][mapCoord]; // sets the starting activeRoom
         roomMut.unlock();
     }
     {
@@ -1148,7 +1148,6 @@ void Game::makeFloor2()
 void Game::makeFloor3()
 {
     unsigned int tfloor = 3;
-    this->floor = tfloor; // sets the starting floor
     {
         std::vector<std::string> roomTemplate;
         roomTemplate.push_back("# ####################");
@@ -1450,7 +1449,7 @@ void Game::makeFloor3()
         roomTemplate.push_back("########   ########");
         roomTemplate.push_back("#                 #");
         roomTemplate.push_back("#                v#");
-        roomTemplate.push_back("#             A   #");
+        roomTemplate.push_back("#                 #");
         roomTemplate.push_back("#                 #");
         roomTemplate.push_back("###################");
 
@@ -1466,7 +1465,6 @@ void Game::makeFloor3()
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
         roomMut.lock();
         gamespace[tfloor].emplace(mapCoord, new Room(this, rminfo, nullptr));
-        activeRoom = gamespace[tfloor][mapCoord]; // sets the starting activeRoom
         roomMut.unlock();
     }
     {
