@@ -182,5 +182,16 @@ public:
     BeastTrigger(Game* game, Coordinate coord);
     Collision mapAction(MapObject* collider, std::list<MapObject*>::iterator& it) override;
 };
+
+class Segboss;
+class SegbossTrigger : public MapObject
+{
+public:
+    SegbossTrigger(Game* game, Coordinate coord, Segboss* segboss, ColorChar colchar);
+    ~SegbossTrigger();
+    Collision mapAction(MapObject* collider, std::list<MapObject*>::iterator& it) override;
+private:
+    Segboss* segboss;
+};
 //----------------------------------------------------
 #endif

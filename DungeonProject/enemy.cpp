@@ -1238,6 +1238,7 @@ void DragonWings::printSelf()
     t->put(ColorString(R"(                                                 /===-_---~~~~~~~~~------____)", color), vcursor); vcursor.y++;
     t->put(ColorString(R"(                                                |===-~___                _,-')", color), vcursor); vcursor.y++;
     t->put(ColorString(R"(                 -==\\                         `//~\\   ~~~~`---.___.-~~     )", color), vcursor); vcursor.y++;
+    const int TOP_CURSOR_Y = vcursor.y;
     t->put(ColorString(R"(             ______-==|                         | |  \\           _-~`       )", color), vcursor); vcursor.y++;
     t->put(ColorString(R"(       __--~~~  ,-/-==\\                        | |   `\        ,'           )", color), vcursor); vcursor.y++;
     t->put(ColorString(R"(    _-~       /'    |  \\                      / /      \      /             )", color), vcursor); vcursor.y++;
@@ -1251,7 +1252,6 @@ void DragonWings::printSelf()
     t->put(ColorString(R"(                  |0  0 _/) )-~     | |__>--<__|      |                      )", color), vcursor); vcursor.y++;
     t->put(ColorString(R"(                  / /~ ,_/       / /__>---<__/      |                        )", color), vcursor); vcursor.y++;
     t->put(ColorString(R"(                 o o _//        /-~_>---<__-~      /                         )", color), vcursor); vcursor.y++;
-    const int TOP_CURSOR_Y = vcursor.y;
     t->put(ColorString(R"(                 (^(~          /~_>---<__-      _-~                          )", deadcolor), vcursor); vcursor.y++;
     t->put(ColorString(R"(                              /__>--<__/     _-~                             )", deadcolor), vcursor); vcursor.y++;
     t->put(ColorString(R"(                             |__>--<__|     /                  .----_        )", deadcolor), vcursor); vcursor.y++;
@@ -1347,6 +1347,7 @@ void DragonHead::printSelf()
     t->put(ColorString(R"(  .'        /       |   \\                   /' /        \   /'              )", deadcolor), vcursor); vcursor.y++;
     t->put(ColorString(R"( /  ____  /         |    \`\.__/-~~ ~ \ _ _/'  /          \/'                )", deadcolor), vcursor); vcursor.y++;
     t->put(ColorString(R"(/-'~    ~~~~~---__  |     ~-/~         ( )   /'        _--~`                 )", deadcolor), vcursor); vcursor.y++;
+    const int TOP_CURSOR_Y = vcursor.y;
     t->put(ColorString(R"(                  \_|      /        _)   ;  ),   __--~~                      )", deadcolor), vcursor); vcursor.y++;
     t->put(ColorString(R"(                    '~~--_/      _-~/-  / \   '-~ \                          )", deadcolor), vcursor); vcursor.y++;
     t->put(ColorString(R"(                   {\__--_/}    / \\_>- )<__\      \                         )", color), vcursor); vcursor.y++;
@@ -1354,7 +1355,6 @@ void DragonHead::printSelf()
     t->put(ColorString(R"(                  |0  0 _/) )-~     | |__>--<__|      |                      )", color), vcursor); vcursor.y++;
     t->put(ColorString(R"(                  / /~ ,_/       / /__>---<__/      |                        )", color), vcursor); vcursor.y++;
     t->put(ColorString(R"(                 o o _//        /-~_>---<__-~      /                         )", color), vcursor); vcursor.y++;
-    const int TOP_CURSOR_Y = vcursor.y;
     t->put(ColorString(R"(                 (^(~          /~_>---<__-      _-~                          )", deadcolor), vcursor); vcursor.y++;
     t->put(ColorString(R"(                              /__>--<__/     _-~                             )", deadcolor), vcursor); vcursor.y++;
     t->put(ColorString(R"(                             |__>--<__|     /                  .----_        )", deadcolor), vcursor); vcursor.y++;
@@ -1370,5 +1370,84 @@ void DragonHead::printSelf()
     printStats(LONGEST_LINE_LENGTH, TOP_CURSOR_Y);
 }
 
+//----------------------------------------------------------------
 
+//----------------------------------------------------------------
+// segboss
+
+Segboss::Segboss(std::vector<SegEnemy*> segments, Game* game_pointer)
+{
+    this->segments = segments;
+    this->pgame = game_pointer;
+}
+
+Segboss::~Segboss()
+{
+    for (auto it = segments.begin(); it != segments.end(); it++)
+    {
+        delete (*it);
+    }
+}
+
+bool Segboss::segmentedBattle(Player* player)
+{
+    VirtualWindow* v = pgame->getVWin();
+    TextMacros& t = v->txtmacs;
+
+    startMp3(segments.front()->getBattleMusic());
+
+    for (auto& i : segments)
+    {
+        if (!i->battle(i))
+        {
+            stopMp3();
+            return false;
+        }
+
+        t.clearMapArea(false, NULL);
+        t.clearDivider("bottom");
+    }
+    stopMp3();
+    // If you are here you won
+    // if this was going to be a bigger game this would not be part of this function
+    // but it is because this will not be used for anything but the final boss
+
+    ColorString line(std::string(dngutil::CONSOLEX, ' '), getColor(dngutil::WHITE, dngutil::WHITE));
+
+    for (int i = 0; i < dngutil::CONSOLEY; i++)
+    {
+        v->putcen(line, i);
+    }
+
+    startMp3("Win.mp3");
+    Sleep(5000);
+    stopMp3();
+
+    Sleep(100);
+    startMp3("Ending.mp3");
+
+    int color = dngutil::BLACK;
+    Coordinate vcursor(0, 5);
+    v->putcen(ColorString("DUNGEON RPG - DRAGON'S LAIR", color), vcursor.y++);
+    vcursor.y += 4;
+
+    v->putcen(ColorString("Programming: Tyler Lentz", color), vcursor.y++);
+    vcursor.y++;
+    v->putcen(ColorString("Story: Tyler Lentz and Thomas Westenhofer", color), vcursor.y++);
+    vcursor.y++;
+    v->putcen(ColorString("Play Testing: Tyler Lentz, Thomas Westenhoffer, Kristian Rascon,", color), vcursor.y++);
+    v->putcen(ColorString("Joshua Chan, Daniel Hernandez, Chris Mosely and others", color), vcursor.y++);
+    vcursor.y++;
+    v->putcen(ColorString("Special Thanks to: Evan \"Little Fella\" Maich, Niko \"Mile Stretch Mile\" Fernandez and", color), vcursor.y++);
+    v->putcen(ColorString("Anthony \"The Very Lit Duganator 2000\" Dugan", color), vcursor.y++);
+    vcursor.y+= 5;
+    v->putcen(ColorString("Your adventure is over", dngutil::YELLOW), vcursor.y++);
+    vcursor.y += 3;
+    pressEnter(vcursor, v);
+
+    stopMp3();
+
+    pgame->cleanup(dngutil::ReturnVal::RESTART);
+    return true;
+}
 //----------------------------------------------------------------

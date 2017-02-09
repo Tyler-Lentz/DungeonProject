@@ -55,7 +55,8 @@ namespace dngutil
         BeastTrigger,
         DragonTail,
         DragonWings,
-        DragonHead
+        DragonHead,
+        SegbossTrigger
     };
 
     enum class BTID

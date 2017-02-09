@@ -5,6 +5,7 @@
 #include "creature.h"
 #include "player.h"
 #include "virtualwindow.h"
+#include "enemy.h"
 
 #include <list>
 
@@ -423,4 +424,42 @@ Collision BeastTrigger::mapAction(MapObject* collider, std::list<MapObject*>::it
     return Collision(false, true);
 }
 
+//---------------------------------------------------------------
+
+//---------------------------------------------------------------
+// Segboss trigger
+SegbossTrigger::SegbossTrigger(Game* game, Coordinate coord, Segboss* segboss, ColorChar colchar)
+    :MapObject(
+        game,
+        colchar,
+        coord,
+        "SEGBOSSTRIGGER",
+        true,
+        false,
+        false,
+        dngutil::TID::SegbossTrigger,
+        dngutil::P_ENEMY,
+        dngutil::BTID::None,
+        false
+    )
+{
+        this->segboss = segboss;
+}
+
+SegbossTrigger::~SegbossTrigger()
+{
+    delete segboss;
+}
+
+Collision SegbossTrigger::mapAction(MapObject* collider, std::list<MapObject*>::iterator& it)
+{
+    if (collider == getPGame()->getPlayer())
+    {
+        stopMp3();
+        soundEffect("EnterBattle.wav", false, false);
+        segboss->segmentedBattle(getPGame()->getPlayer());
+        return Collision(true, true, true);
+    }
+    return Collision(false, true);
+}
 //---------------------------------------------------------------

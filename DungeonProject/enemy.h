@@ -315,4 +315,20 @@ public:
     void printSelf() override;
 
 };
+
+//----------------------------------------------------------------
+// segboss
+class Segboss
+{
+public:
+    Segboss(std::vector<SegEnemy*> segments, Game* game_pointer);
+    ~Segboss();
+
+    bool segmentedBattle(Player* player);
+private:
+    std::vector<SegEnemy*> segments;
+    Game* pgame;
+};
+//----------------------------------------------------------------
+
 #endif
