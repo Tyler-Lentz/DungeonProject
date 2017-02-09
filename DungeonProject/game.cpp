@@ -306,7 +306,7 @@ void Game::makeFloor0()
 
 void Game::makeFloor1()
 {
-    unsigned int tfloor = 1;
+    unsigned int tfloor = 1; 
     this->floor = tfloor; // sets the starting floor
     {
         std::vector<std::string> roomTemplate;
