@@ -944,7 +944,7 @@ bool SegEnemy::battle(MapObject* t_enemy)
 
     int prevTime = (int)time(NULL);
 
-    vwin->txtmacs.clearMapArea(true, 20);
+    vwin->txtmacs.clearMapArea(false, NULL);
     vwin->txtmacs.clearDivider("bottom");
 
     while (true)
@@ -985,11 +985,11 @@ bool SegEnemy::battle(MapObject* t_enemy)
 
                 if (enemy->isDead())
                 {
-                    soundEffect(enemy->getDeathSound(), false, false);
+                    soundEffect(enemy->getDeathSound(), false, true);
 
                     enemy->deathSequence();
 
-                    getPGame()->getVWin()->txtmacs.clearMapArea(true, 20);
+                    getPGame()->getVWin()->txtmacs.clearMapArea(false, NULL);
                     getPGame()->getVWin()->txtmacs.clearDivider("bottom");
 
                     return true;
@@ -1123,7 +1123,7 @@ DragonTail::DragonTail(
 {
     setMaxhp(static_cast<unsigned int>(getMaxhp() * 1.5));
     setHp(getMaxhp());
-    increaseDef(static_cast<unsigned int>(getDef() * .5));
+    increaseDef(static_cast<unsigned int>(getDef() * .75));
 }
 
 void DragonTail::printSelf()
@@ -1200,7 +1200,7 @@ DragonWings::DragonWings(
         "Wind Gust",
         false,
         dngutil::TID::Primary,
-        1,
+        1.4,
         3,
         100,
         false,
@@ -1226,7 +1226,7 @@ DragonWings::DragonWings(
 {
     setMaxhp(static_cast<unsigned int>(getMaxhp() * 1.2));
     setHp(getMaxhp());
-    increaseDef(static_cast<unsigned int>(getDef() * .2));
+    increaseDef(static_cast<unsigned int>(getDef() * .5));
 }
 
 void DragonWings::printSelf()
@@ -1252,7 +1252,7 @@ void DragonWings::printSelf()
     t->put(ColorString(R"(                  |0  0 _/) )-~     | |__>--<__|      |                      )", color), vcursor); vcursor.y++;
     t->put(ColorString(R"(                  / /~ ,_/       / /__>---<__/      |                        )", color), vcursor); vcursor.y++;
     t->put(ColorString(R"(                 o o _//        /-~_>---<__-~      /                         )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                 (^(~          /~_>---<__-      _-~                          )", deadcolor), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                 (^(~          /~_>---<__-      _-~                          )", color), vcursor); vcursor.y++;
     t->put(ColorString(R"(                              /__>--<__/     _-~                             )", deadcolor), vcursor); vcursor.y++;
     t->put(ColorString(R"(                             |__>--<__|     /                  .----_        )", deadcolor), vcursor); vcursor.y++;
     t->put(ColorString(R"(                             |__>--<__|    |                 /' _---_~\      )", deadcolor), vcursor); vcursor.y++;
@@ -1326,9 +1326,9 @@ DragonHead::DragonHead(
     dngutil::EvType::DEFENSE
 )
 {
-    setMaxhp(getMaxhp() * 2);
+    setMaxhp(dngutil::MAX_HP);
     setHp(getMaxhp());
-    increaseDef(static_cast<unsigned int>(getDef() * .2));
+    increaseDef(static_cast<unsigned int>(getDef() * .6));
     increaseAtt(static_cast<unsigned int>(getAtt() * .1));
 }
 
@@ -1355,7 +1355,7 @@ void DragonHead::printSelf()
     t->put(ColorString(R"(                  |0  0 _/) )-~     | |__>--<__|      |                      )", color), vcursor); vcursor.y++;
     t->put(ColorString(R"(                  / /~ ,_/       / /__>---<__/      |                        )", color), vcursor); vcursor.y++;
     t->put(ColorString(R"(                 o o _//        /-~_>---<__-~      /                         )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                 (^(~          /~_>---<__-      _-~                          )", deadcolor), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                 (^(~          /~_>---<__-      _-~                          )", color), vcursor); vcursor.y++;
     t->put(ColorString(R"(                              /__>--<__/     _-~                             )", deadcolor), vcursor); vcursor.y++;
     t->put(ColorString(R"(                             |__>--<__|     /                  .----_        )", deadcolor), vcursor); vcursor.y++;
     t->put(ColorString(R"(                             |__>--<__|    |                 /' _---_~\      )", deadcolor), vcursor); vcursor.y++;
@@ -1394,6 +1394,7 @@ bool Segboss::segmentedBattle(Player* player)
     VirtualWindow* v = pgame->getVWin();
     TextMacros& t = v->txtmacs;
 
+    Sleep(1000);
     startMp3(segments.front()->getBattleMusic());
 
     for (auto& i : segments)
@@ -1418,7 +1419,7 @@ bool Segboss::segmentedBattle(Player* player)
     {
         v->putcen(line, i);
     }
-
+    Sleep(4000);
     startMp3("Win.mp3");
     Sleep(5000);
     stopMp3();
@@ -1426,7 +1427,7 @@ bool Segboss::segmentedBattle(Player* player)
     Sleep(100);
     startMp3("Ending.mp3");
 
-    int color = dngutil::BLACK;
+    int color = getColor(dngutil::BLACK, dngutil::WHITE);
     Coordinate vcursor(0, 5);
     v->putcen(ColorString("DUNGEON RPG - DRAGON'S LAIR", color), vcursor.y++);
     vcursor.y += 4;
@@ -1436,15 +1437,18 @@ bool Segboss::segmentedBattle(Player* player)
     v->putcen(ColorString("Story: Tyler Lentz and Thomas Westenhofer", color), vcursor.y++);
     vcursor.y++;
     v->putcen(ColorString("Play Testing: Tyler Lentz, Thomas Westenhoffer, Kristian Rascon,", color), vcursor.y++);
-    v->putcen(ColorString("Joshua Chan, Daniel Hernandez, Chris Mosely and others", color), vcursor.y++);
+    v->putcen(ColorString("Joshua Chan, Daniel Hernandez, Zach Fineberg, Chris Mosely and others", color), vcursor.y++);
     vcursor.y++;
-    v->putcen(ColorString("Special Thanks to: Evan \"Little Fella\" Maich, Niko \"Mile Stretch Mile\" Fernandez and", color), vcursor.y++);
-    v->putcen(ColorString("Anthony \"The Very Lit Duganator 2000\" Dugan", color), vcursor.y++);
-    vcursor.y+= 5;
-    v->putcen(ColorString("Your adventure is over", dngutil::YELLOW), vcursor.y++);
-    vcursor.y += 3;
-    pressEnter(vcursor, v);
+    v->putcen(ColorString("Special Thanks to: Evan \"Little Fella\" Maich,", color), vcursor.y++);
+    v->putcen(ColorString("Niko \"Mile Stretch Mile\" Fernandez and", color), vcursor.y++);
+    v->putcen(ColorString("Anthony \"Duganator 3000\" Dugan", color), vcursor.y++);
 
+    vcursor.y+= 5;
+    v->putcen(ColorString("Your adventure is over", color), vcursor.y++);
+    vcursor.y += 3;
+    pressEnter(vcursor, v, color);
+
+    v->clearScreen();
     stopMp3();
 
     pgame->cleanup(dngutil::ReturnVal::RESTART);

@@ -121,7 +121,7 @@ namespace dngutil
     const int STARTING_PLAYER_HP = 50;
     const int STARTING_ENEMY_HP = 20;
 
-    const int MAX_HP = 255;
+    const int MAX_HP = 200;
     const unsigned int MAX_ATT = 75;
     const unsigned int MAX_DEF = 60;
     const unsigned int MAX_LCK = 100;
@@ -150,7 +150,7 @@ int random(int min, int max);
 
 void sortPriority(std::list<MapObject*>& list, MapObject* objectToAdd);
 
-void pressEnter(Coordinate cursorpos, VirtualWindow* vwin);
+void pressEnter(Coordinate cursorpos, VirtualWindow* vwin, int color = dngutil::CYAN);
 
 int getExpToLevel(unsigned int level);
 

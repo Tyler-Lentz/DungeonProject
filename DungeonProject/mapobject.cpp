@@ -456,7 +456,8 @@ Collision SegbossTrigger::mapAction(MapObject* collider, std::list<MapObject*>::
     if (collider == getPGame()->getPlayer())
     {
         stopMp3();
-        soundEffect("EnterBattle.wav", false, false);
+        soundEffect("EnterBattle.wav", false, true);
+        getPGame()->getVWin()->txtmacs.clearMapArea(true, 35);
         segboss->segmentedBattle(getPGame()->getPlayer());
         return Collision(true, true, true);
     }

@@ -70,6 +70,17 @@ Player::Player(
     lckEv = 0;
     spdEv = 0;
 
+    inventory.push_back(new MagicalPotion(getPGame(), Coordinate(-1, -1)));
+    for (int i = 0; i < 3; i++)
+    {
+        inventory.push_back(new Potion(getPGame(), Coordinate(-1, -1), dngutil::POTION_HEAL));
+    }
+    for (int i = 0; i < 14; i++)
+    {
+        increaseLvl(1);
+        levelUpStats();
+    }
+
     steps = dngutil::FULL_STEPS;
 }
 
