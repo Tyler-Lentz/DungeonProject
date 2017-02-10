@@ -278,11 +278,16 @@ unsigned int Creature::decreaseHealth(unsigned int amount)
 
 ColorString Creature::getHealthBar() const
 {
+    int adjustedHealth = hp;
+    if (adjustedHealth < 0)
+    {
+        adjustedHealth = 0;
+    }
     const int MAXIMUM_CHARACTERS = static_cast<int>(dngutil::CONSOLEX / 2.0);
 
     double scaleFactor = (MAXIMUM_CHARACTERS / (double)maxhp);
 
-    int numOfCircles = (int)(scaleFactor * hp);
+    int numOfCircles = (int)(scaleFactor * adjustedHealth);
 
     std::string temp = std::string(MAXIMUM_CHARACTERS - numOfCircles, '-');
     std::string healthbar = temp + (std::string((unsigned int)numOfCircles, '='));
@@ -376,6 +381,8 @@ bool Creature::battle(MapObject* t_enemy)
 
                 if (enemy->isDead())
                 {
+                    enemy->printSelf();
+                    vwin->txtmacs.displayHealthBars(enemy, player);
                     stopMp3();
 
                     Sleep(100);

@@ -329,6 +329,11 @@ void TextMacros::outputBattleInfo(int leftTimer, int leftMaxTimer, int rightTime
         left.setColor(fullcolor);
     }
 
+    if (keypress(VK_RETURN))
+    {
+        left.setColor(dngutil::RED);
+    }
+
     int rcircles = rightMaxTimer - rightTimer;
     ColorString rightCircles(std::string(rcircles, 'o'), circlecolor);
     ColorString rightXs(std::string(rightTimer, 'x'), xcolor);
