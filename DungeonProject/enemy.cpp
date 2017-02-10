@@ -989,7 +989,12 @@ bool SegEnemy::battle(MapObject* t_enemy)
                 playerTimer = 0;
 
                 int damage = player->getDamageDealt(enemy);
-                enemy->decreaseHealth(damage);
+                for (int i = 0; i < damage; i++)
+                {
+                    enemy->decreaseHealth(1);
+                    vwin->txtmacs.displayHealthBars(enemy, player);
+                    Sleep(dngutil::HEALTHBAR_ADJUST_TIME);
+                }
 
                 vwin->putcen(ColorString("-" + std::to_string(damage), dngutil::GREEN), vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE + 1);
                 Sleep(300);
@@ -1013,7 +1018,12 @@ bool SegEnemy::battle(MapObject* t_enemy)
             {
                 enemyTimer = 0;
                 int damage = enemy->getDamageDealt(player);
-                player->decreaseHealth(damage);
+                for (int i = 0; i < damage; i++)
+                {
+                    player->decreaseHealth(1);
+                    vwin->txtmacs.displayHealthBars(enemy, player);
+                    Sleep(dngutil::HEALTHBAR_ADJUST_TIME);
+                }
 
                 vwin->putcen(ColorString("-" + std::to_string(damage), dngutil::RED), vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE + 1);
                 Sleep(300);

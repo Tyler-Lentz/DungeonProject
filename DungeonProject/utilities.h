@@ -139,6 +139,8 @@ namespace dngutil
     const int BASE_SCORE_INCREASE_LEVEL = 5;
     const int BASE_SCORE_VICTORY = 250;
     const int BASE_SCORE_BOSS_BOOST = 50;
+
+    const int HEALTHBAR_ADJUST_TIME = 15;
 }
 
 void errorMessage(std::string error, int line, std::string file);
