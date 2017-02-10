@@ -943,8 +943,8 @@ void Game::makeFloor2()
 
             Creature* beast = generateCreature(10, dngutil::TID::DungeonBeast);
             gameMap[2][20].push_back(beast);
-            this->getActiveRoom()->addCreature(beast, Coordinate(22, 2));
-
+            this->getActiveRoom()->addCreature(beast, Coordinate(20, 2));
+             
             this->setBeastSpawn(false);
         };
 
@@ -1446,12 +1446,12 @@ void Game::makeFloor3()
     }
     {
         std::vector<std::string> roomTemplate;
-        roomTemplate.push_back("########   ########");
-        roomTemplate.push_back("#                 #");
-        roomTemplate.push_back("#                v#");
-        roomTemplate.push_back("#                 #");
-        roomTemplate.push_back("#                 #");
-        roomTemplate.push_back("###################");
+        roomTemplate.push_back("########   ##############");
+        roomTemplate.push_back("#                       #");
+        roomTemplate.push_back("#                     v #");
+        roomTemplate.push_back("#                       #");
+        roomTemplate.push_back("#                       #");
+        roomTemplate.push_back("#########################");
 
         std::map<Coordinate, MapObject*> specificObjects;
 
