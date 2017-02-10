@@ -62,9 +62,9 @@ Game::~Game()
 {
     for (int i = 0; i < gamespace.size(); i++)
     {
-        for (auto& i : gamespace[i])
+        for (auto& j : gamespace[i])
         {
-            delete i.second;
+            delete j.second;
         }
     }
 
