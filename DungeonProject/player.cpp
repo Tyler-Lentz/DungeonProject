@@ -70,11 +70,6 @@ Player::Player(
     lckEv = 0;
     spdEv = 0;
 
-    for (int i = 0; i < 40; i++)
-    {
-        levelUpStats();
-    }
-
     steps = dngutil::FULL_STEPS;
 }
 

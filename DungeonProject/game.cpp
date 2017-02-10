@@ -1641,7 +1641,7 @@ void Game::titleScreen()
     startMp3("TitleTheme.mp3");
 
     vwin->txtmacs.drawDividers();
-    vwin->putcen(ColorString("Dungeon RPG - Dragon's Lair (BETA 4)", dngutil::RED), vwin->txtmacs.DIVIDER_LINES[0] + 1);
+    vwin->putcen(ColorString("Dungeon RPG - Dragon's Lair (BETA 4.1)", dngutil::RED), vwin->txtmacs.DIVIDER_LINES[0] + 1);
     vwin->putcen(ColorString("Enter - Continue, Esc - exit", dngutil::LIGHTGRAY), vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE);
 
     int r = random(3);
