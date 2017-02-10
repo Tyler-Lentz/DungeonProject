@@ -114,8 +114,6 @@ namespace dngutil
     // TODO: change this to use gamespaces size
     const int NUMFLOORS = 4;
 
-    const int MAPSIZE = 100;
-
     const int BACKGROUND_COLOR = -1;
 
     const int STARTING_PLAYER_HP = 50;

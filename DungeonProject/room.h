@@ -74,7 +74,7 @@ struct RoomInfo
     Coordinate mapCoord;
 };
 
-typedef std::array<std::array<std::list<MapObject*>, dngutil::MAPSIZE>, dngutil::MAPSIZE> GAMEMAP;
+typedef std::vector<std::vector<std::list<MapObject*>>> GAMEMAP;
 
 struct Puzzle
 {

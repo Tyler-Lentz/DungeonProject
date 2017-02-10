@@ -24,6 +24,12 @@ Room::Room(Game* t_game_pointer, RoomInfo roomToGenerate, Puzzle* puzzle)
     roomX = roomInfo.roomTemplate[0].size();
     roomY = roomInfo.roomTemplate.size();
 
+    gameMap.resize(roomY);
+    for (auto& i : gameMap)
+    {
+        i.resize(roomX);
+    }
+
     // Assigning an empty position to everything
     Coordinate coord(0, 0);
     for (; coord.x < roomX; coord.x++)
@@ -111,10 +117,10 @@ Room::Room(Game* t_game_pointer, RoomInfo roomToGenerate, Puzzle* puzzle)
 Room::~Room()
 {
     Coordinate coord(0, 0);
-    for (; coord.x < dngutil::MAPSIZE; coord.x++)
+    for (; coord.x < roomX; coord.x++)
     {
         coord.y = 0;
-        for (; coord.y < dngutil::MAPSIZE; coord.y++)
+        for (; coord.y < roomY; coord.y++)
         {
             for (auto& i : getObjects(coord))
             {
