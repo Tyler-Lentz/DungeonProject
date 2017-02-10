@@ -665,7 +665,7 @@ LSKnight::LSKnight(
         "Cursed Broadsword",
         false,
         dngutil::TID::Primary,
-        2.5,
+        2,
         7,
         85,
         false,
