@@ -338,10 +338,10 @@ void TextMacros::outputBattleInfo(int leftTimer, int leftMaxTimer, int rightTime
     ColorString rightCircles(std::string(rcircles, 'o'), circlecolor);
     ColorString rightXs(std::string(rightTimer, 'x'), xcolor);
     ColorString right = rightXs + rightCircles;
-
+    
     if (rightTimer == rightMaxTimer)
     {
-        right.setColor(fullcolor);
+        right.setColor(fullcolor); 
     }
 
     ColorString info = left + ColorString(" | ", dngutil::LIGHTGRAY) + right;
