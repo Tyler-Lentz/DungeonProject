@@ -327,7 +327,7 @@ void Player::addExperience(unsigned int experience, dngutil::EvType ev)
         int prevSpd = getSpd();
 
         levelUpStats();
-        
+        getPGame()->adjustScore(dngutil::BASE_SCORE_INCREASE_LEVEL);
 
         vcursor.y += 2; vcursor.x = 0;
 

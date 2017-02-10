@@ -43,6 +43,9 @@ public:
 
     bool shouldSpawnBeast();
     void setBeastSpawn(bool spawn);
+
+    void adjustScore(int adjust);
+    int getScore();
 private:
     VirtualWindow* vwin;
     Room* activeRoom;
@@ -68,6 +71,8 @@ private:
 
     // is false after beast has been summoned
     bool spawnBeast;
+
+    int score;
 };
 
 #endif

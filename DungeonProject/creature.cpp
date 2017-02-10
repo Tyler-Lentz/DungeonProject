@@ -432,7 +432,7 @@ bool Creature::battle(MapObject* t_enemy)
                     if (!revived)
                     {
                         stopMp3();
-                        getPGame()->cleanup(getPGame()->getVWin()->txtmacs.deathScreen());
+                        getPGame()->cleanup(getPGame()->getVWin()->txtmacs.deathScreen(getPGame()));
                         return false;
                     }
                     else

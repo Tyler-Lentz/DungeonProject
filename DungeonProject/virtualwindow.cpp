@@ -280,7 +280,7 @@ void TextMacros::displayOverworldInfo(Game* game)
     vwin->putcen(ColorString("VALID INPUT {ARROWKEYS, I, U}", dngutil::CYAN), vcursor.y);
 }
 
-dngutil::ReturnVal TextMacros::deathScreen()
+dngutil::ReturnVal TextMacros::deathScreen(Game* game)
 { 
     vwin->clearScreen();
 
@@ -294,9 +294,10 @@ dngutil::ReturnVal TextMacros::deathScreen()
     soundEffect("Death.wav", false, false);
     startMp3("Continue.mp3");
     int startingLine = static_cast<int>(dngutil::CONSOLEY / 2.0) + 1;
-    vwin->putcen(ColorString("Oh dear, you have died...", getColor(dngutil::WHITE, dngutil::RED)), startingLine);
-    startingLine += 2;
-    vwin->putcen(ColorString("Press enter to continue", getColor(dngutil::WHITE, dngutil::RED)), startingLine);
+    int textcolor = getColor(dngutil::WHITE, dngutil::RED);
+    vwin->putcen(ColorString("Oh dear, you have died...", textcolor), startingLine++);
+    vwin->putcen(ColorString("Your score was: ", textcolor) + ColorString(std::to_string(game->getScore()), textcolor), startingLine++);
+    vwin->putcen(ColorString("Press enter to continue", textcolor), startingLine);
     while (!keyrelease(VK_RETURN));
 
     while (!keypress(VK_RETURN));

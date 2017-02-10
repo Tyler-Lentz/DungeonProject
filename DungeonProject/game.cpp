@@ -49,6 +49,7 @@ Game::Game(VirtualWindow* vwin)
     floor = 0;
 
     spawnBeast = false;
+    score = 0;
 
     titleScreen();
     if (!exit)
@@ -1641,7 +1642,7 @@ void Game::titleScreen()
     startMp3("TitleTheme.mp3");
 
     vwin->txtmacs.drawDividers();
-    vwin->putcen(ColorString("Dungeon RPG - Dragon's Lair (BETA 4.1)", dngutil::RED), vwin->txtmacs.DIVIDER_LINES[0] + 1);
+    vwin->putcen(ColorString("Dungeon RPG - Dragon's Lair (BETA 5 INDEV)", dngutil::RED), vwin->txtmacs.DIVIDER_LINES[0] + 1);
     vwin->putcen(ColorString("Enter - Continue, Esc - exit", dngutil::LIGHTGRAY), vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE);
 
     int r = random(3);
@@ -1804,5 +1805,15 @@ void Game::titleScreen()
 void Game::setBeastSpawn(bool spawn)
 {
     spawnBeast = spawn;
+}
+
+void Game::adjustScore(int adjust)
+{
+    score += adjust;
+}
+
+int Game::getScore()
+{
+    return score;
 }
 //-------------------------------------------------------

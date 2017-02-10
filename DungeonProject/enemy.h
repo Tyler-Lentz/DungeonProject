@@ -260,7 +260,7 @@ public:
     ) : BEnemy(pgame, mapRep, coord, name, rawoutput, typeId, hp, att, def, lck, spd,
         lvl, primary, secondary, battleMusic, experienceGiven, deathSound, ev) {}
 
-    void deathSequence() override {}
+    void deathSequence() override;
     bool battle(MapObject* enemy);
 };
 

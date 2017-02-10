@@ -57,7 +57,7 @@ struct TextMacros
     void displayOverworldInfo(Game* game);
 
     // screen when the player dies
-    dngutil::ReturnVal deathScreen();
+    dngutil::ReturnVal deathScreen(Game* game);
 
     // outputs information displayed at the bottom divider during a battle
     void outputBattleInfo(int leftTimer, int leftMaxTimer, int rightTimer, int rightMaxTimer);

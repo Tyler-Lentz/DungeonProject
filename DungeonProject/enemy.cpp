@@ -118,6 +118,9 @@ void Enemy::deathSequence()
 {
     Player* player = getPGame()->getPlayer();
 
+    int levelDif = getLvl() - getPGame()->getPlayer()->getLvl();
+    getPGame()->adjustScore(dngutil::BASE_SCORE_INCREASE_BATTLE + levelDif);
+
     int realExpGiven = experienceGiven + (6 * (getLvl() - (player->getLvl() ) ) );
     if (realExpGiven < 5)
     {
@@ -252,6 +255,8 @@ bool BEnemy::movement()
 
 void BEnemy::deathSequence()
 {
+    getPGame()->adjustScore(dngutil::BASE_SCORE_BOSS_BOOST);
+
     startMp3("DefeatBoss.mp3");
 
     getPGame()->getVWin()->txtmacs.clearMapArea(true, 100);
@@ -915,6 +920,12 @@ void Mage::printSelf()
 //----------------------------------------------------------------
 // Seg Enemy
 
+void SegEnemy::deathSequence()
+{
+    int levelDif = getLvl() - getPGame()->getPlayer()->getLvl();
+    getPGame()->adjustScore(dngutil::BASE_SCORE_INCREASE_BATTLE + levelDif);
+}
+
 bool SegEnemy::battle(MapObject* t_enemy)
 {
     Enemy* enemy = dynamic_cast<Enemy*>(t_enemy);
@@ -985,6 +996,7 @@ bool SegEnemy::battle(MapObject* t_enemy)
 
                 if (enemy->isDead())
                 {
+
                     soundEffect(enemy->getDeathSound(), false, true);
 
                     enemy->deathSequence();
@@ -1025,7 +1037,7 @@ bool SegEnemy::battle(MapObject* t_enemy)
                     if (!revived)
                     {
                         stopMp3();
-                        getPGame()->cleanup(getPGame()->getVWin()->txtmacs.deathScreen());
+                        getPGame()->cleanup(getPGame()->getVWin()->txtmacs.deathScreen(getPGame()));
                         return false;
                     }
                     else
@@ -1427,6 +1439,8 @@ bool Segboss::segmentedBattle(Player* player)
     Sleep(100);
     startMp3("Ending.mp3");
 
+    pgame->adjustScore(dngutil::BASE_SCORE_VICTORY);
+
     int color = getColor(dngutil::BLACK, dngutil::WHITE);
     Coordinate vcursor(0, 5);
     v->putcen(ColorString("DUNGEON RPG - DRAGON'S LAIR", color), vcursor.y++);
@@ -1442,8 +1456,13 @@ bool Segboss::segmentedBattle(Player* player)
     v->putcen(ColorString("Special Thanks to: Evan \"Little Fella\" Maich,", color), vcursor.y++);
     v->putcen(ColorString("Niko \"Mile Stretch Mile\" Fernandez and", color), vcursor.y++);
     v->putcen(ColorString("Anthony \"Duganator 3000\" Dugan", color), vcursor.y++);
-
-    vcursor.y+= 5;
+    vcursor.y += 5;
+    v->putcen(
+        ColorString("Your score was: ", color) + 
+        ColorString(std::to_string(pgame->getScore()), getColor(dngutil::YELLOW, dngutil::WHITE)),
+        vcursor.y++
+    );
+    vcursor.y += 2;
     v->putcen(ColorString("Your adventure is over", color), vcursor.y++);
     vcursor.y += 3;
     pressEnter(vcursor, v, color);
