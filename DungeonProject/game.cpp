@@ -60,7 +60,7 @@ Game::Game(VirtualWindow* vwin)
 
 Game::~Game()
 {
-    for (int i = 0; i < dngutil::NUMFLOORS; i++)
+    for (int i = 0; i < gamespace.size(); i++)
     {
         for (auto& i : gamespace[i])
         {

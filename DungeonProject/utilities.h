@@ -111,7 +111,6 @@ namespace dngutil
     const int CONSOLEX = 80;
     const int CONSOLEY = 45;
 
-    // TODO: change this to use gamespaces size
     const int NUMFLOORS = 4;
 
     const int BACKGROUND_COLOR = -1;
