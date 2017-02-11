@@ -8,6 +8,7 @@
 
 class VirtualWindow;
 class MapObject;
+class Game;
 
 namespace dngutil
 {
@@ -99,6 +100,13 @@ namespace dngutil
         NONE
     };
 
+    enum class CreditType
+    {
+        TITLESCREEN,
+        VICTORY,
+        SECRET_VICTORY
+    };
+
     enum Priority
     {
         P_EMPTY,
@@ -168,4 +176,6 @@ void soundEffect(std::string fileName, bool loop, bool async);
 void stopSound();
 
 int getHealthbarSleepTime(int damageDealt);
+
+void credits(dngutil::CreditType c, Game* pgame);
 #endif

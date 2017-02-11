@@ -1,6 +1,7 @@
 #include "utilities.h"
 #include "mapobject.h"
 #include "virtualwindow.h"
+#include "game.h"
 
 #include <Windows.h>
 #include <string>
@@ -134,5 +135,104 @@ void stopSound()
 
 int getHealthbarSleepTime(int damageDealt)
 {
-    return (500 / damageDealt);
+    return (333 / damageDealt);
+}
+
+void credits(dngutil::CreditType c, Game* pgame)
+{
+    VirtualWindow* v = pgame->getVWin();
+
+    if (c == dngutil::CreditType::SECRET_VICTORY)
+    {
+        ColorString line(std::string(dngutil::CONSOLEX, ' '), getColor(dngutil::LIGHTMAGENTA, dngutil::LIGHTMAGENTA));
+
+        for (int i = 0; i < dngutil::CONSOLEY; i++)
+        {
+            v->putcen(line, i);
+        }
+    }
+    else if (c == dngutil::CreditType::VICTORY)
+    {
+        ColorString line(std::string(dngutil::CONSOLEX, ' '), getColor(dngutil::WHITE, dngutil::WHITE));
+
+        for (int i = 0; i < dngutil::CONSOLEY; i++)
+        {
+            v->putcen(line, i);
+        }
+    }
+
+    if (c != dngutil::CreditType::TITLESCREEN)
+    {
+        Sleep(4000);
+        startMp3("Win.mp3");
+        Sleep(5000);
+        stopMp3();
+
+        Sleep(100);
+        startMp3("Ending.mp3");
+
+        pgame->adjustScore(dngutil::BASE_SCORE_VICTORY);
+    }
+
+    int color = 0;
+    if (c == dngutil::CreditType::SECRET_VICTORY)
+    {
+        color = getColor(dngutil::BLACK, dngutil::LIGHTMAGENTA);
+    }
+    else if (c == dngutil::CreditType::VICTORY)
+    {
+        color = getColor(dngutil::BLACK, dngutil::WHITE);
+    }
+    else
+    {
+        color = getColor(dngutil::WHITE, dngutil::BLACK);
+
+    }
+    Coordinate vcursor(0, 5);
+    if (c == dngutil::CreditType::TITLESCREEN)
+    {
+        v->txtmacs.clearMapArea(false, NULL);
+    }
+
+    v->putcen(ColorString("DUNGEON RPG - DRAGON'S LAIR", color), vcursor.y++);
+    if (c == dngutil::CreditType::SECRET_VICTORY)
+    {
+        v->putcen(ColorString("SECRET ENDING", color), vcursor.y++);
+    }
+    vcursor.y += 4;
+
+    v->putcen(ColorString("Programming: Tyler Lentz", color), vcursor.y++);
+    vcursor.y++;
+    v->putcen(ColorString("Story: Tyler Lentz and Thomas Westenhofer", color), vcursor.y++);
+    vcursor.y++;
+    v->putcen(ColorString("Play Testing: Tyler Lentz, Thomas Westenhoffer, Kristian Rascon,", color), vcursor.y++);
+    v->putcen(ColorString("Joshua Chan, Daniel Hernandez, Zach Fineberg, Chris Mosely and others", color), vcursor.y++);
+    vcursor.y++;
+    v->putcen(ColorString("Special Thanks to: Evan \"Little Fella\" Maich,", color), vcursor.y++);
+    v->putcen(ColorString("Niko \"Mile Stretch Mile\" Fernandez and", color), vcursor.y++);
+    v->putcen(ColorString("Anthony \"Duganator 3000\" Dugan", color), vcursor.y++);
+    vcursor.y += 5;
+    if (c != dngutil::CreditType::TITLESCREEN)
+    {
+        v->putcen(
+            ColorString("Your score was: ", color) +
+            ColorString(std::to_string(pgame->getScore()), color),
+            vcursor.y++
+        ); 
+        vcursor.y += 2;
+        v->putcen(ColorString("Your adventure is over", color), vcursor.y++);
+        vcursor.y += 3;
+    }
+    
+    pressEnter(vcursor, v, color);
+
+    if (c != dngutil::CreditType::TITLESCREEN)
+    {
+        stopMp3();
+    }
+
+    v->clearScreen();
+
+
+    pgame->cleanup(dngutil::ReturnVal::RESTART);
 }

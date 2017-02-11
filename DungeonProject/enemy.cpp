@@ -651,7 +651,7 @@ MegaBeast::MegaBeast(
     unsigned int lck,
     unsigned int spd,
     unsigned int lvl
-) : BEnemy(
+) : SegEnemy(
     pgame,
     ColorChar('S', dngutil::LIGHTMAGENTA),
     coord,
@@ -671,7 +671,7 @@ MegaBeast::MegaBeast(
         "Mega Beam",
         false,
         dngutil::TID::Primary,
-        3,
+        2.5,
         5,
         100,
         false,
@@ -735,7 +735,7 @@ void MegaBeast::printSelf()
 void MegaBeast::deathSequence()
 {
     getPGame()->adjustScore(dngutil::BASE_SCORE_BOSS_BOOST * 5);
-    BEnemy::deathSequence();
+    credits(dngutil::CreditType::SECRET_VICTORY, getPGame());
 }
 
 //----------------------------------------------------------------
@@ -1103,8 +1103,6 @@ bool SegEnemy::battle(MapObject* t_enemy)
                 {
 
                     soundEffect(enemy->getDeathSound(), false, true);
-
-                    enemy->deathSequence();
 
                     getPGame()->getVWin()->txtmacs.clearMapArea(false, NULL);
                     getPGame()->getVWin()->txtmacs.clearDivider("bottom");
@@ -1495,6 +1493,19 @@ void DragonHead::printSelf()
     printStats(LONGEST_LINE_LENGTH, TOP_CURSOR_Y);
 }
 
+void DragonHead::deathSequence()
+{
+    getPGame()->adjustScore(dngutil::BASE_SCORE_BOSS_BOOST * 3);
+    if (getPGame()->getPlayer()->getLvl() < dngutil::SECRET_BOSS_LEVEL)
+    {
+        credits(dngutil::CreditType::VICTORY, getPGame());
+    }
+    else
+    {
+        getPGame()->cleanup(dngutil::ReturnVal::RESTART); // tells the puzzle the fight is over
+    }
+}
+
 //----------------------------------------------------------------
 
 //----------------------------------------------------------------
@@ -1534,56 +1545,10 @@ bool Segboss::segmentedBattle(Player* player)
         t.clearDivider("bottom");
     }
     stopMp3();
-    // If you are here you won
-    // if this was going to be a bigger game this would not be part of this function
-    // but it is because this will not be used for anything but the final boss
-
-    ColorString line(std::string(dngutil::CONSOLEX, ' '), getColor(dngutil::WHITE, dngutil::WHITE));
-
-    for (int i = 0; i < dngutil::CONSOLEY; i++)
-    {
-        v->putcen(line, i);
-    }
-    Sleep(4000);
-    startMp3("Win.mp3");
     Sleep(5000);
-    stopMp3();
+    // If you are here you won
 
-    Sleep(100);
-    startMp3("Ending.mp3");
-
-    pgame->adjustScore(dngutil::BASE_SCORE_VICTORY);
-
-    int color = getColor(dngutil::BLACK, dngutil::WHITE);
-    Coordinate vcursor(0, 5);
-    v->putcen(ColorString("DUNGEON RPG - DRAGON'S LAIR", color), vcursor.y++);
-    vcursor.y += 4;
-
-    v->putcen(ColorString("Programming: Tyler Lentz", color), vcursor.y++);
-    vcursor.y++;
-    v->putcen(ColorString("Story: Tyler Lentz and Thomas Westenhofer", color), vcursor.y++);
-    vcursor.y++;
-    v->putcen(ColorString("Play Testing: Tyler Lentz, Thomas Westenhoffer, Kristian Rascon,", color), vcursor.y++);
-    v->putcen(ColorString("Joshua Chan, Daniel Hernandez, Zach Fineberg, Chris Mosely and others", color), vcursor.y++);
-    vcursor.y++;
-    v->putcen(ColorString("Special Thanks to: Evan \"Little Fella\" Maich,", color), vcursor.y++);
-    v->putcen(ColorString("Niko \"Mile Stretch Mile\" Fernandez and", color), vcursor.y++);
-    v->putcen(ColorString("Anthony \"Duganator 3000\" Dugan", color), vcursor.y++);
-    vcursor.y += 5;
-    v->putcen(
-        ColorString("Your score was: ", color) + 
-        ColorString(std::to_string(pgame->getScore()), getColor(dngutil::CYAN, dngutil::WHITE)),
-        vcursor.y++
-    );
-    vcursor.y += 2;
-    v->putcen(ColorString("Your adventure is over", color), vcursor.y++);
-    vcursor.y += 3;
-    pressEnter(vcursor, v, color);
-
-    v->clearScreen();
-    stopMp3();
-
-    pgame->cleanup(dngutil::ReturnVal::RESTART);
+    segments.back()->deathSequence();
     return true;
 }
 //----------------------------------------------------------------

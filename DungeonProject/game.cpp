@@ -1616,9 +1616,14 @@ void Game::makeFloor3()
 
     auto puzzleAction = [this, beastCoord](std::list<Creature*> creatureList, GAMEMAP& gameMap) -> void
     {
-        Creature* beast = generateCreature(dngutil::SECRET_BOSS_LEVEL, dngutil::TID::MegaBeast);
-        gameMap[beastCoord.y][beastCoord.x].push_back(beast);
-        this->getActiveRoom()->addCreature(beast, beastCoord);
+        std::vector<SegEnemy*> bossparts;
+        bossparts.push_back(dynamic_cast<SegEnemy*>(generateCreature(11, dngutil::TID::MegaBeast)));
+
+        gameMap[beastCoord.y][beastCoord.x].push_back(new SegbossTrigger(
+            this, beastCoord,
+            new Segboss(bossparts, this),
+            ColorChar('S', dngutil::LIGHTMAGENTA)
+        ));
 
         this->setBeastSpawn(false);
     };
@@ -1763,6 +1768,7 @@ void Game::titleScreen()
     startMp3("TitleTheme.mp3");
 
     vwin->txtmacs.drawDividers();
+    vwin->txtmacs.clearDivider("bottom");
     vwin->putcen(ColorString("Dungeon RPG - Dragon's Lair (BETA 5 INDEV)", dngutil::RED), vwin->txtmacs.DIVIDER_LINES[0] + 1);
     vwin->putcen(ColorString("Enter - Continue, Esc - exit", dngutil::LIGHTGRAY), vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE);
 
