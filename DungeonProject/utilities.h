@@ -139,7 +139,7 @@ namespace dngutil
 
     const int HEALTHBAR_ADJUST_TIME = 15;
 
-    const int SECRET_BOSS_LEVEL = 20; // ;)
+    const int SECRET_BOSS_LEVEL = 16; // ;)
 }
 
 void errorMessage(std::string error, int line, std::string file);
@@ -168,4 +168,5 @@ void soundEffect(std::string fileName, bool loop, bool async);
 
 void stopSound();
 
+int getHealthbarSleepTime(int damageDealt);
 #endif

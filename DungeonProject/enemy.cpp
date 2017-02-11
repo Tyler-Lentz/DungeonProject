@@ -993,7 +993,7 @@ bool SegEnemy::battle(MapObject* t_enemy)
                 {
                     enemy->decreaseHealth(1);
                     vwin->txtmacs.displayHealthBars(enemy, player);
-                    Sleep(dngutil::HEALTHBAR_ADJUST_TIME);
+                    Sleep(getHealthbarSleepTime(damage.damage));
                 }
 
                 vwin->putcen(
@@ -1025,7 +1025,7 @@ bool SegEnemy::battle(MapObject* t_enemy)
                 {
                     player->decreaseHealth(1);
                     vwin->txtmacs.displayHealthBars(enemy, player);
-                    Sleep(dngutil::HEALTHBAR_ADJUST_TIME);
+                    Sleep(getHealthbarSleepTime(damage.damage));
                 }
 
                 vwin->putcen(

@@ -131,3 +131,8 @@ void stopSound()
 {
     PlaySound(NULL, 0, 0);
 }
+
+int getHealthbarSleepTime(int damageDealt)
+{
+    return (500 / damageDealt);
+}
