@@ -60,7 +60,7 @@ Game::Game(VirtualWindow* vwin)
 
 Game::~Game()
 {
-    for (int i = 0; i < gamespace.size(); i++)
+    for (unsigned int i = 0; i < gamespace.size(); i++)
     {
         for (auto& j : gamespace[i])
         {
@@ -850,7 +850,7 @@ void Game::makeFloor2()
         {
             for (auto& i : gameMap[3][12])
             {
-                if (i->getTypeId() != dngutil::TID::Player)
+                if (i->getTypeId() == dngutil::TID::Player)
                 {
                     return true;
                 }
@@ -892,7 +892,7 @@ void Game::makeFloor2()
         Coordinate mapCoord(1, 0);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
         roomMut.lock();
-        gamespace[tfloor].emplace(mapCoord, new Room(this, rminfo, nullptr));
+        gamespace[tfloor].emplace(mapCoord, new Room(this, rminfo, new Puzzle(puzzleSolved, puzzleAction)));
         roomMut.unlock();
     }
     {
