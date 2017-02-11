@@ -1136,7 +1136,7 @@ void Game::makeFloor2()
 
 
         int difficulty = 0;
-        int backColor = dngutil::LIGHTGRAY;
+        int backColor = dngutil::DARKGRAY;
         std::string name = "Altar Room";
         Coordinate mapCoord(-1, 2);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
