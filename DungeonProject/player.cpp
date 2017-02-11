@@ -73,6 +73,10 @@ Player::Player(
     for (int i = 0; i < 21; i++)
     {
         increaseLvl(1);
+        if (i % 2)
+        {
+            inventory.push_back(new MagicalPotion(getPGame(), Coordinate(-1, -1)));
+        }
         levelUpStats();
     }
 

@@ -235,6 +235,25 @@ public:
     void printSelf() override;
 };
 
+
+class MegaBeast : public BEnemy
+{
+public:
+    MegaBeast(
+        Game* pgame,
+        Coordinate coord,
+        int hp,
+        unsigned int att,
+        unsigned int def,
+        unsigned int lck,
+        unsigned int spd,
+        unsigned int lvl
+    );
+
+    void printSelf() override;
+    void deathSequence() override;
+};
+
 class SegEnemy : public BEnemy
 {
 public:

@@ -551,7 +551,7 @@ void SkeletonKing::printSelf()
 //----------------------------------------------------------------
 
 //----------------------------------------------------------------
-// Large Skeleton Functions
+// Both beasts Functions
 
 DungeonBeast::DungeonBeast(
     Game* pgame,
@@ -639,6 +639,103 @@ void DungeonBeast::printSelf()
     const int LONGEST_LINE_LENGTH = 59;
 
     printStats(LONGEST_LINE_LENGTH, TOP_CURSOR_Y);
+}
+
+
+MegaBeast::MegaBeast(
+    Game* pgame,
+    Coordinate coord,
+    int hp,
+    unsigned int att,
+    unsigned int def,
+    unsigned int lck,
+    unsigned int spd,
+    unsigned int lvl
+) : BEnemy(
+    pgame,
+    ColorChar('S', dngutil::LIGHTMAGENTA),
+    coord,
+    "Mega Beast",
+    false,
+    dngutil::TID::DungeonBeast,
+    hp,
+    att,
+    def,
+    lck,
+    spd,
+    lvl,
+    new Primary(
+        pgame,
+        ColorChar('?', dngutil::LIGHTRED),
+        coord,
+        "Mega Beam",
+        false,
+        dngutil::TID::Primary,
+        3,
+        5,
+        100,
+        false,
+        "A magical beam.",
+        "MagicAttack1.wav"
+    ),
+    new Secondary(
+        pgame,
+        ColorChar('?', dngutil::GREEN),
+        coord,
+        "Mega Beast Armor",
+        false,
+        dngutil::TID::Secondary,
+        0,
+        .25,
+        "Beast's armor."
+    ),
+    "hidden.mp3",
+    85,
+    "FinalDeath.wav",
+    dngutil::EvType::DEFENSE
+)
+{
+    setMaxhp(dngutil::MAX_HP);
+    setHp(getMaxhp());
+    increaseDef(static_cast<unsigned int>(getDef() * 1.1));
+    increaseAtt(static_cast<unsigned int>(getAtt() * .5));
+}
+
+void MegaBeast::printSelf()
+{
+    Coordinate vcursor(0, getPGame()->getVWin()->txtmacs.DIVIDER_LINES[1] + 1);
+    VirtualWindow* t = getPGame()->getVWin();
+    int color = dngutil::LIGHTMAGENTA;
+    t->put(ColorString(R"(		             \                  /)", color), vcursor);  vcursor.y++;
+    t->put(ColorString(R"(		    _________))                ((__________)", color), vcursor);  vcursor.y++;
+    t->put(ColorString(R"(		   /.-------./\\    \    /    //\.--------.\)", color), vcursor);  vcursor.y++;
+    t->put(ColorString(R"(		  //#######//##\\   ))  ((   //##\\########\\)", color), vcursor);  vcursor.y++;
+    t->put(ColorString(R"(		 //#######//###((  ((    ))  ))###\\########\\)", color), vcursor);  vcursor.y++;
+    t->put(ColorString(R"(		((#######((#####\\  \\  //  //#####))########)))", color), vcursor);  vcursor.y++;
+    t->put(ColorString(R"(		 \##' `###\######\\  \)(/  //######/####' `##/)", color), vcursor);  vcursor.y++;
+    t->put(ColorString(R"(		  )'    ``#)'  `##\`->oo<-'/##'  `(#''     `()", color), vcursor);  vcursor.y++;
+    const int TOP_CURSOR_Y = vcursor.y;
+    t->put(ColorString(R"(		          (       ``\`..'/''       ))", color), vcursor);  vcursor.y++;
+    t->put(ColorString(R"(		                     \""()", color), vcursor);  vcursor.y++;
+    t->put(ColorString(R"(		                      `- ))", color), vcursor);  vcursor.y++;
+    t->put(ColorString(R"(		                      / /)", color), vcursor);  vcursor.y++;
+    t->put(ColorString(R"(		                     ( /\)", color), vcursor);  vcursor.y++;
+    t->put(ColorString(R"(		                     /\| \)", color), vcursor);  vcursor.y++;
+    t->put(ColorString(R"(		                    (  \)", color), vcursor);  vcursor.y++;
+    t->put(ColorString(R"(		                        ))", color), vcursor);  vcursor.y++;
+    t->put(ColorString(R"(		                       /)", color), vcursor);  vcursor.y++;
+    t->put(ColorString(R"(		                      ()", color), vcursor);  vcursor.y++;
+    t->put(ColorString(R"(		                      ` )", color), vcursor);
+
+    const int LONGEST_LINE_LENGTH = 59;
+
+    printStats(LONGEST_LINE_LENGTH, TOP_CURSOR_Y);
+}
+
+void MegaBeast::deathSequence()
+{
+    getPGame()->adjustScore(dngutil::BASE_SCORE_BOSS_BOOST * 5);
+    BEnemy::deathSequence();
 }
 
 //----------------------------------------------------------------

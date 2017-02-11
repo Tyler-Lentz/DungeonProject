@@ -56,7 +56,8 @@ namespace dngutil
         DragonTail,
         DragonWings,
         DragonHead,
-        SegbossTrigger
+        SegbossTrigger,
+        MegaBeast
     };
 
     enum class BTID
@@ -136,8 +137,6 @@ namespace dngutil
     const int BASE_SCORE_INCREASE_LEVEL = 5;
     const int BASE_SCORE_VICTORY = 250;
     const int BASE_SCORE_BOSS_BOOST = 50;
-
-    const int HEALTHBAR_ADJUST_TIME = 15;
 
     const int SECRET_BOSS_LEVEL = 16; // ;)
 }

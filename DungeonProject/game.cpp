@@ -1596,6 +1596,46 @@ void Game::makeFloor3()
         gamespace[tfloor].emplace(mapCoord, new Room(this, rminfo, new Puzzle(puzzleSolved, puzzleAction)));
         roomMut.unlock();
     }
+    {
+    std::vector<std::string> roomTemplate;
+    roomTemplate.push_back("###################");
+    roomTemplate.push_back("#   #         #   #");
+    roomTemplate.push_back("### #         # ###");
+    roomTemplate.push_back("#                 #");
+    roomTemplate.push_back("###             ###");
+    roomTemplate.push_back("#                 #");
+    roomTemplate.push_back("###             ###");
+    roomTemplate.push_back("########   ########");
+
+    Coordinate beastCoord(9, 1);
+
+    auto puzzleSolved = [this](const std::list<Creature*>& creatureList, const GAMEMAP& gameMap) -> bool
+    {
+        return (this->getPlayer()->getStepCount() < 2);
+    };
+
+    auto puzzleAction = [this, beastCoord](std::list<Creature*> creatureList, GAMEMAP& gameMap) -> void
+    {
+        Creature* beast = generateCreature(dngutil::SECRET_BOSS_LEVEL, dngutil::TID::MegaBeast);
+        gameMap[beastCoord.y][beastCoord.x].push_back(beast);
+        this->getActiveRoom()->addCreature(beast, beastCoord);
+
+        this->setBeastSpawn(false);
+    };
+
+    std::map<Coordinate, MapObject*> specificObjects;
+
+    std::vector<dngutil::TID> possibleCreatures;
+
+    int difficulty = 16;
+    int backColor = dngutil::MAGENTA;
+    std::string name = "Room of the Mega Beast";
+    Coordinate mapCoord(2, -1);
+    RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+    roomMut.lock();
+    gamespace[tfloor].emplace(mapCoord, new Room(this, rminfo, new Puzzle(puzzleSolved, puzzleAction)));
+    roomMut.unlock();
+    }
 }
 
 bool Game::shouldSpawnBeast()
@@ -1692,6 +1732,10 @@ Creature* Game::generateCreature(int difficulty, dngutil::TID tid)
 
     case dngutil::TID::DragonWings:
         enemy = new DragonWings(this, Coordinate(-1, -1), health, attack, defense, luck, speed, difficulty);
+        break;
+
+    case dngutil::TID::MegaBeast:
+        enemy = new MegaBeast(this, Coordinate(-1, -1), health, attack, defense, luck, speed, difficulty);
         break;
     }
 
