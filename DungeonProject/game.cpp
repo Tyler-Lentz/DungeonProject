@@ -845,6 +845,30 @@ void Game::makeFloor2()
         roomTemplate.push_back("#  X      o#######");
         roomTemplate.push_back("     X    ########");
         roomTemplate.push_back("##################");
+        // coord of where you step on: 12, 3
+        auto puzzleSolved = [](const std::list<Creature*>& creatureList, const GAMEMAP& gameMap) -> bool
+        {
+            for (auto& i : gameMap[3][12])
+            {
+                if (i->getTypeId() != dngutil::TID::Player)
+                {
+                    return true;
+                }
+            }
+            return false;
+        };
+
+        auto puzzleAction = [this](std::list<Creature*> creatureList, GAMEMAP& gameMap) -> void
+        {
+            WallObject* wall1 = dynamic_cast<WallObject*>(gameMap[7][8].back());
+            WallObject* wall2 = dynamic_cast<WallObject*>(gameMap[7][9].back());
+
+            gameMap[7][8].remove(wall1);
+            wall1->removeFromMap(true);
+
+            gameMap[7][9].remove(wall2);
+            wall2->removeFromMap(true);
+        };
 
         std::map<Coordinate, MapObject*> specificObjects;
         specificObjects.emplace(Coordinate(10, 10), new Secondary(
