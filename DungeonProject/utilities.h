@@ -138,6 +138,8 @@ namespace dngutil
     const int BASE_SCORE_BOSS_BOOST = 50;
 
     const int HEALTHBAR_ADJUST_TIME = 15;
+
+    const int SECRET_BOSS_LEVEL = 20; // ;)
 }
 
 void errorMessage(std::string error, int line, std::string file);

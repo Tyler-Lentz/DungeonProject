@@ -1475,7 +1475,7 @@ bool Segboss::segmentedBattle(Player* player)
     vcursor.y += 5;
     v->putcen(
         ColorString("Your score was: ", color) + 
-        ColorString(std::to_string(pgame->getScore()), getColor(dngutil::YELLOW, dngutil::WHITE)),
+        ColorString(std::to_string(pgame->getScore()), getColor(dngutil::CYAN, dngutil::WHITE)),
         vcursor.y++
     );
     vcursor.y += 2;

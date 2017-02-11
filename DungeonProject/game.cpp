@@ -308,7 +308,7 @@ void Game::makeFloor0()
 void Game::makeFloor1()
 {
     unsigned int tfloor = 1; 
-    this->floor = tfloor; // sets the starting floor
+    //this->floor = tfloor; // sets the starting floor
     {
         std::vector<std::string> roomTemplate;
         roomTemplate.push_back("###############");
@@ -335,7 +335,7 @@ void Game::makeFloor1()
         roomTemplate.push_back("####### #######");
         roomTemplate.push_back("####### #######");
         roomTemplate.push_back("####### #######");
-        roomTemplate.push_back("#######A#######");
+        roomTemplate.push_back("####### #######");
         roomTemplate.push_back("####### #######");
 
         std::map<Coordinate, MapObject*> specificObjects;
@@ -351,7 +351,7 @@ void Game::makeFloor1()
 
         roomMut.lock();
         gamespace[tfloor].emplace(mapCoord, new Room(this, rminfo, nullptr));
-        activeRoom = gamespace[tfloor][mapCoord]; // sets the starting activeRoom
+        //activeRoom = gamespace[tfloor][mapCoord]; // sets the starting activeRoom
         roomMut.unlock();
     }
     {
@@ -1173,6 +1173,8 @@ void Game::makeFloor2()
 void Game::makeFloor3()
 {
     unsigned int tfloor = 3;
+    this->floor = tfloor; // sets the starting floor
+
     {
         std::vector<std::string> roomTemplate;
         roomTemplate.push_back("# ####################");
@@ -1475,13 +1477,12 @@ void Game::makeFloor3()
         roomTemplate.push_back("#                       #");
         roomTemplate.push_back("#                     v #");
         roomTemplate.push_back("#                       #");
-        roomTemplate.push_back("#                       #");
+        roomTemplate.push_back("#                 A     #");
         roomTemplate.push_back("#########################");
 
         std::map<Coordinate, MapObject*> specificObjects;
 
         std::vector<dngutil::TID> possibleCreatures;
-        possibleCreatures.push_back(dngutil::TID::LSKnight);
 
         int difficulty = 10;
         int backColor = dngutil::RED;
@@ -1490,6 +1491,7 @@ void Game::makeFloor3()
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
         roomMut.lock();
         gamespace[tfloor].emplace(mapCoord, new Room(this, rminfo, nullptr));
+        activeRoom = gamespace[tfloor][mapCoord]; // sets the starting activeRoom
         roomMut.unlock();
     }
     {
@@ -1520,14 +1522,65 @@ void Game::makeFloor3()
         roomTemplate.push_back("#XXXXXXX   XXXXXXX#");
         roomTemplate.push_back("#XXXXXXX   XXXXXXX#");
 
+        Coordinate dragon(9, 8);
+
+        auto puzzleSolved = [dragon, this](const std::list<Creature*>& creatureList, const GAMEMAP& gameMap) -> bool
+        {
+            if (this->getPlayer()->getLvl() >= dngutil::SECRET_BOSS_LEVEL && exit && getPlayer()->getHp() > 0)
+            {
+                return true;
+            }
+            return false;
+        };
+
+        auto puzzleAction = [this, dragon](std::list<Creature*> creatureList, GAMEMAP& gameMap) -> void
+        {
+            // y needs to go from 0 - 7
+            // x needs to go from -1 of dragon.x to +1 of dragon.x
+            this->getVWin()->txtmacs.displayGame(this);
+            this->getVWin()->txtmacs.drawDividers();
+            for (int y = 0; y < 8; y++)
+            {
+                for (int x = dragon.x - 1; x <= dragon.x + 1; x++)
+                {
+                    HoleObject* hole = dynamic_cast<HoleObject*>(gameMap[y][x].back());
+
+                    gameMap[y][x].remove(hole);
+                    hole->removeFromMap(true);
+                }
+                this->getActiveRoom()->drawRoom();
+                Sleep(250);
+            }
+
+            MapObject* drag = nullptr;
+            for (auto& i : gameMap[dragon.y][dragon.x])
+            {
+                if (i->getTypeId() == dngutil::TID::SegbossTrigger)
+                {
+                    drag = i;
+                }
+            }
+            if (drag == nullptr)
+            {
+                errorMessage("shit", __LINE__, __FILE__);
+            }
+
+            gameMap[dragon.y][dragon.x].remove(drag);
+            drag->removeFromMap(true);
+
+            setBeastSpawn(true);
+            getPlayer()->resetSteps();
+            exit = false;
+        };
+
         std::vector<SegEnemy*> bossparts;
         bossparts.push_back(dynamic_cast<SegEnemy*>(generateCreature(11, dngutil::TID::DragonTail)));
         bossparts.push_back(dynamic_cast<SegEnemy*>(generateCreature(11, dngutil::TID::DragonWings)));
         bossparts.push_back(dynamic_cast<SegEnemy*>(generateCreature(12, dngutil::TID::DragonHead)));
 
         std::map<Coordinate, MapObject*> specificObjects;
-        specificObjects.emplace(Coordinate(9, 8), new SegbossTrigger(
-            this, Coordinate(9, 8),
+        specificObjects.emplace(dragon, new SegbossTrigger(
+            this, dragon,
             new Segboss(bossparts, this),
             ColorChar('S', dngutil::LIGHTRED)
         ));
@@ -1540,7 +1593,7 @@ void Game::makeFloor3()
         Coordinate mapCoord(2, 0);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
         roomMut.lock();
-        gamespace[tfloor].emplace(mapCoord, new Room(this, rminfo, nullptr));
+        gamespace[tfloor].emplace(mapCoord, new Room(this, rminfo, new Puzzle(puzzleSolved, puzzleAction)));
         roomMut.unlock();
     }
 }
