@@ -988,15 +988,18 @@ bool SegEnemy::battle(MapObject* t_enemy)
             {
                 playerTimer = 0;
 
-                int damage = player->getDamageDealt(enemy);
-                for (int i = 0; i < damage; i++)
+                Damage damage = player->getDamageDealt(enemy);
+                for (int i = 0; i < damage.damage; i++)
                 {
                     enemy->decreaseHealth(1);
                     vwin->txtmacs.displayHealthBars(enemy, player);
                     Sleep(dngutil::HEALTHBAR_ADJUST_TIME);
                 }
 
-                vwin->putcen(ColorString("-" + std::to_string(damage), dngutil::GREEN), vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE + 1);
+                vwin->putcen(
+                    ColorString("-" + std::to_string(damage.damage), dngutil::GREEN) +
+                    ((damage.damageDeflected > 0) ? ColorString(", " + std::to_string(damage.damageDeflected) + " DEFLECTED", dngutil::GREEN) : ColorString("", dngutil::BLACK))
+                    , vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE + 1);  
                 Sleep(300);
 
                 if (enemy->isDead())
@@ -1017,15 +1020,18 @@ bool SegEnemy::battle(MapObject* t_enemy)
             if (enemyTimer >= enemyWeaponSpeed)
             {
                 enemyTimer = 0;
-                int damage = enemy->getDamageDealt(player);
-                for (int i = 0; i < damage; i++)
+                Damage damage = enemy->getDamageDealt(player);
+                for (int i = 0; i < damage.damage; i++)
                 {
                     player->decreaseHealth(1);
                     vwin->txtmacs.displayHealthBars(enemy, player);
                     Sleep(dngutil::HEALTHBAR_ADJUST_TIME);
                 }
 
-                vwin->putcen(ColorString("-" + std::to_string(damage), dngutil::RED), vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE + 1);
+                vwin->putcen(
+                    ColorString("-" + std::to_string(damage.damage), dngutil::GREEN) +
+                    ((damage.damageDeflected > 0) ? ColorString(", " + std::to_string(damage.damageDeflected) + " DEFLECTED", dngutil::GREEN) : ColorString("", dngutil::BLACK))
+                    , vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE + 1);
                 Sleep(300);
 
                 if (player->isDead())

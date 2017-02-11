@@ -13,6 +13,18 @@ class Primary;
 class Secondary;
 class Enemy;
 
+struct Damage
+{
+    int damage;
+    int damageDeflected;
+
+    Damage(int damage, int damageDeflected)
+    {
+        this->damage = damage;
+        this->damageDeflected = damageDeflected;
+    }
+};
+
 class Creature : public MapObject
 {
 public:
@@ -84,7 +96,7 @@ public:
 
     bool adjustPosition(dngutil::Movement movement);
 
-    int getDamageDealt(Creature* defender);
+    Damage getDamageDealt(Creature* defender);
 
     dngutil::Movement getLastMovement();
 protected:
@@ -111,5 +123,4 @@ private:
     unsigned int spd;
     unsigned int lvl;
 };
-
 #endif

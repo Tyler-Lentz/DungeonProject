@@ -373,15 +373,18 @@ bool Creature::battle(MapObject* t_enemy)
             {
                 playerTimer = 0;
 
-                int damage = player->getDamageDealt(enemy);
-                for (int i = 0; i < damage; i++)
+                Damage damage = player->getDamageDealt(enemy);
+                for (int i = 0; i < damage.damage; i++)
                 {
                     enemy->decreaseHealth(1);
                     vwin->txtmacs.displayHealthBars(enemy, player);
                     Sleep(dngutil::HEALTHBAR_ADJUST_TIME);
                 }
 
-                vwin->putcen(ColorString("-" + std::to_string(damage), dngutil::GREEN), vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE + 1);
+                vwin->putcen(
+                    ColorString("-" + std::to_string(damage.damage), dngutil::GREEN) +
+                    ((damage.damageDeflected > 0) ? ColorString(", " + std::to_string(damage.damageDeflected) + " DEFLECTED", dngutil::GREEN) : ColorString("", dngutil::BLACK))
+                    , vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE + 1);
                 Sleep(300);
 
                 if (enemy->isDead())
@@ -412,15 +415,18 @@ bool Creature::battle(MapObject* t_enemy)
             if (enemyTimer >= enemyWeaponSpeed)
             {
                 enemyTimer = 0;
-                int damage = enemy->getDamageDealt(player);
-                for (int i = 0; i < damage; i++)
+                Damage damage = enemy->getDamageDealt(player);
+                for (int i = 0; i < damage.damage; i++)
                 {
                     player->decreaseHealth(1);
                     vwin->txtmacs.displayHealthBars(enemy, player);
                     Sleep(dngutil::HEALTHBAR_ADJUST_TIME);
                 }
 
-                vwin->putcen(ColorString("-" + std::to_string(damage), dngutil::RED), vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE + 1);
+                vwin->putcen(
+                    ColorString("-" + std::to_string(damage.damage), dngutil::GREEN) +
+                    ((damage.damageDeflected > 0) ? ColorString(", " + std::to_string(damage.damageDeflected) + " DEFLECTED", dngutil::GREEN) : ColorString("", dngutil::BLACK))
+                    , vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE + 1);
                 Sleep(300);
 
                 if (player->isDead())
@@ -629,9 +635,10 @@ bool Creature::adjustPosition(dngutil::Movement movement)
     return false;
 }
 
-int Creature::getDamageDealt(Creature* defender)
+Damage Creature::getDamageDealt(Creature* defender)
 {
-    double damage;
+    Damage damage(0, 0);
+    bool deflect = false;
     double attack = getAtt();
     double defense = defender->getDef();
 
@@ -641,7 +648,9 @@ int Creature::getDamageDealt(Creature* defender)
     attack += (random(static_cast<int>(attack / 3.0), static_cast<int>(attack / 2.0)));
     defense += (random(static_cast<int>(defense / 3.0), static_cast<int>(defense / 2.0)));
 
-    if (defender == getPGame()->getPlayer())
+    bool miss = !primary->hit();
+
+    if (defender == getPGame()->getPlayer() && !miss)
     {
         bool canDeflect = true;
 
@@ -661,13 +670,14 @@ int Creature::getDamageDealt(Creature* defender)
             if (keypress(VK_SPACE))
             {
                 soundEffect("ShieldDeflect.wav", false, false);
-                defense *= 1.3;
+                deflect = true;
             }
         }
     }
 
-    bool miss = false;
-    if (getPrimary().hit())
+    soundEffect(getPrimary().getHitsound(), false, false);
+
+    if (!miss)
     {
         int critChance = dngutil::MAX_LCK;
         critChance -= getLck();
@@ -678,9 +688,7 @@ int Creature::getDamageDealt(Creature* defender)
 
         bool crit = (random(critChance) == 0);
 
-        soundEffect(getPrimary().getHitsound(), false, false);
-
-        if (crit)
+        if (crit && this == getPGame()->getPlayer())
         {
             attack *= 2;
             soundEffect("CriticalHit.wav", false, false);
@@ -700,25 +708,30 @@ int Creature::getDamageDealt(Creature* defender)
     else
     {
         soundEffect("WeaponMiss.wav", false, true);
-        miss = true;
     }
 
-
-    damage = attack - defense;
-
-    if (damage < 1)
+    if (deflect)
     {
-        damage = 1;
+        damage.damageDeflected = static_cast<int>(attack - defense) - static_cast<int>(attack - (defense * 1.3));
+        damage.damage = static_cast<int>(attack - defense) - damage.damageDeflected;
+    }
+    else
+    {
+        damage.damage = static_cast<int>(attack - defense);
+    }
+
+    int min = random(2, 3);
+    if (damage.damage < min)
+    {
+        damage.damage = min;
     }
 
     if (miss)
     {
-        damage = 0;
+        damage.damage = 0;
     }
 
-    int roundedDamage = static_cast<int>(round(damage));
-
-    return roundedDamage;
+    return damage;
 }
 
 void Creature::levelUpStats()
