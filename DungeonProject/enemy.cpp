@@ -497,7 +497,7 @@ SkeletonKing::SkeletonKing(
         false,
         dngutil::TID::Secondary,
         0,
-        1.5,
+        .8,
         "A corpses head, cursed by the skeleton king."
     ),
     "SkeletonKingTheme.mp3",
@@ -859,7 +859,7 @@ SSKnight::SSKnight(
         "Cursed Shortsword",
         false,
         dngutil::TID::Primary,
-        1.5,
+        1,
         2,
         85,
         false,

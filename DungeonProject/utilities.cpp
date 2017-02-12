@@ -135,7 +135,7 @@ void stopSound()
 
 int getHealthbarSleepTime(int damageDealt)
 {
-    return (333 / damageDealt);
+    return (200 / damageDealt);
 }
 
 void credits(dngutil::CreditType c, Game* pgame)
@@ -200,7 +200,7 @@ void credits(dngutil::CreditType c, Game* pgame)
     v->putcen(ColorString("Story: Tyler Lentz and Thomas Westenhofer", color), vcursor.y++);
     vcursor.y++;
     v->putcen(ColorString("Play Testing: Tyler Lentz, Thomas Westenhoffer, Kristian Rascon,", color), vcursor.y++);
-    v->putcen(ColorString("Joshua Chan, Daniel Hernandez, Zach Fineberg, Chris Mosely and others", color), vcursor.y++);
+    v->putcen(ColorString(", Daniel Hernandez and others", color), vcursor.y++);
     vcursor.y++;
     v->putcen(ColorString("Special Thanks to: Evan \"Little Fella\" Maich,", color), vcursor.y++);
     v->putcen(ColorString("Niko \"Mile Stretch Mile\" Fernandez and", color), vcursor.y++);

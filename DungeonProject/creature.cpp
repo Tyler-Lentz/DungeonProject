@@ -644,6 +644,10 @@ Damage Creature::getDamageDealt(Creature* defender)
 
     attack *= getPrimary().getDmgMultiplier();
     defense *= defender->getSecondary().getDefenseBoost();
+    if (this == getPGame()->getPlayer())
+    {
+        defense *= .8;
+    }
 
     attack += (random(static_cast<int>(attack / 3.0), static_cast<int>(attack / 2.0)));
     defense += (random(static_cast<int>(defense / 3.0), static_cast<int>(defense / 2.0)));
@@ -713,6 +717,10 @@ Damage Creature::getDamageDealt(Creature* defender)
     if (deflect)
     {
         damage.damageDeflected = static_cast<int>(attack - defense) - static_cast<int>(attack - (defense * 1.3));
+        if (damage.damageDeflected < 0)
+        {
+            damage.damageDeflected = 0;
+        }
         damage.damage = static_cast<int>(attack - defense) - damage.damageDeflected;
     }
     else

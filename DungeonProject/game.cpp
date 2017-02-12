@@ -931,8 +931,8 @@ void Game::makeFloor2()
         possibleCreatures.push_back(dngutil::TID::LSKnight);
 
         int difficulty = 8;
-        int backColor = dngutil::BLACK;
-        std::string name = "Pits of Dispair";
+        int backColor = dngutil::DARKGRAY;
+        std::string name = "Pit of Dispair";
         Coordinate mapCoord(2, 0);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
         roomMut.lock();
@@ -1421,9 +1421,9 @@ void Game::makeFloor3()
         roomTemplate.push_back("###########");
         roomTemplate.push_back("####   ####");
         roomTemplate.push_back("###     ###");
-        roomTemplate.push_back("##  e e  ##");
-        roomTemplate.push_back("##   o   ##");
-        roomTemplate.push_back("##  e e  ##");
+        roomTemplate.push_back("##o     o##");
+        roomTemplate.push_back("##o  o   ##");
+        roomTemplate.push_back("##       ##");
         roomTemplate.push_back("###     ###");
         roomTemplate.push_back("####   ####");
         roomTemplate.push_back("##### #####");
@@ -1431,13 +1431,17 @@ void Game::makeFloor3()
 
         std::map<Coordinate, MapObject*> specificObjects;
         specificObjects.emplace(Coordinate(5, 5), new Key(this, Coordinate(5, 5)));
+        specificObjects.emplace(Coordinate(2, 4), new Potion(this, Coordinate(5, 5), dngutil::POTION_HEAL + 15));
+        specificObjects.emplace(Coordinate(2, 5), new Potion(this, Coordinate(5, 5), dngutil::POTION_HEAL + 15));
+        specificObjects.emplace(Coordinate(8, 4), new MagicalPotion(this, Coordinate(5, 5)));
+
 
         std::vector<dngutil::TID> possibleCreatures;
         possibleCreatures.push_back(dngutil::TID::Mage);
 
         int difficulty = 7;
         int backColor = dngutil::DARKGRAY;
-        std::string name = "Wizard Circle";
+        std::string name = "Supply Room";
         Coordinate mapCoord(0, -3);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
         roomMut.lock();
@@ -1474,11 +1478,13 @@ void Game::makeFloor3()
         roomTemplate.push_back("########   ##############");
         roomTemplate.push_back("#                       #");
         roomTemplate.push_back("#                     v #");
-        roomTemplate.push_back("#                       #");
-        roomTemplate.push_back("#                       #");
+        roomTemplate.push_back("#o                      #");
+        roomTemplate.push_back("#o                      #");
         roomTemplate.push_back("#########################");
 
         std::map<Coordinate, MapObject*> specificObjects;
+        specificObjects.emplace(Coordinate(1, 3), new MagicalPotion(this, Coordinate(1, 3)));
+        specificObjects.emplace(Coordinate(1, 4), new MagicalPotion(this, Coordinate(1, 3)));
 
         std::vector<dngutil::TID> possibleCreatures;
 
