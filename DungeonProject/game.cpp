@@ -1483,7 +1483,7 @@ void Game::makeFloor3()
 
         std::map<Coordinate, MapObject*> specificObjects;
         specificObjects.emplace(Coordinate(1, 3), new MagicalPotion(this, Coordinate(1, 3)));
-        specificObjects.emplace(Coordinate(1, 4), new MagicalPotion(this, Coordinate(1, 3)));
+        specificObjects.emplace(Coordinate(1, 4), new MagicalPotion(this, Coordinate(1, 4)));
 
         std::vector<dngutil::TID> possibleCreatures;
 
