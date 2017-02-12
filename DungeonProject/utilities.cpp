@@ -144,21 +144,11 @@ void credits(dngutil::CreditType c, Game* pgame)
 
     if (c == dngutil::CreditType::SECRET_VICTORY)
     {
-        ColorString line(std::string(dngutil::CONSOLEX, ' '), getColor(dngutil::LIGHTMAGENTA, dngutil::LIGHTMAGENTA));
-
-        for (int i = 0; i < dngutil::CONSOLEY; i++)
-        {
-            v->putcen(line, i);
-        }
+        v->clearScreen(dngutil::LIGHTBLUE);
     }
     else if (c == dngutil::CreditType::VICTORY)
     {
-        ColorString line(std::string(dngutil::CONSOLEX, ' '), getColor(dngutil::WHITE, dngutil::WHITE));
-
-        for (int i = 0; i < dngutil::CONSOLEY; i++)
-        {
-            v->putcen(line, i);
-        }
+        v->clearScreen(dngutil::WHITE);
     }
 
     if (c != dngutil::CreditType::TITLESCREEN)

@@ -282,14 +282,7 @@ void TextMacros::displayOverworldInfo(Game* game)
 
 dngutil::ReturnVal TextMacros::deathScreen(Game* game)
 { 
-    vwin->clearScreen();
-
-    ColorString line(std::string(dngutil::CONSOLEX, ' '), getColor(dngutil::RED, dngutil::RED));
-
-    for (int i = 0; i < dngutil::CONSOLEY; i++)
-    {
-        vwin->putcen(line, i);
-    }
+    vwin->clearScreen(dngutil::RED);
 
     soundEffect("Death.wav", false, false);
     startMp3("Continue.mp3");
@@ -483,48 +476,14 @@ const Console& VirtualWindow::getConsole() const
     return console;
 }
 
-void VirtualWindow::clearScreen()
+void VirtualWindow::clearScreen(int color)
 {
-    HANDLE                     hStdOut;
-    CONSOLE_SCREEN_BUFFER_INFO csbi;
-    DWORD                      count;
-    DWORD                      cellCount;
-    COORD                      homeCoords = { 0, 0 };
+    ColorString line(std::string(dngutil::CONSOLEX, ' '), getColor(color, color));
 
-    console.setColor(dngutil::LIGHTGRAY);
-
-    hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
-    if (hStdOut == INVALID_HANDLE_VALUE) return;
-
-    /* Get the number of cells in the current buffer */
-    if (!GetConsoleScreenBufferInfo(hStdOut, &csbi)) return;
-    cellCount = csbi.dwSize.X *csbi.dwSize.Y;
-
-    /* Fill the entire buffer with spaces */
-    if (!FillConsoleOutputCharacter(
-        hStdOut,
-        (TCHAR) ' ',
-        cellCount,
-        homeCoords,
-        &count
-    )) return;
-
-    /* Fill the entire buffer with the current colors and attributes */
-    if (!FillConsoleOutputAttribute(
-        hStdOut,
-        csbi.wAttributes,
-        cellCount,
-        homeCoords,
-        &count
-    )) return;
-
-    /* Move the cursor home */
-    SetConsoleCursorPosition(hStdOut, homeCoords);
-
-    int height = vwin.size();
-    int width = vwin[0].size();
-
-    vwin.resize(height, ColorString(std::string(width, ' '), getColor(dngutil::LIGHTGRAY, dngutil::BLACK)));
+    for (int i = 0; i < dngutil::CONSOLEY; i++)
+    {
+        putcen(line, i);
+    }
 }
 
 //-------------------------------------------------------------

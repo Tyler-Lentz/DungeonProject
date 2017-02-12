@@ -1769,7 +1769,7 @@ void Game::titleScreen()
     vwin->txtmacs.drawDividers();
     vwin->txtmacs.clearDivider("bottom");
     vwin->putcen(ColorString("Dungeon RPG - Dragon's Lair (BETA 5 INDEV)", dngutil::RED), vwin->txtmacs.DIVIDER_LINES[0] + 1);
-    vwin->putcen(ColorString("Enter - Continue, Esc - exit", dngutil::LIGHTGRAY), vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE);
+    vwin->putcen(ColorString("Enter - Continue, C - credits, Esc - exit", dngutil::LIGHTGRAY), vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE);
 
     int r = random(3);
     if (r == 0)
@@ -1919,6 +1919,12 @@ void Game::titleScreen()
         else if (keypress(VK_ESCAPE))
         {
             cleanup(dngutil::ReturnVal::EXIT);
+            break;
+        }
+        else if (keypress('C'))
+        {
+            vwin->txtmacs.clearDivider("bottom");
+            credits(dngutil::CreditType::TITLESCREEN, this);
             break;
         }
     }

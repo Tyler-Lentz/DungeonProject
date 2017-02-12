@@ -70,6 +70,7 @@ Player::Player(
     lckEv = 0;
     spdEv = 0;
 
+    setSpd(dngutil::MAX_SPD);
     steps = dngutil::FULL_STEPS;
 }
 

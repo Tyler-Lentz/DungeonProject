@@ -98,8 +98,8 @@ public:
     void putcen(ColorChar colchar, unsigned int line);
     void putcen(ColorString colstr, unsigned int line);
 
-    // clears the entire screen
-    void clearScreen();
+    // clears the entire screen and sets it to the color specified, default is black
+    void clearScreen(int color = dngutil::BLACK);
 
     const Console& getConsole() const;
 
