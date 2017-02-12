@@ -48,7 +48,7 @@ Game::Game(VirtualWindow* vwin)
     player = new Player(this, Coordinate(-1, -1));
     floor = 0;
 
-    spawnBeast = false;
+    spawnBeast = true;
     score = 0;
 
     titleScreen();
@@ -307,7 +307,7 @@ void Game::makeFloor0()
 
 void Game::makeFloor1()
 {
-    unsigned int tfloor = 1; 
+    unsigned int tfloor = 1;
     this->floor = tfloor; // sets the starting floor
     {
         std::vector<std::string> roomTemplate;
@@ -1172,7 +1172,6 @@ void Game::makeFloor2()
 void Game::makeFloor3()
 {
     unsigned int tfloor = 3;
-
     {
         std::vector<std::string> roomTemplate;
         roomTemplate.push_back("# ####################");
@@ -1627,7 +1626,7 @@ void Game::makeFloor3()
         gameMap[beastCoord.y][beastCoord.x].push_back(new SegbossTrigger(
             this, beastCoord,
             new Segboss(bossparts, this),
-            ColorChar('S', dngutil::LIGHTMAGENTA)
+            ColorChar('*', dngutil::WHITE)
         ));
 
         this->setBeastSpawn(false);

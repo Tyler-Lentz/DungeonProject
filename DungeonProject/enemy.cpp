@@ -704,22 +704,22 @@ void MegaBeastPhase1::printSelf()
     Coordinate vcursor(0, getPGame()->getVWin()->txtmacs.DIVIDER_LINES[1] + 1);
     VirtualWindow* t = getPGame()->getVWin();
     int color = dngutil::WHITE;
-    t->put(ColorString(R"(		                      )", color), vcursor);
-    t->put(ColorString(R"(		                      )", color), vcursor);
-    t->put(ColorString(R"(		                      )", color), vcursor);
-    t->put(ColorString(R"(		                      )", color), vcursor);
-    t->put(ColorString(R"(		        *             )", color), vcursor);
+    t->put(ColorString(R"(		                      )", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(		                      )", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(		                      )", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(		                      )", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(		        *             )", color), vcursor); vcursor.y++;
     const int TOP_CURSOR_Y = vcursor.y;
-    t->put(ColorString(R"(		       ***            )", color), vcursor);
-    t->put(ColorString(R"(		      *****           )", color), vcursor);
-    t->put(ColorString(R"(		     *******          )", color), vcursor);
-    t->put(ColorString(R"(		      *****           )", color), vcursor);
-    t->put(ColorString(R"(		       ***            )", color), vcursor);
-    t->put(ColorString(R"(		        *             )", color), vcursor);
-    t->put(ColorString(R"(		                      )", color), vcursor);
-    t->put(ColorString(R"(		                      )", color), vcursor);
-    t->put(ColorString(R"(		                      )", color), vcursor);
-    t->put(ColorString(R"(		                      )", color), vcursor);
+    t->put(ColorString(R"(		       ***            )", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(		      *****           )", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(		     *******          )", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(		      *****           )", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(		       ***            )", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(		        *             )", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(		                      )", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(		                      )", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(		                      )", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(		                      )", color), vcursor); vcursor.y++;
 
     const int LONGEST_LINE_LENGTH = 59;
 
@@ -760,7 +760,7 @@ MegaBeastPhase2::MegaBeastPhase2(
         "Mega Beam",
         false,
         dngutil::TID::Primary,
-        2.5,
+        2,
         5,
         100,
         false,
@@ -775,7 +775,7 @@ MegaBeastPhase2::MegaBeastPhase2(
         false,
         dngutil::TID::Secondary,
         0,
-        1.35,
+        1.2,
         "Beast's armor."
     ),
     "hidden.mp3",
