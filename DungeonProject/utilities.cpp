@@ -197,7 +197,11 @@ void credits(dngutil::CreditType c, Game* pgame)
     v->putcen(ColorString("DUNGEON RPG - DRAGON'S LAIR", color), vcursor.y++);
     if (c == dngutil::CreditType::SECRET_VICTORY)
     {
-        v->putcen(ColorString("SECRET ENDING", color), vcursor.y++);
+        v->putcen(ColorString("FULL ENDING", color), vcursor.y++);
+    }
+    else if (c == dngutil::CreditType::VICTORY)
+    {
+        v->putcen(ColorString("A dark energy still resides in the dungeon...", color), vcursor.y++);
     }
     vcursor.y += 4;
 

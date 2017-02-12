@@ -1545,7 +1545,6 @@ bool Segboss::segmentedBattle(Player* player)
         t.clearDivider("bottom");
     }
     stopMp3();
-    Sleep(5000);
     // If you are here you won
 
     segments.back()->deathSequence();
