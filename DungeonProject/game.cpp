@@ -954,7 +954,6 @@ void Game::makeFloor2()
 
         auto puzzleAction = [this](std::list<Creature*> creatureList, GAMEMAP& gameMap) -> void
         {
-            gameMap[0][1].push_back(new WallObject(this, Coordinate(1, 0)));
 
             WallObject* wall = dynamic_cast<WallObject*>(gameMap[2][20].back());
 
