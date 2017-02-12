@@ -643,7 +643,7 @@ Damage Creature::getDamageDealt(Creature* defender)
     double defense = defender->getDef();
 
     attack *= getPrimary().getDmgMultiplier();
-    defense *= defender->getSecondary().getDmdReductMult();
+    defense *= defender->getSecondary().getDefenseBoost();
 
     attack += (random(static_cast<int>(attack / 3.0), static_cast<int>(attack / 2.0)));
     defense += (random(static_cast<int>(defense / 3.0), static_cast<int>(defense / 2.0)));

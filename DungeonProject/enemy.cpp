@@ -312,7 +312,7 @@ Skeleton::Skeleton(
         false,
         dngutil::TID::Secondary,
         50,
-        .85,
+        1.1,
         "A heavy wooden shield that was dropped from a Skeleton"
     ),
     "BattleTheme.mp3",
@@ -401,7 +401,7 @@ BloodSkeleton::BloodSkeleton(
         false,
         dngutil::TID::Secondary,
         40,
-        .80,
+        1.12,
         "A shield from a blood skeleton"
     ),
     "BattleTheme.mp3",
@@ -497,8 +497,8 @@ SkeletonKing::SkeletonKing(
         false,
         dngutil::TID::Secondary,
         0,
-        .7,
-        "A corpsed head, cursed by the skeleton king."
+        1.5,
+        "A corpses head, cursed by the skeleton king."
     ),
     "SkeletonKingTheme.mp3",
     50,
@@ -597,7 +597,7 @@ DungeonBeast::DungeonBeast(
         false,
         dngutil::TID::Secondary,
         0,
-        .25,
+        1.1,
         "Beast's armor."
     ),
     "BeastTheme.mp3",
@@ -606,7 +606,7 @@ DungeonBeast::DungeonBeast(
     dngutil::EvType::DEFENSE
 ) 
 {
-    setMaxhp(getMaxhp() * 2);
+    setMaxhp(static_cast<int>(getMaxhp() * 1.3));
     setHp(getMaxhp());
 }
 
@@ -686,7 +686,7 @@ MegaBeast::MegaBeast(
         false,
         dngutil::TID::Secondary,
         0,
-        .25,
+        1.35,
         "Beast's armor."
     ),
     "hidden.mp3",
@@ -782,7 +782,7 @@ LSKnight::LSKnight(
         false,
         dngutil::TID::Secondary,
         40,
-        .80,
+        1.15,
         "A shield from a cursed knight"
     ),
     "BattleTheme.mp3",
@@ -874,7 +874,7 @@ SSKnight::SSKnight(
         false,
         dngutil::TID::Secondary,
         40,
-        .80,
+        1.15,
         "A shield from a cursed knight"
     ),
     "BattleTheme.mp3",
@@ -966,7 +966,7 @@ Mage::Mage(
         false,
         dngutil::TID::Secondary,
         0,
-        .67,
+        1.35,
         "A protecting aura from a mage"
     ),
     "BattleTheme.mp3",
@@ -1235,7 +1235,7 @@ DragonTail::DragonTail(
         false,
         dngutil::TID::Secondary,
         0,
-        .25,
+        1.25,
         "Dragons's armor."
     ),
     "FinalBoss.mp3",
@@ -1244,9 +1244,8 @@ DragonTail::DragonTail(
     dngutil::EvType::DEFENSE
 )
 {
-    setMaxhp(static_cast<unsigned int>(getMaxhp() * 1.5));
+    setMaxhp(static_cast<unsigned int>(getMaxhp() * 1.4));
     setHp(getMaxhp());
-    increaseDef(static_cast<unsigned int>(getDef() * .75));
 }
 
 void DragonTail::printSelf()
@@ -1338,7 +1337,7 @@ DragonWings::DragonWings(
         false,
         dngutil::TID::Secondary,
         0,
-        .7,
+        1,
         "Dragons's armor."
     ),
     "FinalBoss.mp3",
@@ -1347,9 +1346,6 @@ DragonWings::DragonWings(
     dngutil::EvType::DEFENSE
 )
 {
-    setMaxhp(static_cast<unsigned int>(getMaxhp() * 1.2));
-    setHp(getMaxhp());
-    increaseDef(static_cast<unsigned int>(getDef() * .5));
 }
 
 void DragonWings::printSelf()
@@ -1440,7 +1436,7 @@ DragonHead::DragonHead(
         false,
         dngutil::TID::Secondary,
         0,
-        .4,
+        1.2,
         "Dragons's armor."
     ),
     "FinalBoss.mp3",
@@ -1449,10 +1445,8 @@ DragonHead::DragonHead(
     dngutil::EvType::DEFENSE
 )
 {
-    setMaxhp(dngutil::MAX_HP);
+    setMaxhp(dngutil::MAX_HP - 50);
     setHp(getMaxhp());
-    increaseDef(static_cast<unsigned int>(getDef() * .6));
-    increaseAtt(static_cast<unsigned int>(getAtt() * .1));
 }
 
 void DragonHead::printSelf()

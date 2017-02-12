@@ -54,7 +54,7 @@ Player::Player(
             false,
             dngutil::TID::Secondary,
             50,
-            .95,
+            1,
             "A very simple shield."
         ),
         dngutil::P_PLAYER
@@ -70,7 +70,6 @@ Player::Player(
     lckEv = 0;
     spdEv = 0;
 
-    setSpd(dngutil::MAX_SPD);
     steps = dngutil::FULL_STEPS;
 }
 
@@ -519,7 +518,7 @@ void Player::statsMenu()
     line += 2;
     v->putcen(ColorString(getSecondary().getName() + " Stats", dngutil::LIGHTBLUE), line++);
     v->putcen(ColorString("Deflect Time: " + std::to_string(getSecondary().getDeflectTime()) + " miliseconds", dngutil::LIGHTBLUE), line++);
-    v->putcen(ColorString("Damage Reduction Multiplier: " + std::to_string(getSecondary().getDmdReductMult()), dngutil::LIGHTBLUE), line++);
+    v->putcen(ColorString("Defense Multiplier: " + std::to_string(getSecondary().getDefenseBoost()), dngutil::LIGHTBLUE), line++);
 
     line = v->txtmacs.BOTTOM_DIVIDER_TEXT_LINE;
 

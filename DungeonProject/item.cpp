@@ -222,9 +222,9 @@ const int& Secondary::getDeflectTime() const
     return deflectTime;
 }
 
-const double& Secondary::getDmdReductMult() const
+const double& Secondary::getDefenseBoost() const
 {
-    return dmgReductMult;
+    return defenseBoost;
 }
 
 //-------------------------------------------------------

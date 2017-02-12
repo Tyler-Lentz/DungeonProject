@@ -263,9 +263,9 @@ void Game::makeFloor0()
             "White Shield",
             false,
             dngutil::TID::Secondary,
-            117,
-            .86,
-            "A very bright shield."
+            157,
+            .9,
+            "A very bright shield, good for deflecting."
         )
         );
 
@@ -308,7 +308,7 @@ void Game::makeFloor0()
 void Game::makeFloor1()
 {
     unsigned int tfloor = 1; 
-    //this->floor = tfloor; // sets the starting floor
+    this->floor = tfloor; // sets the starting floor
     {
         std::vector<std::string> roomTemplate;
         roomTemplate.push_back("###############");
@@ -335,7 +335,7 @@ void Game::makeFloor1()
         roomTemplate.push_back("####### #######");
         roomTemplate.push_back("####### #######");
         roomTemplate.push_back("####### #######");
-        roomTemplate.push_back("####### #######");
+        roomTemplate.push_back("#######A#######");
         roomTemplate.push_back("####### #######");
 
         std::map<Coordinate, MapObject*> specificObjects;
@@ -351,7 +351,7 @@ void Game::makeFloor1()
 
         roomMut.lock();
         gamespace[tfloor].emplace(mapCoord, new Room(this, rminfo, nullptr));
-        //activeRoom = gamespace[tfloor][mapCoord]; // sets the starting activeRoom
+        activeRoom = gamespace[tfloor][mapCoord]; // sets the starting activeRoom
         roomMut.unlock();
     }
     {
@@ -879,7 +879,7 @@ void Game::makeFloor2()
             false,
             dngutil::TID::Secondary,
             0,
-            0.71,
+            1.23,
             "A shining red gem that protects you from damage"
         ));
 
@@ -1172,7 +1172,6 @@ void Game::makeFloor2()
 void Game::makeFloor3()
 {
     unsigned int tfloor = 3;
-    this->floor = tfloor; // sets the starting floor
 
     {
         std::vector<std::string> roomTemplate;
@@ -1476,7 +1475,7 @@ void Game::makeFloor3()
         roomTemplate.push_back("#                       #");
         roomTemplate.push_back("#                     v #");
         roomTemplate.push_back("#                       #");
-        roomTemplate.push_back("#                 A     #");
+        roomTemplate.push_back("#                       #");
         roomTemplate.push_back("#########################");
 
         std::map<Coordinate, MapObject*> specificObjects;
@@ -1490,7 +1489,6 @@ void Game::makeFloor3()
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
         roomMut.lock();
         gamespace[tfloor].emplace(mapCoord, new Room(this, rminfo, nullptr));
-        activeRoom = gamespace[tfloor][mapCoord]; // sets the starting activeRoom
         roomMut.unlock();
     }
     {
@@ -1595,6 +1593,7 @@ void Game::makeFloor3()
         gamespace[tfloor].emplace(mapCoord, new Room(this, rminfo, new Puzzle(puzzleSolved, puzzleAction)));
         roomMut.unlock();
     }
+
     {
     std::vector<std::string> roomTemplate;
     roomTemplate.push_back("###################");

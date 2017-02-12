@@ -130,16 +130,16 @@ public:
     ) :RItem(pgame, mapRep, coord, name, true, rawoutput, false, typeId, false, description)
     {
         this->deflectTime = deflectTime;
-        this->dmgReductMult = dmgReductMult;
+        this->defenseBoost = dmgReductMult;
     }
 
     void action(Player* player, unsigned int inventoryIndex) override;
 
-    const double& getDmdReductMult() const;
+    const double& getDefenseBoost() const;
     const int& getDeflectTime() const;
 private:
     // The attackers attack is multiplied by this amount
-    double dmgReductMult;
+    double defenseBoost;
 
     // The amount of time in miliseconds you have to deflect
     int deflectTime;
