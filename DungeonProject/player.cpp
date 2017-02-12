@@ -53,7 +53,7 @@ Player::Player(
             "Shield",
             false,
             dngutil::TID::Secondary,
-            50,
+            100,
             1,
             "A very simple shield."
         ),

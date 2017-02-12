@@ -311,7 +311,7 @@ Skeleton::Skeleton(
         "Wooden Shield",
         false,
         dngutil::TID::Secondary,
-        50,
+        100,
         1.1,
         "A heavy wooden shield that was dropped from a Skeleton"
     ),
@@ -400,7 +400,7 @@ BloodSkeleton::BloodSkeleton(
         "Stained Shield",
         false,
         dngutil::TID::Secondary,
-        40,
+        140,
         1.12,
         "A shield from a blood skeleton"
     ),
@@ -870,7 +870,7 @@ LSKnight::LSKnight(
         "Cursed Shield",
         false,
         dngutil::TID::Secondary,
-        40,
+        110,
         1.15,
         "A shield from a cursed knight"
     ),
@@ -962,7 +962,7 @@ SSKnight::SSKnight(
         "Cursed Shield",
         false,
         dngutil::TID::Secondary,
-        40,
+        110,
         1.15,
         "A shield from a cursed knight"
     ),
@@ -1054,7 +1054,7 @@ Mage::Mage(
         "Magic Aura",
         false,
         dngutil::TID::Secondary,
-        0,
+        10,
         1.35,
         "A protecting aura from a mage"
     ),

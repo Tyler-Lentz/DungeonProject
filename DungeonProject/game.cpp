@@ -263,7 +263,7 @@ void Game::makeFloor0()
             "White Shield",
             false,
             dngutil::TID::Secondary,
-            157,
+            210,
             .9,
             "A very bright shield, good for deflecting."
         )
@@ -878,7 +878,7 @@ void Game::makeFloor2()
             "Sparking Gem",
             false,
             dngutil::TID::Secondary,
-            0,
+            10,
             1.23,
             "A shining red gem that protects you from damage"
         ));
