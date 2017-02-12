@@ -794,7 +794,7 @@ void MegaBeastPhase2::printSelf()
 {
     Coordinate vcursor(0, getPGame()->getVWin()->txtmacs.DIVIDER_LINES[1] + 1);
     VirtualWindow* t = getPGame()->getVWin();
-    int color = dngutil::LIGHTMAGENTA;
+    int color = dngutil::RED;
     t->put(ColorString(R"(		             \                  /)", color), vcursor);  vcursor.y++;
     t->put(ColorString(R"(		    _________))                ((__________)", color), vcursor);  vcursor.y++;
     t->put(ColorString(R"(		   /.-------./\\    \    /    //\.--------.\)", color), vcursor);  vcursor.y++;
