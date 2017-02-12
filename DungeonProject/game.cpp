@@ -1430,9 +1430,9 @@ void Game::makeFloor3()
 
         std::map<Coordinate, MapObject*> specificObjects;
         specificObjects.emplace(Coordinate(5, 5), new Key(this, Coordinate(5, 5)));
-        specificObjects.emplace(Coordinate(2, 4), new Potion(this, Coordinate(5, 5), dngutil::POTION_HEAL + 15));
-        specificObjects.emplace(Coordinate(2, 5), new Potion(this, Coordinate(5, 5), dngutil::POTION_HEAL + 15));
-        specificObjects.emplace(Coordinate(8, 4), new MagicalPotion(this, Coordinate(5, 5)));
+        specificObjects.emplace(Coordinate(2, 4), new Potion(this, Coordinate(2, 4), dngutil::POTION_HEAL + 15));
+        specificObjects.emplace(Coordinate(2, 5), new Potion(this, Coordinate(2, 5), dngutil::POTION_HEAL + 15));
+        specificObjects.emplace(Coordinate(8, 4), new MagicalPotion(this, Coordinate(8, 4)));
 
 
         std::vector<dngutil::TID> possibleCreatures;
