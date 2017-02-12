@@ -1489,7 +1489,7 @@ void Game::makeFloor3()
 
         int difficulty = 10;
         int backColor = dngutil::RED;
-        std::string name = "";
+        std::string name = "Above the Room of the Beast";
         Coordinate mapCoord(2, 1);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
         roomMut.lock();
