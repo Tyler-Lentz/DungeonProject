@@ -266,10 +266,29 @@ public:
     bool battle(MapObject* enemy);
 };
 
-class MegaBeast : public SegEnemy
+class MegaBeastPhase1 : public SegEnemy
 {
 public:
-    MegaBeast(
+    MegaBeastPhase1(
+        Game* pgame,
+        Coordinate coord,
+        int hp,
+        unsigned int att,
+        unsigned int def,
+        unsigned int lck,
+        unsigned int spd,
+        unsigned int lvl
+    );
+
+    void printSelf() override;
+    void deathSequence() override;
+};
+
+
+class MegaBeastPhase2 : public SegEnemy
+{
+public:
+    MegaBeastPhase2(
         Game* pgame,
         Coordinate coord,
         int hp,

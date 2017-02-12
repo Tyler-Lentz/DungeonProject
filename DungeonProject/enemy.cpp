@@ -641,8 +641,97 @@ void DungeonBeast::printSelf()
     printStats(LONGEST_LINE_LENGTH, TOP_CURSOR_Y);
 }
 
+MegaBeastPhase1::MegaBeastPhase1(
+    Game* pgame,
+    Coordinate coord,
+    int hp,
+    unsigned int att,
+    unsigned int def,
+    unsigned int lck,
+    unsigned int spd,
+    unsigned int lvl
+) : SegEnemy(
+    pgame,
+    ColorChar('S', dngutil::LIGHTMAGENTA),
+    coord,
+    "Lost Spirit",
+    false,
+    dngutil::TID::MegaBeastPhase1,
+    hp,
+    att,
+    def,
+    lck,
+    spd,
+    lvl,
+    new Primary(
+        pgame,
+        ColorChar('?', dngutil::LIGHTRED),
+        coord,
+        "Spirit's Breath",
+        false,
+        dngutil::TID::Primary,
+        0.5,
+        5,
+        100,
+        false,
+        ".",
+        "Attack1.wav"
+    ),
+    new Secondary(
+        pgame,
+        ColorChar('?', dngutil::GREEN),
+        coord,
+        "Spirits Armor",
+        false,
+        dngutil::TID::Secondary,
+        0,
+        1,
+        "Spirits's armor."
+    ),
+    "hidden.mp3",
+    85,
+    "revival.wav",
+    dngutil::EvType::DEFENSE
+)
+{
+    setMaxhp(dngutil::MAX_HP);
+    setHp(getMaxhp());
+    increaseDef(static_cast<unsigned int>(getDef() * 0.4));
+}
 
-MegaBeast::MegaBeast(
+void MegaBeastPhase1::printSelf()
+{
+    Coordinate vcursor(0, getPGame()->getVWin()->txtmacs.DIVIDER_LINES[1] + 1);
+    VirtualWindow* t = getPGame()->getVWin();
+    int color = dngutil::WHITE;
+    t->put(ColorString(R"(		                      )", color), vcursor);
+    t->put(ColorString(R"(		                      )", color), vcursor);
+    t->put(ColorString(R"(		                      )", color), vcursor);
+    t->put(ColorString(R"(		                      )", color), vcursor);
+    t->put(ColorString(R"(		        *             )", color), vcursor);
+    const int TOP_CURSOR_Y = vcursor.y;
+    t->put(ColorString(R"(		       ***            )", color), vcursor);
+    t->put(ColorString(R"(		      *****           )", color), vcursor);
+    t->put(ColorString(R"(		     *******          )", color), vcursor);
+    t->put(ColorString(R"(		      *****           )", color), vcursor);
+    t->put(ColorString(R"(		       ***            )", color), vcursor);
+    t->put(ColorString(R"(		        *             )", color), vcursor);
+    t->put(ColorString(R"(		                      )", color), vcursor);
+    t->put(ColorString(R"(		                      )", color), vcursor);
+    t->put(ColorString(R"(		                      )", color), vcursor);
+    t->put(ColorString(R"(		                      )", color), vcursor);
+
+    const int LONGEST_LINE_LENGTH = 59;
+
+    printStats(LONGEST_LINE_LENGTH, TOP_CURSOR_Y);
+}
+
+void MegaBeastPhase1::deathSequence()
+{
+    getPGame()->adjustScore(dngutil::BASE_SCORE_BOSS_BOOST);
+}
+
+MegaBeastPhase2::MegaBeastPhase2(
     Game* pgame,
     Coordinate coord,
     int hp,
@@ -657,7 +746,7 @@ MegaBeast::MegaBeast(
     coord,
     "Mega Beast",
     false,
-    dngutil::TID::DungeonBeast,
+    dngutil::TID::MegaBeastPhase2,
     hp,
     att,
     def,
@@ -701,7 +790,7 @@ MegaBeast::MegaBeast(
     increaseAtt(static_cast<unsigned int>(getAtt() * .5));
 }
 
-void MegaBeast::printSelf()
+void MegaBeastPhase2::printSelf()
 {
     Coordinate vcursor(0, getPGame()->getVWin()->txtmacs.DIVIDER_LINES[1] + 1);
     VirtualWindow* t = getPGame()->getVWin();
@@ -732,7 +821,7 @@ void MegaBeast::printSelf()
     printStats(LONGEST_LINE_LENGTH, TOP_CURSOR_Y);
 }
 
-void MegaBeast::deathSequence()
+void MegaBeastPhase2::deathSequence()
 {
     getPGame()->adjustScore(dngutil::BASE_SCORE_BOSS_BOOST * 5);
     credits(dngutil::CreditType::SECRET_VICTORY, getPGame());

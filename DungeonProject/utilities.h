@@ -58,7 +58,8 @@ namespace dngutil
         DragonWings,
         DragonHead,
         SegbossTrigger,
-        MegaBeast
+        MegaBeastPhase1,
+        MegaBeastPhase2
     };
 
     enum class BTID

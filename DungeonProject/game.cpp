@@ -1621,7 +1621,8 @@ void Game::makeFloor3()
     auto puzzleAction = [this, beastCoord](std::list<Creature*> creatureList, GAMEMAP& gameMap) -> void
     {
         std::vector<SegEnemy*> bossparts;
-        bossparts.push_back(dynamic_cast<SegEnemy*>(generateCreature(11, dngutil::TID::MegaBeast)));
+        bossparts.push_back(dynamic_cast<SegEnemy*>(generateCreature(dngutil::SECRET_BOSS_LEVEL, dngutil::TID::MegaBeastPhase1)));
+        bossparts.push_back(dynamic_cast<SegEnemy*>(generateCreature(dngutil::SECRET_BOSS_LEVEL, dngutil::TID::MegaBeastPhase2)));
 
         gameMap[beastCoord.y][beastCoord.x].push_back(new SegbossTrigger(
             this, beastCoord,
@@ -1743,8 +1744,12 @@ Creature* Game::generateCreature(int difficulty, dngutil::TID tid)
         enemy = new DragonWings(this, Coordinate(-1, -1), health, attack, defense, luck, speed, difficulty);
         break;
 
-    case dngutil::TID::MegaBeast:
-        enemy = new MegaBeast(this, Coordinate(-1, -1), health, attack, defense, luck, speed, difficulty);
+    case dngutil::TID::MegaBeastPhase1:
+        enemy = new MegaBeastPhase1(this, Coordinate(-1, -1), health, attack, defense, luck, speed, difficulty);
+        break;
+
+    case dngutil::TID::MegaBeastPhase2:
+        enemy = new MegaBeastPhase2(this, Coordinate(-1, -1), health, attack, defense, luck, speed, difficulty);
         break;
     }
 
