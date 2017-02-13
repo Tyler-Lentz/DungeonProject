@@ -19,7 +19,7 @@ Player::Player(
 )
     :Creature(
         pgame,
-        ColorChar('A', dngutil::GREEN),
+        ColorChar('A', pgame->getDifficulty().color),
         coord,
         "Player",
         true,
@@ -70,7 +70,7 @@ Player::Player(
     lckEv = 0;
     spdEv = 0;
 
-    steps = dngutil::FULL_STEPS;
+    steps = pgame->getDifficulty().beastSteps;
 }
 
 void Player::addToInventory(Item* item)
@@ -155,7 +155,7 @@ bool Player::movement()
     if (steps < 1 && getPGame()->shouldSpawnBeast())
     {
         dungeonBeastSequence();
-        steps = dngutil::FULL_STEPS;
+        steps = getPGame()->getDifficulty().beastSteps;
     }
 
     if (canmove)
@@ -224,7 +224,7 @@ Collision Player::mapAction(MapObject* collider, std::list<MapObject*>::iterator
 
 void Player::resetSteps()
 {
-    steps = dngutil::FULL_STEPS;
+    steps = getPGame()->getDifficulty().beastSteps;
 }
 
 void Player::printStats(int startingXCoord, int startingCursorY)
@@ -387,6 +387,16 @@ void Player::levelUpStats()
             break;
         }
     }
+
+    int h = getPGame()->getDifficulty().healthIncreaseBoost;
+    if (h > 0)
+    {
+        increaseHealth(h);
+    }
+    else
+    {
+        decreaseHealth(h);
+    }
 }
 
 void Player::inventoryMenu() // How not to program in three easy steps. 1: Dont do this.
@@ -531,11 +541,11 @@ void Player::statsMenu()
 ColorString Player::getStepString()
 {
     int color;
-    if (steps > static_cast<int>(dngutil::FULL_STEPS * .66))
+    if (steps > static_cast<int>(getPGame()->getDifficulty().beastSteps * .66))
     {
         color = dngutil::GREEN;
     }
-    else if (steps > static_cast<int>(dngutil::FULL_STEPS * .33))
+    else if (steps > static_cast<int>(getPGame()->getDifficulty().beastSteps * .33))
     {
         color = dngutil::YELLOW;
     }

@@ -42,16 +42,18 @@ dngutil::ReturnVal Game::run()
 }
 
 Game::Game(VirtualWindow* vwin)
+    :difficulty()
 {
     this->vwin = vwin;
+    titleScreen();
+
     activeRoom = nullptr;
     player = new Player(this, Coordinate(-1, -1));
     floor = 0;
 
-    spawnBeast = true;
+    spawnBeast = false;
     score = 0;
 
-    titleScreen();
     if (!exit)
     {
         makeRooms();
@@ -1614,7 +1616,7 @@ void Game::makeFloor3()
 
     auto puzzleSolved = [this](const std::list<Creature*>& creatureList, const GAMEMAP& gameMap) -> bool
     {
-        return (this->getPlayer()->getStepCount() < 2);
+        return (this->getPlayer()->getStepCount() < 2 && difficulty.canFightMegabeast);
     };
 
     auto puzzleAction = [this, beastCoord](std::list<Creature*> creatureList, GAMEMAP& gameMap) -> void
@@ -1923,6 +1925,35 @@ void Game::titleScreen()
             vwin->putcen(ColorString("Avenge your village!", dngutil::YELLOW), vcursor.y++);
             vcursor.y += 2;
             pressEnter(vcursor, vwin); 
+
+            vwin->txtmacs.clearMapArea(false, NULL);
+            vcursor = Coordinate(0, vwin->txtmacs.DIVIDER_LINES[1] + 10);
+            vwin->putcen(ColorString("Difficulty Selection", dngutil::WHITE), vcursor.y++);
+            vcursor.y += 5;
+            vwin->putcen(ColorString("(1) - Easy", dngutil::LIGHTMAGENTA), vcursor.y++);
+            vcursor.y++;
+            vwin->putcen(ColorString("(2) - Classic", dngutil::GREEN), vcursor.y);
+
+            while (true)
+            {
+                if (keypress('1'))
+                {
+                    // needs to adjust the difficulty values
+                    difficulty.beastSteps = 275;
+                    difficulty.canFightMegabeast = false;
+                    difficulty.color = dngutil::LIGHTMAGENTA;
+                    difficulty.deflectModifier = 1.75;
+                    difficulty.damageMultiplier = 1.1;
+                    difficulty.healthIncreaseBoost = 1;
+                    break;
+                }
+                else if (keypress('2'))
+                {
+                    // difficulty is already set to what it needs to be
+                    break;
+                }
+            }
+
             break;
         }
         else if (keypress(VK_ESCAPE))
@@ -1943,9 +1974,19 @@ void Game::titleScreen()
     stopMp3();
 }
 
+const Difficulty& Game::getDifficulty()
+{
+    return difficulty;
+}
+
 void Game::setBeastSpawn(bool spawn)
 {
     spawnBeast = spawn;
+}
+
+int Game::getBeastSteps()
+{
+    return stepsToBeast;
 }
 
 void Game::adjustScore(int adjust)

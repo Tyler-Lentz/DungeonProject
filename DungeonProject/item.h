@@ -127,11 +127,7 @@ public:
         int deflectTime,
         double dmgReductMult,
         std::string description
-    ) :RItem(pgame, mapRep, coord, name, true, rawoutput, false, typeId, false, description)
-    {
-        this->deflectTime = deflectTime;
-        this->defenseBoost = dmgReductMult;
-    }
+    );
 
     void action(Player* player, unsigned int inventoryIndex) override;
 

@@ -16,6 +16,26 @@ class VirtualWindow;
 class MapObject;
 class Creature;
 
+struct Difficulty
+{
+    Difficulty()
+    {
+        deflectModifier = 1;
+        beastSteps = 200;
+        damageMultiplier = 1;
+        healthIncreaseBoost = 0;
+        canFightMegabeast = true;
+        color = dngutil::GREEN;
+    }
+
+    double deflectModifier;
+    int beastSteps;
+    double damageMultiplier;
+    int healthIncreaseBoost;
+    bool canFightMegabeast;
+    int color;
+};
+
 class Game
 {
 public:
@@ -46,6 +66,10 @@ public:
 
     void adjustScore(int adjust);
     int getScore();
+
+    int getBeastSteps();
+
+    const Difficulty& getDifficulty();
 private:
     VirtualWindow* vwin;
     Room* activeRoom;
@@ -61,6 +85,8 @@ private:
     bool exit;
     dngutil::ReturnVal returnVal;
 
+    int stepsToBeast;
+    Difficulty difficulty;
 
     std::mutex roomMut;
     void makeRooms();

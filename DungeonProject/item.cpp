@@ -200,6 +200,21 @@ bool Primary::hit() const
     return (random(99) < accuracy);
 }
 
+Secondary::Secondary(
+    Game* pgame,
+    ColorChar mapRep,
+    Coordinate coord,
+    std::string name,
+    bool rawoutput,
+    dngutil::TID typeId,
+    int deflectTime,
+    double dmgReductMult,
+    std::string description
+) :RItem(pgame, mapRep, coord, name, true, rawoutput, false, typeId, false, description)
+{
+    this->deflectTime = static_cast<int>(deflectTime * pgame->getDifficulty().deflectModifier);
+    this->defenseBoost = dmgReductMult;
+}
 
 void Secondary::action(Player* player, unsigned int inventoryIndex)
 {

@@ -647,6 +647,7 @@ Damage Creature::getDamageDealt(Creature* defender)
     if (this == getPGame()->getPlayer())
     {
         defense *= .8;
+        attack *= getPGame()->getDifficulty().damageMultiplier;
     }
 
     attack += (random(static_cast<int>(attack / 3.0), static_cast<int>(attack / 2.0)));
