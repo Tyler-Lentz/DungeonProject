@@ -1579,12 +1579,13 @@ void DragonHead::printSelf()
 void DragonHead::deathSequence()
 {
     getPGame()->adjustScore(dngutil::BASE_SCORE_BOSS_BOOST * 3);
-    if (getPGame()->getPlayer()->getLvl() < dngutil::SECRET_BOSS_LEVEL)
+    if (getPGame()->getPlayer()->getLvl() < dngutil::SECRET_BOSS_LEVEL || !getPGame()->getDifficulty().canFightMegabeast)
     {
         credits(dngutil::CreditType::VICTORY, getPGame());
     }
     else
     {
+        Sleep(5000);
         getPGame()->cleanup(dngutil::ReturnVal::RESTART); // tells the puzzle the fight is over
     }
 }

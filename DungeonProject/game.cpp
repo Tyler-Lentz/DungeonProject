@@ -1530,7 +1530,7 @@ void Game::makeFloor3()
 
         auto puzzleSolved = [dragon, this](const std::list<Creature*>& creatureList, const GAMEMAP& gameMap) -> bool
         {
-            if (this->getPlayer()->getLvl() >= dngutil::SECRET_BOSS_LEVEL && exit && getPlayer()->getHp() > 0)
+            if (this->getPlayer()->getLvl() >= dngutil::SECRET_BOSS_LEVEL && exit && getPlayer()->getHp() > 0 && difficulty.canFightMegabeast)
             {
                 return true;
             }
@@ -1616,7 +1616,7 @@ void Game::makeFloor3()
 
     auto puzzleSolved = [this](const std::list<Creature*>& creatureList, const GAMEMAP& gameMap) -> bool
     {
-        return (this->getPlayer()->getStepCount() < 2 && difficulty.canFightMegabeast);
+        return (this->getPlayer()->getStepCount() < 2);
     };
 
     auto puzzleAction = [this, beastCoord](std::list<Creature*> creatureList, GAMEMAP& gameMap) -> void

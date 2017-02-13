@@ -159,7 +159,14 @@ void credits(dngutil::CreditType c, Game* pgame)
         stopMp3();
 
         Sleep(100);
-        startMp3("Ending.mp3");
+        if (c == dngutil::CreditType::VICTORY)
+        {
+            startMp3("Ending.mp3");
+        }
+        else
+        {
+            startMp3("alternate.mp3");
+        }
 
         pgame->adjustScore(dngutil::BASE_SCORE_VICTORY);
     }
@@ -167,7 +174,7 @@ void credits(dngutil::CreditType c, Game* pgame)
     int color = 0;
     if (c == dngutil::CreditType::SECRET_VICTORY)
     {
-        color = getColor(dngutil::BLACK, dngutil::LIGHTMAGENTA);
+        color = getColor(dngutil::BLACK, dngutil::LIGHTBLUE);
     }
     else if (c == dngutil::CreditType::VICTORY)
     {
