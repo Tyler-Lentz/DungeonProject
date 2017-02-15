@@ -167,5 +167,19 @@ public:
     void action(Player* player, unsigned int inventoryIndex) override;
 };
 
+class Flute : public RItem
+{
+public:
+    Flute(Game* pgame, Coordinate coord);
+
+    void action(Player* player, unsigned int inventoryIndex) override;
+
+private:
+    std::vector<Coordinate> usedRooms;
+    bool isUsed(Coordinate coord);
+
+    const int HEALTH_DECREASE = 15;
+};
+
 //-------------------------------------------------------------
 #endif

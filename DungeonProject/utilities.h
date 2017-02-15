@@ -59,7 +59,8 @@ namespace dngutil
         DragonHead,
         SegbossTrigger,
         MegaBeastPhase1,
-        MegaBeastPhase2
+        MegaBeastPhase2,
+        Flute
     };
 
     enum class BTID

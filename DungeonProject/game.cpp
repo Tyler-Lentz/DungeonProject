@@ -991,10 +991,10 @@ void Game::makeFloor2()
         std::vector<std::string> roomTemplate;
         roomTemplate.push_back("###########");
         roomTemplate.push_back("###########");
-        roomTemplate.push_back("######  e  ");
-        roomTemplate.push_back("#####    ##");
-        roomTemplate.push_back("####    ###");
-        roomTemplate.push_back("###    ####");
+        roomTemplate.push_back("##o     e  ");
+        roomTemplate.push_back("## ##    ##");
+        roomTemplate.push_back("## #    ###");
+        roomTemplate.push_back("##     ####");
         roomTemplate.push_back("##    #####");
         roomTemplate.push_back("##   ######");
         roomTemplate.push_back("##   ######");
@@ -1016,6 +1016,7 @@ void Game::makeFloor2()
         roomTemplate.push_back("##   # ####");
 
         std::map<Coordinate, MapObject*> specificObjects;
+        specificObjects.emplace(Coordinate(2, 2), new Flute(this, Coordinate(2, 2)));
 
         std::vector<dngutil::TID> possibleCreatures;
         possibleCreatures.push_back(dngutil::TID::LSKnight);

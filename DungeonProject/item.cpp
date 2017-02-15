@@ -134,6 +134,62 @@ void Potion::action(Player* player, unsigned int inventoryIndex)
 //-------------------------------------------------------
 
 //-------------------------------------------------------
+// Flute Functions
+
+Flute::Flute(Game* pgame, Coordinate coord)
+    :RItem(pgame, ColorChar('|', dngutil::WHITE), coord, "Flute",
+        true, false, false, dngutil::TID::Flute, false, "Damages everything in a room for 15 once per room.")
+{
+
+}
+
+
+bool Flute::isUsed(Coordinate coord)
+{
+    for (auto& i : usedRooms)
+    {
+        if (coord == i)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+void Flute::action(Player* player, unsigned int inventoryIndex)
+{
+    std::string output;
+    Coordinate mapCoord = getPGame()->getActiveRoom()->getRoomInfo().mapCoord;
+    if (player->getHp() <= HEALTH_DECREASE)
+    {
+        output = "Using the flute would kill you";
+    }
+    else if (!isUsed(mapCoord))
+    {
+        soundEffect("Flute.wav", false, false);
+        usedRooms.push_back(mapCoord);
+
+        for (auto& i : getPGame()->getActiveRoom()->getCreatureList())
+        {
+            i->decreaseHealth(HEALTH_DECREASE);
+        }
+
+        output = "You damage everything in the room for " + std::to_string(HEALTH_DECREASE) + " hp.";
+    }
+    else
+    {
+        output = "The flute has no effect here";
+    }
+
+    int line = getPGame()->getVWin()->txtmacs.BOTTOM_DIVIDER_TEXT_LINE;
+
+    getPGame()->getVWin()->putcen(ColorString(output, dngutil::LIGHTGRAY), line);
+}
+
+//-------------------------------------------------------
+
+
+//-------------------------------------------------------
 // Key Functions
 
 Key::Key(Game* pgame, Coordinate coord)
