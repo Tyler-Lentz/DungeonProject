@@ -104,6 +104,8 @@ protected:
     Secondary*& getSecondaryMemory();
 
 private:
+    bool canMiss;
+
     dngutil::Movement lastMovement;
 
     unsigned long lastMoveTime;

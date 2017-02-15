@@ -61,6 +61,8 @@ Creature::Creature(
 
     this->lastMoveTime = 0;
     this->lastMovement = dngutil::Movement::UP;
+
+    this->canMiss = true;
 }
 
 Creature::~Creature()
@@ -682,8 +684,9 @@ Damage Creature::getDamageDealt(Creature* defender)
 
     soundEffect(getPrimary().getHitsound(), false, false);
 
-    if (!miss)
+    if (!miss && canMiss)
     {
+        canMiss = true;
         int critChance = dngutil::MAX_LCK;
         critChance -= getLck();
         if (critChance < 0)
@@ -713,6 +716,7 @@ Damage Creature::getDamageDealt(Creature* defender)
     else
     {
         soundEffect("WeaponMiss.wav", false, true);
+        canMiss = false;
     }
 
     if (deflect)
