@@ -2,6 +2,7 @@
 #include "mapobject.h"
 #include "virtualwindow.h"
 #include "game.h"
+#include "item.h"
 
 #include <Windows.h>
 #include <string>

@@ -122,7 +122,7 @@ namespace dngutil
     const int CONSOLEX = 80;
     const int CONSOLEY = 45;
 
-    const int NUMFLOORS = 4;
+    const int NUMFLOORS = 5;
 
     const int BACKGROUND_COLOR = -1;
 
