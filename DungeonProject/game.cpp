@@ -95,6 +95,7 @@ void Game::makeRooms()
     threads.emplace_back(&Game::makeFloor1, this);
     threads.emplace_back(&Game::makeFloor2, this);
     threads.emplace_back(&Game::makeFloor3, this);
+    threads.emplace_back(&Game::makeFloor4, this);
 
     for (auto& thread : threads)
     {
@@ -1688,7 +1689,7 @@ void Game::makeFloor4()
             primaryname = "Hero's Staff";
             description = "The staff of a real hero";
             hitsound = "MagicAttack1.wav";
-            dmgmult = 1.75;
+            dmgmult = 2;
             attSpeed = 4;
             accuracy = 100;
             startReady = false;
@@ -1698,7 +1699,7 @@ void Game::makeFloor4()
             primaryname = "Hero's Flail";
             description = "The flail of a real hero";
             hitsound = "Attack4.wav";
-            dmgmult = 2.15;
+            dmgmult = 2.37;
             attSpeed = 6;
             accuracy = 75;
             startReady = false;
@@ -1710,7 +1711,7 @@ void Game::makeFloor4()
             hitsound = "GunAttack1.wav";
             dmgmult = 1.8;
             attSpeed = 3;
-            accuracy = 65;
+            accuracy = 75;
             startReady = true;
             break;
         default:
@@ -1718,7 +1719,7 @@ void Game::makeFloor4()
             primaryname = "Hero's Spear";
             description = "The spear of a real hero";
             hitsound = "Attack1.wav";
-            dmgmult = 2;
+            dmgmult = 2.14;
             attSpeed = 5;
             accuracy = 100;
             startReady = false;
