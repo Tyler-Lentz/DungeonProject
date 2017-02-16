@@ -147,7 +147,7 @@ void Player::chooseClass()
         if (keypress('3'))
         {
             setClass(dngutil::ClassType::WIZARD);
-            increaseAtt(5);
+            increaseAtt(2);
             increaseSpd(30);
             inventory.push_back(
                 new Primary(
