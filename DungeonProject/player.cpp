@@ -135,7 +135,7 @@ void Player::chooseClass()
                     false,
                     1.1,
                     2,
-                    80,
+                    70,
                     false,
                     "A Ranger's bow, blessed by the wind",
                     "BowAttack1.wav",
