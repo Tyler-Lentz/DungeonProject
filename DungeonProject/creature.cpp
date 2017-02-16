@@ -32,7 +32,8 @@ Creature::Creature(
     unsigned int lvl,
     Primary* primary,
     Secondary* secondary,
-    int priority
+    int priority,
+    dngutil::ClassType classType
 )
     :MapObject(
         pgame,
@@ -63,6 +64,8 @@ Creature::Creature(
     this->lastMovement = dngutil::Movement::UP;
 
     this->canMiss = true;
+
+    this->classType = classType;
 }
 
 Creature::~Creature()
@@ -80,6 +83,11 @@ Creature::~Creature()
 bool Creature::isDead() const
 {
     return (hp < 1);
+}
+
+dngutil::ClassType Creature::getClass()
+{
+    return classType;
 }
 
 const unsigned int& Creature::getMaxhp() const
@@ -485,6 +493,33 @@ bool Creature::battle(MapObject* t_enemy)
                 break;
             }
         }
+    }
+}
+
+void Creature::setClass(dngutil::ClassType classType)
+{
+    this->classType = classType;
+}
+
+std::string Creature::getClassName()
+{
+    switch (classType)
+    {
+    case dngutil::ClassType::KNIGHT:
+        return "Knight";
+        break;
+    case dngutil::ClassType::WIZARD:
+        return "Wizard";
+        break;
+    case dngutil::ClassType::RANGER:
+        return "Ranger";
+        break;
+    case dngutil::ClassType::ADVENTURER:
+        return "Adventurer";
+        break;
+    default:
+        return "INVALID CLASS";
+        break;
     }
 }
 

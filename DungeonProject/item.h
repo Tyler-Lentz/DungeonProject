@@ -71,20 +71,21 @@ public:
         Coordinate coord,
         std::string name,
         bool rawoutput,
-        dngutil::TID typeId,
         double dmgMultiplier,
         int attSpeed,
         int accuracy,
         bool startReady,
         std::string description,
-        std::string hitsound
-    ) :RItem(pgame, mapRep, coord, name, true, rawoutput, false, typeId, false, description)
+        std::string hitsound,
+        dngutil::ClassType classType
+    ) :RItem(pgame, mapRep, coord, name, true, rawoutput, false, dngutil::TID::Primary, false, description)
     {
         this->dmgMultiplier = dmgMultiplier;
         this->attSpeed = attSpeed;
         this->accuracy = accuracy;
         this->startReady = startReady;
         this->hitsound = hitsound;
+        this->classType = classType;
     }
 
     void action(Player* player, unsigned int inventoryIndex) override;
@@ -96,7 +97,12 @@ public:
     const std::string& getHitsound() const;
 
     bool hit() const;
+
+    dngutil::ClassType getClass() const;
 private:
+    // What class it can be equipped by
+    dngutil::ClassType classType;
+
     // The damage multiplier that is given to the attackers attack during battle
     double dmgMultiplier;
 
@@ -149,6 +155,14 @@ public:
     void action(Player* player, unsigned int inventoryIndex) override;
 private:
     int healAmount;
+};
+
+class HerosClaim : public RItem
+{
+public:
+    HerosClaim(Game* pgame, Coordinate coord);
+
+    void action(Player* player, unsigned int inventoryIndex) override;
 };
 
 class MagicalPotion : public RItem

@@ -188,6 +188,104 @@ void Flute::action(Player* player, unsigned int inventoryIndex)
 
 //-------------------------------------------------------
 
+//-------------------------------------------------------
+// Heros Claim Functions
+
+HerosClaim::HerosClaim(Game* pgame, Coordinate coord)
+    :RItem(pgame, ColorChar('*', dngutil::WHITE), coord, "Hero's Claim",
+        true, false, false, dngutil::TID::HerosClaim, true, "Gives an ultimate weapon for your class")
+{
+
+}
+
+void HerosClaim::action(Player* player, unsigned int inventoryIndex)
+{
+    std::string output;
+
+    
+    ColorChar colorchar;
+    std::string primaryname, description;
+    std::string hitsound;
+    double dmgmult;
+    int attSpeed;
+    int accuracy;
+    bool startReady;
+    dngutil::ClassType classType;
+
+    switch (getPGame()->getPlayer()->getPrimary().getClass())
+    {
+    case dngutil::ClassType::KNIGHT:
+    colorchar = ColorChar('T', dngutil::WHITE);
+    primaryname = "Hero's Sword";
+    description = "The sword of a real hero";
+    hitsound = "Attack3.wav";
+    dmgmult = 1.85;
+    attSpeed = 4;
+    accuracy = 85;
+    startReady = false;
+    classType = dngutil::ClassType::KNIGHT;
+    break;
+    case dngutil::ClassType::WIZARD:
+    colorchar = ColorChar('I', dngutil::WHITE);
+    primaryname = "Hero's Staff";
+    description = "The staff of a real hero";
+    hitsound = "MagicAttack1.wav";
+    dmgmult = 2;
+    attSpeed = 4;
+    accuracy = 100;
+    startReady = false;
+    classType = dngutil::ClassType::WIZARD;
+    break;
+    case dngutil::ClassType::RANGER:
+    colorchar = ColorChar('t', dngutil::WHITE);
+    primaryname = "Hero's Revolver";
+    description = "The gun of a real hero";
+    hitsound = "GunAttack1.wav";
+    dmgmult = 1.8;
+    attSpeed = 3;
+    accuracy = 75;
+    startReady = true;
+    classType = dngutil::ClassType::RANGER;
+    break;
+    default: // you are adventurer??
+        colorchar = ColorChar('|', dngutil::MAGENTA);
+        primaryname = "Adventurer's Death Stick";
+        description = "How did you do this.";
+        hitsound = "GunAttack1.wav";
+        dmgmult = 99;
+        attSpeed = 1;
+        accuracy = 101;
+        startReady = false;
+        classType = dngutil::ClassType::ADVENTURER;
+        break;
+    }
+
+    Primary* primary = new Primary(
+    getPGame(),
+    colorchar,
+    Coordinate(-1, -1),
+    primaryname,
+    false,
+    dmgmult,
+    attSpeed,
+    accuracy,
+    startReady,
+    description,
+    hitsound,
+    classType
+    );
+
+    player->addToInventory(primary);
+
+    output = "You gain a sense of power";
+
+    int line = getPGame()->getVWin()->txtmacs.BOTTOM_DIVIDER_TEXT_LINE;
+
+    getPGame()->getVWin()->putcen(ColorString(output, dngutil::LIGHTGRAY), line);
+}
+
+//-------------------------------------------------------
+
 
 //-------------------------------------------------------
 // Key Functions
@@ -220,7 +318,7 @@ void Primary::action(Player* player, unsigned int inventoryIndex)
     }
     else
     {
-        output = "Failed to swap active primary, please report this bug.";
+        output = "You cannot equip this primary.";
     }
 
     getPGame()->getVWin()->putcen(ColorString(output, dngutil::LIGHTGRAY), getPGame()->getVWin()->txtmacs.BOTTOM_DIVIDER_TEXT_LINE);
@@ -229,6 +327,11 @@ void Primary::action(Player* player, unsigned int inventoryIndex)
 const double& Primary::getDmgMultiplier() const
 {
     return dmgMultiplier;
+}
+
+dngutil::ClassType Primary::getClass() const
+{
+    return classType;
 }
 
 const int& Primary::getAttSpeed() const

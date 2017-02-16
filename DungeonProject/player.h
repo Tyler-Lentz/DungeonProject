@@ -61,6 +61,8 @@ public:
     void resetSteps();
     int getStepCount();
     void dungeonBeastSequence();
+
+    void chooseClass();
 private:
 
     double hpEv;

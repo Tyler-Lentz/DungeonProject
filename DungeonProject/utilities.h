@@ -60,7 +60,8 @@ namespace dngutil
         SegbossTrigger,
         MegaBeastPhase1,
         MegaBeastPhase2,
-        Flute
+        Flute,
+        HerosClaim
     };
 
     enum class BTID
@@ -68,6 +69,14 @@ namespace dngutil
         Creature,
         Item,
         None
+    };
+
+    enum class ClassType
+    {
+        ADVENTURER,
+        WIZARD,
+        RANGER,
+        KNIGHT
     };
 
     enum class Movement

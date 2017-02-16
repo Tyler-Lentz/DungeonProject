@@ -489,13 +489,13 @@ void Game::makeFloor1()
             Coordinate(9, 4),
             "Black Spear",
             false,
-            dngutil::TID::Primary,
             .8,
             2,
             70,
             false,
             "A spear that is colored pitch black",
-            "Attack3.wav"
+            "Attack3.wav",
+            dngutil::ClassType::KNIGHT
         ));
 
         std::vector<dngutil::TID> possibleCreatures;
@@ -1100,13 +1100,13 @@ void Game::makeFloor2()
             Coordinate(2, 1),
             "Musket",
             false,
-            dngutil::TID::Primary,
             2,
             7,
             50,
             true,
             "A very innacurate, slow, high-damaging rifle.",
-            "GunAttack1.wav"
+            "GunAttack1.wav",
+            dngutil::ClassType::RANGER
         ));
 
         std::vector<dngutil::TID> possibleCreatures;
@@ -1396,13 +1396,13 @@ void Game::makeFloor3()
             Coordinate(1, 1),
             "Danny's Longsword",
             false,
-            dngutil::TID::Primary,
             2,
             4,
             100,
             false,
             "A sword found next to a dead body.",
-            "Attack1.wav"
+            "Attack1.wav",
+            dngutil::ClassType::KNIGHT
         ));
 
         std::vector<dngutil::TID> possibleCreatures;
@@ -1664,85 +1664,9 @@ void Game::makeFloor4()
         roomTemplate.push_back("#         #");
         roomTemplate.push_back("###########");
 
-        ColorChar colorchar;
-        std::string primaryname, description;
-        std::string hitsound;
-        double dmgmult;
-        int attSpeed;
-        int accuracy;
-        bool startReady;
-
-        switch (random(5))
-        {
-        case 0:
-            colorchar = ColorChar('T', dngutil::WHITE);
-            primaryname = "Hero's Sword";
-            description = "The sword of a real hero";
-            hitsound = "Attack3.wav";
-            dmgmult = 1.85;
-            attSpeed = 4;
-            accuracy = 85;
-            startReady = false;
-            break;
-        case 1:
-            colorchar = ColorChar('I', dngutil::WHITE);
-            primaryname = "Hero's Staff";
-            description = "The staff of a real hero";
-            hitsound = "MagicAttack1.wav";
-            dmgmult = 2;
-            attSpeed = 4;
-            accuracy = 100;
-            startReady = false;
-            break;
-        case 2:
-            colorchar = ColorChar('G', dngutil::WHITE);
-            primaryname = "Hero's Flail";
-            description = "The flail of a real hero";
-            hitsound = "Attack4.wav";
-            dmgmult = 2.37;
-            attSpeed = 6;
-            accuracy = 75;
-            startReady = false;
-            break;
-        case 3:
-            colorchar = ColorChar('t', dngutil::WHITE);
-            primaryname = "Hero's Revolver";
-            description = "The gun of a real hero";
-            hitsound = "GunAttack1.wav";
-            dmgmult = 1.8;
-            attSpeed = 3;
-            accuracy = 75;
-            startReady = true;
-            break;
-        default:
-            colorchar = ColorChar('|', dngutil::WHITE);
-            primaryname = "Hero's Spear";
-            description = "The spear of a real hero";
-            hitsound = "Attack1.wav";
-            dmgmult = 2.14;
-            attSpeed = 5;
-            accuracy = 100;
-            startReady = false;
-            break;
-        }
-
-        Primary* primary = new Primary(
-            this,
-            colorchar,
-            Coordinate(5, 4),
-            primaryname,
-            false,
-            dngutil::TID::Primary,
-            dmgmult,
-            attSpeed,
-            accuracy,
-            startReady,
-            description,
-            hitsound
-        );
 
         std::map<Coordinate, MapObject*> specificObjects;
-        specificObjects.emplace(Coordinate(5, 4), primary);
+        specificObjects.emplace(Coordinate(5, 4), new HerosClaim(this, Coordinate(5, 4)));
 
         std::vector<dngutil::TID> possibleCreatures;
 

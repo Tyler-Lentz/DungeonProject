@@ -34,7 +34,8 @@ public:
         std::string battleMusic,
         unsigned int experienceGiven,
         std::string deathSound,
-        dngutil::EvType ev
+        dngutil::EvType ev,
+        dngutil::ClassType classType
     );
 
     virtual void printSelf() = 0;
@@ -75,9 +76,10 @@ public:
         std::string battleMusic,
         unsigned int experienceGiven,
         std::string deathSound,
-        dngutil::EvType ev
+        dngutil::EvType ev,
+        dngutil::ClassType classType
     ) : Enemy(pgame, mapRep, coord, name, rawoutput, typeId, hp, att, def, lck, spd,
-        lvl, primary, secondary, battleMusic, experienceGiven, deathSound, ev) {}
+        lvl, primary, secondary, battleMusic, experienceGiven, deathSound, ev, classType) {}
 
     std::string drop();
     
@@ -190,9 +192,10 @@ public:
         std::string battleMusic,
         unsigned int experienceGiven,
         std::string deathSound,
-        dngutil::EvType ev
+        dngutil::EvType ev,
+        dngutil::ClassType classType
     ) : Enemy(pgame, mapRep, coord, name, rawoutput, typeId, hp, att, def, lck, spd,
-        lvl, primary, secondary, battleMusic, experienceGiven, deathSound, ev) {}
+        lvl, primary, secondary, battleMusic, experienceGiven, deathSound, ev, classType) {}
 
     std::string drop() override;
     
@@ -258,9 +261,10 @@ public:
         std::string battleMusic,
         unsigned int experienceGiven,
         std::string deathSound,
-        dngutil::EvType ev
+        dngutil::EvType ev,
+        dngutil::ClassType classType
     ) : BEnemy(pgame, mapRep, coord, name, rawoutput, typeId, hp, att, def, lck, spd,
-        lvl, primary, secondary, battleMusic, experienceGiven, deathSound, ev) {}
+        lvl, primary, secondary, battleMusic, experienceGiven, deathSound, ev, classType) {}
 
     void deathSequence() override;
     bool battle(MapObject* enemy);

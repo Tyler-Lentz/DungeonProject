@@ -38,13 +38,13 @@ Player::Player(
             Coordinate(-1, -1),
             "Sword",
             false,
-            dngutil::TID::Primary,
             1,
             3,
             80,
             false,
             "A rusty old sword.",
-            "Attack1.wav"
+            "Attack1.wav",
+            dngutil::ClassType::ADVENTURER
         ),
         new Secondary(
             pgame,
@@ -57,7 +57,8 @@ Player::Player(
             1,
             "A very simple shield."
         ),
-        dngutil::P_PLAYER
+        dngutil::P_PLAYER,
+        dngutil::ClassType::ADVENTURER
     )
 {
     this->exp = 0;
@@ -71,6 +72,103 @@ Player::Player(
     spdEv = 0;
 
     steps = pgame->getDifficulty().beastSteps;
+}
+
+void Player::chooseClass()
+{
+    VirtualWindow* v = getPGame()->getVWin();
+    TextMacros& t = v->txtmacs;
+
+    t.clearMapArea(false, NULL);
+    t.clearDivider("bottom");
+    Coordinate vcursor(0, t.DIVIDER_LINES[1] + 5);
+
+    soundEffect("Levelup.wav", false, true);
+
+    v->putcen(ColorString("Choose your class:", dngutil::LIGHTBLUE), vcursor.y++);
+    vcursor.y++;
+
+    v->putcen(ColorString("(1) - Knight [+15 Health, Melee Weapons]", dngutil::WHITE), vcursor.y++);
+    vcursor.y += 2;
+
+    v->putcen(ColorString("(2) - Ranger [+50 Speed, +25 luck, Bows/Guns]", dngutil::WHITE), vcursor.y++);
+    vcursor.y += 2;
+
+    v->putcen(ColorString("(3) - Wizard [+5 Attack, +30 Speed, Magical Weapons]", dngutil::WHITE), vcursor.y++);
+
+    while (true)
+    {
+        if (keypress('1'))
+        {
+            setClass(dngutil::ClassType::KNIGHT);
+            increaseMaxhp(15);
+            increaseHealth(15);
+            inventory.push_back(
+                new Primary(
+                    getPGame(),
+                    ColorChar('I', dngutil::WHITE),
+                    Coordinate(-1, -1),
+                    "Lance",
+                    false,
+                    1.5,
+                    3,
+                    80,
+                    false,
+                    "A Knight's lance",
+                    "Attack3.wav",
+                    dngutil::ClassType::KNIGHT
+                )
+            );
+            break;
+        }
+        if (keypress('2'))
+        {
+            setClass(dngutil::ClassType::RANGER);
+            increaseSpd(50);
+            increaseLck(25);
+            inventory.push_back(
+                new Primary(
+                    getPGame(),
+                    ColorChar('(', dngutil::GREEN),
+                    Coordinate(-1, -1),
+                    "Bow of the Wind",
+                    false,
+                    1.1,
+                    2,
+                    80,
+                    false,
+                    "A Ranger's bow, blessed by the wind",
+                    "BowAttack1.wav",
+                    dngutil::ClassType::RANGER
+                )
+            );
+            break;
+        }
+        if (keypress('3'))
+        {
+            setClass(dngutil::ClassType::WIZARD);
+            increaseAtt(5);
+            increaseSpd(30);
+            inventory.push_back(
+                new Primary(
+                    getPGame(),
+                    ColorChar('i', dngutil::GREEN),
+                    Coordinate(-1, -1),
+                    "Wand",
+                    false,
+                    1.4,
+                    3,
+                    100,
+                    false,
+                    "A Wizard's magical wand",
+                    "BowAttack1.wav",
+                    dngutil::ClassType::WIZARD
+                )
+            );
+            break;
+        }
+    }
+    t.clearMapArea(false, NULL);
 }
 
 void Player::addToInventory(Item* item)
@@ -344,8 +442,13 @@ void Player::addExperience(unsigned int experience, dngutil::EvType ev)
 
         vcursor.y = vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE;
         pressEnter(vcursor, vwin);
-
         setHp(getMaxhp());
+
+        if (getLvl() == 6)
+        {
+            chooseClass();
+        }
+
     }
     
     if (overFlowXp > 0)
@@ -484,7 +587,7 @@ bool Player::swapPrimary(Item*& itemToSwap)
 
     itemToSwap = getPrimaryMemory();
     getPrimaryMemory() = dynamic_cast<Primary*>(tempItem);
-    if (getPrimaryMemory() == nullptr)
+    if (getPrimaryMemory()->getClass() != getClass() && getPrimaryMemory()->getClass() != dngutil::ClassType::ADVENTURER)
     {
         getPrimaryMemory() = backupPrimary;
         itemToSwap = tempItem;

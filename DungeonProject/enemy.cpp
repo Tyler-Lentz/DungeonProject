@@ -34,7 +34,8 @@ Enemy::Enemy(
     std::string battleMusic,
     unsigned int experienceGiven,
     std::string deathSound,
-    dngutil::EvType ev
+    dngutil::EvType ev,
+    dngutil::ClassType classType
 ) : Creature(
     pgame,
     mapRep,
@@ -52,7 +53,8 @@ Enemy::Enemy(
     lvl,
     primary,
     secondary,
-    dngutil::P_ENEMY
+    dngutil::P_ENEMY,
+    classType
 )
 {
     this->battleMusic = battleMusic;
@@ -296,13 +298,13 @@ Skeleton::Skeleton(
         coord,
         "Wooden Axe",
         false,
-        dngutil::TID::Primary,
         1.5,
         5,
         70,
         false,
         "A heavy wooden axe that was dropped from a Skeleton",
-        "Attack4.wav"
+        "Attack4.wav",
+        dngutil::ClassType::KNIGHT
     ),
     new Secondary(
         pgame,
@@ -318,7 +320,8 @@ Skeleton::Skeleton(
     "BattleTheme.mp3",
     random(23, 29),
     "EnemyDeath.wav",
-    dngutil::EvType::HEALTH
+    dngutil::EvType::HEALTH,
+    dngutil::ClassType::KNIGHT
 )
 {
 
@@ -385,13 +388,13 @@ BloodSkeleton::BloodSkeleton(
         coord,
         "Stained Axe",
         false,
-        dngutil::TID::Primary,
         1.7,
         4,
         70,
         false,
         "An axe from a blood skeleton",
-        "Attack4.wav"
+        "Attack4.wav",
+        dngutil::ClassType::KNIGHT
     ),
     new Secondary(
         pgame,
@@ -407,7 +410,8 @@ BloodSkeleton::BloodSkeleton(
     "BattleTheme.mp3",
     random(31, 40),
     "EnemyDeath.wav",
-    dngutil::EvType::HEALTH
+    dngutil::EvType::HEALTH,
+    dngutil::ClassType::KNIGHT
 )
 {
 
@@ -481,13 +485,13 @@ SkeletonKing::SkeletonKing(
         coord,
         "Long Sword",
         false,
-        dngutil::TID::Primary,
         1.5,
         4,
         95,
         false,
         "A very long sword. It is very accurate.",
-        "Attack4.wav"
+        "Attack4.wav",
+        dngutil::ClassType::KNIGHT
     ),
     new Secondary(
         pgame,
@@ -503,7 +507,8 @@ SkeletonKing::SkeletonKing(
     "SkeletonKingTheme.mp3",
     50,
     "Screech.wav",
-    dngutil::EvType::ATTACK
+    dngutil::EvType::ATTACK,
+    dngutil::ClassType::KNIGHT
 ) {}
 
 void SkeletonKing::printSelf()
@@ -581,13 +586,13 @@ DungeonBeast::DungeonBeast(
         coord,
         "Magical Beam",
         false,
-        dngutil::TID::Primary,
         2.5,
         6,
         100,
         false,
         "A magical beam.",
-        "MagicAttack1.wav"
+        "MagicAttack1.wav",
+        dngutil::ClassType::WIZARD
     ),
     new Secondary(
         pgame,
@@ -603,7 +608,8 @@ DungeonBeast::DungeonBeast(
     "BeastTheme.mp3",
     85,
     "KillDemon.wav",
-    dngutil::EvType::DEFENSE
+    dngutil::EvType::DEFENSE,
+    dngutil::ClassType::WIZARD
 ) 
 {
     setMaxhp(static_cast<int>(getMaxhp() * 1.3));
@@ -669,13 +675,13 @@ MegaBeastPhase1::MegaBeastPhase1(
         coord,
         "Spirit's Breath",
         false,
-        dngutil::TID::Primary,
         0.5,
         5,
         100,
         false,
         ".",
-        "Attack1.wav"
+        "Attack1.wav",
+        dngutil::ClassType::ADVENTURER
     ),
     new Secondary(
         pgame,
@@ -691,7 +697,8 @@ MegaBeastPhase1::MegaBeastPhase1(
     "hidden.mp3",
     85,
     "revival.wav",
-    dngutil::EvType::DEFENSE
+    dngutil::EvType::DEFENSE,
+    dngutil::ClassType::ADVENTURER
 )
 {
     setMaxhp(dngutil::MAX_HP);
@@ -759,13 +766,13 @@ MegaBeastPhase2::MegaBeastPhase2(
         coord,
         "Mega Beam",
         false,
-        dngutil::TID::Primary,
         2,
         5,
         100,
         false,
         "A magical beam.",
-        "MagicAttack1.wav"
+        "MagicAttack1.wav",
+        dngutil::ClassType::WIZARD
     ),
     new Secondary(
         pgame,
@@ -781,7 +788,8 @@ MegaBeastPhase2::MegaBeastPhase2(
     "hidden.mp3",
     85,
     "FinalDeath.wav",
-    dngutil::EvType::DEFENSE
+    dngutil::EvType::DEFENSE,
+    dngutil::ClassType::WIZARD
 )
 {
     setMaxhp(dngutil::MAX_HP);
@@ -855,13 +863,13 @@ LSKnight::LSKnight(
         coord,
         "Cursed Broadsword",
         false,
-        dngutil::TID::Primary,
         2,
         7,
         85,
         false,
         "A broadsword from a cursed knight",
-        "Attack4.wav"
+        "Attack4.wav",
+        dngutil::ClassType::KNIGHT
     ),
     new Secondary(
         pgame,
@@ -877,7 +885,8 @@ LSKnight::LSKnight(
     "BattleTheme.mp3",
     random(26, 33),
     "EnemyDeath.wav",
-    dngutil::EvType::DEFENSE
+    dngutil::EvType::DEFENSE,
+    dngutil::ClassType::KNIGHT
 )
 {
 
@@ -947,13 +956,13 @@ SSKnight::SSKnight(
         coord,
         "Cursed Shortsword",
         false,
-        dngutil::TID::Primary,
         1,
         2,
         85,
         false,
         "A shortsword from a cursed knight",
-        "Attack2.wav"
+        "Attack2.wav",
+        dngutil::ClassType::KNIGHT
     ),
     new Secondary(
         pgame,
@@ -969,7 +978,8 @@ SSKnight::SSKnight(
     "BattleTheme.mp3",
     random(26, 33),
     "EnemyDeath.wav",
-    dngutil::EvType::SPEED
+    dngutil::EvType::SPEED,
+    dngutil::ClassType::KNIGHT
 )
 {
 
@@ -1039,13 +1049,13 @@ Mage::Mage(
         coord,
         "Staff",
         false,
-        dngutil::TID::Primary,
         2,
         4,
         85,
         false,
         "A Mage's staff - spews electricity",
-        "MagicAttack1.wav"
+        "MagicAttack1.wav",
+        dngutil::ClassType::WIZARD
     ),
     new Secondary(
         pgame,
@@ -1061,7 +1071,8 @@ Mage::Mage(
     "BattleTheme.mp3",
     random(35, 40),
     "EnemyDeath.wav",
-    dngutil::EvType::ATTACK
+    dngutil::EvType::ATTACK,
+    dngutil::ClassType::WIZARD
 )
 {
 
@@ -1308,13 +1319,13 @@ DragonTail::DragonTail(
         coord,
         "Tail Whip",
         false,
-        dngutil::TID::Primary,
         2.2,
         6,
         70,
         false,
         "Dragons Tail.",
-        "Attack4.wav"
+        "Attack4.wav",
+        dngutil::ClassType::KNIGHT
     ),
     new Secondary(
         pgame,
@@ -1330,7 +1341,8 @@ DragonTail::DragonTail(
     "FinalBoss.mp3",
     85,
     "SegDeath.wav",
-    dngutil::EvType::DEFENSE
+    dngutil::EvType::DEFENSE,
+    dngutil::ClassType::KNIGHT
 )
 {
     setMaxhp(static_cast<unsigned int>(getMaxhp() * 1.4));
@@ -1410,13 +1422,13 @@ DragonWings::DragonWings(
         coord,
         "Wind Gust",
         false,
-        dngutil::TID::Primary,
         1.4,
         3,
         100,
         false,
         "Dragons Wings.",
-        "Attack1.wav"
+        "Attack1.wav",
+        dngutil::ClassType::KNIGHT
     ),
     new Secondary(
         pgame,
@@ -1432,7 +1444,8 @@ DragonWings::DragonWings(
     "FinalBoss.mp3",
     85,
     "SegDeath.wav",
-    dngutil::EvType::DEFENSE
+    dngutil::EvType::DEFENSE,
+    dngutil::ClassType::KNIGHT
 )
 {
 }
@@ -1509,13 +1522,13 @@ DragonHead::DragonHead(
         coord,
         "Flame Blast",
         false,
-        dngutil::TID::Primary,
         1.8,
         4,
         100,
         false,
         "Dragons flames.",
-        "FireAttack1.wav"
+        "FireAttack1.wav",
+        dngutil::ClassType::KNIGHT
     ),
     new Secondary(
         pgame,
@@ -1531,7 +1544,8 @@ DragonHead::DragonHead(
     "FinalBoss.mp3",
     85,
     "FinalDeath.wav",
-    dngutil::EvType::DEFENSE
+    dngutil::EvType::DEFENSE,
+    dngutil::ClassType::KNIGHT
 )
 {
     setMaxhp(dngutil::MAX_HP - 50);

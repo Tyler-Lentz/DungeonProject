@@ -45,7 +45,8 @@ public:
         unsigned int lvl,
         Primary* primary,
         Secondary* secondary,
-        int priority
+        int priority,
+        dngutil::ClassType classType
     );
 
     // Deletes primary and secondary
@@ -99,11 +100,17 @@ public:
     Damage getDamageDealt(Creature* defender);
 
     dngutil::Movement getLastMovement();
+
+    std::string getClassName();
+    dngutil::ClassType getClass();
+    void setClass(dngutil::ClassType classType);
 protected:
     Primary*& getPrimaryMemory();
     Secondary*& getSecondaryMemory();
 
 private:
+    dngutil::ClassType classType;
+
     bool canMiss;
 
     dngutil::Movement lastMovement;
