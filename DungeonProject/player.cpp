@@ -169,6 +169,10 @@ void Player::chooseClass()
         }
     }
     t.clearMapArea(false, NULL);
+
+    vcursor.y = t.BOTTOM_DIVIDER_TEXT_LINE;
+    v->putcen(ColorString("You have created a weapon for your new skills", dngutil::WHITE), vcursor.y++);
+    pressEnter(vcursor, v);
 }
 
 void Player::addToInventory(Item* item)
