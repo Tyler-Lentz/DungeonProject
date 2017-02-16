@@ -1115,6 +1115,100 @@ void Mage::printSelf()
 //----------------------------------------------------------------
 
 //----------------------------------------------------------------
+// Bowman
+Bowman::Bowman(
+    Game* pgame,
+    Coordinate coord,
+    int hp,
+    unsigned int att,
+    unsigned int def,
+    unsigned int lck,
+    unsigned int spd,
+    unsigned int lvl
+) : REnemy(
+    pgame,
+    ColorChar('Q', dngutil::GREEN),
+    coord,
+    "Bowman",
+    false,
+    dngutil::TID::Bowman,
+    hp, att, def, lck, spd, lvl,
+    new Primary(
+        pgame,
+        ColorChar(')', dngutil::BROWN),
+        coord,
+        "Reinforced Bow",
+        false,
+        1.4,
+        3,
+        68,
+        false,
+        "A very sturdy bow.",
+        "BowAttack1.wav",
+        dngutil::ClassType::RANGER
+    ),
+    new Secondary(
+        pgame,
+        ColorChar('=', dngutil::BROWN),
+        coord,
+        "Quiver",
+        false,
+        dngutil::TID::Secondary,
+        0,
+        1,
+        "A quiver from a bowman."
+    ),
+    "BattleTheme.mp3",
+    random(35, 40),
+    "EnemyDeath.wav",
+    dngutil::EvType::SPEED,
+    dngutil::ClassType::RANGER
+)
+{
+
+}
+
+void Bowman::printSelf()
+{
+    Coordinate vcursor(0, getPGame()->getVWin()->txtmacs.DIVIDER_LINES[1] + 1);
+    VirtualWindow* t = getPGame()->getVWin();
+    int color = dngutil::GREEN;
+    int bowcolor = dngutil::BROWN;
+    int arrowcolor = dngutil::WHITE;
+    t->put(ColorString(R"(                                                         /|.)", bowcolor), vcursor); vcursor.y++;
+    const int TOP_CURSOR_Y = vcursor.y;
+    t->put(ColorString(R"(                                                       /  `|.)", bowcolor), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                                                     /     |.)", bowcolor), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                                                   /       |.)", bowcolor), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                                                 /         `|.)", bowcolor), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                                               /            |.)", bowcolor), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                                             /              |.)", bowcolor), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                                           /                |.)", bowcolor), vcursor); vcursor.y++;
+    t->put(ColorString(R"(      __                                 /                  `|.)", bowcolor), vcursor); vcursor.y++;
+    t->put(ColorString(R"(       -\                              /                     |.)", bowcolor), vcursor); vcursor.y++;
+    t->put(ColorString(R"(         \\                          /                       |.)", bowcolor), vcursor); vcursor.y++;
+    t->put(ColorString(R"(           \\                      /                         |.)", bowcolor), vcursor); vcursor.y++;
+    t->put(ColorString(R"(            \|                   /                           |\)", bowcolor), vcursor); vcursor.y++;
+    t->put(ColorString(R"(              \#####\    )", color) + ColorString(R"(      /                             ||)", bowcolor), vcursor); vcursor.y++;
+    t->put(ColorString(R"(          ==###########>  )", color) + ColorString(R"(   /                               ||)", bowcolor), vcursor); vcursor.y++;
+    t->put(ColorString(R"(           \##==      \  )", color) + ColorString(R"(  /                                 ||)", bowcolor), vcursor); vcursor.y++;
+    t->put(ColorString(R"(      ______ =       =|__)", color) + ColorChar('/', bowcolor) + ColorString(R"(___                                ||)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(  ,--' ,----`-,__ ___/'  --,-`-)", color) + ColorString(R"(==============================##==========>)", arrowcolor), vcursor); vcursor.y++;
+    t->put(ColorString(R"( \               '        ##_______ ______   ______,--,____,=##,__)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(  `,    __==    ___,-,__,--'#'  ==='      `-'              | ##,-/)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(    `-,____,---'       \####)", color) + ColorChar('\\', bowcolor) + ColorString(R"(              |        ____,--\_##,/)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(        #_              |##   )", color) + ColorChar('\\', bowcolor) + ColorString(R"(  _____,---==,__,---'         ##)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(         #              ]===--==)", color) + ColorString(R"(\                            ||)", bowcolor), vcursor); vcursor.y++;
+    t->put(ColorString(R"(         #,             ]         )", color) + ColorString(R"(\                          ||)", bowcolor), vcursor); vcursor.y++;
+    t->put(ColorString(R"(          #_            |           )", color) + ColorString(R"(\                        ||)", bowcolor), vcursor); vcursor.y++;
+    t->put(ColorString(R"(           ##_       __/'             )", color) + ColorString(R"(\                      ||)", bowcolor), vcursor); vcursor.y++;
+    const int LONGEST_LINE_LENGTH = 10;
+
+    printStats(LONGEST_LINE_LENGTH, TOP_CURSOR_Y);
+}
+//----------------------------------------------------------------
+
+//----------------------------------------------------------------
 // Seg Enemy
 
 void SegEnemy::deathSequence()

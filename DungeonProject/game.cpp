@@ -174,7 +174,7 @@ void Game::makeFloor0()
         std::map<Coordinate, MapObject*> specificObjects;
 
         std::vector<dngutil::TID> possibleCreatures;
-        possibleCreatures.push_back(dngutil::TID::Skeleton);
+        possibleCreatures.push_back(dngutil::TID::Bowman);
         possibleCreatures.push_back(dngutil::TID::Mage);
 
         int difficulty = 0;
@@ -564,6 +564,7 @@ void Game::makeFloor1()
         std::map<Coordinate, MapObject*> specificObjects;
 
         std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Bowman);
         possibleCreatures.push_back(dngutil::TID::Skeleton);
 
         int difficulty = 1;
@@ -932,6 +933,7 @@ void Game::makeFloor2()
         possibleCreatures.push_back(dngutil::TID::Mage);
         possibleCreatures.push_back(dngutil::TID::SSKnight);
         possibleCreatures.push_back(dngutil::TID::LSKnight);
+        possibleCreatures.push_back(dngutil::TID::Bowman);
 
         int difficulty = 8;
         int backColor = dngutil::DARKGRAY;
@@ -1217,7 +1219,7 @@ void Game::makeFloor3()
         std::map<Coordinate, MapObject*> specificObjects;
 
         std::vector<dngutil::TID> possibleCreatures;
-        possibleCreatures.push_back(dngutil::TID::BloodSkeleton);
+        possibleCreatures.push_back(dngutil::TID::Bowman);
         possibleCreatures.push_back(dngutil::TID::Mage);
 
         int difficulty = 7;
@@ -1342,8 +1344,7 @@ void Game::makeFloor3()
         std::map<Coordinate, MapObject*> specificObjects;
 
         std::vector<dngutil::TID> possibleCreatures;
-        possibleCreatures.push_back(dngutil::TID::BloodSkeleton);
-        possibleCreatures.push_back(dngutil::TID::Mage);
+        possibleCreatures.push_back(dngutil::TID::Bowman);
 
         int difficulty = 7;
         int backColor = dngutil::DARKGRAY;
@@ -1759,6 +1760,10 @@ Creature* Game::generateCreature(int difficulty, dngutil::TID tid)
 
     case dngutil::TID::Mage:
         enemy = new Mage(this, Coordinate(-1, -1), health, attack, defense, luck, speed, level);
+        break;
+
+    case dngutil::TID::Bowman:
+        enemy = new Bowman(this, Coordinate(-1, -1), health, attack, defense, luck, speed, level);
         break;
 
     case dngutil::TID::DungeonBeast:

@@ -690,7 +690,7 @@ Damage Creature::getDamageDealt(Creature* defender)
     attack += (random(static_cast<int>(attack / 3.0), static_cast<int>(attack / 2.0)));
     defense += (random(static_cast<int>(defense / 3.0), static_cast<int>(defense / 2.0)));
 
-    bool miss = !primary->hit();
+    bool miss = !primary->hit() && canMiss;
 
     if (defender == getPGame()->getPlayer() && !miss)
     {
@@ -719,7 +719,7 @@ Damage Creature::getDamageDealt(Creature* defender)
 
     soundEffect(getPrimary().getHitsound(), false, false);
 
-    if (!miss && canMiss)
+    if (!miss)
     {
         canMiss = true;
         int critChance = dngutil::MAX_LCK;

@@ -61,7 +61,8 @@ namespace dngutil
         MegaBeastPhase1,
         MegaBeastPhase2,
         Flute,
-        HerosClaim
+        HerosClaim,
+        Bowman
     };
 
     enum class BTID
