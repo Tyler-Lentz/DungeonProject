@@ -1816,7 +1816,7 @@ void Game::titleScreen()
 
     vwin->txtmacs.drawDividers();
     vwin->txtmacs.clearDivider("bottom");
-    vwin->putcen(ColorString("Dungeon RPG - Dragon's Lair (BETA 6)", dngutil::RED), vwin->txtmacs.DIVIDER_LINES[0] + 1);
+    vwin->putcen(ColorString("Dungeon RPG - Dragon's Lair 1.0", dngutil::RED), vwin->txtmacs.DIVIDER_LINES[0] + 1);
     vwin->putcen(ColorString("Enter - Continue, C - credits, Esc - exit", dngutil::LIGHTGRAY), vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE);
 
     int r = random(3);
@@ -1969,7 +1969,9 @@ void Game::titleScreen()
             vcursor.y += 5;
             vwin->putcen(ColorString("(1) - Easy", dngutil::LIGHTMAGENTA), vcursor.y++);
             vcursor.y++;
-            vwin->putcen(ColorString("(2) - Classic", dngutil::GREEN), vcursor.y);
+            vwin->putcen(ColorString("(2) - Classic", dngutil::GREEN), vcursor.y++);
+            vcursor.y++;
+            vwin->putcen(ColorString("(3) - Hardcore", dngutil::LIGHTRED), vcursor.y);
 
             while (true)
             {
@@ -1987,6 +1989,17 @@ void Game::titleScreen()
                 else if (keypress('2'))
                 {
                     // difficulty is already set to what it needs to be
+                    break;
+                }
+                else if (keypress('3'))
+                {
+                    // needs to adjust the difficulty values
+                    difficulty.beastSteps = 150;
+                    difficulty.canFightMegabeast = true;
+                    difficulty.color = dngutil::LIGHTRED;
+                    difficulty.deflectModifier = 0.65;
+                    difficulty.damageMultiplier = .9;
+                    difficulty.healthIncreaseBoost = 0;
                     break;
                 }
             }

@@ -304,7 +304,7 @@ Skeleton::Skeleton(
         false,
         "A heavy wooden axe that was dropped from a Skeleton",
         "Attack4.wav",
-        dngutil::ClassType::KNIGHT
+        dngutil::ClassType::ADVENTURER
     ),
     new Secondary(
         pgame,
@@ -321,7 +321,7 @@ Skeleton::Skeleton(
     random(23, 29),
     "EnemyDeath.wav",
     dngutil::EvType::HEALTH,
-    dngutil::ClassType::KNIGHT
+    dngutil::ClassType::ADVENTURER
 )
 {
 
@@ -388,13 +388,13 @@ BloodSkeleton::BloodSkeleton(
         coord,
         "Stained Axe",
         false,
-        1.7,
-        4,
+        1.6,
+        5,
         70,
         false,
         "An axe from a blood skeleton",
         "Attack4.wav",
-        dngutil::ClassType::KNIGHT
+        dngutil::ClassType::ADVENTURER
     ),
     new Secondary(
         pgame,
@@ -411,7 +411,7 @@ BloodSkeleton::BloodSkeleton(
     random(31, 40),
     "EnemyDeath.wav",
     dngutil::EvType::HEALTH,
-    dngutil::ClassType::KNIGHT
+    dngutil::ClassType::ADVENTURER
 )
 {
 
