@@ -245,7 +245,7 @@ void Player::dungeonBeastSequence()
 
     stopMp3();
 
-    startMp3("Overworld.mp3");
+    startMp3(getPGame()->getOverworldMusic());
     soundEffect("ExitToMap.wav", false, true);
 }
 

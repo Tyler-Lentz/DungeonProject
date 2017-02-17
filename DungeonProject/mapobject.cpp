@@ -381,7 +381,7 @@ Collision AltarObject::mapAction(MapObject* collider, std::list<MapObject*>::ite
         t.clearMapArea(false, NULL);
         t.displayGame(getPGame());
 
-        startMp3("Overworld.mp3");
+        startMp3(getPGame()->getOverworldMusic());
 
     }
     return Collision(false, true);

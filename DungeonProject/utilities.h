@@ -72,6 +72,12 @@ namespace dngutil
         None
     };
 
+    enum class DungeonType
+    {
+        DRAGONS_LAIR,
+        GRYPHONS_TOWER
+    };
+
     enum class ClassType
     {
         ADVENTURER,
