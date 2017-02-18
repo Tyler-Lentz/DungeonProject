@@ -24,6 +24,7 @@
     <ClInclude Include="console.h" />
     <ClInclude Include="coordinate.h" />
     <ClInclude Include="creature.h" />
+    <ClInclude Include="dungeon.h" />
     <ClInclude Include="enemy.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="item.h" />
@@ -36,6 +37,7 @@
   <ItemGroup>
     <ClCompile Include="colorstring.cpp" />
     <ClCompile Include="creature.cpp" />
+    <ClCompile Include="dungeon.cpp" />
     <ClCompile Include="enemy.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="item.cpp" />

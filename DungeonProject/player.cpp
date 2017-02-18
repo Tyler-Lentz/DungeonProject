@@ -19,7 +19,7 @@ Player::Player(
 )
     :Creature(
         pgame,
-        ColorChar('A', pgame->getDifficulty().color),
+        ColorChar('A', dngutil::BLACK),
         coord,
         "Player",
         true,

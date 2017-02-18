@@ -44,6 +44,11 @@ void MapObject::setPosition(Coordinate coord)
     this->coord = coord;
 }
 
+void MapObject::changeMapChar(ColorChar Char)
+{
+    mapRep = Char;
+}
+
 const Coordinate& MapObject::getCoord() const
 {
     return coord;

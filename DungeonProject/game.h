@@ -3,6 +3,7 @@
 
 #include "coordinate.h"
 #include "utilities.h"
+#include "dungeon.h"
 
 #include <map>
 #include <list>
@@ -59,7 +60,7 @@ public:
 
     void cleanup(dngutil::ReturnVal returnval);
 
-    dngutil::DungeonType titleScreen();
+    void titleScreen();
 
     bool shouldSpawnBeast();
     void setBeastSpawn(bool spawn);
@@ -71,7 +72,10 @@ public:
 
     const Difficulty& getDifficulty();
 
-    std::string getOverworldMusic();
+    std::string getOverworldMusic() const;
+
+    void setExitToFalse();
+    bool shouldExit();
 private:
     VirtualWindow* vwin;
     Room* activeRoom;
@@ -81,36 +85,11 @@ private:
     bool exit;
     dngutil::ReturnVal returnVal;
 
-    // Holds all of the rooms.
-    std::array<std::map<Coordinate, Room*>, dngutil::NUMFLOORS> gamespace;
-
-    // List of items that need to be deleted.
-    std::list<MapObject*> deletionList;
-
-    // overworld music
-    std::string overworldMusic;
+    Dungeon* dungeon;
 
     int stepsToBeast;
     Difficulty difficulty;
 
-    std::mutex roomMut;
-    void makeRooms();
-    void makeFloor0();
-    void makeFloor1();
-    void makeFloor2();
-    void makeFloor3();
-    void makeFloor4();
-
-    void makeAltRooms();
-    void makeAltFloor0();
-    void makeAltFloor1();
-    void makeAltFloor2();
-    void makeAltFloor3();
-    void makeAltFloor4();
-    void makeAltFloor5();
-    void makeAltFloor6();
-
-    // is false after beast has been summoned
     bool spawnBeast;
 
     int score;

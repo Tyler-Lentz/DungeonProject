@@ -44,6 +44,8 @@ public:
 
     void setPosition(Coordinate coord);
 
+    void changeMapChar(ColorChar Char);
+
     virtual Collision mapAction(MapObject* collider, std::list<MapObject*>::iterator& it)
     {
         return Collision(false, true);
