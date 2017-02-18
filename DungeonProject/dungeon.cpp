@@ -2328,7 +2328,7 @@ void GryphonsTower::makeFloor2(std::mutex& roomMut)
 }
 void GryphonsTower::makeFloor3(std::mutex& roomMut)
 {
-
+    unsigned int tfloor = 3;
 }
 void GryphonsTower::makeFloor4(std::mutex& roomMut)
 {

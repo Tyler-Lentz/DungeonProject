@@ -262,6 +262,24 @@ Collision HoleObject::mapAction(MapObject* collider, std::list<MapObject*>::iter
 //---------------------------------------------------------------
 
 //---------------------------------------------------------------
+// Outside Object Functions
+OutsideObject::OutsideObject(Game* game, Coordinate coord) :
+    MapObject(
+        game,
+        ColorChar(' ', getColor(dngutil::BLUE, dngutil::BLUE)),
+        coord,
+        "OUTSIDE",
+        false,
+        true,
+        false,
+        dngutil::TID::OutsideObject,
+        dngutil::P_EMPTY,
+        dngutil::BTID::None,
+        true
+    ) {}
+//---------------------------------------------------------------
+
+//---------------------------------------------------------------
 // DoorObject Functions
 DoorObject::DoorObject(Game* game, Coordinate coord, ColorChar mapRep) :
     MapObject(

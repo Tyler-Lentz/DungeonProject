@@ -62,7 +62,8 @@ namespace dngutil
         MegaBeastPhase2,
         Flute,
         HerosClaim,
-        Bowman
+        Bowman,
+        OutsideObject
     };
 
     enum class BTID

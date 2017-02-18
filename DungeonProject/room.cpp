@@ -52,6 +52,10 @@ Room::Room(Game* t_game_pointer, RoomInfo roomToGenerate, Puzzle* puzzle)
                 gameMap[i][j].push_back(new WallObject(game_pointer, Coordinate(j, i)));
                 break;
 
+            case 'B':
+                gameMap[i][j].push_back(new OutsideObject(game_pointer, Coordinate(j, i)));
+                break;
+
             case 'A':
                 gameMap[i][j].push_back(game_pointer->getPlayer());
                 addCreature(game_pointer->getPlayer(), Coordinate(j, i));
