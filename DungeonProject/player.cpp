@@ -161,7 +161,7 @@ void Player::chooseClass()
                     100,
                     false,
                     "A Wizard's magical wand",
-                    "BowAttack1.wav",
+                    "MagicAttack1.wav",
                     dngutil::ClassType::WIZARD
                 )
             );
