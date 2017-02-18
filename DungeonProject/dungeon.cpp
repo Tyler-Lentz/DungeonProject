@@ -45,6 +45,7 @@ DragonsLair::DragonsLair(Game* game):
     story.push_back(std::make_pair(ColorString("With your trusty sword and shield you pass through the entrance.", dngutil::WHITE), 5));
     story.push_back(std::make_pair(ColorString("Avenge your village!", dngutil::YELLOW), 2));
     
+    gamespace.resize(5);
     makeRooms();
 }
 
@@ -1668,7 +1669,8 @@ GryphonsTower::GryphonsTower(Game* game):
     story.push_back(std::make_pair(ColorString("You have tracked the dragon back to its tower.", dngutil::WHITE), 0));
     story.push_back(std::make_pair(ColorString("With your trusty sword and shield you pass through the entrance.", dngutil::WHITE), 5));
     story.push_back(std::make_pair(ColorString("Save your family!", dngutil::YELLOW), 2));
-    
+
+    gamespace.resize(7);
     makeRooms();
 }
 

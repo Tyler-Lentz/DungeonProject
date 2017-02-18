@@ -13,7 +13,7 @@
 class Room;
 class MapObject;
 
-typedef std::array<std::map<Coordinate, Room*>, dngutil::NUMFLOORS> GAMESPACE;
+typedef std::vector<std::map<Coordinate, Room*>> GAMESPACE;
 
 class Dungeon
 {
