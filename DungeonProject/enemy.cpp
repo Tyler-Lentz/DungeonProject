@@ -394,7 +394,7 @@ BloodSkeleton::BloodSkeleton(
         false,
         "An axe from a blood skeleton",
         "Attack4.wav",
-        dngutil::ClassType::ADVENTURER
+        dngutil::ClassType::KNIGHT
     ),
     new Secondary(
         pgame,
@@ -411,7 +411,7 @@ BloodSkeleton::BloodSkeleton(
     random(31, 40),
     "EnemyDeath.wav",
     dngutil::EvType::HEALTH,
-    dngutil::ClassType::ADVENTURER
+    dngutil::ClassType::KNIGHT
 )
 {
 
