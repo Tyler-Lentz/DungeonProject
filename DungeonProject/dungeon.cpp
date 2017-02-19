@@ -2657,7 +2657,7 @@ void GryphonsTower::makeFloor4(std::mutex& roomMut)
     }
     {
         std::vector<std::string> roomTemplate;
-        roomTemplate.push_back("##bbbbb");
+        roomTemplate.push_back("# bbbbb");
         roomTemplate.push_back("# bbbbb");
         roomTemplate.push_back("  bbbbb");
         roomTemplate.push_back("  bbbbb");
