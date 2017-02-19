@@ -1895,6 +1895,23 @@ void GryphonsTower::makeFloor1(std::mutex& roomMut)
     pgame->setActiveFloor(tfloor);
     {
         std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("###");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+
+        int difficulty = 0;
+        int backColor = dngutil::LIGHTGRAY;
+        std::string name = "You shouldnt be here";
+        Coordinate mapCoord(0, 2);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        roomMut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr));
+        roomMut.unlock();
+    }
+    {
+        std::vector<std::string> roomTemplate;
         roomTemplate.push_back("# #");
         roomTemplate.push_back("# #");
         roomTemplate.push_back("# #");
@@ -2823,7 +2840,7 @@ void GryphonsTower::makeFloor4(std::mutex& roomMut)
         possibleCreatures.push_back(dngutil::TID::SSKnight);
         possibleCreatures.push_back(dngutil::TID::LSKnight);
 
-        int difficulty = 10;
+        int difficulty = 12;
         int backColor = dngutil::DARKGRAY;
         std::string name = "The Labyrinth : Narrow Halls";
         Coordinate mapCoord(-2, -1);
@@ -2869,7 +2886,7 @@ void GryphonsTower::makeFloor4(std::mutex& roomMut)
         possibleCreatures.push_back(dngutil::TID::Bowman);
         possibleCreatures.push_back(dngutil::TID::LSKnight);
 
-        int difficulty = 10;
+        int difficulty = 12;
         int backColor = dngutil::DARKGRAY;
         std::string name = "The Labyrinth : Puzzle?";
         Coordinate mapCoord(-2, 0);
@@ -2912,7 +2929,7 @@ void GryphonsTower::makeFloor4(std::mutex& roomMut)
         std::vector<dngutil::TID> possibleCreatures;
         possibleCreatures.push_back(dngutil::TID::FlameHorse);
 
-        int difficulty = 11;
+        int difficulty = 13;
         int backColor = dngutil::DARKGRAY;
         std::string name = "The Labyrinth : Flame Horse's Den";
         Coordinate mapCoord(-2, 1);
@@ -2961,7 +2978,7 @@ void GryphonsTower::makeFloor4(std::mutex& roomMut)
         possibleCreatures.push_back(dngutil::TID::LSKnight);
 
         int difficulty = 10;
-        int backColor = dngutil::BLACK;
+        int backColor = dngutil::DARKGRAY;
         std::string name = "The Labyrinth : Narrow Halls";
         Coordinate mapCoord(0, -1);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
