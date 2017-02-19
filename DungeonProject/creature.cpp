@@ -754,18 +754,12 @@ Damage Creature::getDamageDealt(Creature* defender)
         canMiss = false;
     }
 
+    damage.damage = static_cast<int>(attack - defense);
+
     if (deflect)
     {
-        damage.damageDeflected = static_cast<int>(attack - defense) - static_cast<int>(attack - (defense * 1.3));
-        if (damage.damageDeflected < 0)
-        {
-            damage.damageDeflected = 0;
-        }
-        damage.damage = static_cast<int>(attack - defense) - damage.damageDeflected;
-    }
-    else
-    {
-        damage.damage = static_cast<int>(attack - defense);
+        damage.damageDeflected = static_cast<int>(damage.damage * .33);
+        damage.damage -= damage.damageDeflected;
     }
 
     int min = random(2, 3);
