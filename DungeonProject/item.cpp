@@ -318,7 +318,7 @@ void Primary::action(Player* player, unsigned int inventoryIndex)
     }
     else
     {
-        output = "You cannot equip this primary.";
+        output = "Your class cannot equip this primary.";
     }
 
     getPGame()->getVWin()->putcen(ColorString(output, dngutil::LIGHTGRAY), getPGame()->getVWin()->txtmacs.BOTTOM_DIVIDER_TEXT_LINE);

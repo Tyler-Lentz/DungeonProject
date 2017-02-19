@@ -1973,7 +1973,7 @@ void GryphonsTower::makeFloor1(std::mutex& roomMut)
         roomTemplate.push_back("#               #");
         roomTemplate.push_back("#     e         #");
         roomTemplate.push_back("#               #");
-        roomTemplate.push_back("#      ###      #");
+        roomTemplate.push_back("#     o###      #");
         roomTemplate.push_back("#     #####     #");
         roomTemplate.push_back("|    ###v###    #");
         roomTemplate.push_back("#     #####     #");
@@ -2022,6 +2022,7 @@ void GryphonsTower::makeFloor1(std::mutex& roomMut)
         };
 
         std::map<Coordinate, MapObject*> specificObjects;
+        specificObjects.emplace(Coordinate(6, 4), new Potion(pgame, Coordinate(6, 4), dngutil::POTION_HEAL));
 
         std::vector<dngutil::TID> possibleCreatures;
         possibleCreatures.push_back(dngutil::TID::Skeleton);
