@@ -962,7 +962,7 @@ LSKnight::LSKnight(
         "Cursed Broadsword",
         false,
         2,
-        7,
+        6,
         85,
         false,
         "A broadsword from a cursed knight",
