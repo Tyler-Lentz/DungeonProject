@@ -174,6 +174,11 @@ Collision Enemy::mapAction(MapObject* collider, std::list<MapObject*>::iterator&
     return Collision(false, true);
 }
 
+ColorString Enemy::getBattleInfo() const
+{
+    return ColorString("You have entered a battle against a " + getName() + "!", dngutil::WHITE);
+}
+
 //----------------------------------------------------------------
 
 //----------------------------------------------------------------
@@ -2130,6 +2135,12 @@ bool Segboss::segmentedBattle(Player* player)
     TextMacros& t = v->txtmacs;
 
     Sleep(1000);
+
+    Coordinate vcursor(0, t.BOTTOM_DIVIDER_TEXT_LINE);
+    v->putcen(segments.front()->getBattleInfo(), vcursor.y++);
+    pressEnter(vcursor, v);
+    v->txtmacs.clearDivider("bottom");
+
     startMp3(segments.front()->getBattleMusic());
 
     for (auto& i : segments)

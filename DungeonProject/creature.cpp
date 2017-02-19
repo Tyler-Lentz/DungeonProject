@@ -353,6 +353,13 @@ bool Creature::battle(MapObject* t_enemy)
 
     startMp3(enemy->getBattleMusic());
 
+    enemy->printSelf();
+    Coordinate vcursor(0, vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE);
+    vwin->putcen(enemy->getBattleInfo(), vcursor.y++);
+    pressEnter(vcursor, vwin);
+
+    vwin->txtmacs.clearDivider("bottom");
+
     while (true)
     {
         enemy->printSelf();

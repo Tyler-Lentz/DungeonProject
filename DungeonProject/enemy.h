@@ -48,6 +48,8 @@ public:
     const unsigned int& getExpGiven() const;
 
     virtual void deathSequence();
+
+    virtual ColorString getBattleInfo() const;
 private:
     std::string battleMusic;
     std::string deathSound;
