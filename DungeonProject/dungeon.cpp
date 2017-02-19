@@ -1665,8 +1665,12 @@ GryphonsTower::GryphonsTower(Game* game):
 {
     overworldMusic = "GryphonsTower.mp3";
 
-    story.push_back(std::make_pair(ColorString("Your village has been kidnapped by a gryphon.", dngutil::WHITE), 2));
-    story.push_back(std::make_pair(ColorString("You have tracked the dragon back to its tower.", dngutil::WHITE), 0));
+    story.push_back(std::make_pair(ColorString("Your family has been kidnapped by a gryphon.", dngutil::WHITE), 2));
+
+    story.push_back(std::make_pair(ColorString("This gryphon is feared by your town,", dngutil::WHITE), 0));
+    story.push_back(std::make_pair(ColorString("once someone is taken they are never to be seen again...", dngutil::WHITE), 2));
+
+    story.push_back(std::make_pair(ColorString("However, you have followed the gryphon back to its tower.", dngutil::WHITE), 0));
     story.push_back(std::make_pair(ColorString("With your trusty sword and shield you pass through the entrance.", dngutil::WHITE), 5));
     story.push_back(std::make_pair(ColorString("Save your family!", dngutil::YELLOW), 2));
 
