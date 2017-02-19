@@ -50,7 +50,7 @@ Game::Game(VirtualWindow* vwin)
     activeRoom = nullptr;
     floor = 0;
 
-    spawnBeast = false;
+    spawnBeast = true;
     score = 0;
 
     titleScreen();

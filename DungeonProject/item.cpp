@@ -212,7 +212,7 @@ void HerosClaim::action(Player* player, unsigned int inventoryIndex)
     bool startReady;
     dngutil::ClassType classType;
 
-    switch (getPGame()->getPlayer()->getPrimary().getClass())
+    switch (getPGame()->getPlayer()->getClass())
     {
     case dngutil::ClassType::KNIGHT:
     colorchar = ColorChar('T', dngutil::WHITE);

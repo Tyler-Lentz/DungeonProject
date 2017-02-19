@@ -3192,7 +3192,6 @@ void GryphonsTower::makeFloor6(std::mutex& roomMut)
         gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr));
         roomMut.unlock();
     }
-
     {
         std::vector<std::string> roomTemplate;
         roomTemplate.push_back("bb  bbbbbbbbbb");
