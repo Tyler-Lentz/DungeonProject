@@ -9,7 +9,7 @@
 int main()
 {
     std::unique_ptr<VirtualWindow> vwin(new VirtualWindow(dngutil::CONSOLEX, dngutil::CONSOLEY));
-    vwin->getConsole().setTitle("Dungeon RPG - Dragon's Lair");
+    vwin->getConsole().setTitle("Dungeon RPG");
     bool exit = false;
     std::thread framerate([&vwin, &exit]()
     {
