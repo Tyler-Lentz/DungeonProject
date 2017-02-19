@@ -331,6 +331,18 @@ bool Creature::battle(MapObject* t_enemy)
         enemy->levelUpStats();
     }
 
+    vwin->txtmacs.clearMapArea(true, 20);
+    vwin->txtmacs.clearDivider("bottom");
+
+    startMp3(enemy->getBattleMusic());
+
+    enemy->printSelf();
+    Coordinate vcursor(0, vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE);
+    vwin->putcen(enemy->getBattleInfo(), vcursor.y++);
+    pressEnter(vcursor, vwin);
+
+    vwin->txtmacs.clearDivider("bottom");
+
     int enemyWeaponSpeed = enemy->getPrimary().getAttSpeed();
     int enemyTimer = 0;
 
@@ -347,18 +359,6 @@ bool Creature::battle(MapObject* t_enemy)
     }
 
     int prevTime = (int)time(NULL);
-
-    vwin->txtmacs.clearMapArea(true, 20);
-    vwin->txtmacs.clearDivider("bottom");
-
-    startMp3(enemy->getBattleMusic());
-
-    enemy->printSelf();
-    Coordinate vcursor(0, vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE);
-    vwin->putcen(enemy->getBattleInfo(), vcursor.y++);
-    pressEnter(vcursor, vwin);
-
-    vwin->txtmacs.clearDivider("bottom");
 
     while (true)
     {
