@@ -255,7 +255,22 @@ public:
     void printSelf() override;
 };
 
+class FlameHorse : public BEnemy
+{
+public:
+    FlameHorse(
+        Game* pgame,
+        Coordinate coord,
+        int hp,
+        unsigned int att,
+        unsigned int def,
+        unsigned int lck,
+        unsigned int spd,
+        unsigned int lvl
+    );
 
+    void printSelf() override;
+};
 
 class SegEnemy : public BEnemy
 {

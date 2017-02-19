@@ -63,7 +63,11 @@ namespace dngutil
         Flute,
         HerosClaim,
         Bowman,
-        OutsideObject
+        OutsideObject,
+        FlameHorse,
+        GryphonPhase1,
+        GryphonPhase2,
+        GryphonPhase3
     };
 
     enum class BTID

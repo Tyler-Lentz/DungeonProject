@@ -52,7 +52,7 @@ Room::Room(Game* t_game_pointer, RoomInfo roomToGenerate, Puzzle* puzzle)
                 gameMap[i][j].push_back(new WallObject(game_pointer, Coordinate(j, i)));
                 break;
 
-            case 'B':
+            case 'b':
                 gameMap[i][j].push_back(new OutsideObject(game_pointer, Coordinate(j, i)));
                 break;
 

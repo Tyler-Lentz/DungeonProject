@@ -2329,10 +2329,696 @@ void GryphonsTower::makeFloor2(std::mutex& roomMut)
 void GryphonsTower::makeFloor3(std::mutex& roomMut)
 {
     unsigned int tfloor = 3;
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("#  #");
+        roomTemplate.push_back("#  #");
+        roomTemplate.push_back("#  #");
+        roomTemplate.push_back("#  #");
+        roomTemplate.push_back("#  #");
+        roomTemplate.push_back("#  #");
+        roomTemplate.push_back("# ##");
+        roomTemplate.push_back("#@##");
+        roomTemplate.push_back("# ##");
+        roomTemplate.push_back("# ##");
+        roomTemplate.push_back("# ##");
+        roomTemplate.push_back("# ##");
+        roomTemplate.push_back("#v##");
+        roomTemplate.push_back("####");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+
+        int difficulty = 0;
+        int backColor = dngutil::DARKGRAY;
+        std::string name = "Fate";
+        Coordinate mapCoord(-1, 0);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        roomMut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr));
+        roomMut.unlock();
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("####");
+        roomTemplate.push_back("#   ");
+        roomTemplate.push_back("#   ");
+        roomTemplate.push_back("#  #");
+        roomTemplate.push_back("#  #");
+        roomTemplate.push_back("#ee#");
+        roomTemplate.push_back("#  #");
+        roomTemplate.push_back("#  #");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::SSKnight);
+        possibleCreatures.push_back(dngutil::TID::LSKnight);
+
+        int difficulty = 7;
+        int backColor = dngutil::LIGHTGRAY;
+        std::string name = "Turn";
+        Coordinate mapCoord(-1, -1);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        roomMut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr));
+        roomMut.unlock();
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("###################");
+        roomTemplate.push_back("      o ###     ###");
+        roomTemplate.push_back("        ###    e ##");
+        roomTemplate.push_back("#   e   ### ###   #");
+        roomTemplate.push_back("#       ### e #   #");
+        roomTemplate.push_back("##      ###   ###  ");
+        roomTemplate.push_back("###   e ###        ");
+        roomTemplate.push_back("######  ###  ######");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+        specificObjects.emplace(Coordinate(6, 1), new Flute(pgame, Coordinate(6, 1)));
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Mage);
+        possibleCreatures.push_back(dngutil::TID::LSKnight);
+
+        int difficulty = 7;
+        int backColor = dngutil::LIGHTGRAY;
+        std::string name = "Blocked";
+        Coordinate mapCoord(0, -1);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        roomMut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr));
+        roomMut.unlock();
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("#bbbbb#");
+        roomTemplate.push_back("#bbbbb#");
+        roomTemplate.push_back("#bbbbb#");
+        roomTemplate.push_back("#bbbbb#");
+        roomTemplate.push_back("#bbbbb#");
+        roomTemplate.push_back("       ");
+        roomTemplate.push_back("       ");
+        roomTemplate.push_back("# bbbb#");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+
+        int difficulty = 0;
+        int backColor = dngutil::LIGHTGRAY;
+        std::string name = "Outside Bridge";
+        Coordinate mapCoord(1, -1);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        roomMut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr));
+        roomMut.unlock();
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("# b");
+        roomTemplate.push_back("# b");
+        roomTemplate.push_back("# b");
+        roomTemplate.push_back("# b");
+        roomTemplate.push_back("# b");
+        roomTemplate.push_back("# b");
+        roomTemplate.push_back("#eb");
+        roomTemplate.push_back("# b");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Mage);
+
+        int difficulty = 8;
+        int backColor = dngutil::LIGHTGRAY;
+        std::string name = "Outside Bridge";
+        Coordinate mapCoord(1, 0);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        roomMut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr));
+        roomMut.unlock();
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("# b");
+        roomTemplate.push_back("  b");
+        roomTemplate.push_back("  b");
+        roomTemplate.push_back("bbb");
+        roomTemplate.push_back("bbb");
+        roomTemplate.push_back("bbb");
+        roomTemplate.push_back("bbb");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+
+        int difficulty = 0;
+        int backColor = dngutil::LIGHTGRAY;
+        std::string name = "Outside Edge";
+        Coordinate mapCoord(1, 1);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        roomMut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr));
+        roomMut.unlock();
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("###");
+        roomTemplate.push_back("#^#");
+        roomTemplate.push_back("# #");
+        roomTemplate.push_back("# #");
+        roomTemplate.push_back("#-#");
+        roomTemplate.push_back("  #");
+        roomTemplate.push_back("  #");
+        roomTemplate.push_back("###");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+
+        int difficulty = 0;
+        int backColor = dngutil::LIGHTGRAY;
+        std::string name = "Stairwell";
+        Coordinate mapCoord(2, -1);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        roomMut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr));
+        roomMut.unlock();
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("######  ###  ######");
+        roomTemplate.push_back("#        #        #");
+        roomTemplate.push_back("#        # ###### #");
+        roomTemplate.push_back("#   e    | #  e   #");
+        roomTemplate.push_back("#        # #      #");
+        roomTemplate.push_back("#        #        #");
+        roomTemplate.push_back("## ################");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::BloodSkeleton);
+
+        int difficulty = 7;
+        int backColor = dngutil::LIGHTGRAY;
+        std::string name = "Attatched Arooms";
+        Coordinate mapCoord(0, 0);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        roomMut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr));
+        roomMut.unlock();
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("## ################");
+        roomTemplate.push_back("#+      ##o    e   ");
+        roomTemplate.push_back("#  o#   ##         ");
+        roomTemplate.push_back("#  ###  ##bbbbbbbbb");
+        roomTemplate.push_back("#   #o  ##bbbbbbbbb");
+        roomTemplate.push_back("#e      ##bbbbbbbbb");
+        roomTemplate.push_back("## #######bbbbbbbbb");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+        specificObjects.emplace(Coordinate(3, 2), new Potion(pgame, Coordinate(3, 2), dngutil::POTION_HEAL));
+        specificObjects.emplace(Coordinate(5, 4), new Potion(pgame, Coordinate(5, 4), dngutil::POTION_HEAL));
+        specificObjects.emplace(Coordinate(10, 1), new Key(pgame, Coordinate(10, 1)));
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::LSKnight);
+        possibleCreatures.push_back(dngutil::TID::SSKnight);
+
+        int difficulty = 7;
+        int backColor = dngutil::LIGHTGRAY;
+        std::string name = "Double";
+        Coordinate mapCoord(0, 1);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        roomMut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr));
+        roomMut.unlock();
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("bb   o bb");
+        roomTemplate.push_back("bbbbbbbbb");
+        roomTemplate.push_back("bbbbbbbbb");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+        specificObjects.emplace(Coordinate(5, 0), new Key(pgame, Coordinate(5, 0)));
+
+        std::vector<dngutil::TID> possibleCreatures;
+
+        int difficulty = 7;
+        int backColor = dngutil::LIGHTGRAY;
+        std::string name = "Balcony";
+        Coordinate mapCoord(0, 2);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        roomMut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr));
+        roomMut.unlock();
+    }
 }
 void GryphonsTower::makeFloor4(std::mutex& roomMut)
 {
+    unsigned int tfloor = 4;
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("###");
+        roomTemplate.push_back("#v#");
+        roomTemplate.push_back("# #");
+        roomTemplate.push_back("# #");
+        roomTemplate.push_back("# #");
+        roomTemplate.push_back("# #");
+        roomTemplate.push_back("  #");
+        roomTemplate.push_back("###");
 
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+
+        int difficulty = 0;
+        int backColor = dngutil::LIGHTGRAY;
+        std::string name = "Stairwell";
+        Coordinate mapCoord(2, -1);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        roomMut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr));
+        roomMut.unlock();
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("#######");
+        roomTemplate.push_back("#     #");
+        roomTemplate.push_back("# bbbe#");
+        roomTemplate.push_back("# bbb #");
+        roomTemplate.push_back("#ebbb #");
+        roomTemplate.push_back("# bbb #");
+        roomTemplate.push_back("# bbb  ");
+        roomTemplate.push_back("# bbbb#");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Bowman);
+
+        int difficulty = 10;
+        int backColor = dngutil::LIGHTGRAY;
+        std::string name = "On the Edge";
+        Coordinate mapCoord(1, -1);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        roomMut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr));
+        roomMut.unlock();
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("##bbbbb");
+        roomTemplate.push_back("# bbbbb");
+        roomTemplate.push_back("  bbbbb");
+        roomTemplate.push_back("  bbbbb");
+        roomTemplate.push_back("# bbbbb");
+        roomTemplate.push_back("# bbbbb");
+        roomTemplate.push_back("# bbbbb");
+        roomTemplate.push_back("# bbbbb");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+
+        int difficulty = 0;
+        int backColor = dngutil::LIGHTGRAY;
+        std::string name = "On the Edge";
+        Coordinate mapCoord(1, 0);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        roomMut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr));
+        roomMut.unlock();
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("# bbbbb");
+        roomTemplate.push_back("# bbbbb");
+        roomTemplate.push_back("#ebbbbb");
+        roomTemplate.push_back("# bbbbb");
+        roomTemplate.push_back("# bbbbb");
+        roomTemplate.push_back("#bbbbbb");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Skeleton);
+
+        int difficulty = 10;
+        int backColor = dngutil::LIGHTGRAY;
+        std::string name = "On the Edge";
+        Coordinate mapCoord(1, 1);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        roomMut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr));
+        roomMut.unlock();
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("##########");
+        roomTemplate.push_back("#e       #");
+        roomTemplate.push_back("# #####e  ");
+        roomTemplate.push_back("# #o  #   ");
+        roomTemplate.push_back("  # o #  #");
+        roomTemplate.push_back("# #####  #");
+        roomTemplate.push_back("#   e   e#");
+        roomTemplate.push_back("##########");
+
+        // Will be solved when all of the enemies have been killed
+        auto puzzleSolved = [](const std::list<Creature*>& creatureList, const GAMEMAP& gameMap) -> bool
+        {
+            for (auto it = creatureList.begin(); it != creatureList.end(); it++)
+            {
+                if ((*it)->getTypeId() != dngutil::TID::Player)
+                {
+                    return false;
+                }
+            }
+            return true;
+        };
+
+        auto puzzleAction = [this](std::list<Creature*> creatureList, GAMEMAP& gameMap) -> void
+        {
+            WallObject* wall = dynamic_cast<WallObject*>(gameMap[4][6].back());
+
+            gameMap[4][6].remove(wall);
+            wall->removeFromMap(true);
+        };
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        specificObjects.emplace(Coordinate(3, 3), new MagicalPotion(pgame, Coordinate(3, 3)));
+        specificObjects.emplace(Coordinate(4, 4), new Key(pgame, Coordinate(4, 4)));
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::LSKnight);
+        possibleCreatures.push_back(dngutil::TID::Mage);
+        possibleCreatures.push_back(dngutil::TID::BloodSkeleton);
+
+        int difficulty = 10;
+        int backColor = dngutil::LIGHTGRAY;
+        std::string name = "Entrance to the Labyrinth";
+        Coordinate mapCoord(0, 0);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        roomMut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction)));
+        roomMut.unlock();
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("#########");
+        roomTemplate.push_back("#    #e #");
+        roomTemplate.push_back("## ###  #");
+        roomTemplate.push_back("#    #  #");
+        roomTemplate.push_back("| #e #   ");
+        roomTemplate.push_back("# # ### #");
+        roomTemplate.push_back("# #     #");
+        roomTemplate.push_back("# ########");
+
+        // Will be solved when all of the enemies have been killed
+        auto puzzleSolved = [](const std::list<Creature*>& creatureList, const GAMEMAP& gameMap) -> bool
+        {
+            for (auto it = gameMap[1][1].begin(); it != gameMap[1][1].end(); it++)
+            {
+                if ((*it)->getTypeId() == dngutil::TID::Player)
+                {
+                    return true;
+                }
+            }
+            return false;
+        };
+
+        auto puzzleAction = [this](std::list<Creature*> creatureList, GAMEMAP& gameMap) -> void
+        {
+            WallObject* wall = dynamic_cast<WallObject*>(gameMap[0][4].back());
+
+            gameMap[0][4].remove(wall);
+            wall->removeFromMap(true);
+        };
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Mage);
+        possibleCreatures.push_back(dngutil::TID::Bowman);
+
+        int difficulty = 10;
+        int backColor = dngutil::LIGHTGRAY;
+        std::string name = "The Labyrinth : Hidden Switch";
+        Coordinate mapCoord(-1, 0);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        roomMut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction)));
+        roomMut.unlock();
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("#########");
+        roomTemplate.push_back("#      o#");
+        roomTemplate.push_back("# #######");
+        roomTemplate.push_back("# #     #");
+        roomTemplate.push_back("| # e e #");
+        roomTemplate.push_back("# #     #");
+        roomTemplate.push_back("#        ");
+        roomTemplate.push_back("#### ####");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+        specificObjects.emplace(Coordinate(7, 1), new MagicalPotion(pgame, Coordinate(7, 1)));
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::SSKnight);
+        possibleCreatures.push_back(dngutil::TID::LSKnight);
+
+        int difficulty = 10;
+        int backColor = dngutil::BLACK;
+        std::string name = "The Labyrinth : Dark Room";
+        Coordinate mapCoord(-1, -1);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        roomMut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr));
+        roomMut.unlock();
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########");
+        roomTemplate.push_back("#    #o#");
+        roomTemplate.push_back("# ##   #");
+        roomTemplate.push_back("#e#### #");
+        roomTemplate.push_back("# ####  ");
+        roomTemplate.push_back("#    ###");
+        roomTemplate.push_back("# ## ###");
+        roomTemplate.push_back("# ## ###");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+        specificObjects.emplace(Coordinate(6, 1), new Potion(pgame, Coordinate(6, 1), dngutil::POTION_HEAL + 20));
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::SSKnight);
+        possibleCreatures.push_back(dngutil::TID::LSKnight);
+
+        int difficulty = 10;
+        int backColor = dngutil::DARKGRAY;
+        std::string name = "The Labyrinth : Narrow Halls";
+        Coordinate mapCoord(-2, -1);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        roomMut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr));
+        roomMut.unlock();
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("# ## ###");
+        roomTemplate.push_back("# ## # #");
+        roomTemplate.push_back("# ##e#e#");
+        roomTemplate.push_back("# ## # #");
+        roomTemplate.push_back("# ## #  ");
+        roomTemplate.push_back("#    # #");
+        roomTemplate.push_back("#    #e#");
+        roomTemplate.push_back("########");
+
+        auto puzzleSolved = [](const std::list<Creature*>& creatureList, const GAMEMAP& gameMap) -> bool
+        {
+            for (auto it = creatureList.begin(); it != creatureList.end(); it++)
+            {
+                if ((*it)->getTypeId() != dngutil::TID::Player)
+                {
+                    return false;
+                }
+            }
+            return true;
+        };
+
+        auto puzzleAction = [this](std::list<Creature*> creatureList, GAMEMAP& gameMap) -> void
+        {
+            WallObject* wall = dynamic_cast<WallObject*>(gameMap[7][1].back());
+
+            gameMap[7][1].remove(wall);
+            wall->removeFromMap(true);
+        };
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Bowman);
+        possibleCreatures.push_back(dngutil::TID::LSKnight);
+
+        int difficulty = 10;
+        int backColor = dngutil::DARKGRAY;
+        std::string name = "The Labyrinth : Puzzle?";
+        Coordinate mapCoord(-2, 0);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        roomMut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction)));
+        roomMut.unlock();
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("# ######");
+        roomTemplate.push_back("#      #");
+        roomTemplate.push_back("#      #");
+        roomTemplate.push_back("#   e  #");
+        roomTemplate.push_back("#      #");
+        roomTemplate.push_back("########");
+
+        auto puzzleSolved = [](const std::list<Creature*>& creatureList, const GAMEMAP& gameMap) -> bool
+        {
+            for (auto it = creatureList.begin(); it != creatureList.end(); it++)
+            {
+                if ((*it)->getTypeId() != dngutil::TID::Player)
+                {
+                    return false;
+                }
+            }
+            return true;
+        };
+
+        auto puzzleAction = [this](std::list<Creature*> creatureList, GAMEMAP& gameMap) -> void
+        {
+            WallObject* wall = dynamic_cast<WallObject*>(gameMap[5][1].back());
+
+            gameMap[5][1].remove(wall);
+            wall->removeFromMap(true);
+        };
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::FlameHorse);
+
+        int difficulty = 11;
+        int backColor = dngutil::DARKGRAY;
+        std::string name = "The Labyrinth : Flame Horse's Den";
+        Coordinate mapCoord(-2, 1);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        roomMut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction)));
+        roomMut.unlock();
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("# ######");
+        roomTemplate.push_back("#     ^#");
+        roomTemplate.push_back("########");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+
+        int difficulty = 11;
+        int backColor = dngutil::DARKGRAY;
+        std::string name = "Labyrinth Stairwell";
+        Coordinate mapCoord(-2, 2);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        roomMut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr));
+        roomMut.unlock();
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("##########");
+        roomTemplate.push_back("# e ######");
+        roomTemplate.push_back("# #      #");
+        roomTemplate.push_back("# ##e### #");
+        roomTemplate.push_back("#o#o #   #");
+        roomTemplate.push_back("###### ###");
+        roomTemplate.push_back("  e      #");
+        roomTemplate.push_back("##########");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        specificObjects.emplace(Coordinate(1, 4), new Key(pgame, Coordinate(1, 4)));
+        specificObjects.emplace(Coordinate(3, 4), new Potion(pgame, Coordinate(3, 4), dngutil::POTION_HEAL + 10));
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::SSKnight);
+        possibleCreatures.push_back(dngutil::TID::LSKnight);
+
+        int difficulty = 10;
+        int backColor = dngutil::BLACK;
+        std::string name = "The Labyrinth : Narrow Halls";
+        Coordinate mapCoord(0, -1);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        roomMut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr));
+        roomMut.unlock();
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("# #######");
+        roomTemplate.push_back("#      ##");
+        roomTemplate.push_back("#      e ");
+        roomTemplate.push_back("#      e ");
+        roomTemplate.push_back("#      ##");
+        roomTemplate.push_back("#   +   #");
+        roomTemplate.push_back("#       #");
+        roomTemplate.push_back("#bbbbbbb#");
+        roomTemplate.push_back("#bbbbbbb#");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Mage);
+
+        int difficulty = 10;
+        int backColor = dngutil::LIGHTGRAY;
+        std::string name = "The Labyrinth : Balcony";
+        Coordinate mapCoord(-1, 1);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        roomMut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr));
+        roomMut.unlock();
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("##########");
+        roomTemplate.push_back("####     #");
+        roomTemplate.push_back("         #");
+        roomTemplate.push_back("     o   #");
+        roomTemplate.push_back("####     #");
+        roomTemplate.push_back("##########");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+        specificObjects.emplace(Coordinate(5, 3), new HerosClaim(pgame, Coordinate(5, 3)));
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Mage);
+
+        int difficulty = 10;
+        int backColor = dngutil::LIGHTGRAY;
+        std::string name = "The Labyrinth : Room of the Hero";
+        Coordinate mapCoord(0, 1);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        roomMut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr));
+        roomMut.unlock();
+    }
 }
 void GryphonsTower::makeFloor5(std::mutex& roomMut)
 {

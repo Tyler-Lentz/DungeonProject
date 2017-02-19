@@ -556,6 +556,104 @@ void SkeletonKing::printSelf()
 //----------------------------------------------------------------
 
 //----------------------------------------------------------------
+// Flame Horse Functions
+
+FlameHorse::FlameHorse(
+    Game* pgame,
+    Coordinate coord,
+    int hp,
+    unsigned int att,
+    unsigned int def,
+    unsigned int lck,
+    unsigned int spd,
+    unsigned int lvl
+) : BEnemy(
+    pgame,
+    ColorChar('M', dngutil::LIGHTRED),
+    coord,
+    "Flame Horse",
+    false,
+    dngutil::TID::FlameHorse,
+    hp,
+    att,
+    def,
+    lck,
+    spd,
+    lvl,
+    new Primary(
+        pgame,
+        ColorChar('|', dngutil::DARKGRAY),
+        coord,
+        "Flame Charge",
+        false,
+        2,
+        5,
+        95,
+        false,
+        "You cant get this so this doesnt matter",
+        "Attack4.wav",
+        dngutil::ClassType::KNIGHT
+    ),
+    new Secondary(
+        pgame,
+        ColorChar('*', dngutil::LIGHTRED),
+        coord,
+        "Flame Shield",
+        false,
+        dngutil::TID::Secondary,
+        0,
+        1.15,
+        "You cant get this so this doesnt matter"
+    ),
+    "SkeletonKingTheme.mp3",
+    80,
+    "Screech.wav",
+    dngutil::EvType::DEFENSE,
+    dngutil::ClassType::KNIGHT
+) {}
+
+void FlameHorse::printSelf()
+{
+    Coordinate vcursor(0, getPGame()->getVWin()->txtmacs.DIVIDER_LINES[1] + 1);
+    VirtualWindow* t = getPGame()->getVWin();
+    int color = dngutil::LIGHTRED;
+    t->put(ColorString("                      . . . .\n", color), vcursor); vcursor.y++;
+    t->put(ColorString("                      ,`,`,`,`,\n", color), vcursor); vcursor.y++;
+    t->put(ColorString(". . . .               `\\`\\`\\`\\;\n", color), vcursor); vcursor.y++;
+    t->put(ColorString("`\\`\\`\\`\\`,            ~|;!;!;\\!\n", color), vcursor); vcursor.y++;
+    t->put(ColorString(" ~\\;\\;\\;\\|\\          (--,!!!~`!       .\n", color), vcursor); vcursor.y++;
+    t->put(ColorString("(--,\\\\\\===~\\         (--,|||~`!     ./\n", color), vcursor); vcursor.y++;
+    t->put(ColorString(" (--,\\\\\\===~\\         `,-,~,=,:. _,//\n", color), vcursor); vcursor.y++;
+    t->put(ColorString("  (--,\\\\\\==~`\\        ~-=~-.---|\\;/J,\n", color), vcursor); vcursor.y++;
+    const int TOP_CURSOR_Y = vcursor.y;
+    t->put(ColorString("   (--,\\\\\\((```==.    ~'`~/       a |\n", color), vcursor); vcursor.y++;
+    t->put(ColorString("     (-,.\\\\('('(`\\\\.  ~'=~|     \\_.  \\\n", color), vcursor); vcursor.y++;
+    t->put(ColorString("        (,--(,(,(,'\\\\. ~'=|       \\\\_;>\n", color), vcursor); vcursor.y++;
+    t->put(ColorString("          (,-( ,(,(,;\\\\ ~=/        \\\n", color), vcursor); vcursor.y++;
+    t->put(ColorString("          (,-/ (.(.(,;\\\\,/          )\n", color), vcursor); vcursor.y++;
+    t->put(ColorString("           (,--/,;,;,;,\\\\         ./------.\n", color), vcursor); vcursor.y++;
+    t->put(ColorString("             (==,-;-'`;'         /_,----`. \\\n", color), vcursor); vcursor.y++;
+    t->put(ColorString("     ,.--_,__.-'                    `--.  ` \\\n", color), vcursor); vcursor.y++;
+    t->put(ColorString("    (='~-_,--/        ,       ,!,___--. \\  \\_)\n", color), vcursor); vcursor.y++;
+    t->put(ColorString("   (-/~(     |         \\   ,_-         | ) /_|\n", color), vcursor); vcursor.y++;
+    t->put(ColorString("   (~/((\\    )\\._,      |-'         _,/ /\n", color), vcursor); vcursor.y++;
+    t->put(ColorString("    \\\\))))  /   ./~.    |           \\_\\;\n", color), vcursor); vcursor.y++;
+    t->put(ColorString(" ,__/////  /   /    )  /\n", color), vcursor); vcursor.y++;
+    t->put(ColorString("  '===~'   |  |    (, <.\n", color), vcursor); vcursor.y++;
+    t->put(ColorString("           / /       \\. \\\n", color), vcursor); vcursor.y++;
+    t->put(ColorString("         _/ /          \\_\\\n", color), vcursor); vcursor.y++;
+    t->put(ColorString("        /_!/            >_\\\n", color), vcursor); vcursor.y++;
+
+    t->put(ColorString("  _,_\n", color), vcursor); vcursor.y++;
+
+    const int LONGEST_LINE_LENGTH = 59;
+
+    printStats(LONGEST_LINE_LENGTH, TOP_CURSOR_Y);
+}
+
+//----------------------------------------------------------------
+
+//----------------------------------------------------------------
 // Both beasts Functions
 
 DungeonBeast::DungeonBeast(

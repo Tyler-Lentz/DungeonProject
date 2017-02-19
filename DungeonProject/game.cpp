@@ -201,6 +201,10 @@ Creature* Game::generateCreature(int difficulty, dngutil::TID tid)
     case dngutil::TID::MegaBeastPhase2:
         enemy = new MegaBeastPhase2(this, Coordinate(-1, -1), health, attack, defense, luck, speed, difficulty);
         break;
+
+    case dngutil::TID::FlameHorse:
+        enemy = new FlameHorse(this, Coordinate(-1, -1), health, attack, defense, luck, speed, difficulty);
+        break;
     }
 
     if (enemy == nullptr)
