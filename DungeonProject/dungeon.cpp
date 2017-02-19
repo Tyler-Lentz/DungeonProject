@@ -2685,10 +2685,24 @@ void GryphonsTower::makeFloor4(std::mutex& roomMut)
         roomTemplate.push_back("# bbbbb");
         roomTemplate.push_back("#ebbbbb");
         roomTemplate.push_back("# bbbbb");
-        roomTemplate.push_back("# bbbbb");
+        roomTemplate.push_back("#obbbbb");
         roomTemplate.push_back("#bbbbbb");
 
         std::map<Coordinate, MapObject*> specificObjects;
+        specificObjects.emplace(Coordinate(1, 4), new Primary(
+            pgame,
+            ColorChar('(', dngutil::BROWN),
+            Coordinate(1, 4),
+            "Crossbow",
+            false,
+            1.65,
+            5,
+            95,
+            true,
+            "A very accurate ranged weapon. Shoots with force.",
+            "BowAttack1.wav",
+            dngutil::ClassType::RANGER
+        ));
 
         std::vector<dngutil::TID> possibleCreatures;
         possibleCreatures.push_back(dngutil::TID::Skeleton);
