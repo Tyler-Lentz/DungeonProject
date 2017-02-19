@@ -1956,7 +1956,7 @@ GryphonPhase2::GryphonPhase2(
     dngutil::ClassType::KNIGHT
 )
 {
-    setMaxhp(dngutil::MAX_HP - 30);
+    setMaxhp(dngutil::MAX_HP);
     setHp(getMaxhp());
 
 }
