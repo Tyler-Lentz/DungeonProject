@@ -2031,7 +2031,7 @@ GryphonPhase3::GryphonPhase3(
         "Last Breath",
         false,
         2.5,
-        2,
+        3,
         100,
         false,
         "Last Breath.",
