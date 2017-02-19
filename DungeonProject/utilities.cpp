@@ -139,7 +139,7 @@ int getHealthbarSleepTime(int damageDealt)
     return (200 / damageDealt);
 }
 
-void credits(dngutil::CreditType c, Game* pgame)
+void credits(dngutil::CreditType c, Game* pgame, dngutil::DungeonType dungeon)
 {
     VirtualWindow* v = pgame->getVWin();
 
@@ -192,15 +192,32 @@ void credits(dngutil::CreditType c, Game* pgame)
         v->txtmacs.clearMapArea(false, NULL);
     }
 
-    v->putcen(ColorString("DUNGEON RPG - DRAGON'S LAIR", color), vcursor.y++);
-    if (c == dngutil::CreditType::SECRET_VICTORY)
+    if (dungeon == dngutil::DungeonType::DRAGONS_LAIR)
     {
-        v->putcen(ColorString("FULL ENDING", color), vcursor.y++);
+        v->putcen(ColorString("DUNGEON RPG - DRAGON'S LAIR", color), vcursor.y++);
+        if (c == dngutil::CreditType::SECRET_VICTORY)
+        {
+            v->putcen(ColorString("You avenge your village and", color), vcursor.y++);
+            v->putcen(ColorString("you have vanquished all evil from the dungeon!", color), vcursor.y++);
+        }
+        else if (c == dngutil::CreditType::VICTORY)
+        {
+            v->putcen(ColorString("You avenge your village but", color), vcursor.y++);
+            v->putcen(ColorString("a dark energy still resides in the dungeon...", color), vcursor.y++);
+        }
     }
-    else if (c == dngutil::CreditType::VICTORY)
+    else if (dungeon == dngutil::DungeonType::GRYPHONS_TOWER)
     {
-        v->putcen(ColorString("A dark energy still resides in the dungeon...", color), vcursor.y++);
+        v->putcen(ColorString("DUNGEON RPG - GRYPHON'S TOWER", color), vcursor.y++);
+        v->putcen(ColorString("You saved your family and", color), vcursor.y++);
+        v->putcen(ColorString("vanquished all evil from the dungeon!", color), vcursor.y++);
     }
+    else
+    {
+        v->putcen(ColorString("DUNGEON RPG", color), vcursor.y++);
+    }
+
+    
     vcursor.y += 4;
 
     v->putcen(ColorString("Programming: Tyler Lentz", color), vcursor.y++);

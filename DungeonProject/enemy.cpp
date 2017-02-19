@@ -930,7 +930,7 @@ void MegaBeastPhase2::printSelf()
 void MegaBeastPhase2::deathSequence()
 {
     getPGame()->adjustScore(dngutil::BASE_SCORE_BOSS_BOOST * 5);
-    credits(dngutil::CreditType::SECRET_VICTORY, getPGame());
+    credits(dngutil::CreditType::SECRET_VICTORY, getPGame(), dngutil::DungeonType::DRAGONS_LAIR);
 }
 
 //----------------------------------------------------------------
@@ -1787,7 +1787,7 @@ void DragonHead::deathSequence()
     getPGame()->adjustScore(dngutil::BASE_SCORE_BOSS_BOOST * 3);
     if (getPGame()->getPlayer()->getLvl() < dngutil::SECRET_BOSS_LEVEL || !getPGame()->getDifficulty().canFightMegabeast)
     {
-        credits(dngutil::CreditType::VICTORY, getPGame());
+        credits(dngutil::CreditType::VICTORY, getPGame(), dngutil::DungeonType::DRAGONS_LAIR);
     }
     else
     {
@@ -2098,7 +2098,7 @@ void GryphonPhase3::printSelf()
 void GryphonPhase3::deathSequence()
 {
     getPGame()->adjustScore(static_cast<int>(dngutil::BASE_SCORE_BOSS_BOOST * 3.5));
-    credits(dngutil::CreditType::VICTORY, getPGame());
+    credits(dngutil::CreditType::VICTORY, getPGame(), dngutil::DungeonType::GRYPHONS_TOWER);
 }
 
 //----------------------------------------------------------------

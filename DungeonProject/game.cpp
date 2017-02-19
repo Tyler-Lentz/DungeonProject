@@ -464,7 +464,7 @@ void Game::titleScreen()
         else if (keypress('C'))
         {
             vwin->txtmacs.clearDivider("bottom");
-            credits(dngutil::CreditType::TITLESCREEN, this);
+            credits(dngutil::CreditType::TITLESCREEN, this, dngutil::DungeonType::NEITHER);
             break;
         }
     }

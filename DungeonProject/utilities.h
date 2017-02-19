@@ -80,7 +80,8 @@ namespace dngutil
     enum class DungeonType
     {
         DRAGONS_LAIR,
-        GRYPHONS_TOWER
+        GRYPHONS_TOWER,
+        NEITHER
     };
 
     enum class ClassType
@@ -196,5 +197,5 @@ void stopSound();
 
 int getHealthbarSleepTime(int damageDealt);
 
-void credits(dngutil::CreditType c, Game* pgame);
+void credits(dngutil::CreditType c, Game* pgame, dngutil::DungeonType dungeon);
 #endif
