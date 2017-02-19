@@ -253,7 +253,7 @@ public:
         unsigned int spd,
         unsigned int lvl
     );
-
+    ColorString getBattleInfo() const override;
     void printSelf() override;
 };
 
@@ -318,6 +318,7 @@ public:
         unsigned int lvl
     );
 
+    ColorString getBattleInfo() const override;
     void printSelf() override;
     void deathSequence() override;
 };
@@ -354,6 +355,8 @@ public:
         unsigned int spd,
         unsigned int lvl
     );
+
+    ColorString getBattleInfo() const override;
     void printSelf() override;
 
 };
@@ -407,6 +410,8 @@ public:
         unsigned int spd,
         unsigned int lvl
     );
+
+    ColorString getBattleInfo() const override;
     void printSelf() override;
 
 };

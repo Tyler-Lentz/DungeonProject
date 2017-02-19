@@ -332,6 +332,7 @@ Skeleton::Skeleton(
 
 }
 
+
 void Skeleton::printSelf()
 {
     Coordinate vcursor(0, getPGame()->getVWin()->txtmacs.DIVIDER_LINES[1] + 1);
@@ -723,6 +724,13 @@ DungeonBeast::DungeonBeast(
     setHp(getMaxhp());
 }
 
+
+
+ColorString DungeonBeast::getBattleInfo() const
+{
+    return ColorString("A chill runs down your spine...", dngutil::MAGENTA);
+}
+
 void DungeonBeast::printSelf()
 {
     Coordinate vcursor(0, getPGame()->getVWin()->txtmacs.DIVIDER_LINES[1] + 1);
@@ -811,6 +819,13 @@ MegaBeastPhase1::MegaBeastPhase1(
     setMaxhp(dngutil::MAX_HP);
     setHp(getMaxhp());
     increaseDef(static_cast<unsigned int>(getDef() * 0.4));
+}
+
+
+
+ColorString MegaBeastPhase1::getBattleInfo() const
+{
+    return ColorString("You get a feeling of impending doom...", dngutil::MAGENTA);
 }
 
 void MegaBeastPhase1::printSelf()
@@ -1550,6 +1565,13 @@ DragonTail::DragonTail(
     setHp(getMaxhp());
 }
 
+
+
+ColorString DragonTail::getBattleInfo() const
+{
+    return ColorString("A feeling of dread overcomes your body...", dngutil::MAGENTA);
+}
+
 void DragonTail::printSelf()
 {
     Coordinate vcursor(0, getPGame()->getVWin()->txtmacs.DIVIDER_LINES[1] + 1);
@@ -1866,6 +1888,13 @@ GryphonPhase1::GryphonPhase1(
 {
     setMaxhp(static_cast<unsigned int>(getMaxhp() * 1.25));
     setHp(getMaxhp());
+}
+
+
+
+ColorString GryphonPhase1::getBattleInfo() const
+{
+    return ColorString("The sun peeks over the horizon", dngutil::YELLOW);
 }
 
 void GryphonPhase1::printSelf()
