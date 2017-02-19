@@ -137,7 +137,7 @@ void Potion::action(Player* player, unsigned int inventoryIndex)
 // Flute Functions
 
 Flute::Flute(Game* pgame, Coordinate coord)
-    :RItem(pgame, ColorChar('|', dngutil::WHITE), coord, "Flute",
+    :RItem(pgame, ColorChar('!', dngutil::WHITE), coord, "Flute",
         true, false, false, dngutil::TID::Flute, false, "Damages everything in a room for 15 once per room.")
 {
 
