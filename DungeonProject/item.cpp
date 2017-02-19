@@ -172,6 +172,10 @@ void Flute::action(Player* player, unsigned int inventoryIndex)
         for (auto& i : getPGame()->getActiveRoom()->getCreatureList())
         {
             i->decreaseHealth(HEALTH_DECREASE);
+            if (i->isDead())
+            {
+                i->setHp(1);
+            }
         }
 
         output = "You damage everything in the room for " + std::to_string(HEALTH_DECREASE) + " hp.";
