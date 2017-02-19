@@ -610,7 +610,11 @@ FlameHorse::FlameHorse(
     "Screech.wav",
     dngutil::EvType::DEFENSE,
     dngutil::ClassType::KNIGHT
-) {}
+) 
+{
+    setMaxhp(getHp() * 2);
+    setHp(getMaxhp());
+}
 
 void FlameHorse::printSelf()
 {
