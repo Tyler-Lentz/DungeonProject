@@ -2525,7 +2525,7 @@ void GryphonsTower::makeFloor3(std::mutex& roomMut)
 
         int difficulty = 7;
         int backColor = dngutil::LIGHTGRAY;
-        std::string name = "Attatched Arooms";
+        std::string name = "Attatched rooms";
         Coordinate mapCoord(0, 0);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
         roomMut.lock();
