@@ -3223,6 +3223,55 @@ void GryphonsTower::makeFloor6(std::mutex& roomMut)
         roomTemplate.push_back("bbbbbbbbbbbbbb");
         roomTemplate.push_back("bbbbbbbbbbbbbb");
 
+        Coordinate gryphonCoord(8, 4);
+
+        Game* game = pgame;
+        auto puzzleSolved = [game](const std::list<Creature*>& creatureList, const GAMEMAP& gameMap) -> bool
+        {
+            if (game->getPlayer()->getLvl() >= dngutil::SECOND_SECRET_BOSS_LEVEL && game->shouldExit() && game->getPlayer()->getHp() > 0 && game->getDifficulty().canFightMegabeast)
+            {
+                return true;
+            }
+            return false;
+        };
+
+        auto puzzleAction = [game, gryphonCoord](std::list<Creature*> creatureList, GAMEMAP& gameMap) -> void
+        {
+
+            MapObject* drag = nullptr;
+            for (auto& i : gameMap[gryphonCoord.y][gryphonCoord.x])
+            {
+                if (i->getTypeId() == dngutil::TID::SegbossTrigger)
+                {
+                    drag = i;
+                }
+            }
+            if (drag == nullptr)
+            {
+                errorMessage("shit", __LINE__, __FILE__);
+            }
+
+            gameMap[gryphonCoord.y][gryphonCoord.x].remove(drag);
+            drag->removeFromMap(true);
+
+            std::vector<SegEnemy*> bossparts;
+            bossparts.push_back(dynamic_cast<SegEnemy*>(game->generateCreature(dngutil::SECOND_SECRET_BOSS_LEVEL, dngutil::TID::ReaperPhase1)));
+            bossparts.push_back(dynamic_cast<SegEnemy*>(game->generateCreature(dngutil::SECOND_SECRET_BOSS_LEVEL, dngutil::TID::ReaperPhase2)));
+            bossparts.push_back(dynamic_cast<SegEnemy*>(game->generateCreature(dngutil::SECOND_SECRET_BOSS_LEVEL, dngutil::TID::ReaperPhase3)));
+
+            gameMap[0][2].push_back(new SegbossTrigger(
+                game, Coordinate(2, 0),
+                new Segboss(bossparts, game),
+                ColorChar('A', dngutil::WHITE)
+            ));
+
+
+            game->getVWin()->txtmacs.displayGame(game);
+            game->getVWin()->txtmacs.drawDividers();
+
+            game->setExitToFalse();
+        };
+
         std::vector<SegEnemy*> bossparts;
         bossparts.push_back(dynamic_cast<SegEnemy*>(pgame->generateCreature(13, dngutil::TID::GryphonPhase1)));
         bossparts.push_back(dynamic_cast<SegEnemy*>(pgame->generateCreature(13, dngutil::TID::GryphonPhase2)));
@@ -3244,7 +3293,7 @@ void GryphonsTower::makeFloor6(std::mutex& roomMut)
         Coordinate mapCoord(-1, 1);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
         roomMut.lock();
-        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr));
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction)));
         roomMut.unlock();
     }
 }

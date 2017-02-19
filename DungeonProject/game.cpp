@@ -217,6 +217,18 @@ Creature* Game::generateCreature(int difficulty, dngutil::TID tid)
     case dngutil::TID::GryphonPhase3:
         enemy = new GryphonPhase3(this, Coordinate(-1, -1), health, attack, defense, luck, speed, difficulty);
         break;
+
+    case dngutil::TID::ReaperPhase1:
+        enemy = new ReaperPhase1(this, Coordinate(-1, -1), health, attack, defense, luck, speed, difficulty);
+        break;
+
+    case dngutil::TID::ReaperPhase2:
+        enemy = new ReaperPhase2(this, Coordinate(-1, -1), health, attack, defense, luck, speed, difficulty);
+        break;
+
+    case dngutil::TID::ReaperPhase3:
+        enemy = new ReaperPhase3(this, Coordinate(-1, -1), health, attack, defense, luck, speed, difficulty);
+        break;
     }
 
     if (enemy == nullptr)

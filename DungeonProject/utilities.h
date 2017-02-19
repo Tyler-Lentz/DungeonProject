@@ -67,7 +67,10 @@ namespace dngutil
         FlameHorse,
         GryphonPhase1,
         GryphonPhase2,
-        GryphonPhase3
+        GryphonPhase3,
+        ReaperPhase1,
+        ReaperPhase2,
+        ReaperPhase3
     };
 
     enum class BTID
@@ -167,6 +170,7 @@ namespace dngutil
     const int BASE_SCORE_BOSS_BOOST = 50;
 
     const int SECRET_BOSS_LEVEL = 14; // ;)
+    const int SECOND_SECRET_BOSS_LEVEL = 15;
 }
 
 void errorMessage(std::string error, int line, std::string file);

@@ -2135,11 +2135,328 @@ void GryphonPhase3::printSelf()
 
 void GryphonPhase3::deathSequence()
 {
-    getPGame()->adjustScore(static_cast<int>(dngutil::BASE_SCORE_BOSS_BOOST * 3.5));
-    credits(dngutil::CreditType::VICTORY, getPGame(), dngutil::DungeonType::GRYPHONS_TOWER);
+
+    getPGame()->adjustScore(dngutil::BASE_SCORE_BOSS_BOOST * 3);
+    if (getPGame()->getPlayer()->getLvl() < dngutil::SECOND_SECRET_BOSS_LEVEL || !getPGame()->getDifficulty().canFightMegabeast)
+    {
+        credits(dngutil::CreditType::VICTORY, getPGame(), dngutil::DungeonType::GRYPHONS_TOWER);
+    }
+    else
+    {
+        Sleep(5000);
+        getPGame()->cleanup(dngutil::ReturnVal::RESTART); // tells the puzzle the fight is over
+    }
 }
 
 //----------------------------------------------------------------
+
+//----------------------------------------------------------------
+// Reaper phases
+
+ReaperPhase1::ReaperPhase1(
+    Game* pgame,
+    Coordinate coord,
+    int hp,
+    unsigned int att,
+    unsigned int def,
+    unsigned int lck,
+    unsigned int spd,
+    unsigned int lvl
+) : SegEnemy(
+    pgame,
+    ColorChar('A', dngutil::WHITE),
+    coord,
+    "The Reaper",
+    false,
+    dngutil::TID::ReaperPhase1,
+    hp,
+    att,
+    def,
+    lck,
+    spd,
+    lvl,
+    new Primary(
+        pgame,
+        ColorChar('/', dngutil::WHITE),
+        coord,
+        "Sycthe",
+        false,
+        2,
+        5,
+        70,
+        false,
+        "A scythe from death",
+        "Attack4.wav",
+        dngutil::ClassType::KNIGHT
+    ),
+    new Secondary(
+        pgame,
+        ColorChar('?', dngutil::GREEN),
+        coord,
+        "Death Veil",
+        false,
+        dngutil::TID::Secondary,
+        0,
+        1.35,
+        "Reapers's armor."
+    ),
+    "hidden.mp3",
+    85,
+    "Laugh.wav",
+    dngutil::EvType::ATTACK,
+    dngutil::ClassType::ADVENTURER
+)
+{
+    setMaxhp(static_cast<unsigned int>(getMaxhp() * 1.25));
+    setHp(getMaxhp());
+}
+
+
+
+ColorString ReaperPhase1::getBattleInfo() const
+{
+    return ColorString("Your heart comes to a stop", dngutil::RED);
+}
+
+void ReaperPhase1::printSelf()
+{
+    Coordinate vcursor(0, getPGame()->getVWin()->txtmacs.DIVIDER_LINES[1] + 1);
+    VirtualWindow* t = getPGame()->getVWin();
+    int color = dngutil::WHITE;
+    t->put(ColorString(R"(                                         .""--..__)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                     _                     []       ``-.._)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                  .'` `'.                  ||__           `-._)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                 /    ,-.\                 ||_ ```---..__     `-.)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                /    /:::\\               /|//}          ``--._  `.)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                |    |:::||              |////}                `-. \)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                |    |:::||             //'///                    `.\)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                |    |:::||            //  ||'                      `|)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                /    |:::|/        _,-//\  ||)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(               /`    |:::|`-,__,-'`  |/  \ ||)", color), vcursor); vcursor.y++;
+    const int TOP_CURSOR_Y = vcursor.y;
+    t->put(ColorString(R"(             /`  |   |'' ||           \   |||)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(           /`    \   |   ||            |  /||)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(         |`       |  |   |)            \ | ||)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(        |          \ |   /      ,.__    \| ||)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(        /           `         /`    `\   | ||)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(       |                     /        \  / ||)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(       |                     |        | /  ||)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(       /         /           |        `(   ||)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(      /          .           /          )  ||)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(     |            \          |     ________||)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(    /             |          /     `-------.|)", color), vcursor); vcursor.y++;
+    const int LONGEST_LINE_LENGTH = 65;
+
+    printStats(LONGEST_LINE_LENGTH, TOP_CURSOR_Y);
+}
+
+
+
+
+
+
+
+
+
+ReaperPhase2::ReaperPhase2(
+    Game* pgame,
+    Coordinate coord,
+    int hp,
+    unsigned int att,
+    unsigned int def,
+    unsigned int lck,
+    unsigned int spd,
+    unsigned int lvl
+) : SegEnemy(
+    pgame,
+    ColorChar('A', dngutil::WHITE),
+    coord,
+    "The Reaper",
+    false,
+    dngutil::TID::ReaperPhase2,
+    hp,
+    att,
+    def,
+    lck,
+    spd,
+    lvl,
+    new Primary(
+        pgame,
+        ColorChar('?', dngutil::LIGHTRED),
+        coord,
+        "Sycthe",
+        false,
+        2,
+        4,
+        100,
+        false,
+        "Death's sycthe.",
+        "Attack4.wav",
+        dngutil::ClassType::KNIGHT
+    ),
+    new Secondary(
+        pgame,
+        ColorChar('?', dngutil::GREEN),
+        coord,
+        "Death Veil",
+        false,
+        dngutil::TID::Secondary,
+        0,
+        1.35,
+        "Reapers armor."
+    ),
+    "FinalBoss.mp3",
+    85,
+    "revival.wav",
+    dngutil::EvType::DEFENSE,
+    dngutil::ClassType::ADVENTURER
+)
+{
+    setMaxhp(dngutil::MAX_HP - 25);
+    setHp(getMaxhp());
+    setDef(static_cast<int>(getDef() * 1.3));
+    setAtt(static_cast<int>(getAtt() * 1.2));
+}
+
+void ReaperPhase2::printSelf()
+{
+    Coordinate vcursor(0, getPGame()->getVWin()->txtmacs.DIVIDER_LINES[1] + 1);
+    VirtualWindow* t = getPGame()->getVWin();
+    int color = dngutil::WHITE;
+    t->put(ColorString(R"(                                           .""--.._)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                                           []      `'--.._)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                                           ||__           `'-,)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                                         `)||_ ```'--..       \)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                     _                    /|//}        ``--._  |)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                  .'` `'.                /////}              `\/)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                 /  .""".\              //{///    )", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                /  /_  _`\\            // `||)", color), vcursor); vcursor.y++;
+    const int TOP_CURSOR_Y = vcursor.y;
+    t->put(ColorString(R"(                | |(_)(_)||          _//   ||)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                | |  /\  )|        _///\   ||)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                | |L====J |       / |/ |   ||)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(               /  /'-..-' /    .'`  \  |   ||)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(              /   |  :: | |_.-`      |  \  ||)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(             /|   `\-::.| |          \   | ||)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(           /` `|   /    | |          |   / ||)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(         |`    \   |    / /          \  |  ||)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(        |       `\_|    |/      ,.__. \ |  ||)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(        /                     /`    `\ ||  ||)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(       |           .         /        \||  ||)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(       |                     |         |/  ||)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(       /         /           |         (   ||)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(      /          .           /          )  ||)", color), vcursor); vcursor.y++;
+    const int LONGEST_LINE_LENGTH = 65;
+
+    printStats(LONGEST_LINE_LENGTH, TOP_CURSOR_Y);
+}
+
+
+
+
+
+
+
+ReaperPhase3::ReaperPhase3(
+    Game* pgame,
+    Coordinate coord,
+    int hp,
+    unsigned int att,
+    unsigned int def,
+    unsigned int lck,
+    unsigned int spd,
+    unsigned int lvl
+) : SegEnemy(
+    pgame,
+    ColorChar('?', dngutil::WHITE),
+    coord,
+    "The Reaper's True Form",
+    false,
+    dngutil::TID::ReaperPhase3,
+    hp,
+    att,
+    def,
+    lck,
+    spd,
+    lvl,
+    new Primary(
+        pgame,
+        ColorChar('?', dngutil::LIGHTRED),
+        coord,
+        "Fire",
+        false,
+        2.5,
+        5,
+        100,
+        false,
+        "Fire ball.",
+        "FireAttack1.wav",
+        dngutil::ClassType::WIZARD
+    ),
+    new Secondary(
+        pgame,
+        ColorChar('?', dngutil::GREEN),
+        coord,
+        "Reaper's Soul",
+        false,
+        dngutil::TID::Secondary,
+        0,
+        1.3,
+        "True Reapers's armor."
+    ),
+    "hidden.mp3",
+    85,
+    "FinalDeath.wav",
+    dngutil::EvType::DEFENSE,
+    dngutil::ClassType::WIZARD
+)
+{
+    setMaxhp(dngutil::MAX_HP);
+    setHp(getMaxhp());
+    setDef(static_cast<int>(getDef() * 1.3));
+    setAtt(static_cast<int>(getAtt() * 1.2));
+}
+
+void ReaperPhase3::printSelf()
+{
+    Coordinate vcursor(0, getPGame()->getVWin()->txtmacs.DIVIDER_LINES[1] + 1);
+    VirtualWindow* t = getPGame()->getVWin();
+    int color = dngutil::LIGHTMAGENTA;
+    t->put(ColorString(R"(            ._                                            ,)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(             (`)..                                    ,.-'))", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(              (',.)-..                            ,.-(..`)         )", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(               (,.' ,.)-..                    ,.-(. `.. )                    )", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                (,.' ..' .)-..            ,.-( `.. `.. )                     )", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                 (,.' ,.'  ..')-.     ,.-( `. `.. `.. )                      )", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                  (,.'  ,.' ,.'  )-.-('   `. `.. `.. )                       )", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                   ( ,.' ,.'    _== ==_     `.. `.. )                        )", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                    ( ,.'   _==' ~  ~  `==_    `.. )                     )", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                     \  _=='   ----..----  `==_   )                     )", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                  ,.-:    ,----___.  .___----.    -..                        )", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(              ,.-'   (   _--====_  \/  _====--_   )  `-..                 )", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(          ,.-'   .__.'`.  `-_I0_-'    `-_0I_-'  .'`.__.  `-..     )", color), vcursor); vcursor.y++;
+    const int TOP_CURSOR_Y = vcursor.y;
+    t->put(ColorString(R"(      ,.-'.'   .'      (          |  |          )      `.   `.-..  )", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(  ,.-'    :    `___--- '`.__.    / __ \    .__.' `---___'    :   `-..      )", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(-'_________`-____________'__ \  (O)  (O)  / __`____________-'________`-     )", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                            \ . _  __  _ . /                               )", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                             \ `V-'  `-V' |                                 )", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                              | \ \ | /  /                                 )", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                               V \ ~| ~/V                                   )", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                                |  \  /|                                    )", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                                 \~ | V                    )", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                                  \  |                                        )", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                                   VV)", color), vcursor); vcursor.y++;
+    const int LONGEST_LINE_LENGTH = 60;
+
+    printStats(LONGEST_LINE_LENGTH, TOP_CURSOR_Y);
+}
+
+void ReaperPhase3::deathSequence()
+{
+    getPGame()->adjustScore(dngutil::BASE_SCORE_BOSS_BOOST * 5);
+    credits(dngutil::CreditType::SECRET_VICTORY, getPGame(), dngutil::DungeonType::GRYPHONS_TOWER);
+}
 
 //----------------------------------------------------------------
 // segboss

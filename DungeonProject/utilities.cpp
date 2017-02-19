@@ -209,8 +209,16 @@ void credits(dngutil::CreditType c, Game* pgame, dngutil::DungeonType dungeon)
     else if (dungeon == dngutil::DungeonType::GRYPHONS_TOWER)
     {
         v->putcen(ColorString("DUNGEON RPG - GRYPHON'S TOWER", color), vcursor.y++);
-        v->putcen(ColorString("You saved your family and", color), vcursor.y++);
-        v->putcen(ColorString("vanquished all evil from the dungeon!", color), vcursor.y++);
+        if (c == dngutil::CreditType::SECRET_VICTORY)
+        {
+            v->putcen(ColorString("You save your family and", color), vcursor.y++);
+            v->putcen(ColorString("you have vanquished all evil from the dungeon!", color), vcursor.y++);
+        }
+        else if (c == dngutil::CreditType::VICTORY)
+        {
+            v->putcen(ColorString("You save your family but", color), vcursor.y++);
+            v->putcen(ColorString("a dark energy still resides in the dungeon...", color), vcursor.y++);
+        }
     }
     else
     {

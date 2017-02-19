@@ -450,6 +450,60 @@ public:
     void deathSequence() override;
 };
 
+
+class ReaperPhase1 : public SegEnemy
+{
+public:
+    ReaperPhase1(
+        Game* pgame,
+        Coordinate coord,
+        int hp,
+        unsigned int att,
+        unsigned int def,
+        unsigned int lck,
+        unsigned int spd,
+        unsigned int lvl
+    );
+
+    ColorString getBattleInfo() const override;
+    void printSelf() override;
+
+};
+
+class ReaperPhase2 : public SegEnemy
+{
+public:
+    ReaperPhase2(
+        Game* pgame,
+        Coordinate coord,
+        int hp,
+        unsigned int att,
+        unsigned int def,
+        unsigned int lck,
+        unsigned int spd,
+        unsigned int lvl
+    );
+    void printSelf() override;
+
+};
+
+class ReaperPhase3 : public SegEnemy
+{
+public:
+    ReaperPhase3(
+        Game* pgame,
+        Coordinate coord,
+        int hp,
+        unsigned int att,
+        unsigned int def,
+        unsigned int lck,
+        unsigned int spd,
+        unsigned int lvl
+    );
+    void printSelf() override;
+    void deathSequence() override;
+};
+
 //----------------------------------------------------------------
 // segboss
 class Segboss
