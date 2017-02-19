@@ -390,6 +390,59 @@ public:
     void deathSequence() override;
 };
 
+
+
+class GryphonPhase1 : public SegEnemy
+{
+public:
+    GryphonPhase1(
+        Game* pgame,
+        Coordinate coord,
+        int hp,
+        unsigned int att,
+        unsigned int def,
+        unsigned int lck,
+        unsigned int spd,
+        unsigned int lvl
+    );
+    void printSelf() override;
+
+};
+
+class GryphonPhase2 : public SegEnemy
+{
+public:
+    GryphonPhase2(
+        Game* pgame,
+        Coordinate coord,
+        int hp,
+        unsigned int att,
+        unsigned int def,
+        unsigned int lck,
+        unsigned int spd,
+        unsigned int lvl
+    );
+    void printSelf() override;
+
+};
+
+class GryphonPhase3 : public SegEnemy
+{
+public:
+    GryphonPhase3(
+        Game* pgame,
+        Coordinate coord,
+        int hp,
+        unsigned int att,
+        unsigned int def,
+        unsigned int lck,
+        unsigned int spd,
+        unsigned int lvl
+    );
+    void printSelf() override;
+    void deathSequence() override;
+};
+
 //----------------------------------------------------------------
 // segboss
 class Segboss

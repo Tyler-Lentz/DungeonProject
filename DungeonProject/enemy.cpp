@@ -1799,6 +1799,308 @@ void DragonHead::deathSequence()
 //----------------------------------------------------------------
 
 //----------------------------------------------------------------
+// All Gryphon phases
+
+GryphonPhase1::GryphonPhase1(
+    Game* pgame,
+    Coordinate coord,
+    int hp,
+    unsigned int att,
+    unsigned int def,
+    unsigned int lck,
+    unsigned int spd,
+    unsigned int lvl
+) : SegEnemy(
+    pgame,
+    ColorChar('?', dngutil::WHITE),
+    coord,
+    "The Gryphon",
+    false,
+    dngutil::TID::GryphonPhase1,
+    hp,
+    att,
+    def,
+    lck,
+    spd,
+    lvl,
+    new Primary(
+        pgame,
+        ColorChar('?', dngutil::LIGHTRED),
+        coord,
+        "Wind Gust",
+        false,
+        1.6,
+        4,
+        70,
+        false,
+        "Wind Gust",
+        "BowAttack1.wav",
+        dngutil::ClassType::RANGER
+    ),
+    new Secondary(
+        pgame,
+        ColorChar('?', dngutil::GREEN),
+        coord,
+        "Gryphon Armor",
+        false,
+        dngutil::TID::Secondary,
+        0,
+        1.25,
+        "Gryphon's armor."
+    ),
+    "FinalBoss.mp3",
+    85,
+    "SegDeath.wav",
+    dngutil::EvType::DEFENSE,
+    dngutil::ClassType::RANGER
+)
+{
+    setMaxhp(static_cast<unsigned int>(getMaxhp() * 1.25));
+    setHp(getMaxhp());
+}
+
+void GryphonPhase1::printSelf()
+{
+    Coordinate vcursor(0, getPGame()->getVWin()->txtmacs.DIVIDER_LINES[1] + 1);
+    VirtualWindow* t = getPGame()->getVWin();
+    int color = dngutil::BROWN;
+    t->put(ColorString(R"(            //           //)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(           ///          ///)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(          ////         ////)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(          |////       /////)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(          |))//;     /)))//;)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(         /)))))/;   /)))))/;)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(     .---`,))))/;  /)))))))/;)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"( __--\/6-  \`))/; |)))))))/;)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"((----/    \\\``;  |))))))/;)", color), vcursor); vcursor.y++;
+    const int TOP_CURSOR_Y = vcursor.y;
+    t->put(ColorString(R"(   ~/-\  \\\\\``   \))))))/;)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(       \\\\\\\\`    |)))))/;)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(       |\\\\\\\\___/))))))/;__-------.)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(       //////|  %%_/))))))/;           \___,)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(      |||||||\   \%%%%VLK;:              \_. \)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(      |\\\\\\\\\                        |  | |)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(       \\\\\\\                          |  | |)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(        |\\\\               __|        /   / /)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(        | \\__\     \___----  |       |   / /)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(        |    / |     >     \   \      \  / /)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(        |   /  |    /       \   \      >/ /  ,,)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(        |   |  |   |         |   |    // /  //,)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(        |   |  |   |         |   |   /| |   |\\,)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(     _--'   _--'   |     _---_---'  |  \ \__/\|/)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(    (-(-===(-(-(===/    (-(-=(-(-(==/   \____/)", color), vcursor); vcursor.y++;
+    const int LONGEST_LINE_LENGTH = 65;
+
+    printStats(LONGEST_LINE_LENGTH, TOP_CURSOR_Y);
+}
+
+
+
+
+
+
+
+
+
+GryphonPhase2::GryphonPhase2(
+    Game* pgame,
+    Coordinate coord,
+    int hp,
+    unsigned int att,
+    unsigned int def,
+    unsigned int lck,
+    unsigned int spd,
+    unsigned int lvl
+) : SegEnemy(
+    pgame,
+    ColorChar('?', dngutil::WHITE),
+    coord,
+    "Enraged Gryphon",
+    false,
+    dngutil::TID::GryphonPhase2,
+    hp,
+    att,
+    def,
+    lck,
+    spd,
+    lvl,
+    new Primary(
+        pgame,
+        ColorChar('?', dngutil::LIGHTRED),
+        coord,
+        "Sharp Claws",
+        false,
+        2.2,
+        6,
+        100,
+        false,
+        "Sharp Claws.",
+        "Attack4.wav",
+        dngutil::ClassType::KNIGHT
+    ),
+    new Secondary(
+        pgame,
+        ColorChar('?', dngutil::GREEN),
+        coord,
+        "Gryphon Armor",
+        false,
+        dngutil::TID::Secondary,
+        0,
+        1.25,
+        "Gryphon Armos."
+    ),
+    "FinalBoss.mp3",
+    85,
+    "revival.wav",
+    dngutil::EvType::DEFENSE,
+    dngutil::ClassType::KNIGHT
+)
+{
+}
+
+void GryphonPhase2::printSelf()
+{
+    Coordinate vcursor(0, getPGame()->getVWin()->txtmacs.DIVIDER_LINES[1] + 1);
+    VirtualWindow* t = getPGame()->getVWin();
+    int color = dngutil::LIGHTRED;
+    t->put(ColorString(R"(            //           //)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(           ///          ///)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(          ////         ////)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(          |////       /////)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(          |))//;     /)))//;)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(         /)))))/;   /)))))/;)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(     .---`,))))/;  /)))))))/;)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"( __--\/6-  \`))/; |)))))))/;)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"((----/    \\\``;  |))))))/;)", color), vcursor); vcursor.y++;
+    const int TOP_CURSOR_Y = vcursor.y;
+    t->put(ColorString(R"(   ~/-\  \\\\\``   \))))))/;)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(       \\\\\\\\`    |)))))/;)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(       |\\\\\\\\___/))))))/;__-------.)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(       //////|  %%_/))))))/;           \___,)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(      |||||||\   \%%%%VLK;:              \_. \)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(      |\\\\\\\\\                        |  | |)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(       \\\\\\\                          |  | |)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(        |\\\\               __|        /   / /)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(        | \\__\     \___----  |       |   / /)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(        |    / |     >     \   \      \  / /)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(        |   /  |    /       \   \      >/ /  ,,)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(        |   |  |   |         |   |    // /  //,)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(        |   |  |   |         |   |   /| |   |\\,)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(     _--'   _--'   |     _---_---'  |  \ \__/\|/)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(    (-(-===(-(-(===/    (-(-=(-(-(==/   \____/)", color), vcursor); vcursor.y++;
+    const int LONGEST_LINE_LENGTH = 65;
+
+    printStats(LONGEST_LINE_LENGTH, TOP_CURSOR_Y);
+}
+
+
+
+
+
+
+
+GryphonPhase3::GryphonPhase3(
+    Game* pgame,
+    Coordinate coord,
+    int hp,
+    unsigned int att,
+    unsigned int def,
+    unsigned int lck,
+    unsigned int spd,
+    unsigned int lvl
+) : SegEnemy(
+    pgame,
+    ColorChar('?', dngutil::WHITE),
+    coord,
+    "Dying Soul",
+    false,
+    dngutil::TID::GryphonPhase3,
+    hp,
+    att,
+    def,
+    lck,
+    spd,
+    lvl,
+    new Primary(
+        pgame,
+        ColorChar('?', dngutil::LIGHTRED),
+        coord,
+        "Last Breath",
+        false,
+        2.5,
+        2,
+        100,
+        false,
+        "Last Breath.",
+        "Attack1.wav",
+        dngutil::ClassType::WIZARD
+    ),
+    new Secondary(
+        pgame,
+        ColorChar('?', dngutil::GREEN),
+        coord,
+        "Weakend Soul",
+        false,
+        dngutil::TID::Secondary,
+        0,
+        0,
+        "Dragons's armor."
+    ),
+    "FinalBoss.mp3",
+    85,
+    "FinalDeath.wav",
+    dngutil::EvType::DEFENSE,
+    dngutil::ClassType::WIZARD
+)
+{
+    setMaxhp(50);
+    setHp(getMaxhp());
+}
+
+void GryphonPhase3::printSelf()
+{
+    Coordinate vcursor(0, getPGame()->getVWin()->txtmacs.DIVIDER_LINES[1] + 1);
+    VirtualWindow* t = getPGame()->getVWin();
+    int deadcolor = dngutil::LIGHTMAGENTA;
+    t->put(ColorString(R"(                                                                             )", deadcolor), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                                                                             )", deadcolor), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                           *                                                 )", deadcolor), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                                   *        *                                )", deadcolor), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                                                                             )", deadcolor), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                               *                                             )", deadcolor), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                       *               *                                     )", deadcolor), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                                                                             )", deadcolor), vcursor); vcursor.y++;
+    const int TOP_CURSOR_Y = vcursor.y;
+    t->put(ColorString(R"(                                  * *                                        )", deadcolor), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                          *     *                                            )", deadcolor), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                                       *      *                              )", deadcolor), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                               *                                             )", deadcolor), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                                             *                               )", deadcolor), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                                                                             )", deadcolor), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                        *           *                                        )", deadcolor), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                               *                                             )", deadcolor), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                                                                             )", deadcolor), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                                                                             )", deadcolor), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                                                                             )", deadcolor), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                                                                             )", deadcolor), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                                                                             )", deadcolor), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                                                                             )", deadcolor), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                                                                             )", deadcolor), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                                                                             )", deadcolor), vcursor); vcursor.y++;
+    const int LONGEST_LINE_LENGTH = 60;
+
+    printStats(LONGEST_LINE_LENGTH, TOP_CURSOR_Y);
+}
+
+void GryphonPhase3::deathSequence()
+{
+    getPGame()->adjustScore(static_cast<int>(dngutil::BASE_SCORE_BOSS_BOOST * 3.5));
+    credits(dngutil::CreditType::VICTORY, getPGame());
+}
+
+//----------------------------------------------------------------
+
+//----------------------------------------------------------------
 // segboss
 
 Segboss::Segboss(std::vector<SegEnemy*> segments, Game* game_pointer)

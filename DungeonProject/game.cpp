@@ -205,6 +205,18 @@ Creature* Game::generateCreature(int difficulty, dngutil::TID tid)
     case dngutil::TID::FlameHorse:
         enemy = new FlameHorse(this, Coordinate(-1, -1), health, attack, defense, luck, speed, difficulty);
         break;
+
+    case dngutil::TID::GryphonPhase1:
+        enemy = new GryphonPhase1(this, Coordinate(-1, -1), health, attack, defense, luck, speed, difficulty);
+        break;
+
+    case dngutil::TID::GryphonPhase2:
+        enemy = new GryphonPhase2(this, Coordinate(-1, -1), health, attack, defense, luck, speed, difficulty);
+        break;
+
+    case dngutil::TID::GryphonPhase3:
+        enemy = new GryphonPhase3(this, Coordinate(-1, -1), health, attack, defense, luck, speed, difficulty);
+        break;
     }
 
     if (enemy == nullptr)
