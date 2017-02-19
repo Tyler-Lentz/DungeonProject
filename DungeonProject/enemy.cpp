@@ -2165,6 +2165,8 @@ bool Segboss::segmentedBattle(Player* player)
 
     Sleep(1000);
 
+    v->txtmacs.clearDivider("bottom");
+
     Coordinate vcursor(0, t.BOTTOM_DIVIDER_TEXT_LINE);
     v->putcen(segments.front()->getBattleInfo(), vcursor.y++);
     pressEnter(vcursor, v);
