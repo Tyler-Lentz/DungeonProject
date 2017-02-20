@@ -1556,6 +1556,7 @@ void DragonsLair::makeFloor3(std::mutex& roomMut)
 
         std::vector<SegEnemy*> bossparts;
         bossparts.push_back(dynamic_cast<SegEnemy*>(game->generateCreature(11, dngutil::TID::DragonTail)));
+        bossparts[0]->setFirst();
         bossparts.push_back(dynamic_cast<SegEnemy*>(game->generateCreature(11, dngutil::TID::DragonWings)));
         bossparts.push_back(dynamic_cast<SegEnemy*>(game->generateCreature(12, dngutil::TID::DragonHead)));
 
@@ -1601,6 +1602,7 @@ void DragonsLair::makeFloor3(std::mutex& roomMut)
         {
             std::vector<SegEnemy*> bossparts;
             bossparts.push_back(dynamic_cast<SegEnemy*>(game->generateCreature(dngutil::SECRET_BOSS_LEVEL, dngutil::TID::MegaBeastPhase1)));
+            bossparts[0]->setFirst();
             bossparts.push_back(dynamic_cast<SegEnemy*>(game->generateCreature(dngutil::SECRET_BOSS_LEVEL, dngutil::TID::MegaBeastPhase2)));
 
             gameMap[beastCoord.y][beastCoord.x].push_back(new SegbossTrigger(
@@ -3256,6 +3258,7 @@ void GryphonsTower::makeFloor6(std::mutex& roomMut)
 
             std::vector<SegEnemy*> bossparts;
             bossparts.push_back(dynamic_cast<SegEnemy*>(game->generateCreature(dngutil::SECOND_SECRET_BOSS_LEVEL, dngutil::TID::ReaperPhase1)));
+            bossparts[0]->setFirst();
             bossparts.push_back(dynamic_cast<SegEnemy*>(game->generateCreature(dngutil::SECOND_SECRET_BOSS_LEVEL, dngutil::TID::ReaperPhase2)));
             bossparts.push_back(dynamic_cast<SegEnemy*>(game->generateCreature(dngutil::SECOND_SECRET_BOSS_LEVEL, dngutil::TID::ReaperPhase3)));
 
@@ -3274,6 +3277,7 @@ void GryphonsTower::makeFloor6(std::mutex& roomMut)
 
         std::vector<SegEnemy*> bossparts;
         bossparts.push_back(dynamic_cast<SegEnemy*>(pgame->generateCreature(13, dngutil::TID::GryphonPhase1)));
+        bossparts[0]->setFirst();
         bossparts.push_back(dynamic_cast<SegEnemy*>(pgame->generateCreature(13, dngutil::TID::GryphonPhase2)));
         bossparts.push_back(dynamic_cast<SegEnemy*>(pgame->generateCreature(14, dngutil::TID::GryphonPhase3)));
 

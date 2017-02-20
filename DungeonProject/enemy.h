@@ -298,10 +298,25 @@ public:
         dngutil::EvType ev,
         dngutil::ClassType classType
     ) : BEnemy(pgame, mapRep, coord, name, rawoutput, typeId, hp, att, def, lck, spd,
-        lvl, primary, secondary, battleMusic, experienceGiven, deathSound, ev, classType) {}
+        lvl, primary, secondary, battleMusic, experienceGiven, deathSound, ev, classType)
+    {
+        first = false;
+    }
 
     void deathSequence() override;
     bool battle(MapObject* enemy);
+
+    bool isFirst() const
+    {
+        return first;
+    }
+
+    void setFirst()
+    {
+        first = true;
+    }
+private:
+    bool first;
 };
 
 class MegaBeastPhase1 : public SegEnemy

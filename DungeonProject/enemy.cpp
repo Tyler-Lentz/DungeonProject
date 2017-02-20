@@ -1341,7 +1341,7 @@ void SegEnemy::deathSequence()
 
 bool SegEnemy::battle(MapObject* t_enemy)
 {
-    Enemy* enemy = dynamic_cast<Enemy*>(t_enemy);
+    SegEnemy* enemy = dynamic_cast<SegEnemy*>(t_enemy);
     Player* player = getPGame()->getPlayer();
     VirtualWindow* vwin = getPGame()->getVWin();
 
@@ -1356,7 +1356,7 @@ bool SegEnemy::battle(MapObject* t_enemy)
 
     int playerWeaponSpeed = player->getPrimary().getAttSpeed();
     int playerTimer = 0;
-    if (player->getPrimary().getStartReady())
+    if (player->getPrimary().getStartReady() && enemy->isFirst())
     {
         playerTimer = playerWeaponSpeed;
     }
