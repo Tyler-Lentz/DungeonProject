@@ -69,4 +69,13 @@ private:
     void makeFloor6(std::mutex& roomMut);
 };
 
+class PitOf50Trials : public Dungeon
+{
+public:
+    PitOf50Trials(Game* game);
+
+private:
+    void generateDungeon();
+};
+
 #endif

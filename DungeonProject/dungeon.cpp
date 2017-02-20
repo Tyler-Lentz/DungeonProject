@@ -3,6 +3,7 @@
 #include <string>
 #include <list>
 #include <mutex>
+#include <cmath>
 
 #include "game.h"
 #include "dungeon.h"
@@ -3299,5 +3300,213 @@ void GryphonsTower::makeFloor6(std::mutex& roomMut)
         roomMut.lock();
         gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction)));
         roomMut.unlock();
+    }
+}
+
+PitOf50Trials::PitOf50Trials(Game* game) :
+    Dungeon(game)
+{
+    overworldMusic = "PitTheme.mp3";
+
+    story.push_back(std::make_pair(ColorString("Legends tell of a dungeon of fifty trials...", dngutil::WHITE), 0));
+    story.push_back(std::make_pair(ColorString("Fifty trials of unspeakable pain.", dngutil::WHITE), 2));
+
+    story.push_back(std::make_pair(ColorString("Today you have found that dungeon", dngutil::WHITE), 2));
+
+    story.push_back(std::make_pair(ColorString("As you enter the dungeon the door closes behind you.", dngutil::WHITE), 5));
+    story.push_back(std::make_pair(ColorString("Will this be your deathbed?", dngutil::RED), 2));
+
+    gamespace.resize(51);
+    generateDungeon();
+}
+
+void PitOf50Trials::generateDungeon()
+{
+    {
+        int floor = 50;
+        pgame->setActiveFloor(floor);
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("#########");
+        roomTemplate.push_back("#       #");
+        roomTemplate.push_back("#       #");
+        roomTemplate.push_back("#       #");
+        roomTemplate.push_back("# e   A #");
+        roomTemplate.push_back("#       #");
+        roomTemplate.push_back("#       #");
+        roomTemplate.push_back("#       #");
+        roomTemplate.push_back("#########");
+
+        Coordinate stairCoord(6, 4);
+        Coordinate spObjCoord(4, 2);
+
+        auto puzzleSolved = [](const std::list<Creature*>& creatureList, const GAMEMAP& gameMap) -> bool
+        {
+            for (auto it = creatureList.begin(); it != creatureList.end(); it++)
+            {
+                if ((*it)->getTypeId() != dngutil::TID::Player)
+                {
+                    return false;
+                }
+            }
+            return true;
+        };
+
+        Game* game = pgame;
+        auto puzzleAction = [stairCoord, game](std::list<Creature*> creatureList, GAMEMAP& gameMap) -> void
+        {
+            gameMap[stairCoord.y][stairCoord.x].push_back(new ExitObject(game, stairCoord, false, ColorChar('v', dngutil::WHITE)));
+        };
+
+        std::map<Coordinate, MapObject*> specificObjects;
+        specificObjects.emplace(spObjCoord, new Potion(pgame, spObjCoord, dngutil::POTION_HEAL));
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Skeleton);
+
+        int difficulty = 0;
+        int backColor = dngutil::LIGHTGRAY;
+        std::string name = "Trial " + std::to_string(51 - floor);
+        Coordinate mapCoord(0, 0);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, floor, mapCoord);
+        gamespace[floor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction)));
+        pgame->setActiveRoom(gamespace[floor][mapCoord]); // sets the starting active room
+    }
+    for (int floor = 49; floor > 0; floor--)
+    {
+        {
+            std::vector<std::string> roomTemplate;
+            roomTemplate.push_back("#########");
+            roomTemplate.push_back("#       #");
+            roomTemplate.push_back("#   o   #");
+            roomTemplate.push_back("#       #");
+            roomTemplate.push_back("# e     #");
+            roomTemplate.push_back("#       #");
+            roomTemplate.push_back("#       #");
+            roomTemplate.push_back("#       #");
+            roomTemplate.push_back("#########");
+
+            Coordinate stairCoord(6, 4);
+            Coordinate spObjCoord(4, 2);
+            auto puzzleSolved = [spObjCoord, floor](const std::list<Creature*>& creatureList, const GAMEMAP& gameMap) -> bool
+            {
+                if (floor == 1)
+                {
+                    return false;
+                }
+
+                for (auto it = creatureList.begin(); it != creatureList.end(); it++)
+                {
+                    if ((*it)->getTypeId() != dngutil::TID::Player)
+                    {
+                        return false;
+                    }
+                }
+
+                return true;
+            };
+
+            Game* game = pgame;
+            auto puzzleAction = [stairCoord, game](std::list<Creature*> creatureList, GAMEMAP& gameMap) -> void
+            {
+                gameMap[stairCoord.y][stairCoord.x].push_back(new ExitObject(game, stairCoord, false, ColorChar('v', dngutil::WHITE)));
+            };
+
+            std::map<Coordinate, MapObject*> specificObjects;
+            if (floor % 5 == 0)
+            {
+                specificObjects.emplace(spObjCoord, new Potion(pgame, spObjCoord, dngutil::POTION_HEAL));
+            }
+            else if (floor % 9 == 0)
+            {
+                specificObjects.emplace(spObjCoord, new MagicalPotion(pgame, spObjCoord));
+            }
+            else
+            {
+                specificObjects.emplace(spObjCoord, new EmptyObject(pgame, spObjCoord));
+            }
+
+            std::vector<dngutil::TID> possibleCreatures;
+            int backColor;
+            if (floor >= 45)
+            {
+                possibleCreatures.push_back(dngutil::TID::Skeleton);
+                backColor = dngutil::LIGHTGRAY;
+            }
+            else if (floor >= 38)
+            {
+                possibleCreatures.push_back(dngutil::TID::Skeleton);
+                possibleCreatures.push_back(dngutil::TID::BloodSkeleton);
+                possibleCreatures.push_back(dngutil::TID::Bowman);
+                backColor = dngutil::LIGHTGRAY;
+            }
+            else if (floor >= 26)
+            {
+                possibleCreatures.push_back(dngutil::TID::LSKnight);
+                possibleCreatures.push_back(dngutil::TID::BloodSkeleton);
+                possibleCreatures.push_back(dngutil::TID::SSKnight);
+                backColor = dngutil::DARKGRAY;
+            }
+            else if (floor >= 15)
+            {
+                possibleCreatures.push_back(dngutil::TID::Mage);
+                possibleCreatures.push_back(dngutil::TID::LSKnight);
+                backColor = dngutil::LIGHTMAGENTA;
+            }
+            else if (floor >= 2)
+            {
+                possibleCreatures.push_back(dngutil::TID::Mage);
+                possibleCreatures.push_back(dngutil::TID::LSKnight);
+                backColor = dngutil::MAGENTA;
+            }
+            else  // final trial
+            {
+                possibleCreatures.push_back(dngutil::TID::Mage);
+                backColor = dngutil::MAGENTA;
+            }
+
+            int difficulty = static_cast<int>((51 - floor) / 2.5);
+            if (floor == 10 || floor == 20 || floor == 30 || floor == 40 || floor == 0)
+            {
+                possibleCreatures.clear();
+                switch (floor)
+                {
+                case 40:
+                    possibleCreatures.push_back(dngutil::TID::SkeletonKing);
+                    break;
+                case 30:
+                    possibleCreatures.push_back(dngutil::TID::DungeonBeast);
+                    break;
+                case 20:
+                    possibleCreatures.push_back(dngutil::TID::FlameHorse);
+                    break;
+                case 10:
+                    possibleCreatures.push_back(dngutil::TID::MegaBeastPhase2);
+                    break;
+                    
+                case 0:
+                {
+                    possibleCreatures.push_back(dngutil::TID::Skeleton);
+                    std::vector<SegEnemy*> bossparts;
+                    bossparts.push_back(dynamic_cast<SegEnemy*>(pgame->generateCreature(difficulty, dngutil::TID::MaskPhase1)));
+                    bossparts[0]->setFirst();
+                    bossparts.push_back(dynamic_cast<SegEnemy*>(pgame->generateCreature(difficulty, dngutil::TID::MaskPhase2)));
+                    bossparts.push_back(dynamic_cast<SegEnemy*>(pgame->generateCreature(difficulty, dngutil::TID::MaskPhase3)));
+
+                    std::map<Coordinate, MapObject*> specificObjects;
+                    specificObjects.emplace(spObjCoord, new SegbossTrigger(
+                        pgame, spObjCoord,
+                        new Segboss(bossparts, pgame),
+                        ColorChar('O', dngutil::WHITE)
+                    ));
+                    break;
+                }
+                }
+            }
+
+            std::string name = "Trial " + std::to_string(51 - floor);
+            Coordinate mapCoord(0, 0);
+            RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, floor, mapCoord);
+            gamespace[floor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction)));
+        }
     }
 }

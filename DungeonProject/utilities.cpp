@@ -220,6 +220,20 @@ void credits(dngutil::CreditType c, Game* pgame, dngutil::DungeonType dungeon)
             v->putcen(ColorString("a dark energy still resides in the dungeon...", color), vcursor.y++);
         }
     }
+    else if (dungeon == dngutil::DungeonType::FIFTYTRIALS)
+    {
+        v->putcen(ColorString("DUNGEON RPG - PIT OF 50 TRIALS", color), vcursor.y++);
+        if (c == dngutil::CreditType::SECRET_VICTORY)
+        {
+            v->putcen(ColorString("You have conquored the dungeon and", color), vcursor.y++);
+            v->putcen(ColorString("you have vanquished all evil from it!", color), vcursor.y++);
+        }
+        else if (c == dngutil::CreditType::VICTORY)
+        {
+            v->putcen(ColorString("You have conquored the dungeon but", color), vcursor.y++);
+            v->putcen(ColorString("a dark energy still resides in it...", color), vcursor.y++);
+        }
+    }
     else
     {
         v->putcen(ColorString("DUNGEON RPG", color), vcursor.y++);

@@ -519,6 +519,59 @@ public:
     void deathSequence() override;
 };
 
+
+class MaskPhase1 : public SegEnemy
+{
+public:
+    MaskPhase1(
+        Game* pgame,
+        Coordinate coord,
+        int hp,
+        unsigned int att,
+        unsigned int def,
+        unsigned int lck,
+        unsigned int spd,
+        unsigned int lvl
+    );
+
+    ColorString getBattleInfo() const override;
+    void printSelf() override;
+
+};
+
+class MaskPhase2 : public SegEnemy
+{
+public:
+    MaskPhase2(
+        Game* pgame,
+        Coordinate coord,
+        int hp,
+        unsigned int att,
+        unsigned int def,
+        unsigned int lck,
+        unsigned int spd,
+        unsigned int lvl
+    );
+    void printSelf() override;
+
+};
+
+class MaskPhase3 : public SegEnemy
+{
+public:
+    MaskPhase3(
+        Game* pgame,
+        Coordinate coord,
+        int hp,
+        unsigned int att,
+        unsigned int def,
+        unsigned int lck,
+        unsigned int spd,
+        unsigned int lvl
+    );
+    void printSelf() override;
+    void deathSequence() override;
+};
 //----------------------------------------------------------------
 // segboss
 class Segboss

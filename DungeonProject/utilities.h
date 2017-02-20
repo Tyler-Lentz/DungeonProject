@@ -70,7 +70,10 @@ namespace dngutil
         GryphonPhase3,
         ReaperPhase1,
         ReaperPhase2,
-        ReaperPhase3
+        ReaperPhase3,
+        MaskPhase1,
+        MaskPhase2,
+        MaskPhase3
     };
 
     enum class BTID
@@ -84,6 +87,7 @@ namespace dngutil
     {
         DRAGONS_LAIR,
         GRYPHONS_TOWER,
+        FIFTYTRIALS,
         NEITHER
     };
 

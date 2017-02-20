@@ -229,6 +229,18 @@ Creature* Game::generateCreature(int difficulty, dngutil::TID tid)
     case dngutil::TID::ReaperPhase3:
         enemy = new ReaperPhase3(this, Coordinate(-1, -1), health, attack, defense, luck, speed, difficulty);
         break;
+
+    case dngutil::TID::MaskPhase1:
+        enemy = new MaskPhase1(this, Coordinate(-1, -1), health, attack, defense, luck, speed, difficulty);
+        break;
+
+    case dngutil::TID::MaskPhase2:
+        enemy = new MaskPhase2(this, Coordinate(-1, -1), health, attack, defense, luck, speed, difficulty);
+        break;
+
+    case dngutil::TID::MaskPhase3:
+        enemy = new MaskPhase3(this, Coordinate(-1, -1), health, attack, defense, luck, speed, difficulty);
+        break;
     }
 
     if (enemy == nullptr)
@@ -399,6 +411,8 @@ void Game::titleScreen()
             vwin->putcen(ColorString("(1) - Dragon's Lair", dngutil::LIGHTRED), vcursor.y++);
             vcursor.y++;
             vwin->putcen(ColorString("(2) - Gryphon's Tower", dngutil::MAGENTA), vcursor.y++);
+            vcursor.y++;
+            vwin->putcen(ColorString("(3) - Pit of 50 Trials", dngutil::WHITE), vcursor.y++);
 
             while (true)
             {
@@ -410,6 +424,11 @@ void Game::titleScreen()
                 else if (keypress('2'))
                 {
                     dungeon = new GryphonsTower(this);
+                    break;
+                }
+                else if (keypress('3'))
+                {
+                    dungeon = new PitOf50Trials(this);
                     break;
                 }
             }
