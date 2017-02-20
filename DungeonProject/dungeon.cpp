@@ -3416,7 +3416,7 @@ void PitOf50Trials::generateDungeon()
             {
                 specificObjects.emplace(spObjCoord, new HerosClaim(pgame, spObjCoord));
             }
-            else if (floor % 8 == 0)
+            else if (floor % 7 == 0)
             {
                 specificObjects.emplace(spObjCoord, new MagicalPotion(pgame, spObjCoord));
             }
