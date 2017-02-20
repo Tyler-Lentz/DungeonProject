@@ -3412,17 +3412,17 @@ void PitOf50Trials::generateDungeon()
             };
 
             std::map<Coordinate, MapObject*> specificObjects;
-            if (floor = 10)
+            if (floor == 10)
             {
                 specificObjects.emplace(spObjCoord, new HerosClaim(pgame, spObjCoord));
+            }
+            else if (floor % 8 == 0)
+            {
+                specificObjects.emplace(spObjCoord, new MagicalPotion(pgame, spObjCoord));
             }
             else if (floor % 5 == 0)
             {
                 specificObjects.emplace(spObjCoord, new Potion(pgame, spObjCoord, dngutil::POTION_HEAL));
-            }
-            else if (floor % 9 == 0)
-            {
-                specificObjects.emplace(spObjCoord, new MagicalPotion(pgame, spObjCoord));
             }
             else
             {
@@ -3448,13 +3448,13 @@ void PitOf50Trials::generateDungeon()
                 possibleCreatures.push_back(dngutil::TID::LSKnight);
                 possibleCreatures.push_back(dngutil::TID::BloodSkeleton);
                 possibleCreatures.push_back(dngutil::TID::SSKnight);
-                backColor = dngutil::DARKGRAY;
+                backColor = dngutil::BROWN;
             }
             else if (floor >= 15)
             {
                 possibleCreatures.push_back(dngutil::TID::Mage);
                 possibleCreatures.push_back(dngutil::TID::BloodSkeleton);
-                backColor = dngutil::LIGHTMAGENTA;
+                backColor = dngutil::DARKGRAY;
             }
             else if (floor >= 2)
             {
