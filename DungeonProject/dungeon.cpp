@@ -3449,23 +3449,23 @@ void PitOf50Trials::generateDungeon()
             else if (floor >= 15)
             {
                 possibleCreatures.push_back(dngutil::TID::Mage);
-                possibleCreatures.push_back(dngutil::TID::LSKnight);
+                possibleCreatures.push_back(dngutil::TID::BloodSkeleton);
                 backColor = dngutil::LIGHTMAGENTA;
             }
             else if (floor >= 2)
             {
                 possibleCreatures.push_back(dngutil::TID::Mage);
-                possibleCreatures.push_back(dngutil::TID::LSKnight);
+                possibleCreatures.push_back(dngutil::TID::BloodSkeleton);
                 backColor = dngutil::MAGENTA;
             }
-            else  // final trial
+            else  // either wierd out of bounds or final trial, which possibleCreatures is overriden
             {
                 possibleCreatures.push_back(dngutil::TID::Mage);
                 backColor = dngutil::MAGENTA;
             }
 
             int difficulty = static_cast<int>((51 - floor) / 2.5);
-            if (floor == 10 || floor == 20 || floor == 30 || floor == 40 || floor == 0)
+            if (floor == 15 || floor == 30 || floor == 40 || floor == 1)
             {
                 possibleCreatures.clear();
                 switch (floor)
@@ -3476,23 +3476,21 @@ void PitOf50Trials::generateDungeon()
                 case 30:
                     possibleCreatures.push_back(dngutil::TID::DungeonBeast);
                     break;
-                case 20:
+                case 15:
                     possibleCreatures.push_back(dngutil::TID::FlameHorse);
                     break;
-                case 10:
-                    possibleCreatures.push_back(dngutil::TID::MegaBeastPhase2);
-                    break;
                     
-                case 0:
+                case 1:
                 {
-                    possibleCreatures.push_back(dngutil::TID::Skeleton);
+                    possibleCreatures.push_back(dngutil::TID::Mage);
                     std::vector<SegEnemy*> bossparts;
                     bossparts.push_back(dynamic_cast<SegEnemy*>(pgame->generateCreature(difficulty, dngutil::TID::MaskPhase1)));
                     bossparts[0]->setFirst();
                     bossparts.push_back(dynamic_cast<SegEnemy*>(pgame->generateCreature(difficulty, dngutil::TID::MaskPhase2)));
                     bossparts.push_back(dynamic_cast<SegEnemy*>(pgame->generateCreature(difficulty, dngutil::TID::MaskPhase3)));
+                    delete specificObjects.at(spObjCoord);
+                    specificObjects.erase(spObjCoord);
 
-                    std::map<Coordinate, MapObject*> specificObjects;
                     specificObjects.emplace(spObjCoord, new SegbossTrigger(
                         pgame, spObjCoord,
                         new Segboss(bossparts, pgame),
