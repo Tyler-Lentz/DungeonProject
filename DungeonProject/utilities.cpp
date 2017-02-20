@@ -175,7 +175,7 @@ void credits(dngutil::CreditType c, Game* pgame, dngutil::DungeonType dungeon)
     int color = 0;
     if (c == dngutil::CreditType::SECRET_VICTORY)
     {
-        color = getColor(dngutil::BLACK, dngutil::LIGHTBLUE);
+        color = getColor(dngutil::WHITE, dngutil::LIGHTBLUE);
     }
     else if (c == dngutil::CreditType::VICTORY)
     {
