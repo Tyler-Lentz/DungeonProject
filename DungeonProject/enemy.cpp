@@ -654,8 +654,6 @@ void FlameHorse::printSelf()
     t->put(ColorString("         _/ /          \\_\\\n", color), vcursor); vcursor.y++;
     t->put(ColorString("        /_!/            >_\\\n", color), vcursor); vcursor.y++;
 
-    t->put(ColorString("  _,_\n", color), vcursor); vcursor.y++;
-
     const int LONGEST_LINE_LENGTH = 59;
 
     printStats(LONGEST_LINE_LENGTH, TOP_CURSOR_Y);
