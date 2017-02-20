@@ -269,3 +269,69 @@ void credits(dngutil::CreditType c, Game* pgame, dngutil::DungeonType dungeon)
 
     pgame->cleanup(dngutil::ReturnVal::RESTART);
 }
+
+void intro(VirtualWindow* vwin)
+{
+    startMp3("Intro.mp3");
+    bool keepGoing = true;
+    for (int i = 0; i < 600; i++)
+    {
+        Sleep(10);
+        if (keypress(VK_RETURN))
+        {
+            keepGoing = false;
+            break;
+        }
+    }
+
+    if (keepGoing)
+    {
+        for (int i = 15; i > 2; i--)
+        {
+            Coordinate vcursor(0, i);
+            VirtualWindow* t = vwin;
+            t->clearScreen();
+            int color = dngutil::GREEN;
+            int scolor = dngutil::WHITE;
+            t->put(ColorString(R"( ________  ___  ___  ________   ________  _______   ________  ________      )", color), vcursor); vcursor.y++;
+            t->put(ColorString(R"(|\   ___ \|\  \|\  \|\   ___  \|\   ____\|\  ___ \ |\   __  \|\   ___  \    )", color), vcursor); vcursor.y++;
+            t->put(ColorString(R"(\ \  \_|\ \ \  \\\  \ \  \\ \  \ \  \___|\ \   __/|\ \  \|\  \ \  \\ \  \   )", color), vcursor); vcursor.y++;
+            t->put(ColorString(R"( \ \  \ \\ \ \  \\\  \ \  \\ \  \ \  \  __\ \  \_|/_\ \  \\\  \ \  \\ \  \  )", color), vcursor); vcursor.y++;
+            t->put(ColorString(R"(  \ \  \_\\ \ \  \\\  \ \  \\ \  \ \  \|\  \ \  \_|\ \ \  \\\  \ \  \\ \  \ )", color), vcursor); vcursor.y++;
+            t->put(ColorString(R"(   \ \_______\ \_______\ \__\\ \__\ \_______\ \_______\ \_______\ \__\\ \__\)", color), vcursor); vcursor.y++;
+            t->put(ColorString(R"(    \|_______|\|_______|\|__| \|__|\|_______|\|_______|\|_______|\|__| \|__|)", color), vcursor); vcursor.y++;
+            t->put(ColorString(R"(                       ________  ________  ________                         )", color), vcursor); vcursor.y++;
+            t->put(ColorString(R"(                      |\   __  \|\   __  \|\   ____\                        )", color), vcursor); vcursor.y++;
+            t->put(ColorString(R"(                      \ \  \|\  \ \  \|\  \ \  \___|                        )", color), vcursor); vcursor.y++;
+            t->put(ColorString(R"(                       \ \   _  _\ \   ____\ \  \  ___                      )", color), vcursor); vcursor.y++;
+            t->put(ColorString(R"(                        \ \  \\  \\ \  \___|\ \  \|\  \                     )", color), vcursor); vcursor.y++;
+            t->put(ColorString(R"(                         \ \__\\ _\\ \__\    \ \_______\                    )", color), vcursor); vcursor.y++;
+            t->put(ColorString(R"(                          \|__|\|__|\|__|     \|_______|                    )", color), vcursor); vcursor.y++;
+            t->putcen(ColorString(R"(           /\                                                 /\           )", scolor), vcursor.y); vcursor.y++;
+            t->putcen(ColorString(R"( _         )( ______________________   ______________________ )(         _ )", scolor), vcursor.y); vcursor.y++;
+            t->putcen(ColorString(R"((_)///////(**)______________________> <______________________(**)\\\\\\\(_))", scolor), vcursor.y); vcursor.y++;
+            t->putcen(ColorString(R"(           )(                                                 )(           )", scolor), vcursor.y); vcursor.y++;
+            t->putcen(ColorString(R"(           \/                                                 \/           )", scolor), vcursor.y); vcursor.y++;
+            Sleep(50);
+            if (keypress(VK_RETURN))
+            {
+                break;
+            }
+        }
+    }
+
+    if (keepGoing)
+    {
+        for (int i = 0; i < 900; i++)
+        {
+            Sleep(10);
+            if (keypress(VK_RETURN))
+            {
+                break;
+            }
+        }
+    }
+
+    stopMp3();
+    vwin->clearScreen();
+}

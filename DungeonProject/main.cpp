@@ -10,6 +10,7 @@ int main()
 {
     std::unique_ptr<VirtualWindow> vwin(new VirtualWindow(dngutil::CONSOLEX, dngutil::CONSOLEY));
     vwin->getConsole().setTitle("Dungeon RPG");
+
     bool exit = false;
     std::thread framerate([&vwin, &exit]()
     {
@@ -19,6 +20,8 @@ int main()
             Sleep(33);
         }
     });
+
+    intro(vwin.get());
 
     std::unique_ptr<Game> game(new Game(vwin.get()));
     while (!exit)

@@ -206,4 +206,6 @@ void stopSound();
 int getHealthbarSleepTime(int damageDealt);
 
 void credits(dngutil::CreditType c, Game* pgame, dngutil::DungeonType dungeon);
+
+void intro(VirtualWindow* vwin);
 #endif
