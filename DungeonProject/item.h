@@ -139,6 +139,8 @@ public:
 
     const double& getDefenseBoost() const;
     const int& getDeflectTime() const;
+
+    void adjustDeflectTime(double modifier);
 private:
     // The attackers attack is multiplied by this amount
     double defenseBoost;

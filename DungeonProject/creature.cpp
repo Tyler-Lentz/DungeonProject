@@ -150,6 +150,11 @@ const Secondary& Creature::getSecondary() const
     return *secondary;
 }
 
+void Creature::adjustSecondaryDeflectTime(double modifier)
+{
+    secondary->adjustDeflectTime(modifier);
+}
+
 Secondary*& Creature::getSecondaryMemory()
 {
     return secondary;

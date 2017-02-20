@@ -395,6 +395,11 @@ void Secondary::action(Player* player, unsigned int inventoryIndex)
     getPGame()->getVWin()->putcen(ColorString(output, dngutil::LIGHTGRAY), getPGame()->getVWin()->txtmacs.BOTTOM_DIVIDER_TEXT_LINE);
 }
 
+void Secondary::adjustDeflectTime(double modifier)
+{
+    deflectTime = static_cast<int>(deflectTime * modifier);
+}
+
 const int& Secondary::getDeflectTime() const
 {
     return deflectTime;

@@ -457,6 +457,7 @@ void Game::titleScreen()
                 }
             }
             getPlayer()->changeMapChar(ColorChar(getPlayer()->getMapRep().character, difficulty.color));
+            getPlayer()->adjustSecondaryDeflectTime(difficulty.deflectModifier);
 
             vwin->txtmacs.clearMapArea(false, NULL);
             vcursor.y = vwin->txtmacs.DIVIDER_LINES[1] + 5;
