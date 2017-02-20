@@ -3354,7 +3354,7 @@ void PitOf50Trials::generateDungeon()
         Game* game = pgame;
         auto puzzleAction = [stairCoord, game](std::list<Creature*> creatureList, GAMEMAP& gameMap) -> void
         {
-            gameMap[stairCoord.y][stairCoord.x].push_back(new ExitObject(game, stairCoord, false, ColorChar('v', dngutil::WHITE)));
+            gameMap[stairCoord.y][stairCoord.x].push_back(new HoleObject(game, stairCoord));
         };
 
         std::map<Coordinate, MapObject*> specificObjects;
@@ -3408,7 +3408,7 @@ void PitOf50Trials::generateDungeon()
             Game* game = pgame;
             auto puzzleAction = [stairCoord, game](std::list<Creature*> creatureList, GAMEMAP& gameMap) -> void
             {
-                gameMap[stairCoord.y][stairCoord.x].push_back(new ExitObject(game, stairCoord, false, ColorChar('v', dngutil::WHITE)));
+                gameMap[stairCoord.y][stairCoord.x].push_back(new HoleObject(game, stairCoord));
             };
 
             std::map<Coordinate, MapObject*> specificObjects;

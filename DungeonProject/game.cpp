@@ -414,21 +414,22 @@ void Game::titleScreen()
             vcursor.y++;
             vwin->putcen(ColorString("(3) - Pit of 50 Trials", dngutil::WHITE), vcursor.y++);
 
+            dngutil::DungeonType dungeonToMake;
             while (true)
             {
                 if (keypress('1'))
                 {
-                    dungeon = new DragonsLair(this);
+                    dungeonToMake = dngutil::DungeonType::DRAGONS_LAIR;
                     break;
                 }
                 else if (keypress('2'))
                 {
-                    dungeon = new GryphonsTower(this);
+                    dungeonToMake = dngutil::DungeonType::GRYPHONS_TOWER;
                     break;
                 }
                 else if (keypress('3'))
                 {
-                    dungeon = new PitOf50Trials(this);
+                    dungeonToMake = dngutil::DungeonType::FIFTYTRIALS;
                     break;
                 }
             }
@@ -477,6 +478,19 @@ void Game::titleScreen()
             }
             getPlayer()->changeMapChar(ColorChar(getPlayer()->getMapRep().character, difficulty.color));
             getPlayer()->adjustSecondaryDeflectTime(difficulty.deflectModifier);
+
+            switch (dungeonToMake)
+            {
+            case dngutil::DungeonType::DRAGONS_LAIR:
+                dungeon = new DragonsLair(this);
+                break;
+            case dngutil::DungeonType::GRYPHONS_TOWER:
+                dungeon = new GryphonsTower(this);
+                break;
+            case dngutil::DungeonType::FIFTYTRIALS:
+                dungeon = new PitOf50Trials(this);
+                break;
+            }
 
             vwin->txtmacs.clearMapArea(false, NULL);
             vcursor.y = vwin->txtmacs.DIVIDER_LINES[1] + 5;
