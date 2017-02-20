@@ -3412,7 +3412,11 @@ void PitOf50Trials::generateDungeon()
             };
 
             std::map<Coordinate, MapObject*> specificObjects;
-            if (floor % 5 == 0)
+            if (floor = 10)
+            {
+                specificObjects.emplace(spObjCoord, new HerosClaim(pgame, spObjCoord));
+            }
+            else if (floor % 5 == 0)
             {
                 specificObjects.emplace(spObjCoord, new Potion(pgame, spObjCoord, dngutil::POTION_HEAL));
             }
