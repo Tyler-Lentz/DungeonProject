@@ -250,6 +250,8 @@ void credits(dngutil::CreditType c, Game* pgame, dngutil::DungeonType dungeon)
     v->putcen(ColorString("Play Testing: Tyler Lentz, Thomas Westenhofer, Kristian Rascon,", color), vcursor.y++);
     v->putcen(ColorString("Danny Hernandez and others", color), vcursor.y++);
     vcursor.y++;
+    v->putcen(ColorString("Music/Sound effects: Legend of Zelda 1, 2 and 3", color), vcursor.y++);
+    vcursor.y++;
     v->putcen(ColorString("Special Thanks to: Evan \"Little Fella\" Maich,", color), vcursor.y++);
     v->putcen(ColorString("Niko \"Mile Stretch Mile\" Fernandez and", color), vcursor.y++);
     v->putcen(ColorString("Anthony \"Duganator 3000\" Dugan", color), vcursor.y++);
