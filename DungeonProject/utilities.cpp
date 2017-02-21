@@ -53,7 +53,6 @@ int random(int min, int max)
 
 bool keypress(int key)
 {
-
     if (!(GetAsyncKeyState(key) < 0)) // if its not pressed
     {
         return false;
@@ -68,8 +67,6 @@ bool keypress(int key)
 
 bool keyrelease(int key)
 {
-    
-
     if (GetAsyncKeyState(key) < 0) // if the key is down
     {
         return false;
