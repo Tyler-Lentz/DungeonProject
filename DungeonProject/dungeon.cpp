@@ -3469,7 +3469,7 @@ void PitOf50Trials::generateDungeon()
             }
 
             int difficulty = static_cast<int>((51 - floor) / 2.5);
-            if (floor == 15 || floor == 30 || floor == 40 || floor == 1)
+            if (floor == 10 || floor == 20 || floor == 30 || floor == 40 || floor == 1)
             {
                 possibleCreatures.clear();
                 switch (floor)
@@ -3480,8 +3480,11 @@ void PitOf50Trials::generateDungeon()
                 case 30:
                     possibleCreatures.push_back(dngutil::TID::DungeonBeast);
                     break;
-                case 15:
+                case 20:
                     possibleCreatures.push_back(dngutil::TID::FlameHorse);
+                    break;
+                case 10:
+                    possibleCreatures.push_back(dngutil::TID::PitDragon);
                     break;
                     
                 case 1:

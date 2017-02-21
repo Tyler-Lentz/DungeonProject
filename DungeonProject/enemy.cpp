@@ -661,6 +661,109 @@ void FlameHorse::printSelf()
 
 //----------------------------------------------------------------
 
+
+//----------------------------------------------------------------
+// Pit Dragon Functions
+
+PitDragon::PitDragon(
+    Game* pgame,
+    Coordinate coord,
+    int hp,
+    unsigned int att,
+    unsigned int def,
+    unsigned int lck,
+    unsigned int spd,
+    unsigned int lvl
+) : BEnemy(
+    pgame,
+    ColorChar('S', dngutil::GREEN),
+    coord,
+    "Pit Dragon",
+    false,
+    dngutil::TID::PitDragon,
+    hp,
+    att,
+    def,
+    lck,
+    spd,
+    lvl,
+    new Primary(
+        pgame,
+        ColorChar('o', dngutil::LIGHTRED),
+        coord,
+        "Fireball",
+        false,
+        1.895,
+        4,
+        80,
+        false,
+        "You cant get this so this doesnt matter",
+        "FireAttack1.wav",
+        dngutil::ClassType::KNIGHT
+    ),
+    new Secondary(
+        pgame,
+        ColorChar('*', dngutil::LIGHTRED),
+        coord,
+        "Scale Armor",
+        false,
+        dngutil::TID::Secondary,
+        0,
+        1.2,
+        "You cant get this so this doesnt matter"
+    ),
+    "SkeletonKingTheme.mp3",
+    80,
+    "Screech.wav",
+    dngutil::EvType::DEFENSE,
+    dngutil::ClassType::KNIGHT
+)
+{
+    setMaxhp(dngutil::MAX_HP);
+    setHp(getMaxhp());
+}
+
+void PitDragon::printSelf()
+{
+    Coordinate vcursor(0, getPGame()->getVWin()->txtmacs.DIVIDER_LINES[1] + 1);
+    VirtualWindow* t = getPGame()->getVWin();
+    int color = dngutil::GREEN;
+    t->put(ColorString(R"(             __                  __)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(            ( _)                ( _))", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(           / / \\              / /\_\_)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(          / /   \\            / / | \ \)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(         / /     \\          / /  |\ \ \)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(        /  /   ,  \ ,       / /   /|  \ \)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(       /  /    |\_ /|      / /   / \   \_\)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(      /  /  |\/ _ '_| \   / /   /   \    \\)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(     |  /   |/  0 \0\    / |    |    \    \\)", color), vcursor); vcursor.y++;
+    const int TOP_CURSOR_Y = vcursor.y;
+    t->put(ColorString(R"(     |    |\|      \_\_ /  /    |     \    \\)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(     |  | |/    \.\ o\o)  /      \     |    \\)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(     \    |     /\\`v-v  /        |    |     \\)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(      | \/    /_| \\_|  /         |    | \    \\)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(      | |    /__/_ `-` /   _____  |    |  \    \\)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(      \|    [__]  \_/  |_________  \   |   \    ())", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(       /    [___] (    \         \  |\ |   |   //)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(      |    [___]                  |\| \|   /  |/)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(     /|    [____]                  \  |/\ / / ||)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(    (  \   [____ /     ) _\      \  \    \| | ||)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(     \  \  [_____|    / /     __/    \   / / //)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(     |   \ [_____/   / /        \    |   \/ //)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(     |   /  '----|   /=\____   _/    |   / //)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(  __ /  /        |  /   ___/  _/\    \  | ||)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"( (/-(/-\)       /   \  (/\/\)/  |    /  | /)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(               (/\/\)           /   /   //)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                      _________/   /    /)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                     \____________/    ()", color), vcursor); vcursor.y++;
+    const int LONGEST_LINE_LENGTH = 59;
+
+    printStats(LONGEST_LINE_LENGTH, TOP_CURSOR_Y);
+}
+
+//----------------------------------------------------------------
+
+
 //----------------------------------------------------------------
 // Both beasts Functions
 

@@ -73,7 +73,8 @@ namespace dngutil
         ReaperPhase3,
         MaskPhase1,
         MaskPhase2,
-        MaskPhase3
+        MaskPhase3,
+        PitDragon
     };
 
     enum class BTID

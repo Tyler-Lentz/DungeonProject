@@ -241,6 +241,10 @@ Creature* Game::generateCreature(int difficulty, dngutil::TID tid)
     case dngutil::TID::MaskPhase3:
         enemy = new MaskPhase3(this, Coordinate(-1, -1), health, attack, defense, luck, speed, difficulty);
         break;
+
+    case dngutil::TID::PitDragon:
+        enemy = new PitDragon(this, Coordinate(-1, -1), health, attack, defense, luck, speed, difficulty);
+        break;
     }
 
     if (enemy == nullptr)
