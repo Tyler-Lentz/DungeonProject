@@ -223,8 +223,8 @@ void credits(dngutil::CreditType c, Game* pgame, dngutil::DungeonType dungeon)
     else if (dungeon == dngutil::DungeonType::FIFTYTRIALS)
     {
         v->putcen(ColorString("DUNGEON RPG - PIT OF 50 TRIALS", color), vcursor.y++);
-        v->putcen(ColorString("You have conquored the dungeon and", color), vcursor.y++);
-        v->putcen(ColorString("escape with great treasures!", color), vcursor.y++);
+        v->putcen(ColorString("You conquer the dungeon and", color), vcursor.y++);
+        v->putcen(ColorString("have escaped with great treasures!", color), vcursor.y++);
     }
     else
     {
