@@ -53,20 +53,32 @@ int random(int min, int max)
 
 bool keypress(int key)
 {
-    if (GetAsyncKeyState(key) < 0)
+
+    if (!(GetAsyncKeyState(key) < 0)) // if its not pressed
     {
-        return true;
+        return false;
     }
-    return false;
+
+    if (GetConsoleWindow() != GetForegroundWindow())
+    {
+        return false;
+    }
+    return true;
 }
 
 bool keyrelease(int key)
 {
-    if (!(GetAsyncKeyState(key) < 0))
+    
+
+    if (GetAsyncKeyState(key) < 0) // if the key is down
     {
-        return true;
+        return false;
     }
-    return false;
+    if (GetConsoleWindow() != GetForegroundWindow())
+    {
+        return false;
+    }
+    return true;
 }
 
 void sortPriority(std::list<MapObject*>& list, MapObject* objectToAdd)
