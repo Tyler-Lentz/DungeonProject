@@ -387,7 +387,7 @@ void intro(VirtualWindow* vwin)
 
     if (keepGoing)
     {
-        for (int i = 0; i < 600; i++)
+        for (int i = 0; i < 500; i++)
         {
             Sleep(10);
             if (keypress(VK_RETURN))
@@ -398,5 +398,19 @@ void intro(VirtualWindow* vwin)
     }
 
     stopMp3();
+
+    vwin->putcen(ColorString("A game by Tyler Lentz", dngutil::WHITE), 35);
+    if (keepGoing)
+    {
+        for (int i = 0; i < 200; i++)
+        {
+            Sleep(10);
+            if (keypress(VK_RETURN))
+            {
+                break;
+            }
+        }
+    }
+    
     vwin->clearScreen();
 }
