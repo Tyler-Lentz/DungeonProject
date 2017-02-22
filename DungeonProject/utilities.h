@@ -89,6 +89,7 @@ namespace dngutil
         DRAGONS_LAIR,
         GRYPHONS_TOWER,
         FIFTYTRIALS,
+        UNDERWATER_DUNGEON,
         NEITHER
     };
 

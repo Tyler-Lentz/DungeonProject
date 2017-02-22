@@ -422,6 +422,8 @@ void Game::titleScreen()
             vwin->putcen(ColorString("(2) - Gryphon's Tower", dngutil::MAGENTA), vcursor.y++);
             vcursor.y++;
             vwin->putcen(ColorString("(3) - Pit of 50 Trials", dngutil::WHITE), vcursor.y++);
+            vcursor.y++;
+            vwin->putcen(ColorString("(4) - Underwater Temple", dngutil::LIGHTBLUE), vcursor.y++);
 
             dngutil::DungeonType dungeonToMake;
             while (true)
@@ -439,6 +441,11 @@ void Game::titleScreen()
                 else if (keypress('3'))
                 {
                     dungeonToMake = dngutil::DungeonType::FIFTYTRIALS;
+                    break;
+                }
+                else if (keypress('4'))
+                {
+                    dungeonToMake = dngutil::DungeonType::UNDERWATER_DUNGEON;
                     break;
                 }
             }
@@ -498,6 +505,9 @@ void Game::titleScreen()
                 break;
             case dngutil::DungeonType::FIFTYTRIALS:
                 dungeon = new PitOf50Trials(this);
+                break;
+            case dngutil::DungeonType::UNDERWATER_DUNGEON:
+                dungeon = new UnderwaterTemple(this);
                 break;
             }
 

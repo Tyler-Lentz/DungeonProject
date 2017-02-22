@@ -3643,3 +3643,160 @@ void PitOf50Trials::generateDungeon()
         }
     }
 }
+
+UnderwaterTemple::UnderwaterTemple(Game* game) :
+    Dungeon(game)
+{
+    overworldMusic = "PitTheme.mp3";
+
+    story.push_back(std::make_pair(ColorString("You have stumbled across an temple at the bottom of the sea.", dngutil::WHITE), 2));
+
+    story.push_back(std::make_pair(ColorString("As the brave adventurer you are,", dngutil::WHITE), 0));
+    story.push_back(std::make_pair(ColorString("you begin to walk towards the entrance.", dngutil::WHITE), 5));
+
+    story.push_back(std::make_pair(ColorString("What lies in this temple?", dngutil::BLUE), 2));
+
+    beastSequence = [](Game* game) {
+        VirtualWindow* v = game->getVWin();
+        TextMacros& t = v->txtmacs;
+        Player* player = game->getPlayer();
+        stopMp3();
+        Sleep(150);
+        soundEffect("EnterBattle.wav", false, true);
+        t.clearMapArea(true, 20);
+        t.clearDivider("bottom");
+
+        Coordinate vcursor(0, t.DIVIDER_LINES[1] + 1);
+        Sleep(450);
+        startMp3("BeastTheme.mp3");
+        int color = dngutil::LIGHTBLUE;
+        for (; vcursor.x < 10; vcursor.x++)
+        {
+            t.clearMapArea(false, NULL);
+            vcursor.y = t.DIVIDER_LINES[1] + 1;
+            v->put(ColorString(R"(                              , )", color), vcursor); vcursor.y++;
+            v->put(ColorString(R"(                              \`-, )", color), vcursor); vcursor.y++;
+            v->put(ColorString(R"(                              |   `\ )", color), vcursor); vcursor.y++;
+            v->put(ColorString(R"(                              |     \ )", color), vcursor); vcursor.y++;
+            v->put(ColorString(R"(                           __/.- - -.\,__ )", color), vcursor); vcursor.y++;
+            v->put(ColorString(R"(                      _.-'`              `'"'--..,__ )", color), vcursor); vcursor.y++;
+            v->put(ColorString(R"(                  .-'`                              `'--.,_ )", color), vcursor); vcursor.y++;
+            v->put(ColorString(R"(               .'`   _                         _ ___       `) )", color), vcursor); vcursor.y++;
+            v->put(ColorString(R"(             .'   .'` `'-.                    (_`  _`)  _.-' )", color), vcursor); vcursor.y++;
+            v->put(ColorString(R"(           .'    '--.     '.                 .-.`"`@ .-'""-, )", color), vcursor); vcursor.y++;
+            v->put(ColorString(R"(  .------~'     ,.---'      '-._      _.'   /   `'--'"""".-' )", color), vcursor); vcursor.y++;
+            v->put(ColorString(R"(/`        '   /`  _,..-----.,__ `''''`/    ;__,..--''--'` )", color), vcursor); vcursor.y++;
+            v->put(ColorString(R"(`'--.,__ '    |-'`             `'---'|     | )", color), vcursor); vcursor.y++;
+            v->put(ColorString(R"(        `\    \                       \   / )", color), vcursor); vcursor.y++;
+            v->put(ColorString(R"(         |     |                       '-' )", color), vcursor); vcursor.y++;
+            v->put(ColorString(R"(          \    | )", color), vcursor); vcursor.y++;
+            v->put(ColorString(R"(           `\  | )", color), vcursor); vcursor.y++;
+            v->put(ColorString(R"(             \/)", color), vcursor); vcursor.y++;
+            Sleep(5);
+        }
+        Sleep(100);
+
+        soundEffect("Screech.wav", false, false);
+
+        vcursor.y = t.BOTTOM_DIVIDER_TEXT_LINE;
+        v->putcen(ColorString("Bloodjaw, the Beast of the Temple, has appeared!", dngutil::WHITE), vcursor.y++);
+        pressEnter(vcursor, v);
+        t.clearDivider("bottom");
+        soundEffect("PlayerHit.wav", false, true);
+        int iCap = static_cast<int>(player->getHp() / 2);
+
+        for (int i = 0; i < iCap; i++)
+        {
+            player->decreaseHealth(1);
+            v->putcen(player->getHealthBar(), t.BOTTOM_DIVIDER_TEXT_LINE);
+            Sleep(20);
+        }
+        Sleep(1000);
+
+        t.clearMapArea(true, 50);
+        t.clearDivider("bottom");
+        t.displayGame(game);
+
+        stopMp3();
+
+        startMp3(game->getOverworldMusic());
+        soundEffect("ExitToMap.wav", false, true);
+    };
+
+    gamespace.resize(7);
+    makeRooms();
+}
+
+void UnderwaterTemple::makeRooms()
+{
+    std::vector<std::thread> threads;
+    std::mutex roomMut;
+
+    threads.emplace_back([this, &roomMut]() { makeFloor5(roomMut); });
+
+    for (auto& thread : threads)
+    {
+        thread.join();
+    }
+}
+
+void UnderwaterTemple::makeFloor5(std::mutex& roomMut)
+{
+    unsigned int tfloor = 5;
+    pgame->setActiveFloor(tfloor);
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("#       A       #");
+        roomTemplate.push_back("#               #");
+        roomTemplate.push_back("#               #");
+        roomTemplate.push_back("#               #");
+        roomTemplate.push_back("##             ##");
+        roomTemplate.push_back("##             ##");
+        roomTemplate.push_back("##             ##");
+        roomTemplate.push_back("##             ##");
+        roomTemplate.push_back("##    ##-##    ##");
+        roomTemplate.push_back("##    ## ##    ##");
+        roomTemplate.push_back("##   ### ###   ##");
+        roomTemplate.push_back("##  ####v####  ##");
+        roomTemplate.push_back("##  #########  ##");
+        roomTemplate.push_back("##   #######   ##");
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+
+        int difficulty = 0;
+        int backColor = dngutil::LIGHTBLUE;
+        std::string name = "Seafloor : Entrance to the Temple";
+        Coordinate mapCoord(0, 0);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        roomMut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr));
+        pgame->setActiveRoom(gamespace[tfloor][mapCoord]); // sets the starting active room
+        roomMut.unlock();
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("##    #####    ##");
+        roomTemplate.push_back("##             ##");
+        roomTemplate.push_back("##             ##");
+        roomTemplate.push_back("##             ##");
+        roomTemplate.push_back("###           ###");
+        roomTemplate.push_back("####         ####");
+        roomTemplate.push_back("#####   @   #####");
+        roomTemplate.push_back("########o########");
+        roomTemplate.push_back("#################");
+        std::map<Coordinate, MapObject*> specificObjects;
+        specificObjects.emplace(Coordinate(8, 7), new Key(pgame, Coordinate(8, 7)));
+
+        std::vector<dngutil::TID> possibleCreatures;
+
+        int difficulty = 0;
+        int backColor = dngutil::LIGHTBLUE;
+        std::string name = "Blood in the Water";
+        Coordinate mapCoord(0, 1);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        roomMut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr));
+        roomMut.unlock();
+    }
+}

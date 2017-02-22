@@ -73,6 +73,17 @@ private:
     void makeFloor6(std::mutex& roomMut);
 };
 
+class UnderwaterTemple : public Dungeon
+{
+public:
+    UnderwaterTemple(Game* game);
+
+private:
+
+    void makeRooms();
+    void makeFloor5(std::mutex& roomMut);
+};
+
 class PitOf50Trials : public Dungeon
 {
 public:
