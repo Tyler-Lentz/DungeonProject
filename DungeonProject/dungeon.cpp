@@ -3699,7 +3699,7 @@ UnderwaterTemple::UnderwaterTemple(Game* game) :
         soundEffect("Screech.wav", false, false);
 
         vcursor.y = t.BOTTOM_DIVIDER_TEXT_LINE;
-        v->putcen(ColorString("Bloodjaw, the Beast of the Temple, has appeared!", dngutil::WHITE), vcursor.y++);
+        v->putcen(ColorString("Bloodjaw has appeared!", dngutil::WHITE), vcursor.y++);
         pressEnter(vcursor, v);
         t.clearDivider("bottom");
         soundEffect("PlayerHit.wav", false, true);
@@ -3713,7 +3713,31 @@ UnderwaterTemple::UnderwaterTemple(Game* game) :
         }
         Sleep(1000);
 
-        t.clearMapArea(true, 50);
+        for (; vcursor.x < 20; vcursor.x++)
+        {
+            t.clearMapArea(false, NULL);
+            vcursor.y = t.DIVIDER_LINES[1] + 1;
+            v->put(ColorString(R"(                              , )", color), vcursor); vcursor.y++;
+            v->put(ColorString(R"(                              \`-, )", color), vcursor); vcursor.y++;
+            v->put(ColorString(R"(                              |   `\ )", color), vcursor); vcursor.y++;
+            v->put(ColorString(R"(                              |     \ )", color), vcursor); vcursor.y++;
+            v->put(ColorString(R"(                           __/.- - -.\,__ )", color), vcursor); vcursor.y++;
+            v->put(ColorString(R"(                      _.-'`              `'"'--..,__ )", color), vcursor); vcursor.y++;
+            v->put(ColorString(R"(                  .-'`                              `'--.,_ )", color), vcursor); vcursor.y++;
+            v->put(ColorString(R"(               .'`   _                         _ ___       `) )", color), vcursor); vcursor.y++;
+            v->put(ColorString(R"(             .'   .'` `'-.                    (_`  _`)  _.-' )", color), vcursor); vcursor.y++;
+            v->put(ColorString(R"(           .'    '--.     '.                 .-.`"`@ .-'""-, )", color), vcursor); vcursor.y++;
+            v->put(ColorString(R"(  .------~'     ,.---'      '-._      _.'   /   `'--'"""".-' )", color), vcursor); vcursor.y++;
+            v->put(ColorString(R"(/`        '   /`  _,..-----.,__ `''''`/    ;__,..--''--'` )", color), vcursor); vcursor.y++;
+            v->put(ColorString(R"(`'--.,__ '    |-'`             `'---'|     | )", color), vcursor); vcursor.y++;
+            v->put(ColorString(R"(        `\    \                       \   / )", color), vcursor); vcursor.y++;
+            v->put(ColorString(R"(         |     |                       '-' )", color), vcursor); vcursor.y++;
+            v->put(ColorString(R"(          \    | )", color), vcursor); vcursor.y++;
+            v->put(ColorString(R"(           `\  | )", color), vcursor); vcursor.y++;
+            v->put(ColorString(R"(             \/)", color), vcursor); vcursor.y++;
+            Sleep(10);
+        }
+        t.clearMapArea(true, 10);
         t.clearDivider("bottom");
         t.displayGame(game);
 
