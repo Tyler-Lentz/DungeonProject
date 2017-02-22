@@ -6,6 +6,7 @@
 #include <string>
 #include <list>
 #include <mutex>
+#include <functional>
 
 #include "utilities.h"
 #include "colorstring.h"
@@ -35,6 +36,9 @@ public:
 
     // story, int is number of lines after normal newline
     std::vector<std::pair<ColorString, int>> story;
+    
+    // beast sequence for that dungeon
+    std::function<void(Game* game)> beastSequence;
 };
 
 class DragonsLair :  public Dungeon

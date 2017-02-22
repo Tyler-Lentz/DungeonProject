@@ -435,7 +435,7 @@ Collision BeastTrigger::mapAction(MapObject* collider, std::list<MapObject*>::it
 {
     if (collider == getPGame()->getPlayer())
     {
-        getPGame()->getPlayer()->dungeonBeastSequence();
+        getPGame()->beastSequence();
         getPGame()->setBeastSpawn(true);
         getPGame()->getPlayer()->resetSteps();
         it++;

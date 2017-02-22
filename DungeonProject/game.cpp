@@ -63,6 +63,11 @@ Game::~Game()
     delete player;
 }
 
+void Game::beastSequence()
+{
+    dungeon->beastSequence(this);
+}
+
 Room* Game::getActiveRoom()
 {
     return activeRoom;

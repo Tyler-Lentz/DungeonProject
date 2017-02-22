@@ -76,6 +76,8 @@ public:
 
     void setExitToFalse();
     bool shouldExit();
+
+    void beastSequence();
 private:
     VirtualWindow* vwin;
     Room* activeRoom;

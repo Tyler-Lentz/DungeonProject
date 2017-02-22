@@ -4,6 +4,7 @@
 #include <list>
 #include <mutex>
 #include <cmath>
+#include <functional>
 
 #include "game.h"
 #include "dungeon.h"
@@ -35,7 +36,7 @@ Dungeon::~Dungeon()
     pgame->clearDeletionList();
 }
 
-DragonsLair::DragonsLair(Game* game):
+DragonsLair::DragonsLair(Game* game) :
     Dungeon(game)
 {
     overworldMusic = "DragonsLair.mp3";
@@ -45,8 +46,70 @@ DragonsLair::DragonsLair(Game* game):
     story.push_back(std::make_pair(ColorString("You have tracked the dragon back to its lair.", dngutil::WHITE), 0));
     story.push_back(std::make_pair(ColorString("With your trusty sword and shield you pass through the entrance.", dngutil::WHITE), 5));
     story.push_back(std::make_pair(ColorString("Avenge your village!", dngutil::YELLOW), 2));
-    
+
     gamespace.resize(5);
+
+    beastSequence = [] (Game* game) {
+        VirtualWindow* v = game->getVWin();
+        TextMacros& t = v->txtmacs;
+        Player* player = game->getPlayer();
+        stopMp3();
+        Sleep(150);
+        soundEffect("EnterBattle.wav", false, true);
+        t.clearMapArea(true, 20);
+        t.clearDivider("bottom");
+
+        Coordinate vcursor(15, t.DIVIDER_LINES[1] + 1);
+
+        startMp3("BeastTheme.mp3");
+        int color = dngutil::WHITE;
+        v->put(ColorString(R"(		             \                  /)", color), vcursor); Sleep(50); vcursor.y++;
+        v->put(ColorString(R"(		    _________))                ((__________)", color), vcursor); Sleep(50); vcursor.y++;
+        v->put(ColorString(R"(		   /.-------./\\    \    /    //\.--------.\)", color), vcursor); Sleep(50); vcursor.y++;
+        v->put(ColorString(R"(		  //#######//##\\   ))  ((   //##\\########\\)", color), vcursor); Sleep(50); vcursor.y++;
+        v->put(ColorString(R"(		 //#######//###((  ((    ))  ))###\\########\\)", color), vcursor); Sleep(50); vcursor.y++;
+        v->put(ColorString(R"(		((#######((#####\\  \\  //  //#####))########)))", color), vcursor); Sleep(50); vcursor.y++;
+        v->put(ColorString(R"(		 \##' `###\######\\  \)(/  //######/####' `##/)", color), vcursor); Sleep(50); vcursor.y++;
+        v->put(ColorString(R"(		  )'    ``#)'  `##\`->oo<-'/##'  `(#''     `()", color), vcursor); Sleep(50); vcursor.y++;
+        v->put(ColorString(R"(		          (       ``\`..'/''       ))", color), vcursor); Sleep(50); vcursor.y++;
+        v->put(ColorString(R"(		                     \""()", color), vcursor); Sleep(50); vcursor.y++;
+        v->put(ColorString(R"(		                      `- ))", color), vcursor); Sleep(50); vcursor.y++;
+        v->put(ColorString(R"(		                      / /)", color), vcursor); Sleep(50); vcursor.y++;
+        v->put(ColorString(R"(		                     ( /\)", color), vcursor); Sleep(50); vcursor.y++;
+        v->put(ColorString(R"(		                     /\| \)", color), vcursor); Sleep(50); vcursor.y++;
+        v->put(ColorString(R"(		                    (  \)", color), vcursor); Sleep(50); vcursor.y++;
+        v->put(ColorString(R"(		                        ))", color), vcursor); Sleep(50); vcursor.y++;
+        v->put(ColorString(R"(		                       /)", color), vcursor); Sleep(50); vcursor.y++;
+        v->put(ColorString(R"(		                      ()", color), vcursor); Sleep(50); vcursor.y++;
+        v->put(ColorString(R"(		                      ` )", color), vcursor); Sleep(50);
+
+        soundEffect("Screech.wav", false, false);
+
+        vcursor.y = t.BOTTOM_DIVIDER_TEXT_LINE;
+        v->putcen(ColorString("The Dungeon Beast has appeared!", dngutil::WHITE), vcursor.y++);
+        pressEnter(vcursor, v);
+        t.clearDivider("bottom");
+        int healthbarLine = t.DIVIDER_LINES[2] + 4;
+        int healthDecrease = static_cast<int>(player->getHp() / 2.0);
+        int sleepTime = static_cast<int>(5000.0 / healthDecrease);
+
+        soundEffect("HealthDrain.wav", false, true);
+        for (int i = 0; i < healthDecrease; i++)
+        {
+            player->decreaseHealth(1);
+            v->putcen(player->getHealthBar(), healthbarLine);
+            Sleep(sleepTime); vcursor.y++;
+        }
+
+        t.clearMapArea(true, 50);
+        t.clearDivider("bottom");
+        t.displayGame(game);
+
+        stopMp3();
+
+        startMp3(game->getOverworldMusic());
+        soundEffect("ExitToMap.wav", false, true);
+    };
     makeRooms();
 }
 
@@ -1676,6 +1739,68 @@ GryphonsTower::GryphonsTower(Game* game):
     story.push_back(std::make_pair(ColorString("However, you have followed the gryphon back to its tower.", dngutil::WHITE), 0));
     story.push_back(std::make_pair(ColorString("With your trusty sword and shield you pass through the entrance.", dngutil::WHITE), 5));
     story.push_back(std::make_pair(ColorString("Save your family!", dngutil::YELLOW), 2));
+
+    beastSequence = [](Game* game) {
+        VirtualWindow* v = game->getVWin();
+        TextMacros& t = v->txtmacs;
+        Player* player = game->getPlayer();
+        stopMp3();
+        Sleep(150);
+        soundEffect("EnterBattle.wav", false, true);
+        t.clearMapArea(true, 20);
+        t.clearDivider("bottom");
+
+        Coordinate vcursor(15, t.DIVIDER_LINES[1] + 1);
+
+        startMp3("BeastTheme.mp3");
+        int color = dngutil::WHITE;
+        v->put(ColorString(R"(		             \                  /)", color), vcursor); Sleep(50); vcursor.y++;
+        v->put(ColorString(R"(		    _________))                ((__________)", color), vcursor); Sleep(50); vcursor.y++;
+        v->put(ColorString(R"(		   /.-------./\\    \    /    //\.--------.\)", color), vcursor); Sleep(50); vcursor.y++;
+        v->put(ColorString(R"(		  //#######//##\\   ))  ((   //##\\########\\)", color), vcursor); Sleep(50); vcursor.y++;
+        v->put(ColorString(R"(		 //#######//###((  ((    ))  ))###\\########\\)", color), vcursor); Sleep(50); vcursor.y++;
+        v->put(ColorString(R"(		((#######((#####\\  \\  //  //#####))########)))", color), vcursor); Sleep(50); vcursor.y++;
+        v->put(ColorString(R"(		 \##' `###\######\\  \)(/  //######/####' `##/)", color), vcursor); Sleep(50); vcursor.y++;
+        v->put(ColorString(R"(		  )'    ``#)'  `##\`->oo<-'/##'  `(#''     `()", color), vcursor); Sleep(50); vcursor.y++;
+        v->put(ColorString(R"(		          (       ``\`..'/''       ))", color), vcursor); Sleep(50); vcursor.y++;
+        v->put(ColorString(R"(		                     \""()", color), vcursor); Sleep(50); vcursor.y++;
+        v->put(ColorString(R"(		                      `- ))", color), vcursor); Sleep(50); vcursor.y++;
+        v->put(ColorString(R"(		                      / /)", color), vcursor); Sleep(50); vcursor.y++;
+        v->put(ColorString(R"(		                     ( /\)", color), vcursor); Sleep(50); vcursor.y++;
+        v->put(ColorString(R"(		                     /\| \)", color), vcursor); Sleep(50); vcursor.y++;
+        v->put(ColorString(R"(		                    (  \)", color), vcursor); Sleep(50); vcursor.y++;
+        v->put(ColorString(R"(		                        ))", color), vcursor); Sleep(50); vcursor.y++;
+        v->put(ColorString(R"(		                       /)", color), vcursor); Sleep(50); vcursor.y++;
+        v->put(ColorString(R"(		                      ()", color), vcursor); Sleep(50); vcursor.y++;
+        v->put(ColorString(R"(		                      ` )", color), vcursor); Sleep(50);
+
+        soundEffect("Screech.wav", false, false);
+
+        vcursor.y = t.BOTTOM_DIVIDER_TEXT_LINE;
+        v->putcen(ColorString("The Dungeon Beast has appeared!", dngutil::WHITE), vcursor.y++);
+        pressEnter(vcursor, v);
+        t.clearDivider("bottom");
+        int healthbarLine = t.DIVIDER_LINES[2] + 4;
+        int healthDecrease = static_cast<int>(player->getHp() / 2.0);
+        int sleepTime = static_cast<int>(5000.0 / healthDecrease);
+
+        soundEffect("HealthDrain.wav", false, true);
+        for (int i = 0; i < healthDecrease; i++)
+        {
+            player->decreaseHealth(1);
+            v->putcen(player->getHealthBar(), healthbarLine);
+            Sleep(sleepTime); vcursor.y++;
+        }
+
+        t.clearMapArea(true, 50);
+        t.clearDivider("bottom");
+        t.displayGame(game);
+
+        stopMp3();
+
+        startMp3(game->getOverworldMusic());
+        soundEffect("ExitToMap.wav", false, true);
+    };
 
     gamespace.resize(7);
     makeRooms();
@@ -3315,6 +3440,9 @@ PitOf50Trials::PitOf50Trials(Game* game) :
 
     story.push_back(std::make_pair(ColorString("As you enter the dungeon the door closes behind you.", dngutil::WHITE), 5));
     story.push_back(std::make_pair(ColorString("Will this be your deathbed?", dngutil::RED), 2));
+
+    // doesnt have beast seq but just in case it accidentally gets called
+    beastSequence = [](Game* game) {};
 
     gamespace.resize(51);
     generateDungeon();

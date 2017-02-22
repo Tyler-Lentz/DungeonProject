@@ -60,7 +60,6 @@ public:
     ColorString getStepString();
     void resetSteps();
     int getStepCount();
-    void dungeonBeastSequence();
 
     void chooseClass();
 private:

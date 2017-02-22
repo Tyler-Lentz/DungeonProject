@@ -187,68 +187,6 @@ void Player::removeFromInventory(unsigned int index)
     inventory.erase(it);
 }
 
-void Player::dungeonBeastSequence()
-{
-    VirtualWindow* v = getPGame()->getVWin();
-    TextMacros& t = v->txtmacs;
-    stopMp3();
-    Sleep(150);
-    soundEffect("EnterBattle.wav", false, true);
-    t.clearMapArea(true, 20);
-    t.clearDivider("bottom");
-
-    Coordinate vcursor(15, t.DIVIDER_LINES[1] + 1);
-
-    startMp3("BeastTheme.mp3");
-    int color = dngutil::WHITE;
-    v->put(ColorString(R"(		             \                  /)", color), vcursor); Sleep(50); vcursor.y++;
-    v->put(ColorString(R"(		    _________))                ((__________)", color), vcursor); Sleep(50); vcursor.y++;
-    v->put(ColorString(R"(		   /.-------./\\    \    /    //\.--------.\)", color), vcursor); Sleep(50); vcursor.y++;
-    v->put(ColorString(R"(		  //#######//##\\   ))  ((   //##\\########\\)", color), vcursor); Sleep(50); vcursor.y++;
-    v->put(ColorString(R"(		 //#######//###((  ((    ))  ))###\\########\\)", color), vcursor); Sleep(50); vcursor.y++;
-    v->put(ColorString(R"(		((#######((#####\\  \\  //  //#####))########)))", color), vcursor); Sleep(50); vcursor.y++;
-    v->put(ColorString(R"(		 \##' `###\######\\  \)(/  //######/####' `##/)", color), vcursor); Sleep(50); vcursor.y++;
-    v->put(ColorString(R"(		  )'    ``#)'  `##\`->oo<-'/##'  `(#''     `()", color), vcursor); Sleep(50); vcursor.y++;
-    v->put(ColorString(R"(		          (       ``\`..'/''       ))", color), vcursor); Sleep(50); vcursor.y++;
-    v->put(ColorString(R"(		                     \""()", color), vcursor); Sleep(50); vcursor.y++;
-    v->put(ColorString(R"(		                      `- ))", color), vcursor); Sleep(50); vcursor.y++;
-    v->put(ColorString(R"(		                      / /)", color), vcursor); Sleep(50); vcursor.y++;
-    v->put(ColorString(R"(		                     ( /\)", color), vcursor); Sleep(50); vcursor.y++;
-    v->put(ColorString(R"(		                     /\| \)", color), vcursor); Sleep(50); vcursor.y++;
-    v->put(ColorString(R"(		                    (  \)", color), vcursor); Sleep(50); vcursor.y++;
-    v->put(ColorString(R"(		                        ))", color), vcursor); Sleep(50); vcursor.y++;
-    v->put(ColorString(R"(		                       /)", color), vcursor); Sleep(50); vcursor.y++;
-    v->put(ColorString(R"(		                      ()", color), vcursor); Sleep(50); vcursor.y++;
-    v->put(ColorString(R"(		                      ` )", color), vcursor); Sleep(50);
-    
-    soundEffect("Screech.wav", false, false); 
-
-    vcursor.y = t.BOTTOM_DIVIDER_TEXT_LINE;
-    v->putcen(ColorString("The Dungeon Beast has appeared!", dngutil::WHITE), vcursor.y++);
-    pressEnter(vcursor, v);
-    t.clearDivider("bottom");
-    int healthbarLine = t.DIVIDER_LINES[2] + 4;
-    int healthDecrease = static_cast<int>(getHp() / 2.0);
-    int sleepTime = static_cast<int>(5000.0 / healthDecrease);
-
-    soundEffect("HealthDrain.wav", false, true);
-    for (int i = 0; i < healthDecrease; i++)
-    {
-        decreaseHealth(1);
-        v->putcen(getHealthBar(), healthbarLine);
-        Sleep(sleepTime); vcursor.y++;
-    }
-
-    t.clearMapArea(true, 50);
-    t.clearDivider("bottom");
-    t.displayGame(getPGame());
-
-    stopMp3();
-
-    startMp3(getPGame()->getOverworldMusic());
-    soundEffect("ExitToMap.wav", false, true);
-}
-
 bool Player::movement()
 {
     int adjustedSpeed = static_cast<int>(dngutil::MAX_SPD * 1.5);
@@ -256,7 +194,7 @@ bool Player::movement()
 
     if (steps < 1 && getPGame()->shouldSpawnBeast())
     {
-        dungeonBeastSequence();
+        getPGame()->beastSequence();
         steps = getPGame()->getDifficulty().beastSteps;
     }
 
