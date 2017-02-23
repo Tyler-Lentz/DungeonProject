@@ -277,7 +277,7 @@ void Game::titleScreen()
 
     vwin->txtmacs.drawDividers();
     vwin->txtmacs.clearDivider("bottom");
-    vwin->putcen(ColorString("Dungeon RPG 1.0.1", dngutil::GREEN), vwin->txtmacs.DIVIDER_LINES[0] + 1);
+    vwin->putcen(ColorString("Dungeon RPG 1.0.2 (INDEV)", dngutil::GREEN), vwin->txtmacs.DIVIDER_LINES[0] + 1);
     vwin->putcen(ColorString("Enter - Continue, C - credits, Esc - exit", dngutil::LIGHTGRAY), vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE);
 
     int r = random(3);
