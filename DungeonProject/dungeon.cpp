@@ -2360,7 +2360,7 @@ void GryphonsTower::makeFloor2(std::mutex& roomMut)
         possibleCreatures.push_back(dngutil::TID::SkeletonKing);
 
         int difficulty = 7;
-        int backColor = dngutil::BROWN;
+        int backColor = dngutil::LIGHTGRAY;
         std::string name = "Skeleton King's Court";
         Coordinate mapCoord(1, 0);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
