@@ -3758,6 +3758,8 @@ void UnderwaterTemple::makeRooms()
 
     threads.emplace_back([this, &roomMut]() { makeFloor5(roomMut); });
     threads.emplace_back([this, &roomMut]() { makeFloor4(roomMut); });
+    threads.emplace_back([this, &roomMut]() { makeFloor3(roomMut); });
+    threads.emplace_back([this, &roomMut]() { makeFloor2(roomMut); });
 
     for (auto& thread : threads)
     {
@@ -4127,4 +4129,14 @@ void UnderwaterTemple::makeFloor4(std::mutex& roomMut)
         gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction)));
         roomMut.unlock();
     }
+}
+
+void UnderwaterTemple::makeFloor3(std::mutex& roomMut)
+{
+    unsigned int tfloor = 3;
+}
+
+void UnderwaterTemple::makeFloor2(std::mutex& roomMut)
+{
+    unsigned int tfloor = 2;
 }
