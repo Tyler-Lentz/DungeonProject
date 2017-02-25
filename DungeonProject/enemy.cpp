@@ -661,6 +661,106 @@ void FlameHorse::printSelf()
 
 //----------------------------------------------------------------
 
+//----------------------------------------------------------------
+// WaterHorse Functions
+
+WaterHorse::WaterHorse(
+    Game* pgame,
+    Coordinate coord,
+    int hp,
+    unsigned int att,
+    unsigned int def,
+    unsigned int lck,
+    unsigned int spd,
+    unsigned int lvl
+) : BEnemy(
+    pgame,
+    ColorChar('M', dngutil::BLUE),
+    coord,
+    "Water Horse",
+    false,
+    dngutil::TID::WaterHorse,
+    hp,
+    att,
+    def,
+    lck,
+    spd,
+    lvl,
+    new Primary(
+        pgame,
+        ColorChar('o', dngutil::DARKGRAY),
+        coord,
+        "Bubble Blast",
+        false,
+        1.68,
+        4,
+        100,
+        false,
+        "You cant get this so this doesnt matter",
+        "Attack4.wav",
+        dngutil::ClassType::KNIGHT
+    ),
+    new Secondary(
+        pgame,
+        ColorChar('*', dngutil::LIGHTBLUE),
+        coord,
+        "Water Shield",
+        false,
+        dngutil::TID::Secondary,
+        0,
+        1.213,
+        "You cant get this so this doesnt matter"
+    ),
+    "SkeletonKingTheme.mp3",
+    68,
+    "Screech.wav",
+    dngutil::EvType::SPEED,
+    dngutil::ClassType::WIZARD
+)
+{
+    setMaxhp(getHp() * 2);
+    setHp(getMaxhp());
+}
+
+void WaterHorse::printSelf()
+{
+    Coordinate vcursor(0, getPGame()->getVWin()->txtmacs.DIVIDER_LINES[1] + 1);
+    VirtualWindow* t = getPGame()->getVWin();
+    int color = dngutil::BLUE;
+    t->put(ColorString("                      . . . .\n", color), vcursor); vcursor.y++;
+    t->put(ColorString("                      ,`,`,`,`,\n", color), vcursor); vcursor.y++;
+    t->put(ColorString(". . . .               `\\`\\`\\`\\;\n", color), vcursor); vcursor.y++;
+    t->put(ColorString("`\\`\\`\\`\\`,            ~|;!;!;\\!\n", color), vcursor); vcursor.y++;
+    t->put(ColorString(" ~\\;\\;\\;\\|\\          (--,!!!~`!       .\n", color), vcursor); vcursor.y++;
+    t->put(ColorString("(--,\\\\\\===~\\         (--,|||~`!     ./\n", color), vcursor); vcursor.y++;
+    t->put(ColorString(" (--,\\\\\\===~\\         `,-,~,=,:. _,//\n", color), vcursor); vcursor.y++;
+    t->put(ColorString("  (--,\\\\\\==~`\\        ~-=~-.---|\\;/J,\n", color), vcursor); vcursor.y++;
+    const int TOP_CURSOR_Y = vcursor.y;
+    t->put(ColorString("   (--,\\\\\\((```==.    ~'`~/       a |\n", color), vcursor); vcursor.y++;
+    t->put(ColorString("     (-,.\\\\('('(`\\\\.  ~'=~|     \\_.  \\\n", color), vcursor); vcursor.y++;
+    t->put(ColorString("        (,--(,(,(,'\\\\. ~'=|       \\\\_;>\n", color), vcursor); vcursor.y++;
+    t->put(ColorString("          (,-( ,(,(,;\\\\ ~=/        \\\n", color), vcursor); vcursor.y++;
+    t->put(ColorString("          (,-/ (.(.(,;\\\\,/          )\n", color), vcursor); vcursor.y++;
+    t->put(ColorString("           (,--/,;,;,;,\\\\         ./------.\n", color), vcursor); vcursor.y++;
+    t->put(ColorString("             (==,-;-'`;'         /_,----`. \\\n", color), vcursor); vcursor.y++;
+    t->put(ColorString("     ,.--_,__.-'                    `--.  ` \\\n", color), vcursor); vcursor.y++;
+    t->put(ColorString("    (='~-_,--/        ,       ,!,___--. \\  \\_)\n", color), vcursor); vcursor.y++;
+    t->put(ColorString("   (-/~(     |         \\   ,_-         | ) /_|\n", color), vcursor); vcursor.y++;
+    t->put(ColorString("   (~/((\\    )\\._,      |-'         _,/ /\n", color), vcursor); vcursor.y++;
+    t->put(ColorString("    \\\\))))  /   ./~.    |           \\_\\;\n", color), vcursor); vcursor.y++;
+    t->put(ColorString(" ,__/////  /   /    )  /\n", color), vcursor); vcursor.y++;
+    t->put(ColorString("  '===~'   |  |    (, <.\n", color), vcursor); vcursor.y++;
+    t->put(ColorString("           / /       \\. \\\n", color), vcursor); vcursor.y++;
+    t->put(ColorString("         _/ /          \\_\\\n", color), vcursor); vcursor.y++;
+    t->put(ColorString("        /_!/            >_\\\n", color), vcursor); vcursor.y++;
+
+    const int LONGEST_LINE_LENGTH = 59;
+
+    printStats(LONGEST_LINE_LENGTH, TOP_CURSOR_Y);
+}
+
+//----------------------------------------------------------------
+
 
 //----------------------------------------------------------------
 // Pit Dragon Functions

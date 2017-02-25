@@ -274,6 +274,23 @@ public:
     void printSelf() override;
 };
 
+class WaterHorse : public BEnemy
+{
+public:
+    WaterHorse(
+        Game* pgame,
+        Coordinate coord,
+        int hp,
+        unsigned int att,
+        unsigned int def,
+        unsigned int lck,
+        unsigned int spd,
+        unsigned int lvl
+    );
+
+    void printSelf() override;
+};
+
 class PitDragon : public BEnemy
 {
 public:

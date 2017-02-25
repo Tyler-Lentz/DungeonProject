@@ -74,7 +74,8 @@ namespace dngutil
         MaskPhase1,
         MaskPhase2,
         MaskPhase3,
-        PitDragon
+        PitDragon,
+        WaterHorse
     };
 
     enum class BTID

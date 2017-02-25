@@ -250,6 +250,10 @@ Creature* Game::generateCreature(int difficulty, dngutil::TID tid)
     case dngutil::TID::PitDragon:
         enemy = new PitDragon(this, Coordinate(-1, -1), health, attack, defense, luck, speed, difficulty);
         break;
+
+    case dngutil::TID::WaterHorse:
+        enemy = new WaterHorse(this, Coordinate(-1, -1), health, attack, defense, luck, speed, difficulty);
+        break;
     }
 
     if (enemy == nullptr)
