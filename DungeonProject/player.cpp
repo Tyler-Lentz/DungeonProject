@@ -69,7 +69,7 @@ Player::Player(
     attEv = 0;
     defEv = 0;
     lckEv = 0;
-    spdEv = 0;     
+    spdEv = 0;
 
     steps = pgame->getDifficulty().beastSteps;
 }

@@ -1062,6 +1062,389 @@ void BloodjawPhase3::printSelf()
 
 //----------------------------------------------------------------
 
+//----------------------------------------------------------------
+// Evil Beast Functions
+
+EvilBeastPhase1::EvilBeastPhase1(
+    Game* pgame,
+    Coordinate coord,
+    int hp,
+    unsigned int att,
+    unsigned int def,
+    unsigned int lck,
+    unsigned int spd,
+    unsigned int lvl
+) : SegEnemy(
+    pgame,
+    ColorChar('?', dngutil::MAGENTA),
+    coord,
+    "Evil Beast",
+    false,
+    dngutil::TID::EvilBeastPhase1,
+    hp,
+    att,
+    def,
+    lck,
+    spd,
+    lvl,
+    new Primary(
+        pgame,
+        ColorChar('?', dngutil::DARKGRAY),
+        coord,
+        "Piercing Glare",
+        false,
+        1.67,
+        4,
+        65,
+        false,
+        "You cant get this so this doesnt matter",
+        "Attack1.wav",
+        dngutil::ClassType::RANGER
+    ),
+    new Secondary(
+        pgame,
+        ColorChar('?', dngutil::LIGHTBLUE),
+        coord,
+        "Evil Aura",
+        false,
+        dngutil::TID::Secondary,
+        0,
+        1.3,
+        "You cant get this so this doesnt matter"
+    ),
+    "hidden.mp3",
+    68,
+    "Laugh.wav",
+    dngutil::EvType::SPEED,
+    dngutil::ClassType::RANGER
+)
+{
+    setMaxhp(getHp() * 2);
+    setHp(getMaxhp());
+}
+
+
+ColorString EvilBeastPhase1::getBattleInfo() const
+{
+    return ColorString("You can't breath", dngutil::MAGENTA);
+}
+
+void EvilBeastPhase1::printSelf()
+{
+    Coordinate vcursor(0, getPGame()->getVWin()->txtmacs.DIVIDER_LINES[1] + 1);
+    VirtualWindow* v = getPGame()->getVWin();
+    int color = dngutil::MAGENTA;
+    v->put(ColorString(R"(           _/          ,          .                                          )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(       , -' )         ( \-------.,')            (\_________________________  )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(     , ,-/ |          /\_) )     \/            ,' _.----------------------,\ )", color), vcursor); vcursor.y++;
+    const int TOP_CURSOR_Y = vcursor.y;
+    v->put(ColorString(R"(   ,',  /, |         /      >--. ,)           / /\\                          )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(  / ,  //|,'        /'     '\--'\\)          /,'  \\     `         `   ,     )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"( / ,  // ||       ,'     (.--^( `')         //     \\                \       )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(( ,  //  ||,___,-'    (___\\  '^^^'        //       \\              ,        )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"( \  //   ||--.__     (     \`^--)  _____.-'/         \\   `                  )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(  >'/    ||,        (       \|_(\-'      ,'           \\         \,          )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"( /,'     ||          \           \      /              \\                    )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"((/       ||           \           )  ,'(     `     `    \\      ,            )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"( `       ||\           \      ) ,'  /_  )                \\    \             )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(         || `.          `.    ,'   /( `.\  \ , \ \,       \\   ,             )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(   `     || (_`.          ` .'   .'  )  `)'            ,   \\                )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(         ||  (_ `-v-------  ^--v' , )                      '\\,              )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(         ||    (    , _,-  /  -./ )'                         `)              )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(     `   '|     ),  ,'    '     )'                                           )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(        ' ;    /  ,'          ,'                                             )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(       /,'    /  /      '    /                                               )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(       \|    /  (          ,'                                                )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(       ('  ,'    `.    "  /                                                  )", color), vcursor); vcursor.y++;
+
+    const int LONGEST_LINE_LENGTH = 59;
+
+    printStats(LONGEST_LINE_LENGTH, TOP_CURSOR_Y);
+}
+
+EvilBeastPhase2::EvilBeastPhase2(
+    Game* pgame,
+    Coordinate coord,
+    int hp,
+    unsigned int att,
+    unsigned int def,
+    unsigned int lck,
+    unsigned int spd,
+    unsigned int lvl
+) : SegEnemy(
+    pgame,
+    ColorChar('?', dngutil::MAGENTA),
+    coord,
+    "Evil Beast",
+    false,
+    dngutil::TID::EvilBeastPhase2,
+    hp,
+    att,
+    def,
+    lck,
+    spd,
+    lvl,
+    new Primary(
+        pgame,
+        ColorChar('?', dngutil::DARKGRAY),
+        coord,
+        "Wing",
+        false,
+        1.6,
+        3,
+        70,
+        false,
+        "You cant get this so this doesnt matter",
+        "Attack4.wav",
+        dngutil::ClassType::KNIGHT
+    ),
+    new Secondary(
+        pgame,
+        ColorChar('?', dngutil::LIGHTBLUE),
+        coord,
+        "Evil Aura",
+        false,
+        dngutil::TID::Secondary,
+        0,
+        1.3,
+        "You cant get this so this doesnt matter"
+    ),
+    "hidden.mp3",
+    68,
+    "SegDeath.wav",
+    dngutil::EvType::SPEED,
+    dngutil::ClassType::KNIGHT
+)
+{
+    setMaxhp(getMaxhp() * 2);
+    setHp(getMaxhp());
+}
+
+void EvilBeastPhase2::printSelf()
+{
+    Coordinate vcursor(0, getPGame()->getVWin()->txtmacs.DIVIDER_LINES[1] + 1);
+    VirtualWindow* v = getPGame()->getVWin();
+    int color = dngutil::MAGENTA;
+    v->put(ColorString(R"(           _/          ,          .                                          )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(       , -' )         ( \-------.,')            (\_________________________  )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(     , ,-/ |          /\_) )     \/            ,' _.----------------------,\ )", color), vcursor); vcursor.y++;
+    const int TOP_CURSOR_Y = vcursor.y;
+    v->put(ColorString(R"(   ,',  /, |         /      >--. ,)           / /\\                          )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(  / ,  //|,'        /'     '\--'\\)          /,'  \\     `         `   ,     )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"( / ,  // ||       ,'     (.--^( `')         //     \\                \       )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(( ,  //  ||,___,-'    (___\\  '^^^'        //       \\              ,        )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"( \  //   ||--.__     (     \`^--)  _____.-'/         \\   `                  )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(  >'/    ||,        (       \|_(\-'      ,'           \\         \,          )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"( /,'     ||          \           \      /              \\                    )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"((/       ||           \           )  ,'(     `     `    \\      ,            )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"( `       ||\           \      ) ,'  /_  )                \\    \             )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(         || `.          `.    ,'   /( `.\  \ , \ \,       \\   ,             )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(   `     || (_`.          ` .'   .'  )  `)'            ,   \\                )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(         ||  (_ `-v-------  ^--v' , )                      '\\,              )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(         ||    (    , _,-  /  -./ )'                         `)              )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(     `   '|     ),  ,'    '     )'                                           )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(        ' ;    /  ,'          ,'                                             )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(       /,'    /  /      '    /                                               )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(       \|    /  (          ,'                                                )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(       ('  ,'    `.    "  /                                                  )", color), vcursor); vcursor.y++;
+
+    const int LONGEST_LINE_LENGTH = 59;
+
+    printStats(LONGEST_LINE_LENGTH, TOP_CURSOR_Y);
+}
+
+EvilBeastPhase3::EvilBeastPhase3(
+    Game* pgame,
+    Coordinate coord,
+    int hp,
+    unsigned int att,
+    unsigned int def,
+    unsigned int lck,
+    unsigned int spd,
+    unsigned int lvl
+) : SegEnemy(
+    pgame,
+    ColorChar('0', dngutil::LIGHTGRAY),
+    coord,
+    "Flaming Beast",
+    false,
+    dngutil::TID::EvilBeastPhase3,
+    hp,
+    att,
+    def,
+    lck,
+    spd,
+    lvl,
+    new Primary(
+        pgame,
+        ColorChar('?', dngutil::DARKGRAY),
+        coord,
+        "Fire of the Damned",
+        false,
+        2,
+        5,
+        100,
+        false,
+        "You cant get this so this doesnt matter",
+        "FireAttack1.wav",
+        dngutil::ClassType::KNIGHT
+    ),
+    new Secondary(
+        pgame,
+        ColorChar('?', dngutil::LIGHTBLUE),
+        coord,
+        "Fire Shield",
+        false,
+        dngutil::TID::Secondary,
+        0,
+        1.28,
+        "You cant get this so this doesnt matter"
+    ),
+    "hidden.mp3",
+    68,
+    "SegDeath.wav",
+    dngutil::EvType::SPEED,
+    dngutil::ClassType::KNIGHT
+)
+{
+    setMaxhp(dngutil::MAX_HP);
+    setHp(getMaxhp());
+    increaseDef(static_cast<int>(getDef() * 1.3));
+}
+
+void EvilBeastPhase3::printSelf()
+{
+    Coordinate vcursor(0, getPGame()->getVWin()->txtmacs.DIVIDER_LINES[1] + 1);
+    VirtualWindow* v = getPGame()->getVWin();
+    int color = dngutil::LIGHTRED;
+    v->put(ColorString(R"(           _/          ,          .                                          )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(       , -' )         ( \-------.,')            (\_________________________  )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(     , ,-/ |          /\_) )     \/            ,' _.----------------------,\ )", color), vcursor); vcursor.y++;
+    const int TOP_CURSOR_Y = vcursor.y;
+    v->put(ColorString(R"(   ,',  /, |         /      >--. ,)           / /\\                          )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(  / ,  //|,'        /'     '\--'\\)          /,'  \\     `         `   ,     )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"( / ,  // ||       ,'     (.--^( `')         //     \\                \       )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(( ,  //  ||,___,-'    (___\\  '^^^'        //       \\              ,        )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"( \  //   ||--.__     (     \`^--)  _____.-'/         \\   `                  )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(  >'/    ||,        (       \|_(\-'      ,'           \\         \,          )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"( /,'     ||          \           \      /              \\                    )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"((/       ||           \           )  ,'(     `     `    \\      ,            )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"( `       ||\           \      ) ,'  /_  )                \\    \             )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(         || `.          `.    ,'   /( `.\  \ , \ \,       \\   ,             )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(   `     || (_`.          ` .'   .'  )  `)'            ,   \\                )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(         ||  (_ `-v-------  ^--v' , )                      '\\,              )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(         ||    (    , _,-  /  -./ )'                         `)              )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(     `   '|     ),  ,'    '     )'                                           )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(        ' ;    /  ,'          ,'                                             )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(       /,'    /  /      '    /                                               )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(       \|    /  (          ,'                                                )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(       ('  ,'    `.    "  /                                                  )", color), vcursor); vcursor.y++;
+
+    const int LONGEST_LINE_LENGTH = 59;
+
+    printStats(LONGEST_LINE_LENGTH, TOP_CURSOR_Y);
+}
+
+EvilBeastPhase4::EvilBeastPhase4(
+    Game* pgame,
+    Coordinate coord,
+    int hp,
+    unsigned int att,
+    unsigned int def,
+    unsigned int lck,
+    unsigned int spd,
+    unsigned int lvl
+) : SegEnemy(
+    pgame,
+    ColorChar('?', dngutil::LIGHTRED),
+    coord,
+    "Fire Beast 2",
+    false,
+    dngutil::TID::EvilBeastPhase4,
+    hp,
+    att,
+    def,
+    lck,
+    spd,
+    lvl,
+    new Primary(
+        pgame,
+        ColorChar('?', dngutil::DARKGRAY),
+        coord,
+        "Death Flameburst",
+        false,
+        5,
+        8,
+        100,
+        false,
+        "You cant get this so this doesnt matter",
+        "MagicAttack1.wav",
+        dngutil::ClassType::WIZARD
+    ),
+    new Secondary(
+        pgame,
+        ColorChar('?', dngutil::LIGHTBLUE),
+        coord,
+        "Aura",
+        false,
+        dngutil::TID::Secondary,
+        0,
+        1.45,
+        "You cant get this so this doesnt matter"
+    ),
+    "hidden.mp3",
+    68,
+    "FinalDeath.wav",
+    dngutil::EvType::SPEED,
+    dngutil::ClassType::KNIGHT
+)
+{
+    setMaxhp(dngutil::MAX_HP);
+    setHp(getMaxhp());
+    increaseDef(static_cast<int>(getDef() * 1.2));
+}
+
+void EvilBeastPhase4::deathSequence()
+{
+    getPGame()->adjustScore(dngutil::BASE_SCORE_BOSS_BOOST * 4);
+    credits(dngutil::CreditType::SECRET_VICTORY, getPGame(), dngutil::DungeonType::UNDERWATER_DUNGEON);
+}
+
+void EvilBeastPhase4::printSelf()
+{
+    Coordinate vcursor(0, getPGame()->getVWin()->txtmacs.DIVIDER_LINES[1] + 1);
+    VirtualWindow* v = getPGame()->getVWin();
+
+    int color = dngutil::LIGHTRED;
+    v->put(ColorString(R"(           _/          ,          .                                          )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(       , -' )         ( \-------.,')            (\_________________________  )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(     , ,-/ |          /\_) )     \/            ,' _.----------------------,\ )", color), vcursor); vcursor.y++;
+    const int TOP_CURSOR_Y = vcursor.y;
+    v->put(ColorString(R"(   ,',  /, |         /      >--. ,)           / /\\                          )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(  / ,  //|,'        /'     '\--'\\)          /,'  \\     `         `   ,     )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"( / ,  // ||       ,'     (.--^( `')         //     \\                \       )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(( ,  //  ||,___,-'    (___\\  '^^^'        //       \\              ,        )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"( \  //   ||--.__     (     \`^--)  _____.-'/         \\   `                  )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(  >'/    ||,        (       \|_(\-'      ,'           \\         \,          )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"( /,'     ||          \           \      /              \\                    )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"((/       ||           \           )  ,'(     `     `    \\      ,            )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"( `       ||\           \      ) ,'  /_  )                \\    \             )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(         || `.          `.    ,'   /( `.\  \ , \ \,       \\   ,             )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(   `     || (_`.          ` .'   .'  )  `)'            ,   \\                )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(         ||  (_ `-v-------  ^--v' , )                      '\\,              )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(         ||    (    , _,-  /  -./ )'                         `)              )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(     `   '|     ),  ,'    '     )'                                           )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(        ' ;    /  ,'          ,'                                             )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(       /,'    /  /      '    /                                               )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(       \|    /  (          ,'                                                )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(       ('  ,'    `.    "  /                                                  )", color), vcursor); vcursor.y++;
+
+    const int LONGEST_LINE_LENGTH = 59;
+
+    printStats(LONGEST_LINE_LENGTH, TOP_CURSOR_Y);
+}
+
+//----------------------------------------------------------------
 
 //----------------------------------------------------------------
 // Pit Dragon Functions

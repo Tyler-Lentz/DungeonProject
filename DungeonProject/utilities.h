@@ -79,10 +79,10 @@ namespace dngutil
         BloodJawPhase1,
         BloodJawPhase2,
         BloodJawPhase3,
-        UnderwaterDemonPhase1,
-        UnderwaterDemonPhase2,
-        UnderwaterDemonPhase3,
-        UnderwaterDemonPhase4
+        EvilBeastPhase1,
+        EvilBeastPhase2,
+        EvilBeastPhase3,
+        EvilBeastPhase4
     };
 
     enum class BTID
@@ -185,7 +185,7 @@ namespace dngutil
 
     const int SECRET_BOSS_LEVEL = 14;
     const int SECOND_SECRET_BOSS_LEVEL = 15;
-    const int THIRD_SECRET_BOSS_LEVEL = 15;
+    const int THIRD_SECRET_BOSS_LEVEL = 14;
 }
 
 void errorMessage(std::string error, int line, std::string file);

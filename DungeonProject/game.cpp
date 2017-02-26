@@ -266,6 +266,22 @@ Creature* Game::generateCreature(int difficulty, dngutil::TID tid)
     case dngutil::TID::BloodJawPhase3:
         enemy = new BloodjawPhase3(this, Coordinate(-1, -1), health, attack, defense, luck, speed, difficulty);
         break;
+
+    case dngutil::TID::EvilBeastPhase1:
+        enemy = new EvilBeastPhase1(this, Coordinate(-1, -1), health, attack, defense, luck, speed, difficulty);
+        break;
+
+    case dngutil::TID::EvilBeastPhase2:
+        enemy = new EvilBeastPhase2(this, Coordinate(-1, -1), health, attack, defense, luck, speed, difficulty);
+        break;
+
+    case dngutil::TID::EvilBeastPhase3:
+        enemy = new EvilBeastPhase3(this, Coordinate(-1, -1), health, attack, defense, luck, speed, difficulty);
+        break;
+
+    case dngutil::TID::EvilBeastPhase4:
+        enemy = new EvilBeastPhase4(this, Coordinate(-1, -1), health, attack, defense, luck, speed, difficulty);
+        break;
     }
 
     if (enemy == nullptr)
