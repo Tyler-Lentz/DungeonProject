@@ -3790,8 +3790,8 @@ void UnderwaterTemple::makeFloor5(std::mutex& roomMut)
     }
     {
         std::vector<std::string> roomTemplate;
-        roomTemplate.push_back("#       A       #");
         roomTemplate.push_back("#               #");
+        roomTemplate.push_back("#       A       #");
         roomTemplate.push_back("#               #");
         roomTemplate.push_back("#               #");
         roomTemplate.push_back("##             ##");
@@ -4250,7 +4250,7 @@ void UnderwaterTemple::makeFloor3(std::mutex& roomMut)
         std::vector<std::string> roomTemplate;
         roomTemplate.push_back("###########");
         roomTemplate.push_back("          #");
-        roomTemplate.push_back("  e     v #");
+        roomTemplate.push_back("  e    v  #");
         roomTemplate.push_back("          #");
         roomTemplate.push_back("###########");
         std::map<Coordinate, MapObject*> specificObjects;
@@ -4280,11 +4280,11 @@ void UnderwaterTemple::makeFloor3(std::mutex& roomMut)
         roomTemplate.push_back("#     #");
         roomTemplate.push_back("# e e #");
         roomTemplate.push_back("#     #");
-        roomTemplate.push_back("#######"); // 10
         roomTemplate.push_back("#######"); // 11
         roomTemplate.push_back("#######"); // 12
         roomTemplate.push_back("#######"); // 13
         roomTemplate.push_back("#######"); // 14
+        roomTemplate.push_back("#######"); // 15
         auto puzzleSolved = [](const std::list<Creature*>& creatureList, const GAMEMAP& gameMap) -> bool
         {
             for (auto it = creatureList.begin(); it != creatureList.end(); it++)
@@ -4301,14 +4301,14 @@ void UnderwaterTemple::makeFloor3(std::mutex& roomMut)
         auto puzzleAction = [this, game](std::list<Creature*> creatureList, GAMEMAP& gameMap) -> void
         {
             std::list<Coordinate> deletionList;
-            for (int y = 10; y <= 13; y++)
+            for (int y = 11; y <= 14; y++)
             {
                 for (int x = 1; x <= 5; x++)
                 {
                     deletionList.push_back(Coordinate(x, y));
                 }
             }
-            for (int y = 11; y <= 13; y++)
+            for (int y = 12; y <= 14; y++)
             {
                 deletionList.push_back(Coordinate(0, y));
             }
@@ -4323,7 +4323,7 @@ void UnderwaterTemple::makeFloor3(std::mutex& roomMut)
 
                 game->getActiveRoom()->addCoordToList(Coordinate(i.x, i.y));
                 game->getActiveRoom()->drawRoom();
-                Sleep(33);
+                Sleep(80);
             }
         };
 
