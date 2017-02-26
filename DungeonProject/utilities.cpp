@@ -235,6 +235,20 @@ void credits(dngutil::CreditType c, Game* pgame, dngutil::DungeonType dungeon)
         v->putcen(ColorString("You conquer the dungeon and", color), vcursor.y++);
         v->putcen(ColorString("have escaped with great treasures!", color), vcursor.y++);
     }
+    else if (dungeon == dngutil::DungeonType::UNDERWATER_DUNGEON)
+    {
+        v->putcen(ColorString("DUNGEON RPG - UNDERWATER TEMPLE", color), vcursor.y++);
+        if (c == dngutil::CreditType::SECRET_VICTORY)
+        {
+            v->putcen(ColorString("You kill the Beast and", color), vcursor.y++);
+            v->putcen(ColorString("have vanquished all evil from the temple!", color), vcursor.y++);
+        }
+        else if (c == dngutil::CreditType::VICTORY)
+        {
+            v->putcen(ColorString("You rid the ocean of Bloodjaw but", color), vcursor.y++);
+            v->putcen(ColorString("a dark energy still resides in the temple...", color), vcursor.y++);
+        }
+    }
     else
     {
         v->putcen(ColorString("DUNGEON RPG", color), vcursor.y++);

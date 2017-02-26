@@ -3792,7 +3792,7 @@ void UnderwaterTemple::makeFloor5(std::mutex& roomMut)
     }
     {
         std::vector<std::string> roomTemplate;
-        roomTemplate.push_back("#               #");
+        roomTemplate.push_back("#o              #");
         roomTemplate.push_back("#       A       #");
         roomTemplate.push_back("#               #");
         roomTemplate.push_back("#               #");

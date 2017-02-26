@@ -769,6 +769,301 @@ void WaterHorse::printSelf()
 
 
 //----------------------------------------------------------------
+// Bloodjaw Functions
+
+BloodjawPhase1::BloodjawPhase1(
+    Game* pgame,
+    Coordinate coord,
+    int hp,
+    unsigned int att,
+    unsigned int def,
+    unsigned int lck,
+    unsigned int spd,
+    unsigned int lvl
+) : SegEnemy(
+    pgame,
+    ColorChar('0', dngutil::LIGHTBLUE),
+    coord,
+    "Bloodjaw",
+    false,
+    dngutil::TID::BloodJawPhase1,
+    hp,
+    att,
+    def,
+    lck,
+    spd,
+    lvl,
+    new Primary(
+        pgame,
+        ColorChar('?', dngutil::DARKGRAY),
+        coord,
+        "Bite",
+        false,
+        1.876,
+        5,
+        100,
+        false,
+        "You cant get this so this doesnt matter",
+        "Attack4.wav",
+        dngutil::ClassType::KNIGHT
+    ),
+    new Secondary(
+        pgame,
+        ColorChar('?', dngutil::LIGHTBLUE),
+        coord,
+        "Shark Armor",
+        false,
+        dngutil::TID::Secondary,
+        0,
+        1.313,
+        "You cant get this so this doesnt matter"
+    ),
+    "FinalBoss.mp3",
+    68,
+    "SegDeath.wav",
+    dngutil::EvType::SPEED,
+    dngutil::ClassType::KNIGHT
+)
+{
+    setMaxhp(getHp() * 2);
+    setHp(getMaxhp());
+}
+
+
+ColorString BloodjawPhase1::getBattleInfo() const
+{
+    return ColorString("A pair of eyes start glowing in the water", dngutil::RED);
+}
+
+void BloodjawPhase1::printSelf()
+{
+    Coordinate vcursor(0, getPGame()->getVWin()->txtmacs.DIVIDER_LINES[1] + 1);
+    VirtualWindow* v = getPGame()->getVWin();
+    int color = dngutil::LIGHTBLUE;
+    int eyeColor = dngutil::RED;
+    v->put(ColorString(R"(                              , )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(                              \`-, )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(                              |   `\ )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(                              |     \ )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(                           __/.- - -.\,__ )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(                      _.-'`              `'"'--..,__ )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(                  .-'`                              `'--.,_ )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(               .'`   _                         _ ___       `) )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(             .'   .'` `'-.                    (_`  _`)  _.-' )", color), vcursor); vcursor.y++;
+    const int TOP_CURSOR_Y = vcursor.y;
+    v->put(ColorString(R"(           .'    '--.     '.                 .-.`"`)", color) + ColorString(R"(@)", eyeColor) + ColorString(R"( .-'""-, )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(  .------~'     ,.---'      '-._      _.'   /   `'--'"""".-' )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(/`        '   /`  _,..-----.,__ `''''`/    ;__,..--''--'` )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(`'--.,__ '    |-'`             `'---'|     | )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(        `\    \                       \   / )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(         |     |                       '-' )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(          \    | )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(           `\  | )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(             \/)", color), vcursor); vcursor.y++;
+
+    const int LONGEST_LINE_LENGTH = 59;
+
+    printStats(LONGEST_LINE_LENGTH, TOP_CURSOR_Y);
+}
+
+BloodjawPhase2::BloodjawPhase2(
+    Game* pgame,
+    Coordinate coord,
+    int hp,
+    unsigned int att,
+    unsigned int def,
+    unsigned int lck,
+    unsigned int spd,
+    unsigned int lvl
+) : SegEnemy(
+    pgame,
+    ColorChar('0', dngutil::LIGHTGRAY),
+    coord,
+    "Reinforced Bloodjaw",
+    false,
+    dngutil::TID::BloodJawPhase2,
+    hp,
+    att,
+    def,
+    lck,
+    spd,
+    lvl,
+    new Primary(
+        pgame,
+        ColorChar('?', dngutil::DARKGRAY),
+        coord,
+        "Reinforced Bite",
+        false,
+        2,
+        5,
+        100,
+        false,
+        "You cant get this so this doesnt matter",
+        "Attack4.wav",
+        dngutil::ClassType::KNIGHT
+    ),
+    new Secondary(
+        pgame,
+        ColorChar('?', dngutil::LIGHTBLUE),
+        coord,
+        "Shark Armor",
+        false,
+        dngutil::TID::Secondary,
+        0,
+        1.313,
+        "You cant get this so this doesnt matter"
+    ),
+    "FinalBoss.mp3",
+    68,
+    "SegDeath.wav",
+    dngutil::EvType::SPEED,
+    dngutil::ClassType::KNIGHT
+)
+{
+    setMaxhp(dngutil::MAX_HP);
+    setHp(getMaxhp());
+    increaseDef(static_cast<int>(getDef() * 1.3));
+}
+
+void BloodjawPhase2::printSelf()
+{
+    Coordinate vcursor(0, getPGame()->getVWin()->txtmacs.DIVIDER_LINES[1] + 1);
+    VirtualWindow* v = getPGame()->getVWin();
+    int color = dngutil::LIGHTBLUE;
+    int eyeColor = dngutil::RED;
+    v->put(ColorString(R"(                              , )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(                              \`-, )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(                              |   `\ )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(                              |     \ )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(                           __/.- - -.\,__ )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(                      _.-'`              `'"'--..,__ )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(                  .-'`                              `'--.,_ )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(               .'`   _                         _ ___       `) )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(             .'   .'` `'-.                    (_`  _`)  _.-' )", color), vcursor); vcursor.y++;
+    const int TOP_CURSOR_Y = vcursor.y;
+    v->put(ColorString(R"(           .'    '--.     '.                 .-.`"`)", color) + ColorString(R"(@)", eyeColor) + ColorString(R"( .-'""-, )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(  .------~'     ,.---'      '-._      _.'   /   `'--'"""".-' )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(/`        '   /`  _,..-----.,__ `''''`/    ;__,..--''--'` )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(`'--.,__ '    |-'`             `'---'|     | )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(        `\    \                       \   / )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(         |     |                       '-' )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(          \    | )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(           `\  | )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(             \/)", color), vcursor); vcursor.y++;
+
+    const int LONGEST_LINE_LENGTH = 59;
+
+    printStats(LONGEST_LINE_LENGTH, TOP_CURSOR_Y);
+}
+
+BloodjawPhase3::BloodjawPhase3(
+    Game* pgame,
+    Coordinate coord,
+    int hp,
+    unsigned int att,
+    unsigned int def,
+    unsigned int lck,
+    unsigned int spd,
+    unsigned int lvl
+) : SegEnemy(
+    pgame,
+    ColorChar('0', dngutil::LIGHTGRAY),
+    coord,
+    "Enraged Bloodjaw",
+    false,
+    dngutil::TID::BloodJawPhase3,
+    hp,
+    att,
+    def,
+    lck,
+    spd,
+    lvl,
+    new Primary(
+        pgame,
+        ColorChar('?', dngutil::DARKGRAY),
+        coord,
+        "Eye Laser",
+        false,
+        1.5,
+        3,
+        100,
+        false,
+        "You cant get this so this doesnt matter",
+        "MagicAttack1.wav",
+        dngutil::ClassType::WIZARD
+    ),
+    new Secondary(
+        pgame,
+        ColorChar('?', dngutil::LIGHTBLUE),
+        coord,
+        "Weakened Shark Armor",
+        false,
+        dngutil::TID::Secondary,
+        0,
+        1.283,
+        "You cant get this so this doesnt matter"
+    ),
+    "FinalBoss.mp3",
+    68,
+    "FinalDeath.wav",
+    dngutil::EvType::SPEED,
+    dngutil::ClassType::KNIGHT
+)
+{
+    setMaxhp(dngutil::MAX_HP - 50);
+    setHp(getMaxhp());
+    increaseDef(static_cast<int>(getDef() * 1.1));
+}
+
+void BloodjawPhase3::deathSequence()
+{
+    getPGame()->adjustScore(dngutil::BASE_SCORE_BOSS_BOOST * 3);
+    if (getPGame()->getPlayer()->getLvl() < dngutil::THIRD_SECRET_BOSS_LEVEL || !getPGame()->getDifficulty().canFightMegabeast)
+    {
+        credits(dngutil::CreditType::VICTORY, getPGame(), dngutil::DungeonType::UNDERWATER_DUNGEON);
+    }
+    else
+    {
+        Sleep(5000);
+        getPGame()->cleanup(dngutil::ReturnVal::RESTART); // tells the puzzle the fight is over
+    }
+}
+
+void BloodjawPhase3::printSelf()
+{
+    Coordinate vcursor(0, getPGame()->getVWin()->txtmacs.DIVIDER_LINES[1] + 1);
+    VirtualWindow* v = getPGame()->getVWin();
+    int color = dngutil::RED;
+    int eyeColor = dngutil::YELLOW;
+    v->put(ColorString(R"(                              , )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(                              \`-, )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(                              |   `\ )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(                              |     \ )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(                           __/.- - -.\,__ )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(                      _.-'`              `'"'--..,__ )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(                  .-'`                              `'--.,_ )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(               .'`   _                         _ ___       `) )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(             .'   .'` `'-.                    (_`  _`)  _.-' )", color), vcursor); vcursor.y++;
+    const int TOP_CURSOR_Y = vcursor.y;
+    v->put(ColorString(R"(           .'    '--.     '.                 .-.`"`)", color) + ColorString(R"(@)", eyeColor) + ColorString(R"( .-'""-, )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(  .------~'     ,.---'      '-._      _.'   /   `'--'"""".-' )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(/`        '   /`  _,..-----.,__ `''''`/    ;__,..--''--'` )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(`'--.,__ '    |-'`             `'---'|     | )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(        `\    \                       \   / )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(         |     |                       '-' )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(          \    | )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(           `\  | )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(             \/)", color), vcursor); vcursor.y++;
+
+    const int LONGEST_LINE_LENGTH = 59;
+
+    printStats(LONGEST_LINE_LENGTH, TOP_CURSOR_Y);
+}
+
+//----------------------------------------------------------------
+
+
+//----------------------------------------------------------------
 // Pit Dragon Functions
 
 PitDragon::PitDragon(

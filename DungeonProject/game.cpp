@@ -254,6 +254,18 @@ Creature* Game::generateCreature(int difficulty, dngutil::TID tid)
     case dngutil::TID::WaterHorse:
         enemy = new WaterHorse(this, Coordinate(-1, -1), health, attack, defense, luck, speed, difficulty);
         break;
+
+    case dngutil::TID::BloodJawPhase1:
+        enemy = new BloodjawPhase1(this, Coordinate(-1, -1), health, attack, defense, luck, speed, difficulty);
+        break;
+
+    case dngutil::TID::BloodJawPhase2:
+        enemy = new BloodjawPhase2(this, Coordinate(-1, -1), health, attack, defense, luck, speed, difficulty);
+        break;
+
+    case dngutil::TID::BloodJawPhase3:
+        enemy = new BloodjawPhase3(this, Coordinate(-1, -1), health, attack, defense, luck, speed, difficulty);
+        break;
     }
 
     if (enemy == nullptr)

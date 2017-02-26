@@ -607,6 +607,64 @@ public:
     void printSelf() override;
     void deathSequence() override;
 };
+
+
+class BloodjawPhase1 : public SegEnemy
+{
+public:
+    BloodjawPhase1(
+        Game* pgame,
+        Coordinate coord,
+        int hp,
+        unsigned int att,
+        unsigned int def,
+        unsigned int lck,
+        unsigned int spd,
+        unsigned int lvl
+    );
+
+    ColorString getBattleInfo() const override;
+    void printSelf() override;
+
+};
+
+class BloodjawPhase2 : public SegEnemy
+{
+public:
+    BloodjawPhase2(
+        Game* pgame,
+        Coordinate coord,
+        int hp,
+        unsigned int att,
+        unsigned int def,
+        unsigned int lck,
+        unsigned int spd,
+        unsigned int lvl
+    );
+
+    void printSelf() override;
+
+};
+
+class BloodjawPhase3 : public SegEnemy
+{
+public:
+    BloodjawPhase3(
+        Game* pgame,
+        Coordinate coord,
+        int hp,
+        unsigned int att,
+        unsigned int def,
+        unsigned int lck,
+        unsigned int spd,
+        unsigned int lvl
+    );
+
+    void printSelf() override;
+
+    void deathSequence() override;
+};
+
 //----------------------------------------------------------------
 // segboss
 class Segboss
