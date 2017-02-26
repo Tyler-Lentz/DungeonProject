@@ -4848,7 +4848,7 @@ void UnderwaterTemple::makeFloor0(std::mutex& roomMut)
 
         int difficulty = 13;
         int backColor = dngutil::BLUE;
-        std::string name = "Creatures Den";
+        std::string name = "Creature's Den";
         Coordinate mapCoord(0, -1);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
         roomMut.lock();
