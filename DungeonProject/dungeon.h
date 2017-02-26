@@ -88,6 +88,8 @@ private:
     void makeFloor4(std::mutex& roomMut);
     void makeFloor3(std::mutex& roomMut);
     void makeFloor2(std::mutex& roomMut);
+    void makeFloor1(std::mutex& roomMut);
+    void makeFloor0(std::mutex& roomMut);
 };
 
 class PitOf50Trials : public Dungeon
