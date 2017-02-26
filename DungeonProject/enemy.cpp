@@ -722,6 +722,12 @@ WaterHorse::WaterHorse(
     setHp(getMaxhp());
 }
 
+
+ColorString WaterHorse::getBattleInfo() const
+{
+    return ColorString("A vortex of water surrounds you", dngutil::BLUE);
+}
+
 void WaterHorse::printSelf()
 {
     Coordinate vcursor(0, getPGame()->getVWin()->txtmacs.DIVIDER_LINES[1] + 1);

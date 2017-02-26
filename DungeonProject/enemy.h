@@ -289,6 +289,7 @@ public:
     );
 
     void printSelf() override;
+    ColorString getBattleInfo() const override;
 };
 
 class PitDragon : public BEnemy
