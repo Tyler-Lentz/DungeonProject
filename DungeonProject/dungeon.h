@@ -19,8 +19,11 @@ typedef std::vector<std::map<Coordinate, Room*>> GAMESPACE;
 class Dungeon
 {
 public:
-    Dungeon(Game* game);
+    Dungeon(Game* game, double beastMultiplier);
     ~Dungeon();
+
+    // the beast steps get multiplied by this amount
+    double beastMultiplier;
 
     // Game pointer
     Game* pgame;

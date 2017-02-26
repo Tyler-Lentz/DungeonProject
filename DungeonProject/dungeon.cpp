@@ -18,9 +18,10 @@
 #include "virtualwindow.h"
 #include "enemy.h"
 
-Dungeon::Dungeon(Game* game)
+Dungeon::Dungeon(Game* game, double beastMultiplier)
 {
     pgame = game;
+    this->beastMultiplier = beastMultiplier;
 }
 
 Dungeon::~Dungeon()
@@ -37,7 +38,7 @@ Dungeon::~Dungeon()
 }
 
 DragonsLair::DragonsLair(Game* game) :
-    Dungeon(game)
+    Dungeon(game, 1)
 {
     overworldMusic = "DragonsLair.mp3";
 
@@ -1727,7 +1728,7 @@ void DragonsLair::makeFloor4(std::mutex& roomMut)
 
 
 GryphonsTower::GryphonsTower(Game* game):
-    Dungeon(game)
+    Dungeon(game, 1)
 {
     overworldMusic = "GryphonsTower.mp3";
 
@@ -3429,7 +3430,7 @@ void GryphonsTower::makeFloor6(std::mutex& roomMut)
 }
 
 PitOf50Trials::PitOf50Trials(Game* game) :
-    Dungeon(game)
+    Dungeon(game, 1)
 {
     overworldMusic = "PitTheme.mp3";
 
@@ -3645,7 +3646,7 @@ void PitOf50Trials::generateDungeon()
 }
 
 UnderwaterTemple::UnderwaterTemple(Game* game) :
-    Dungeon(game)
+    Dungeon(game, 2)
 {
     overworldMusic = "PitTheme.mp3";
 

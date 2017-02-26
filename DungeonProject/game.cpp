@@ -514,6 +514,7 @@ void Game::titleScreen()
                 dungeon = new UnderwaterTemple(this);
                 break;
             }
+            difficulty.beastSteps = static_cast<int>(difficulty.beastSteps * dungeon->beastMultiplier);
 
             vwin->txtmacs.clearMapArea(false, NULL);
             vcursor.y = vwin->txtmacs.DIVIDER_LINES[1] + 5;
