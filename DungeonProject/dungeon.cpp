@@ -4355,8 +4355,8 @@ void UnderwaterTemple::makeFloor2(std::mutex& roomMut)
         roomTemplate.push_back("###  ###");
         roomTemplate.push_back("###  ###");
         roomTemplate.push_back("###  ###");
-        roomTemplate.push_back("###   v#");
-        roomTemplate.push_back("###   v#");
+        roomTemplate.push_back("###   ^#");
+        roomTemplate.push_back("###   ^#");
         roomTemplate.push_back("########");
         std::map<Coordinate, MapObject*> specificObjects;
 
