@@ -4963,11 +4963,11 @@ void UnderwaterTemple::makeFloor0(std::mutex& roomMut)
         roomTemplate.push_back("##########");
         roomTemplate.push_back("####  ####");
         roomTemplate.push_back("###    ###");
-        roomTemplate.push_back("##      ##");
+        roomTemplate.push_back("##o     ##");
         roomTemplate.push_back("#        #");
         roomTemplate.push_back("       o #");
         roomTemplate.push_back("#        #");
-        roomTemplate.push_back("##      ##");
+        roomTemplate.push_back("##o     ##");
         roomTemplate.push_back("###    ###");
         roomTemplate.push_back("####  ####");
         roomTemplate.push_back("##########");
@@ -4975,6 +4975,9 @@ void UnderwaterTemple::makeFloor0(std::mutex& roomMut)
         Coordinate coord(7, 6);
 
         std::map<Coordinate, MapObject*> specificObjects;
+        specificObjects.emplace(Coordinate(2, 4), new MagicalPotion(pgame, Coordinate(2, 4)));
+        specificObjects.emplace(Coordinate(2, 8), new MagicalPotion(pgame, Coordinate(2, 8)));
+
         std::vector<SegEnemy*> bossparts; 
         bossparts.push_back(dynamic_cast<SegEnemy*>(pgame->generateCreature(14, dngutil::TID::EvilBeastPhase1)));
         bossparts[0]->setFirst();
