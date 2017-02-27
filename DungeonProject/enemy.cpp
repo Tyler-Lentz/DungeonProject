@@ -1137,7 +1137,6 @@ void EvilBeastPhase1::printSelf()
     v->put(ColorString(R"(           _/          ,          .                                          )", color), vcursor); vcursor.y++;
     v->put(ColorString(R"(       , -' )         ( \-------.,')            (\_________________________  )", color), vcursor); vcursor.y++;
     v->put(ColorString(R"(     , ,-/ |          /\_) )     \/            ,' _.----------------------,\ )", color), vcursor); vcursor.y++;
-    const int TOP_CURSOR_Y = vcursor.y;
     v->put(ColorString(R"(   ,',  /, |         /      >--. ,)           / /\\                          )", color), vcursor); vcursor.y++;
     v->put(ColorString(R"(  / ,  //|,'        /'     '\--'\\)          /,'  \\     `         `   ,     )", color), vcursor); vcursor.y++;
     v->put(ColorString(R"( / ,  // ||       ,'     (.--^( `')         //     \\                \       )", color), vcursor); vcursor.y++;
@@ -1152,6 +1151,7 @@ void EvilBeastPhase1::printSelf()
     v->put(ColorString(R"(         ||  (_ `-v-------  ^--v' , )                      '\\,              )", color), vcursor); vcursor.y++;
     v->put(ColorString(R"(         ||    (    , _,-  /  -./ )'                         `)              )", color), vcursor); vcursor.y++;
     v->put(ColorString(R"(     `   '|     ),  ,'    '     )'                                           )", color), vcursor); vcursor.y++;
+    const int TOP_CURSOR_Y = vcursor.y;
     v->put(ColorString(R"(        ' ;    /  ,'          ,'                                             )", color), vcursor); vcursor.y++;
     v->put(ColorString(R"(       /,'    /  /      '    /                                               )", color), vcursor); vcursor.y++;
     v->put(ColorString(R"(       \|    /  (          ,'                                                )", color), vcursor); vcursor.y++;
@@ -1228,7 +1228,6 @@ void EvilBeastPhase2::printSelf()
     v->put(ColorString(R"(           _/          ,          .                                          )", color), vcursor); vcursor.y++;
     v->put(ColorString(R"(       , -' )         ( \-------.,')            (\_________________________  )", color), vcursor); vcursor.y++;
     v->put(ColorString(R"(     , ,-/ |          /\_) )     \/            ,' _.----------------------,\ )", color), vcursor); vcursor.y++;
-    const int TOP_CURSOR_Y = vcursor.y;
     v->put(ColorString(R"(   ,',  /, |         /      >--. ,)           / /\\                          )", color), vcursor); vcursor.y++;
     v->put(ColorString(R"(  / ,  //|,'        /'     '\--'\\)          /,'  \\     `         `   ,     )", color), vcursor); vcursor.y++;
     v->put(ColorString(R"( / ,  // ||       ,'     (.--^( `')         //     \\                \       )", color), vcursor); vcursor.y++;
@@ -1243,6 +1242,7 @@ void EvilBeastPhase2::printSelf()
     v->put(ColorString(R"(         ||  (_ `-v-------  ^--v' , )                      '\\,              )", color), vcursor); vcursor.y++;
     v->put(ColorString(R"(         ||    (    , _,-  /  -./ )'                         `)              )", color), vcursor); vcursor.y++;
     v->put(ColorString(R"(     `   '|     ),  ,'    '     )'                                           )", color), vcursor); vcursor.y++;
+    const int TOP_CURSOR_Y = vcursor.y;
     v->put(ColorString(R"(        ' ;    /  ,'          ,'                                             )", color), vcursor); vcursor.y++;
     v->put(ColorString(R"(       /,'    /  /      '    /                                               )", color), vcursor); vcursor.y++;
     v->put(ColorString(R"(       \|    /  (          ,'                                                )", color), vcursor); vcursor.y++;
@@ -1320,7 +1320,6 @@ void EvilBeastPhase3::printSelf()
     v->put(ColorString(R"(           _/          ,          .                                          )", color), vcursor); vcursor.y++;
     v->put(ColorString(R"(       , -' )         ( \-------.,')            (\_________________________  )", color), vcursor); vcursor.y++;
     v->put(ColorString(R"(     , ,-/ |          /\_) )     \/            ,' _.----------------------,\ )", color), vcursor); vcursor.y++;
-    const int TOP_CURSOR_Y = vcursor.y;
     v->put(ColorString(R"(   ,',  /, |         /      >--. ,)           / /\\                          )", color), vcursor); vcursor.y++;
     v->put(ColorString(R"(  / ,  //|,'        /'     '\--'\\)          /,'  \\     `         `   ,     )", color), vcursor); vcursor.y++;
     v->put(ColorString(R"( / ,  // ||       ,'     (.--^( `')         //     \\                \       )", color), vcursor); vcursor.y++;
@@ -1335,6 +1334,7 @@ void EvilBeastPhase3::printSelf()
     v->put(ColorString(R"(         ||  (_ `-v-------  ^--v' , )                      '\\,              )", color), vcursor); vcursor.y++;
     v->put(ColorString(R"(         ||    (    , _,-  /  -./ )'                         `)              )", color), vcursor); vcursor.y++;
     v->put(ColorString(R"(     `   '|     ),  ,'    '     )'                                           )", color), vcursor); vcursor.y++;
+    const int TOP_CURSOR_Y = vcursor.y;
     v->put(ColorString(R"(        ' ;    /  ,'          ,'                                             )", color), vcursor); vcursor.y++;
     v->put(ColorString(R"(       /,'    /  /      '    /                                               )", color), vcursor); vcursor.y++;
     v->put(ColorString(R"(       \|    /  (          ,'                                                )", color), vcursor); vcursor.y++;
@@ -1419,7 +1419,6 @@ void EvilBeastPhase4::printSelf()
     v->put(ColorString(R"(           _/          ,          .                                          )", color), vcursor); vcursor.y++;
     v->put(ColorString(R"(       , -' )         ( \-------.,')            (\_________________________  )", color), vcursor); vcursor.y++;
     v->put(ColorString(R"(     , ,-/ |          /\_) )     \/            ,' _.----------------------,\ )", color), vcursor); vcursor.y++;
-    const int TOP_CURSOR_Y = vcursor.y;
     v->put(ColorString(R"(   ,',  /, |         /      >--. ,)           / /\\                          )", color), vcursor); vcursor.y++;
     v->put(ColorString(R"(  / ,  //|,'        /'     '\--'\\)          /,'  \\     `         `   ,     )", color), vcursor); vcursor.y++;
     v->put(ColorString(R"( / ,  // ||       ,'     (.--^( `')         //     \\                \       )", color), vcursor); vcursor.y++;
@@ -1434,6 +1433,7 @@ void EvilBeastPhase4::printSelf()
     v->put(ColorString(R"(         ||  (_ `-v-------  ^--v' , )                      '\\,              )", color), vcursor); vcursor.y++;
     v->put(ColorString(R"(         ||    (    , _,-  /  -./ )'                         `)              )", color), vcursor); vcursor.y++;
     v->put(ColorString(R"(     `   '|     ),  ,'    '     )'                                           )", color), vcursor); vcursor.y++;
+    const int TOP_CURSOR_Y = vcursor.y;
     v->put(ColorString(R"(        ' ;    /  ,'          ,'                                             )", color), vcursor); vcursor.y++;
     v->put(ColorString(R"(       /,'    /  /      '    /                                               )", color), vcursor); vcursor.y++;
     v->put(ColorString(R"(       \|    /  (          ,'                                                )", color), vcursor); vcursor.y++;
