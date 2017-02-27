@@ -3434,7 +3434,7 @@ void GryphonsTower::makeFloor6(std::mutex& roomMut)
 PitOf50Trials::PitOf50Trials(Game* game) :
     Dungeon(game, 1)
 {
-    overworldMusic = "PitTheme.mp3";
+    overworldMusic = "PitOf50Trials.mp3";
 
     story.push_back(std::make_pair(ColorString("Legends tell of a dungeon of fifty trials...", dngutil::WHITE), 0));
     story.push_back(std::make_pair(ColorString("Fifty trials of unspeakable pain.", dngutil::WHITE), 2));
@@ -3650,7 +3650,7 @@ void PitOf50Trials::generateDungeon()
 UnderwaterTemple::UnderwaterTemple(Game* game) :
     Dungeon(game, 2)
 {
-    overworldMusic = "PitTheme.mp3";
+    overworldMusic = "UnderwaterTemple.mp3";
 
     story.push_back(std::make_pair(ColorString("You have stumbled across an temple at the bottom of the sea.", dngutil::WHITE), 2));
 
