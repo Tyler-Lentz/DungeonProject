@@ -405,6 +405,7 @@ void intro(VirtualWindow* vwin)
             }
             if (keypress(VK_RETURN))
             {
+                keepGoing = false;
                 break;
             }
         }
