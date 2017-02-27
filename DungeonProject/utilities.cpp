@@ -439,4 +439,5 @@ void intro(VirtualWindow* vwin)
     }
     
     vwin->clearScreen();
+    Sleep(333);
 }
