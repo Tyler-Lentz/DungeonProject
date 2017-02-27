@@ -381,10 +381,21 @@ void Player::addExperience(unsigned int experience, dngutil::EvType ev)
         soundEffect("PickupItem.wav", false, false);
         vwin->putcen(ColorString("Speed + " + std::to_string(getSpd() - prevSpd), dngutil::CYAN), vcursor.y);
         soundEffect("PickupItem.wav", false, false);
+        vcursor.y += 3;
+
+        soundEffect("RefillHealth.wav", true, true);
+        while (getHp() < static_cast<int>(getMaxhp()))
+        {
+            increaseHealth(1);
+            vwin->putcen(getHealthBar(), vcursor.y);
+            Sleep(100);
+        }
+        stopSound();
+
+        vcursor.y += 2;
 
         vcursor.y = vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE;
         pressEnter(vcursor, vwin);
-        setHp(getMaxhp());
 
         if (getLvl() == 6)
         {
