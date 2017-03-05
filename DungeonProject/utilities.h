@@ -183,10 +183,6 @@ namespace dngutil
     const int BASE_SCORE_VICTORY = 250;
     const int BASE_SCORE_BOSS_BOOST = 50;
 
-    const int SECRET_BOSS_LEVEL = 14;
-    const int SECOND_SECRET_BOSS_LEVEL = 15;
-    const int THIRD_SECRET_BOSS_LEVEL = 14;
-
     const int CLASS_CHOOSING_LEVEL = 6;
     const int PROMOTION_LEVEL = 14;
 }

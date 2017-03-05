@@ -1018,7 +1018,7 @@ BloodjawPhase3::BloodjawPhase3(
 void BloodjawPhase3::deathSequence()
 {
     getPGame()->adjustScore(dngutil::BASE_SCORE_BOSS_BOOST * 3);
-    if (getPGame()->getPlayer()->getLvl() < dngutil::THIRD_SECRET_BOSS_LEVEL || !getPGame()->getDifficulty().canFightMegabeast)
+    if (getPGame()->getPlayer()->getLvl() < dngutil::PROMOTION_LEVEL || !getPGame()->getDifficulty().canFightMegabeast)
     {
         credits(dngutil::CreditType::VICTORY, getPGame(), dngutil::DungeonType::UNDERWATER_DUNGEON);
     }
@@ -2701,7 +2701,7 @@ void DragonHead::printSelf()
 void DragonHead::deathSequence()
 {
     getPGame()->adjustScore(dngutil::BASE_SCORE_BOSS_BOOST * 3);
-    if (getPGame()->getPlayer()->getLvl() < dngutil::SECRET_BOSS_LEVEL || !getPGame()->getDifficulty().canFightMegabeast)
+    if (getPGame()->getPlayer()->getLvl() < dngutil::PROMOTION_LEVEL || !getPGame()->getDifficulty().canFightMegabeast)
     {
         credits(dngutil::CreditType::VICTORY, getPGame(), dngutil::DungeonType::DRAGONS_LAIR);
     }
@@ -3022,7 +3022,7 @@ void GryphonPhase3::deathSequence()
 {
 
     getPGame()->adjustScore(dngutil::BASE_SCORE_BOSS_BOOST * 3);
-    if (getPGame()->getPlayer()->getLvl() < dngutil::SECOND_SECRET_BOSS_LEVEL || !getPGame()->getDifficulty().canFightMegabeast)
+    if (getPGame()->getPlayer()->getLvl() < dngutil::PROMOTION_LEVEL || !getPGame()->getDifficulty().canFightMegabeast)
     {
         credits(dngutil::CreditType::VICTORY, getPGame(), dngutil::DungeonType::GRYPHONS_TOWER);
     }

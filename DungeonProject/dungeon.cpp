@@ -1572,7 +1572,7 @@ void DragonsLair::makeFloor3(std::mutex& roomMut)
         Game* game = pgame;
         auto puzzleSolved = [dragon, game](const std::list<Creature*>& creatureList, const GAMEMAP& gameMap) -> bool
         {
-            if (game->getPlayer()->getLvl() >= dngutil::SECRET_BOSS_LEVEL && game->shouldExit() && game->getPlayer()->getHp() > 0 && game->getDifficulty().canFightMegabeast)
+            if (game->getPlayer()->getLvl() >= dngutil::PROMOTION_LEVEL && game->shouldExit() && game->getPlayer()->getHp() > 0 && game->getDifficulty().canFightMegabeast)
             {
                 return true;
             }
@@ -1666,9 +1666,9 @@ void DragonsLair::makeFloor3(std::mutex& roomMut)
         auto puzzleAction = [game, beastCoord](std::list<Creature*> creatureList, GAMEMAP& gameMap) -> void
         {
             std::vector<SegEnemy*> bossparts;
-            bossparts.push_back(dynamic_cast<SegEnemy*>(game->generateCreature(dngutil::SECRET_BOSS_LEVEL, dngutil::TID::MegaBeastPhase1)));
+            bossparts.push_back(dynamic_cast<SegEnemy*>(game->generateCreature(14, dngutil::TID::MegaBeastPhase1)));
             bossparts[0]->setFirst();
-            bossparts.push_back(dynamic_cast<SegEnemy*>(game->generateCreature(dngutil::SECRET_BOSS_LEVEL, dngutil::TID::MegaBeastPhase2)));
+            bossparts.push_back(dynamic_cast<SegEnemy*>(game->generateCreature(14, dngutil::TID::MegaBeastPhase2)));
 
             gameMap[beastCoord.y][beastCoord.x].push_back(new SegbossTrigger(
                 game, beastCoord,
@@ -3359,7 +3359,7 @@ void GryphonsTower::makeFloor6(std::mutex& roomMut)
         Game* game = pgame;
         auto puzzleSolved = [game](const std::list<Creature*>& creatureList, const GAMEMAP& gameMap) -> bool
         {
-            if (game->getPlayer()->getLvl() >= dngutil::SECOND_SECRET_BOSS_LEVEL && game->shouldExit() && game->getPlayer()->getHp() > 0 && game->getDifficulty().canFightMegabeast)
+            if (game->getPlayer()->getLvl() >= dngutil::PROMOTION_LEVEL && game->shouldExit() && game->getPlayer()->getHp() > 0 && game->getDifficulty().canFightMegabeast)
             {
                 return true;
             }
@@ -3386,10 +3386,10 @@ void GryphonsTower::makeFloor6(std::mutex& roomMut)
             drag->removeFromMap(true);
 
             std::vector<SegEnemy*> bossparts;
-            bossparts.push_back(dynamic_cast<SegEnemy*>(game->generateCreature(dngutil::SECOND_SECRET_BOSS_LEVEL, dngutil::TID::ReaperPhase1)));
+            bossparts.push_back(dynamic_cast<SegEnemy*>(game->generateCreature(15, dngutil::TID::ReaperPhase1)));
             bossparts[0]->setFirst();
-            bossparts.push_back(dynamic_cast<SegEnemy*>(game->generateCreature(dngutil::SECOND_SECRET_BOSS_LEVEL, dngutil::TID::ReaperPhase2)));
-            bossparts.push_back(dynamic_cast<SegEnemy*>(game->generateCreature(dngutil::SECOND_SECRET_BOSS_LEVEL, dngutil::TID::ReaperPhase3)));
+            bossparts.push_back(dynamic_cast<SegEnemy*>(game->generateCreature(15, dngutil::TID::ReaperPhase2)));
+            bossparts.push_back(dynamic_cast<SegEnemy*>(game->generateCreature(15, dngutil::TID::ReaperPhase3)));
 
             gameMap[0][2].push_back(new SegbossTrigger(
                 game, Coordinate(2, 0),
@@ -4898,7 +4898,7 @@ void UnderwaterTemple::makeFloor0(std::mutex& roomMut)
         Game* game = pgame;
         auto puzzleSolved = [bloodjawCoord, game](const std::list<Creature*>& creatureList, const GAMEMAP& gameMap) -> bool
         {
-            if (game->getPlayer()->getLvl() >= dngutil::THIRD_SECRET_BOSS_LEVEL && game->shouldExit() && game->getPlayer()->getHp() > 0 && game->getDifficulty().canFightMegabeast)
+            if (game->getPlayer()->getLvl() >= dngutil::PROMOTION_LEVEL && game->shouldExit() && game->getPlayer()->getHp() > 0 && game->getDifficulty().canFightMegabeast)
             {
                 return true;
             }
