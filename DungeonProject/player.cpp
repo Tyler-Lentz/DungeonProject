@@ -433,18 +433,21 @@ void Player::getPromotion()
     ColorString output;
     if (getClass() == dngutil::ClassType::KNIGHT)
     {
-        output = ColorString("+10 Health", dngutil::WHITE);
+        output = ColorString("+10 Health +2 defense", dngutil::WHITE);
         increaseHealth(10);
+        increaseDef(2);
     }
     else if (getClass() == dngutil::ClassType::RANGER)
     {
-        output = ColorString("+25 Luck", dngutil::WHITE);
-        increaseLck(25);
+        output = ColorString("+15 Luck +2 attack", dngutil::WHITE);
+        increaseLck(15);
+        increaseAtt(2);
     }
     else if (getClass() == dngutil::ClassType::WIZARD)
     {
-        output = ColorString("+2 Attack", dngutil::WHITE);
+        output = ColorString("+2 Attack +2 defense", dngutil::WHITE);
         increaseAtt(2);
+        increaseDef(2);
     }
     v->putcen(output, vcursor.y);
     vcursor.y += 2;
