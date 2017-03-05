@@ -397,17 +397,59 @@ void Player::addExperience(unsigned int experience, dngutil::EvType ev)
         vcursor.y = vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE;
         pressEnter(vcursor, vwin);
 
-        if (getLvl() == 6)
+        if (getLvl() == dngutil::CLASS_CHOOSING_LEVEL)
         {
             chooseClass();
         }
-
+        else if (getLvl() == dngutil::PROMOTION_LEVEL)
+        {
+            getPromotion();
+        }
     }
     
     if (overFlowXp > 0)
     {
         addExperience(overFlowXp, dngutil::EvType::NONE);
     }
+}
+
+void Player::getPromotion()
+{
+    VirtualWindow* v = getPGame()->getVWin();
+    TextMacros& t = v->txtmacs;
+
+    t.clearMapArea(false, NULL);
+    t.clearDivider("bottom");
+    Coordinate vcursor(0, t.DIVIDER_LINES[1] + 5);
+
+    soundEffect("Levelup.wav", false, true);
+
+    v->putcen(ColorString("Promotion!", dngutil::LIGHTBLUE), vcursor.y++);
+    vcursor.y++;
+
+    v->putcen(ColorString("You are now a " + getClassName(), dngutil::WHITE), vcursor.y++);
+    vcursor.y += 5;
+
+    ColorString output;
+    if (getClass() == dngutil::ClassType::KNIGHT)
+    {
+        output = ColorString("+10 Health", dngutil::WHITE);
+        increaseHealth(10);
+    }
+    else if (getClass() == dngutil::ClassType::RANGER)
+    {
+        output = ColorString("+25 Luck", dngutil::WHITE);
+        increaseLck(25);
+    }
+    else if (getClass() == dngutil::ClassType::WIZARD)
+    {
+        output = ColorString("+2 Attack", dngutil::WHITE);
+        increaseAtt(2);
+    }
+    v->putcen(output, vcursor.y);
+    vcursor.y += 2;
+
+    pressEnter(vcursor, v);
 }
 
 void Player::levelUpStats()

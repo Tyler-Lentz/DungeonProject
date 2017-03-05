@@ -62,6 +62,7 @@ public:
     int getStepCount();
 
     void chooseClass();
+    void getPromotion();
 private:
 
     double hpEv;

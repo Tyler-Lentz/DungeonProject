@@ -515,24 +515,30 @@ void Creature::setClass(dngutil::ClassType classType)
 
 std::string Creature::getClassName()
 {
+    std::string name;
     switch (classType)
     {
     case dngutil::ClassType::KNIGHT:
-        return "Knight";
+        name = "Knight";
         break;
     case dngutil::ClassType::WIZARD:
-        return "Wizard";
+        name = "Wizard";
         break;
     case dngutil::ClassType::RANGER:
-        return "Ranger";
+        name = "Ranger";
         break;
     case dngutil::ClassType::ADVENTURER:
-        return "Adventurer";
+        name = "Adventurer";
         break;
     default:
-        return "INVALID CLASS";
+        name = "INVALID CLASS";
         break;
     }
+    if (lvl >= dngutil::PROMOTION_LEVEL)
+    {
+        name = "Master " + name;
+    }
+    return name;
 }
 
 bool Creature::adjustPosition(dngutil::Movement movement)

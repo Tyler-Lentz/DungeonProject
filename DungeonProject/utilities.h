@@ -186,6 +186,9 @@ namespace dngutil
     const int SECRET_BOSS_LEVEL = 14;
     const int SECOND_SECRET_BOSS_LEVEL = 15;
     const int THIRD_SECRET_BOSS_LEVEL = 14;
+
+    const int CLASS_CHOOSING_LEVEL = 6;
+    const int PROMOTION_LEVEL = 14;
 }
 
 void errorMessage(std::string error, int line, std::string file);
