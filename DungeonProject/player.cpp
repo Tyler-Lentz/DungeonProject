@@ -564,6 +564,93 @@ void Player::inventoryMenu() // How not to program in three easy steps. 1: Dont 
                 pressEnter(Coordinate(0, getPGame()->getVWin()->txtmacs.BOTTOM_DIVIDER_TEXT_LINE + 1), getPGame()->getVWin());
                 goto beginning;
             }
+            else if (keypress('U') && !inventory.empty())
+            {
+                Sleep(dngutil::MENU_DELAY);
+                unsigned int itemPosition = (abs(positions[0] - vcursor.y));
+                Item* itemModifying = inventory[itemPosition];
+
+                switch (itemModifying->getTypeId())
+                {
+                case dngutil::TID::Primary:
+                {
+                    Primary* primary = dynamic_cast<Primary*>(itemModifying);
+                    int attackColor;
+                    std::string attackSign;
+                    if (getPrimary().getDmgMultiplier() > primary->getDmgMultiplier())
+                    {
+                        attackColor = dngutil::RED;
+                        attackSign = "- ";
+                    }
+                    else
+                    {
+                        attackColor = dngutil::GREEN;
+                        attackSign = "+ ";
+                    }
+
+                    int speedColor;
+                    std::string speedSign;
+                    if (getPrimary().getAttSpeed() > primary->getAttSpeed())
+                    {
+                        speedColor = dngutil::GREEN;
+                        speedSign = "- ";
+                    }
+                    else
+                    {
+                        speedColor = dngutil::RED;
+                        speedSign = "+ ";
+                    }
+
+                    getPGame()->getVWin()->putcen(
+                        ColorString(attackSign + std::to_string(abs(primary->getDmgMultiplier() - getPrimary().getDmgMultiplier())) + " Damage ", attackColor) +
+                        ColorString(speedSign + std::to_string(abs(primary->getAttSpeed() - getPrimary().getAttSpeed())) + " Speed", speedColor),
+                        getPGame()->getVWin()->txtmacs.BOTTOM_DIVIDER_TEXT_LINE
+                    );
+                    pressEnter(Coordinate(0, getPGame()->getVWin()->txtmacs.BOTTOM_DIVIDER_TEXT_LINE + 1), getPGame()->getVWin());
+
+                    break;
+                }
+                case dngutil::TID::Secondary:
+                {
+                    Secondary* secondary = dynamic_cast<Secondary*>(itemModifying);
+                    int deflectColor;
+                    std::string deflectSign;
+                    if (getSecondary().getDeflectTime() > secondary->getDeflectTime())
+                    {
+                        deflectColor = dngutil::RED;
+                        deflectSign = "- ";
+                    }
+                    else
+                    {
+                        deflectColor = dngutil::GREEN;
+                        deflectSign = "+ ";
+                    }
+
+                    int defenseColor;
+                    std::string defenseSign;
+                    if (getSecondary().getDefenseBoost() > secondary->getDefenseBoost())
+                    {
+                        defenseColor = dngutil::RED;
+                        defenseSign = "- ";
+                    }
+                    else
+                    {
+                        defenseColor = dngutil::GREEN;
+                        defenseSign = "+ ";
+                    }
+
+                    getPGame()->getVWin()->putcen(
+                        ColorString(deflectSign + std::to_string(abs(secondary->getDeflectTime() - getSecondary().getDeflectTime())) + " Deflect Time ", deflectColor) +
+                        ColorString(defenseSign + std::to_string(abs(secondary->getDefenseBoost() - getSecondary().getDefenseBoost())) + " Defense", defenseColor),
+                        getPGame()->getVWin()->txtmacs.BOTTOM_DIVIDER_TEXT_LINE
+                    );
+                    pressEnter(Coordinate(0, getPGame()->getVWin()->txtmacs.BOTTOM_DIVIDER_TEXT_LINE + 1), getPGame()->getVWin());
+                    break;
+                }
+
+                }
+                goto beginning;
+            }
             else if (keypress(VK_ESCAPE))
             {
                 exitFunction = true;
