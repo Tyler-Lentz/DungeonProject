@@ -388,7 +388,7 @@ void Player::addExperience(unsigned int experience, dngutil::EvType ev)
         {
             increaseHealth(1);
             vwin->putcen(getHealthBar(), vcursor.y);
-            Sleep(100);
+            Sleep(50);
         }
         stopSound();
 
