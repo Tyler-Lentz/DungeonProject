@@ -1006,7 +1006,7 @@ BloodjawPhase3::BloodjawPhase3(
     ),
     Mp3File("FinalBoss"),
     68,
-    WavFile("FinalDeath", false, false),
+    WavFile("FinalDeath", false, true),
     dngutil::EvType::SPEED,
     dngutil::ClassType::KNIGHT
 )
@@ -1395,7 +1395,7 @@ EvilBeastPhase4::EvilBeastPhase4(
     ),
     Mp3File("hidden"),
     68,
-    WavFile("FinalDeath", false, false),
+    WavFile("FinalDeath", false, true),
     dngutil::EvType::SPEED,
     dngutil::ClassType::KNIGHT
 )
@@ -1795,7 +1795,7 @@ MegaBeastPhase2::MegaBeastPhase2(
     ),
     Mp3File("hidden"),
     85,
-    WavFile("FinalDeath", false, false),
+    WavFile("FinalDeath", false, true),
     dngutil::EvType::DEFENSE,
     dngutil::ClassType::WIZARD
 )
@@ -2652,7 +2652,7 @@ DragonHead::DragonHead(
     ),
     Mp3File("FinalBoss"),
     85,
-    WavFile("FinalDeath", false, false),
+    WavFile("FinalDeath", false, true),
     dngutil::EvType::DEFENSE,
     dngutil::ClassType::KNIGHT
 )
@@ -2975,7 +2975,7 @@ GryphonPhase3::GryphonPhase3(
     ),
     Mp3File("FinalBoss"),
     85,
-    WavFile("FinalDeath", false, false),
+    WavFile("FinalDeath", false, true),
     dngutil::EvType::DEFENSE,
     dngutil::ClassType::WIZARD
 )
@@ -3292,7 +3292,7 @@ ReaperPhase3::ReaperPhase3(
     ),
     Mp3File("hidden"),
     85,
-    WavFile("FinalDeath", false, false),
+    WavFile("FinalDeath", false, true),
     dngutil::EvType::DEFENSE,
     dngutil::ClassType::WIZARD
 )
@@ -3497,7 +3497,7 @@ MaskPhase2::MaskPhase2(
         false,
         dngutil::TID::Secondary,
         0,
-        1.25,
+        1.2,
         "Reapers armor."
     ),
     Mp3File("FinalBoss"),
@@ -3509,8 +3509,8 @@ MaskPhase2::MaskPhase2(
 {
     setMaxhp(static_cast<int>(getMaxhp() * 1.75));
     setHp(getMaxhp());
-    setDef(static_cast<int>(getDef() * 1.15));
-    setAtt(static_cast<int>(getAtt() * 1.3));
+    setDef(static_cast<int>(getDef() * 1.05));
+    setAtt(static_cast<int>(getAtt() * 1.1));
 }
 
 void MaskPhase2::printSelf()
@@ -3601,15 +3601,15 @@ MaskPhase3::MaskPhase3(
     ),
     Mp3File("FinalBoss"),
     85,
-    WavFile("FinalDeath", false, false),
+    WavFile("FinalDeath", false, true),
     dngutil::EvType::DEFENSE,
     dngutil::ClassType::KNIGHT
 )
 {
     setMaxhp(dngutil::MAX_HP);
     setHp(getMaxhp());
-    setDef(static_cast<int>(getDef() * 1.4));
-    setAtt(static_cast<int>(getAtt() * 1.35));
+    setDef(static_cast<int>(getDef() * 1.2));
+    setAtt(static_cast<int>(getAtt() * 1.25));
 }
 
 void MaskPhase3::printSelf()
