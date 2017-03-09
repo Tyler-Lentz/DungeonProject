@@ -326,9 +326,13 @@ void Player::addExperience(unsigned int experience, dngutil::EvType ev)
 
     soundEffect("Experience.wav", true, true); 
     vwin->txtmacs.clearMapArea(false, NULL);
+    int xpBarLine = static_cast<int>(dngutil::CONSOLEY / 2.0);
+    vwin->putcen(ColorString("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-", dngutil::BLUE), xpBarLine - 2);
+    vwin->putcen(ColorString("-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*", dngutil::BLUE), xpBarLine + 2);
+
     for (unsigned int i = 0; i < experience; i++)
     {
-        Coordinate vcursor(0, static_cast<int>(dngutil::CONSOLEY / 2.0));
+        Coordinate vcursor(0, xpBarLine);
         exp++;     
         vwin->putcen(getExperienceBar(), vcursor.y);
         if (exp >= expToLevel)
