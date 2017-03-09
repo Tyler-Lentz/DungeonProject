@@ -7,6 +7,7 @@
 #include "coordinate.h"
 #include "item.h"
 #include "utilities.h"
+#include "soundfile.h"
 
 #include <list>
 #include <string>
@@ -31,9 +32,9 @@ public:
         unsigned int lvl,
         Primary* primary,
         Secondary* secondary,
-        std::string battleMusic,
+        Mp3File battleMusic,
         unsigned int experienceGiven,
-        std::string deathSound,
+        WavFile deathSound,
         dngutil::EvType ev,
         dngutil::ClassType classType
     );
@@ -43,16 +44,16 @@ public:
     Collision mapAction(MapObject* collider, std::list<MapObject*>::iterator& it) override;
     void printStats(int LONGEST_LINE_LENGTH, int startingCursorY) override;
 
-    const std::string& getDeathSound() const;
-    const std::string& getBattleMusic() const;
+    const WavFile& getDeathSound() const;
+    const Mp3File& getBattleMusic() const;
     const unsigned int& getExpGiven() const;
 
     virtual void deathSequence();
 
     virtual ColorString getBattleInfo() const;
 private:
-    std::string battleMusic;
-    std::string deathSound;
+    Mp3File battleMusic;
+    WavFile deathSound;
     unsigned int experienceGiven;
     dngutil::EvType ev;
 };
@@ -75,13 +76,13 @@ public:
         unsigned int lvl,
         Primary* primary,
         Secondary* secondary,
-        std::string battleMusic,
+        Mp3File battlemusic,
         unsigned int experienceGiven,
-        std::string deathSound,
+        WavFile deathSound,
         dngutil::EvType ev,
         dngutil::ClassType classType
     ) : Enemy(pgame, mapRep, coord, name, rawoutput, typeId, hp, att, def, lck, spd,
-        lvl, primary, secondary, battleMusic, experienceGiven, deathSound, ev, classType) {}
+        lvl, primary, secondary, battlemusic, experienceGiven, deathSound, ev, classType) {}
 
     std::string drop();
     
@@ -208,13 +209,13 @@ public:
         unsigned int lvl,
         Primary* primary,
         Secondary* secondary,
-        std::string battleMusic,
+        Mp3File battlemusic,
         unsigned int experienceGiven,
-        std::string deathSound,
+        WavFile deathSound,
         dngutil::EvType ev,
         dngutil::ClassType classType
     ) : Enemy(pgame, mapRep, coord, name, rawoutput, typeId, hp, att, def, lck, spd,
-        lvl, primary, secondary, battleMusic, experienceGiven, deathSound, ev, classType) {}
+        lvl, primary, secondary, battlemusic, experienceGiven, deathSound, ev, classType) {}
 
     std::string drop() override;
     
@@ -327,13 +328,13 @@ public:
         unsigned int lvl,
         Primary* primary,
         Secondary* secondary,
-        std::string battleMusic,
+        Mp3File battlemusic,
         unsigned int experienceGiven,
-        std::string deathSound,
+        WavFile deathSound,
         dngutil::EvType ev,
         dngutil::ClassType classType
     ) : BEnemy(pgame, mapRep, coord, name, rawoutput, typeId, hp, att, def, lck, spd,
-        lvl, primary, secondary, battleMusic, experienceGiven, deathSound, ev, classType)
+        lvl, primary, secondary, battlemusic, experienceGiven, deathSound, ev, classType)
     {
         first = false;
     }

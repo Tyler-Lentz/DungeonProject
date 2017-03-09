@@ -5,6 +5,7 @@
 #include "enemy.h"
 #include "room.h"
 #include "item.h"
+#include "soundfile.h"
 
 #include <chrono>
 #include <string>
@@ -19,7 +20,7 @@ dngutil::ReturnVal Game::run()
     if (!exit)
     {
         vwin->txtmacs.displayGame(this);
-        startMp3(dungeon->overworldMusic);
+        dungeon->overworldMusic.play();
     }
 
     while (!exit)
@@ -93,7 +94,7 @@ bool Game::shouldExit()
     return exit;
 }
 
-std::string Game::getOverworldMusic() const
+Mp3File Game::getOverworldMusic() const
 {
     return dungeon->overworldMusic;
 }
@@ -305,7 +306,7 @@ void Game::cleanup(dngutil::ReturnVal returnval)
 
 void Game::titleScreen()
 {
-    startMp3("TitleTheme.mp3");
+    playSound(Mp3File("TitleTheme"));
 
     vwin->txtmacs.drawDividers();
     vwin->txtmacs.clearDivider("bottom");
@@ -568,7 +569,7 @@ void Game::titleScreen()
     }
 
     
-    stopMp3();
+    stopSound(SoundType::MP3);
 }
 
 const Difficulty& Game::getDifficulty()

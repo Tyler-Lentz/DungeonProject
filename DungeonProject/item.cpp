@@ -7,6 +7,7 @@
 #include "game.h"
 #include "virtualwindow.h"
 #include "room.h"
+#include "soundfile.h"
 
 #include <list>
 #include <string>
@@ -77,7 +78,7 @@ Collision RItem::mapAction(MapObject* collider, std::list<MapObject*>::iterator&
 {
     if (collider == getPGame()->getPlayer())
     {
-        soundEffect("PickupItem.wav", false, true);
+        playSound(WavFile("PickupItem", false, true));
         getPGame()->getPlayer()->addToInventory(this);
         it++;
         getPGame()->getActiveRoom()->getObjects(getCoord()).remove(this);
@@ -104,7 +105,7 @@ void Potion::action(Player* player, unsigned int inventoryIndex)
     int healthbarLine = getPGame()->getVWin()->txtmacs.DIVIDER_LINES[2] - 1;
     int amountHealed = 0;
 
-    soundEffect("RefillHealth.wav", true, true);       
+    playSound(WavFile("RefillHealth", true, true));       
     getPGame()->getVWin()->putcen(player->getHealthBar(), healthbarLine);
     Sleep(100);
 
@@ -120,7 +121,7 @@ void Potion::action(Player* player, unsigned int inventoryIndex)
         }
     }
 
-    stopSound();
+    stopSound(SoundType::WAV);
 
     std::string output = "You healed for ";
     output += std::to_string(amountHealed);
@@ -166,7 +167,7 @@ void Flute::action(Player* player, unsigned int inventoryIndex)
     }
     else if (!isUsed(mapCoord))
     {
-        soundEffect("Flute.wav", false, false);
+        playSound(WavFile("Flute", false, false));
         usedRooms.push_back(mapCoord);
 
         for (auto& i : getPGame()->getActiveRoom()->getCreatureList())
@@ -209,7 +210,7 @@ void HerosClaim::action(Player* player, unsigned int inventoryIndex)
     
     ColorChar colorchar;
     std::string primaryname, description;
-    std::string hitsound;
+    WavFile hitsound;
     double dmgmult;
     int attSpeed;
     int accuracy;
@@ -222,7 +223,7 @@ void HerosClaim::action(Player* player, unsigned int inventoryIndex)
     colorchar = ColorChar('T', dngutil::WHITE);
     primaryname = "Hero's Sword";
     description = "The sword of a real hero";
-    hitsound = "Attack3.wav";
+    hitsound = WavFile("Attack3", false, false);
     dmgmult = 1.85;
     attSpeed = 4;
     accuracy = 85;
@@ -233,7 +234,7 @@ void HerosClaim::action(Player* player, unsigned int inventoryIndex)
     colorchar = ColorChar('I', dngutil::WHITE);
     primaryname = "Hero's Staff";
     description = "The staff of a real hero";
-    hitsound = "MagicAttack1.wav";
+    hitsound = WavFile("MagicAttack1", false, false);
     dmgmult = 2;
     attSpeed = 4;
     accuracy = 100;
@@ -244,7 +245,7 @@ void HerosClaim::action(Player* player, unsigned int inventoryIndex)
     colorchar = ColorChar('t', dngutil::WHITE);
     primaryname = "Hero's Revolver";
     description = "The gun of a real hero";
-    hitsound = "GunAttack1.wav";
+    hitsound = WavFile("GunAttack1", false, false);
     dmgmult = 1.8;
     attSpeed = 3;
     accuracy = 75;
@@ -255,7 +256,7 @@ void HerosClaim::action(Player* player, unsigned int inventoryIndex)
         colorchar = ColorChar('|', dngutil::MAGENTA);
         primaryname = "Adventurer's Death Stick";
         description = "How did you do this.";
-        hitsound = "GunAttack1.wav";
+        hitsound = WavFile("GunAttack1", false, false);
         dmgmult = 99;
         attSpeed = 1;
         accuracy = 101;
@@ -353,7 +354,7 @@ const bool& Primary::getStartReady() const
     return startReady;
 }
 
-const std::string& Primary::getHitsound() const
+const WavFile& Primary::getHitsound() const
 {
     return hitsound;
 }
@@ -425,7 +426,7 @@ void MagicalPotion::action(Player* player, unsigned int inventoryIndex)
 {
     int healthbarLine = getPGame()->getVWin()->txtmacs.DIVIDER_LINES[2] - 1;
 
-    soundEffect("RefillHealth.wav", true, true);
+    playSound(WavFile("RefillHealth", true, true));
     getPGame()->getVWin()->putcen(player->getHealthBar(), healthbarLine);
     Sleep(100);
 
@@ -438,7 +439,7 @@ void MagicalPotion::action(Player* player, unsigned int inventoryIndex)
             Sleep(30);
         }
     }
-    stopSound();
+    stopSound(SoundType::WAV);
 
     std::string output = "You healed to full health";
 

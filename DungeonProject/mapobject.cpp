@@ -125,11 +125,11 @@ Collision ExitObject::mapAction(MapObject* collider, std::list<MapObject*>::iter
     {
         if (up)
         {
-            soundEffect("StairsUp.wav", false, false);
+            playSound(WavFile("StairsUp", false, false));
         }
         else
         {
-            soundEffect("StairsDown.wav", false, false);
+            playSound(WavFile("StairsDown", false, false));
         }
         Coordinate coord(getPGame()->getActiveRoom()->getRoomInfo().mapCoord);
         if (up)
@@ -306,7 +306,7 @@ Collision DoorObject::mapAction(MapObject* collider, std::list<MapObject*>::iter
         {
             if ((*itr)->getTypeId() == dngutil::TID::Key)
             {
-                soundEffect("UnlockDoor.wav", false, false);
+                playSound(WavFile("UnlockDoor", false, false));
                 Item* key = (*itr);
                 p->getInventoryNotConst().erase(itr);
                 delete key;
@@ -350,7 +350,7 @@ Collision AltarObject::mapAction(MapObject* collider, std::list<MapObject*>::ite
 {
     if (collider == getPGame()->getPlayer())
     {
-        stopMp3();
+        stopSound(SoundType::MP3);
         VirtualWindow* v = getPGame()->getVWin();
         TextMacros& t = v->txtmacs;
 
@@ -382,7 +382,7 @@ Collision AltarObject::mapAction(MapObject* collider, std::list<MapObject*>::ite
         v->putcen(ColorString(R"(,:.,:.,:.,:.,:.,:.,:.,:.,:.,:.,:.,:.,:.,:.,:.,:.,:.,:.,:.,:.)", background), vcursor.y++);
         v->putcen(ColorString(R"(------------------------------------------------------------)", background), vcursor.y++);
 
-        startMp3("AltarSong.mp3");
+        playSound(Mp3File("AltarSong"));
         
         for (int i = 0; i < 800; i++)
         {
@@ -393,7 +393,7 @@ Collision AltarObject::mapAction(MapObject* collider, std::list<MapObject*>::ite
             }
         }
 
-        stopMp3();
+        stopSound(SoundType::MP3);
         
         getPGame()->getPlayer()->resetSteps();
 
@@ -404,7 +404,7 @@ Collision AltarObject::mapAction(MapObject* collider, std::list<MapObject*>::ite
         t.clearMapArea(false, NULL);
         t.displayGame(getPGame());
 
-        startMp3(getPGame()->getOverworldMusic());
+        getPGame()->getOverworldMusic().play();
 
     }
     return Collision(false, true);
@@ -478,8 +478,8 @@ Collision SegbossTrigger::mapAction(MapObject* collider, std::list<MapObject*>::
 {
     if (collider == getPGame()->getPlayer())
     {
-        stopMp3();
-        soundEffect("EnterBattle.wav", false, true);
+        stopSound(SoundType::MP3);
+        playSound(WavFile("EnterBattle", false, true));
         getPGame()->getVWin()->txtmacs.clearMapArea(true, 35);
         segboss->segmentedBattle(getPGame()->getPlayer());
         return Collision(true, true, true);

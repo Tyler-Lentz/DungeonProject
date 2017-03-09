@@ -319,7 +319,7 @@ void Room::checkPuzzle()
             drawRoom();
             delete puzzle;
             puzzle = nullptr;
-            soundEffect("Secret.wav", false, false);
+            playSound(WavFile("Secret", false, false));
         }
     }
 }

@@ -43,7 +43,7 @@ Player::Player(
             80,
             false,
             "A rusty old sword.",
-            "Attack1.wav",
+            WavFile("Attack1", false, false),
             dngutil::ClassType::ADVENTURER
         ),
         new Secondary(
@@ -83,7 +83,7 @@ void Player::chooseClass()
     t.clearDivider("bottom");
     Coordinate vcursor(0, t.DIVIDER_LINES[1] + 5);
 
-    soundEffect("Levelup.wav", false, true);
+    playSound(WavFile("Levelup", false, true));
 
     v->putcen(ColorString("Choose your class:", dngutil::LIGHTBLUE), vcursor.y++);
     vcursor.y++;
@@ -115,7 +115,7 @@ void Player::chooseClass()
                     80,
                     false,
                     "A Knight's lance",
-                    "Attack3.wav",
+                    WavFile("Attack3", false, false),
                     dngutil::ClassType::KNIGHT
                 )
             );
@@ -138,7 +138,7 @@ void Player::chooseClass()
                     70,
                     false,
                     "A Ranger's bow, blessed by the wind",
-                    "BowAttack1.wav",
+                    WavFile("BowAttack1", false, false),
                     dngutil::ClassType::RANGER
                 )
             );
@@ -161,7 +161,7 @@ void Player::chooseClass()
                     100,
                     false,
                     "A Wizard's magical wand",
-                    "MagicAttack1.wav",
+                    WavFile("MagicAttack1", false, false),
                     dngutil::ClassType::WIZARD
                 )
             );
@@ -238,12 +238,12 @@ Collision Player::mapAction(MapObject* collider, std::list<MapObject*>::iterator
 {
     if (collider->isAggressive())
     {
-        stopMp3();
+        stopSound(SoundType::MP3);
 
         getPGame()->getActiveRoom()->drawRoom();
         Sleep(100);
 
-        soundEffect("EnterBattle.wav", false, true);
+        playSound(WavFile("EnterBattle", false, true));
         if (battle(collider))
         {
             getPGame()->getVWin()->txtmacs.displayOverworldInfo(getPGame());
@@ -324,7 +324,7 @@ void Player::addExperience(unsigned int experience, dngutil::EvType ev)
     VirtualWindow* vwin = getPGame()->getVWin();
     vwin->txtmacs.clearDivider("bottom");
 
-    soundEffect("Experience.wav", true, true); 
+    playSound(WavFile("Experience", true, true)); 
     vwin->txtmacs.clearMapArea(false, NULL);
     int xpBarLine = static_cast<int>(dngutil::CONSOLEY / 2.0);
     vwin->putcen(ColorString("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-", dngutil::BLUE), xpBarLine - 2);
@@ -339,7 +339,7 @@ void Player::addExperience(unsigned int experience, dngutil::EvType ev)
         {
             overFlowXp = (experience - i);
             Sleep(50); vcursor.y++;
-            soundEffect("FindItem.wav", false, false);
+            playSound(WavFile("FindItem", false, false));
             break;
         }
 
@@ -348,7 +348,7 @@ void Player::addExperience(unsigned int experience, dngutil::EvType ev)
             Sleep(50); vcursor.y++;
         }
     }
-    stopSound();
+    stopSound(SoundType::WAV);
     Sleep(450);
     vwin->txtmacs.clearMapArea(false, NULL);
 
@@ -360,7 +360,7 @@ void Player::addExperience(unsigned int experience, dngutil::EvType ev)
 
         Coordinate vcursor(0, vwin->txtmacs.DIVIDER_LINES[1] + 4);
         vwin->putcen(ColorString("Level Up! You are now level " + std::to_string(getLvl()), dngutil::WHITE), vcursor.y);
-        soundEffect("LevelUp.wav", false, false);
+        playSound(WavFile("LevelUp", false, false));
 
         vcursor.y++;
 
@@ -376,25 +376,25 @@ void Player::addExperience(unsigned int experience, dngutil::EvType ev)
         vcursor.y += 2; vcursor.x = 0;
 
         vwin->putcen(ColorString("Health + " + std::to_string(getHp() - prevHp), dngutil::RED), vcursor.y++);
-        soundEffect("PickupItem.wav", false, false);
+        playSound(WavFile("PickupItem", false, false));
         vwin->putcen(ColorString("Attack + " + std::to_string(getAtt() - prevAtt), dngutil::GREEN), vcursor.y++);
-        soundEffect("PickupItem.wav", false, false);
+        playSound(WavFile("PickupItem", false, false));
         vwin->putcen(ColorString("Defense + " + std::to_string(getDef() - prevDef), dngutil::BLUE), vcursor.y++);
-        soundEffect("PickupItem.wav", false, false);
+        playSound(WavFile("PickupItem", false, false));
         vwin->putcen(ColorString("Luck + " + std::to_string(getLck() - prevLck), dngutil::YELLOW), vcursor.y++);
-        soundEffect("PickupItem.wav", false, false);
+        playSound(WavFile("PickupItem", false, false));
         vwin->putcen(ColorString("Speed + " + std::to_string(getSpd() - prevSpd), dngutil::CYAN), vcursor.y);
-        soundEffect("PickupItem.wav", false, false);
+        playSound(WavFile("PickupItem", false, false));
         vcursor.y += 3;
 
-        soundEffect("RefillHealth.wav", true, true);
+        playSound(WavFile("RefillHealth", true, true));
         while (getHp() < static_cast<int>(getMaxhp()))
         {
             increaseHealth(1);
             vwin->putcen(getHealthBar(), vcursor.y);
             Sleep(50);
         }
-        stopSound();
+        stopSound(SoundType::WAV);
 
         vcursor.y += 2;
 
@@ -426,7 +426,7 @@ void Player::getPromotion()
     t.clearDivider("bottom");
     Coordinate vcursor(0, t.DIVIDER_LINES[1] + 5);
 
-    soundEffect("Levelup.wav", false, true);
+    playSound(WavFile("Levelup", false, true));
 
     v->putcen(ColorString("Promotion!", dngutil::LIGHTBLUE), vcursor.y++);
     vcursor.y++;

@@ -200,7 +200,7 @@ void TextMacros::screenScroll(dngutil::Movement direction, Room* oldRoom, Room* 
 
     if (newRoom->hasPuzzle())
     {
-        soundEffect("Puzzle.wav", false, true);
+        playSound(WavFile("Puzzle", false, true));
     }
 }
 
@@ -284,8 +284,8 @@ dngutil::ReturnVal TextMacros::deathScreen(Game* game)
 { 
     vwin->clearScreen(dngutil::RED);
 
-    soundEffect("Death.wav", false, false);
-    startMp3("Continue.mp3");
+    playSound(WavFile("Death", false, false));
+    playSound(Mp3File("Continue"));
     int startingLine = static_cast<int>(dngutil::CONSOLEY / 2.0) + 1;
     int textcolor = getColor(dngutil::WHITE, dngutil::RED);
     vwin->putcen(ColorString("Oh dear, you have died...", textcolor), startingLine++);
@@ -298,7 +298,7 @@ dngutil::ReturnVal TextMacros::deathScreen(Game* game)
     while (!keyrelease(VK_RETURN));
     dngutil::ReturnVal returnValue = dngutil::ReturnVal::RESTART;
 
-    stopMp3();
+    stopSound(SoundType::MP3);
 
     vwin->clearScreen();
 
@@ -391,7 +391,7 @@ void TextMacros::displayLevelupStats(Coordinate cursor, Player* player)
 void TextMacros::fallingScreen(Game* game)
 {
     clearMapArea(false, NULL);
-    soundEffect("Fall.wav", false, false);
+    playSound(WavFile("Fall", false, false));
     displayGame(game);
 }
 //-------------------------------------------------------------

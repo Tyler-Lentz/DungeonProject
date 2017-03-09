@@ -9,6 +9,7 @@
 #include "player.h"
 #include "virtualwindow.h"
 #include "room.h"
+#include "soundfile.h"
 
 #include <string>
 
@@ -31,9 +32,9 @@ Enemy::Enemy(
     unsigned int lvl,
     Primary* primary,
     Secondary* secondary,
-    std::string battleMusic,
+    Mp3File battleMusic,
     unsigned int experienceGiven,
-    std::string deathSound,
+    WavFile deathSound,
     dngutil::EvType ev,
     dngutil::ClassType classType
 ) : Creature(
@@ -63,12 +64,12 @@ Enemy::Enemy(
     this->ev = ev;
 }
 
-const std::string& Enemy::getBattleMusic() const
+const Mp3File& Enemy::getBattleMusic() const
 {
     return battleMusic;
 }
 
-const std::string& Enemy::getDeathSound() const
+const WavFile& Enemy::getDeathSound() const
 {
     return deathSound;
 }
@@ -136,7 +137,7 @@ void Enemy::deathSequence()
     {
         getPGame()->getVWin()->txtmacs.clearDivider("bottom");
 
-        soundEffect("FindItem.wav", false, false);
+        playSound(WavFile("FindItem", false, false));
 
         getPGame()->getVWin()->putcen(
             ColorString("The " + getName() + " drops a " + dropType, dngutil::CYAN),
@@ -149,12 +150,12 @@ Collision Enemy::mapAction(MapObject* collider, std::list<MapObject*>::iterator&
 {
     if (collider == getPGame()->getPlayer() && isAggressive())
     {
-        stopMp3();
+        stopSound(SoundType::MP3);
 
         getPGame()->getActiveRoom()->drawRoom();
         Sleep(100);
 
-        soundEffect("EnterBattle.wav", false, true);
+        playSound(WavFile("EnterBattle", false, true));
         if (battle(this))
         {
             getPGame()->getVWin()->txtmacs.displayOverworldInfo(getPGame());
@@ -264,7 +265,7 @@ void BEnemy::deathSequence()
 {
     getPGame()->adjustScore(dngutil::BASE_SCORE_BOSS_BOOST);
 
-    startMp3("DefeatBoss.mp3");
+    playSound(Mp3File("DefeatBoss"));
 
     getPGame()->getVWin()->txtmacs.clearMapArea(true, 100);
     getPGame()->getVWin()->txtmacs.clearDivider("bottom");
@@ -272,7 +273,7 @@ void BEnemy::deathSequence()
     // Length of the sound effect adjusted for the screen clearing
     Sleep(5000);
 
-    stopMp3();
+    stopSound(SoundType::MP3);
 
     Enemy::deathSequence();
 }
@@ -308,7 +309,7 @@ Skeleton::Skeleton(
         70,
         false,
         "A heavy wooden axe that was dropped from a Skeleton",
-        "Attack4.wav",
+        WavFile("Attack4", false, false),
         dngutil::ClassType::ADVENTURER
     ),
     new Secondary(
@@ -322,9 +323,9 @@ Skeleton::Skeleton(
         1.1,
         "A heavy wooden shield that was dropped from a Skeleton"
     ),
-    "BattleTheme.mp3",
+    Mp3File("BattleTheme", "BattleThemeAlt"),
     random(23, 29),
-    "EnemyDeath.wav",
+    WavFile("EnemyDeath", false, false),
     dngutil::EvType::HEALTH,
     dngutil::ClassType::ADVENTURER
 )
@@ -399,7 +400,7 @@ BloodSkeleton::BloodSkeleton(
         70,
         false,
         "An axe from a blood skeleton",
-        "Attack4.wav",
+        WavFile("Attack4", false, false),
         dngutil::ClassType::KNIGHT
     ),
     new Secondary(
@@ -413,9 +414,9 @@ BloodSkeleton::BloodSkeleton(
         1.12,
         "A shield from a blood skeleton"
     ),
-    "BattleTheme.mp3",
+    Mp3File("BattleTheme", "BattleThemeAlt"),
     random(31, 40),
-    "EnemyDeath.wav",
+    WavFile("EnemyDeath", false, false),
     dngutil::EvType::HEALTH,
     dngutil::ClassType::KNIGHT
 )
@@ -496,7 +497,7 @@ SkeletonKing::SkeletonKing(
         95,
         false,
         "A very long sword. It is very accurate.",
-        "Attack4.wav",
+        WavFile("Attack4", false, false),
         dngutil::ClassType::KNIGHT
     ),
     new Secondary(
@@ -510,9 +511,9 @@ SkeletonKing::SkeletonKing(
         .8,
         "A corpses head, cursed by the skeleton king."
     ),
-    "SkeletonKingTheme.mp3",
+    Mp3File("SkeletonKingTheme"),
     50,
-    "Screech.wav",
+    WavFile("Screech", false, false),
     dngutil::EvType::ATTACK,
     dngutil::ClassType::KNIGHT
 ) {}
@@ -597,7 +598,7 @@ FlameHorse::FlameHorse(
         95,
         false,
         "You cant get this so this doesnt matter",
-        "Attack4.wav",
+        WavFile("Attack4", false, false),
         dngutil::ClassType::KNIGHT
     ),
     new Secondary(
@@ -611,9 +612,9 @@ FlameHorse::FlameHorse(
         1.15,
         "You cant get this so this doesnt matter"
     ),
-    "SkeletonKingTheme.mp3",
+    Mp3File("SkeletonKingTheme"),
     80,
-    "Screech.wav",
+    WavFile("Screech", false, false),
     dngutil::EvType::DEFENSE,
     dngutil::ClassType::KNIGHT
 ) 
@@ -697,7 +698,7 @@ WaterHorse::WaterHorse(
         100,
         false,
         "You cant get this so this doesnt matter",
-        "Attack4.wav",
+        WavFile("Attack4", false, false),
         dngutil::ClassType::KNIGHT
     ),
     new Secondary(
@@ -711,9 +712,9 @@ WaterHorse::WaterHorse(
         1.213,
         "You cant get this so this doesnt matter"
     ),
-    "SkeletonKingTheme.mp3",
+    Mp3File("SkeletonKingTheme"),
     68,
-    "Screech.wav",
+    WavFile("Screech", false, false),
     dngutil::EvType::SPEED,
     dngutil::ClassType::WIZARD
 )
@@ -804,7 +805,7 @@ BloodjawPhase1::BloodjawPhase1(
         100,
         false,
         "You cant get this so this doesnt matter",
-        "Attack4.wav",
+        WavFile("Attack4", false, false),
         dngutil::ClassType::KNIGHT
     ),
     new Secondary(
@@ -818,9 +819,9 @@ BloodjawPhase1::BloodjawPhase1(
         1.313,
         "You cant get this so this doesnt matter"
     ),
-    "FinalBoss.mp3",
+    Mp3File("FinalBoss"),
     68,
-    "SegDeath.wav",
+    WavFile("SegDeath", false, false),
     dngutil::EvType::SPEED,
     dngutil::ClassType::KNIGHT
 )
@@ -899,7 +900,7 @@ BloodjawPhase2::BloodjawPhase2(
         100,
         false,
         "You cant get this so this doesnt matter",
-        "Attack4.wav",
+        WavFile("Attack4", false, false),
         dngutil::ClassType::KNIGHT
     ),
     new Secondary(
@@ -913,9 +914,9 @@ BloodjawPhase2::BloodjawPhase2(
         1.313,
         "You cant get this so this doesnt matter"
     ),
-    "FinalBoss.mp3",
+    Mp3File("FinalBoss"),
     68,
-    "SegDeath.wav",
+    WavFile("SegDeath", false, false),
     dngutil::EvType::SPEED,
     dngutil::ClassType::KNIGHT
 )
@@ -989,7 +990,7 @@ BloodjawPhase3::BloodjawPhase3(
         100,
         false,
         "You cant get this so this doesnt matter",
-        "MagicAttack1.wav",
+        WavFile("MagicAttack1", false, false),
         dngutil::ClassType::WIZARD
     ),
     new Secondary(
@@ -1003,9 +1004,9 @@ BloodjawPhase3::BloodjawPhase3(
         1.283,
         "You cant get this so this doesnt matter"
     ),
-    "FinalBoss.mp3",
+    Mp3File("FinalBoss"),
     68,
-    "FinalDeath.wav",
+    WavFile("FinalDeath", false, false),
     dngutil::EvType::SPEED,
     dngutil::ClassType::KNIGHT
 )
@@ -1098,7 +1099,7 @@ EvilBeastPhase1::EvilBeastPhase1(
         65,
         false,
         "You cant get this so this doesnt matter",
-        "Attack1.wav",
+        WavFile("Attack1", false, false),
         dngutil::ClassType::RANGER
     ),
     new Secondary(
@@ -1112,9 +1113,9 @@ EvilBeastPhase1::EvilBeastPhase1(
         1.3,
         "You cant get this so this doesnt matter"
     ),
-    "hidden.mp3",
+    Mp3File("hidden"),
     68,
-    "Laugh.wav",
+    WavFile("Laugh", false, false),
     dngutil::EvType::SPEED,
     dngutil::ClassType::RANGER
 )
@@ -1195,7 +1196,7 @@ EvilBeastPhase2::EvilBeastPhase2(
         70,
         false,
         "You cant get this so this doesnt matter",
-        "Attack4.wav",
+        WavFile("Attack4", false, false),
         dngutil::ClassType::KNIGHT
     ),
     new Secondary(
@@ -1209,9 +1210,9 @@ EvilBeastPhase2::EvilBeastPhase2(
         1.3,
         "You cant get this so this doesnt matter"
     ),
-    "hidden.mp3",
+    Mp3File("hidden"),
     68,
-    "SegDeath.wav",
+    WavFile("SegDeath", false, false),
     dngutil::EvType::SPEED,
     dngutil::ClassType::KNIGHT
 )
@@ -1286,7 +1287,7 @@ EvilBeastPhase3::EvilBeastPhase3(
         100,
         false,
         "You cant get this so this doesnt matter",
-        "FireAttack1.wav",
+        WavFile("FireAttack1", false, false),
         dngutil::ClassType::KNIGHT
     ),
     new Secondary(
@@ -1300,9 +1301,9 @@ EvilBeastPhase3::EvilBeastPhase3(
         1.28,
         "You cant get this so this doesnt matter"
     ),
-    "hidden.mp3",
+    Mp3File("hidden"),
     68,
-    "SegDeath.wav",
+    WavFile("SegDeath", false, false),
     dngutil::EvType::SPEED,
     dngutil::ClassType::KNIGHT
 )
@@ -1378,7 +1379,7 @@ EvilBeastPhase4::EvilBeastPhase4(
         100,
         false,
         "You cant get this so this doesnt matter",
-        "MagicAttack1.wav",
+        WavFile("MagicAttack1", false, false),
         dngutil::ClassType::WIZARD
     ),
     new Secondary(
@@ -1392,9 +1393,9 @@ EvilBeastPhase4::EvilBeastPhase4(
         1.45,
         "You cant get this so this doesnt matter"
     ),
-    "hidden.mp3",
+    Mp3File("hidden"),
     68,
-    "FinalDeath.wav",
+    WavFile("FinalDeath", false, false),
     dngutil::EvType::SPEED,
     dngutil::ClassType::KNIGHT
 )
@@ -1482,7 +1483,7 @@ PitDragon::PitDragon(
         80,
         false,
         "You cant get this so this doesnt matter",
-        "FireAttack1.wav",
+        WavFile("FireAttack1", false, false),
         dngutil::ClassType::KNIGHT
     ),
     new Secondary(
@@ -1496,9 +1497,9 @@ PitDragon::PitDragon(
         1.2,
         "You cant get this so this doesnt matter"
     ),
-    "SkeletonKingTheme.mp3",
+    Mp3File("SkeletonKingTheme"),
     80,
-    "Screech.wav",
+    WavFile("Screech", false, false),
     dngutil::EvType::DEFENSE,
     dngutil::ClassType::KNIGHT
 )
@@ -1584,7 +1585,7 @@ DungeonBeast::DungeonBeast(
         100,
         false,
         "A magical beam.",
-        "MagicAttack1.wav",
+        WavFile("MagicAttack1", false, false),
         dngutil::ClassType::WIZARD
     ),
     new Secondary(
@@ -1598,9 +1599,9 @@ DungeonBeast::DungeonBeast(
         1.1,
         "Beast's armor."
     ),
-    "BeastTheme.mp3",
+    Mp3File("BeastTheme"),
     85,
-    "KillDemon.wav",
+    WavFile("KillDemon", false, false),
     dngutil::EvType::DEFENSE,
     dngutil::ClassType::WIZARD
 ) 
@@ -1680,7 +1681,7 @@ MegaBeastPhase1::MegaBeastPhase1(
         100,
         false,
         ".",
-        "Attack1.wav",
+        WavFile("Attack1", false, false),
         dngutil::ClassType::ADVENTURER
     ),
     new Secondary(
@@ -1694,9 +1695,9 @@ MegaBeastPhase1::MegaBeastPhase1(
         1,
         "Spirits's armor."
     ),
-    "hidden.mp3",
+    Mp3File("hidden"),
     85,
-    "revival.wav",
+    WavFile("revival", false, false),
     dngutil::EvType::DEFENSE,
     dngutil::ClassType::ADVENTURER
 )
@@ -1778,7 +1779,7 @@ MegaBeastPhase2::MegaBeastPhase2(
         100,
         false,
         "A magical beam.",
-        "MagicAttack1.wav",
+        WavFile("MagicAttack1", false, false),
         dngutil::ClassType::WIZARD
     ),
     new Secondary(
@@ -1792,9 +1793,9 @@ MegaBeastPhase2::MegaBeastPhase2(
         1.2,
         "Beast's armor."
     ),
-    "hidden.mp3",
+    Mp3File("hidden"),
     85,
-    "FinalDeath.wav",
+    WavFile("FinalDeath", false, false),
     dngutil::EvType::DEFENSE,
     dngutil::ClassType::WIZARD
 )
@@ -1875,7 +1876,7 @@ LSKnight::LSKnight(
         85,
         false,
         "A broadsword from a cursed knight",
-        "Attack4.wav",
+        WavFile("Attack4", false, false),
         dngutil::ClassType::KNIGHT
     ),
     new Secondary(
@@ -1889,9 +1890,9 @@ LSKnight::LSKnight(
         1.15,
         "A shield from a cursed knight"
     ),
-    "BattleTheme.mp3",
+    Mp3File("BattleTheme", "BattleThemeAlt"),
     random(26, 33),
-    "EnemyDeath.wav",
+    WavFile("EnemyDeath", false, false),
     dngutil::EvType::DEFENSE,
     dngutil::ClassType::KNIGHT
 )
@@ -1968,7 +1969,7 @@ SSKnight::SSKnight(
         85,
         false,
         "A shortsword from a cursed knight",
-        "Attack2.wav",
+        WavFile("Attack2", false, false),
         dngutil::ClassType::KNIGHT
     ),
     new Secondary(
@@ -1982,9 +1983,9 @@ SSKnight::SSKnight(
         1.15,
         "A shield from a cursed knight"
     ),
-    "BattleTheme.mp3",
+    Mp3File("BattleTheme", "BattleThemeAlt"),
     random(26, 33),
-    "EnemyDeath.wav",
+    WavFile("EnemyDeath", false, false),
     dngutil::EvType::SPEED,
     dngutil::ClassType::KNIGHT
 )
@@ -2061,7 +2062,7 @@ Mage::Mage(
         85,
         false,
         "A Mage's staff - spews electricity",
-        "MagicAttack1.wav",
+        WavFile("MagicAttack1", false, false),
         dngutil::ClassType::WIZARD
     ),
     new Secondary(
@@ -2075,9 +2076,9 @@ Mage::Mage(
         1.35,
         "A protecting aura from a mage"
     ),
-    "BattleTheme.mp3",
+    Mp3File("BattleTheme", "BattleThemeAlt"),
     random(35, 40),
-    "EnemyDeath.wav",
+    WavFile("EnemyDeath", false, false),
     dngutil::EvType::ATTACK,
     dngutil::ClassType::WIZARD
 )
@@ -2151,7 +2152,7 @@ Bowman::Bowman(
         75,
         false,
         "A very sturdy bow.",
-        "BowAttack1.wav",
+        WavFile("BowAttack1", false, false),
         dngutil::ClassType::RANGER
     ),
     new Secondary(
@@ -2165,9 +2166,9 @@ Bowman::Bowman(
         1,
         "A quiver from a bowman."
     ),
-    "BattleTheme.mp3",
+    Mp3File("BattleTheme", "BattleThemeAlt"),
     random(35, 40),
-    "EnemyDeath.wav",
+    WavFile("EnemyDeath", false, false),
     dngutil::EvType::SPEED,
     dngutil::ClassType::RANGER
 )
@@ -2303,7 +2304,7 @@ bool SegEnemy::battle(MapObject* t_enemy)
                 if (enemy->isDead())
                 {
 
-                    soundEffect(enemy->getDeathSound(), false, true);
+                    enemy->getDeathSound().play();
 
                     getPGame()->getVWin()->txtmacs.clearMapArea(false, NULL);
                     getPGame()->getVWin()->txtmacs.clearDivider("bottom");
@@ -2348,7 +2349,7 @@ bool SegEnemy::battle(MapObject* t_enemy)
 
                     if (!revived)
                     {
-                        stopMp3();
+                        stopSound(SoundType::MP3);
                         getPGame()->cleanup(getPGame()->getVWin()->txtmacs.deathScreen(getPGame()));
                         return false;
                     }
@@ -2358,15 +2359,15 @@ bool SegEnemy::battle(MapObject* t_enemy)
                         vwin->txtmacs.displayHealthBars(enemy, player);
                         vwin->txtmacs.outputBattleInfo(playerTimer, playerWeaponSpeed, enemyTimer, enemyWeaponSpeed);
 
-                        soundEffect("MagicalPotion.wav", false, false);
-                        soundEffect("RefillHealth.wav", true, true);
+                        playSound(WavFile("MagicalPotion", false, false));
+                        playSound(WavFile("RefillHealth", false, true));
                         for (int i = 0; i < (player->getMaxhp() * .75); i++)
                         {
                             player->increaseHealth(1);
                             vwin->txtmacs.displayHealthBars(enemy, player);
                             Sleep(40);
                         }
-                        stopSound();
+                        stopSound(SoundType::WAV);
                     }
                 }
                 break;
@@ -2425,7 +2426,7 @@ DragonTail::DragonTail(
         70,
         false,
         "Dragons Tail.",
-        "Attack4.wav",
+        WavFile("Attack4", false, false),
         dngutil::ClassType::KNIGHT
     ),
     new Secondary(
@@ -2439,9 +2440,9 @@ DragonTail::DragonTail(
         1.25,
         "Dragons's armor."
     ),
-    "FinalBoss.mp3",
+    Mp3File("FinalBoss"),
     85,
-    "SegDeath.wav",
+    WavFile("SegDeath", false, false),
     dngutil::EvType::DEFENSE,
     dngutil::ClassType::KNIGHT
 )
@@ -2535,7 +2536,7 @@ DragonWings::DragonWings(
         100,
         false,
         "Dragons Wings.",
-        "Attack1.wav",
+        WavFile("Attack1", false, false),
         dngutil::ClassType::KNIGHT
     ),
     new Secondary(
@@ -2549,9 +2550,9 @@ DragonWings::DragonWings(
         1,
         "Dragons's armor."
     ),
-    "FinalBoss.mp3",
+    Mp3File("FinalBoss"),
     85,
-    "SegDeath.wav",
+    WavFile("SegDeath", false, false),
     dngutil::EvType::DEFENSE,
     dngutil::ClassType::KNIGHT
 )
@@ -2635,7 +2636,7 @@ DragonHead::DragonHead(
         100,
         false,
         "Dragons flames.",
-        "FireAttack1.wav",
+        WavFile("FireAttack1", false, false),
         dngutil::ClassType::KNIGHT
     ),
     new Secondary(
@@ -2649,9 +2650,9 @@ DragonHead::DragonHead(
         1.2,
         "Dragons's armor."
     ),
-    "FinalBoss.mp3",
+    Mp3File("FinalBoss"),
     85,
-    "FinalDeath.wav",
+    WavFile("FinalDeath", false, false),
     dngutil::EvType::DEFENSE,
     dngutil::ClassType::KNIGHT
 )
@@ -2750,7 +2751,7 @@ GryphonPhase1::GryphonPhase1(
         70,
         false,
         "Wind Gust",
-        "BowAttack1.wav",
+        WavFile("BowAttack1", false, false),
         dngutil::ClassType::RANGER
     ),
     new Secondary(
@@ -2764,9 +2765,9 @@ GryphonPhase1::GryphonPhase1(
         1.25,
         "Gryphon's armor."
     ),
-    "FinalBoss.mp3",
+    Mp3File("FinalBoss"),
     85,
-    "SegDeath.wav",
+    WavFile("SegDeath", false, false),
     dngutil::EvType::DEFENSE,
     dngutil::ClassType::RANGER
 )
@@ -2858,7 +2859,7 @@ GryphonPhase2::GryphonPhase2(
         100,
         false,
         "Sharp Claws.",
-        "Attack4.wav",
+        WavFile("Attack4", false, false),
         dngutil::ClassType::KNIGHT
     ),
     new Secondary(
@@ -2872,9 +2873,9 @@ GryphonPhase2::GryphonPhase2(
         1.25,
         "Gryphon Armos."
     ),
-    "FinalBoss.mp3",
+    Mp3File("FinalBoss"),
     85,
-    "revival.wav",
+    WavFile("revival", false, false),
     dngutil::EvType::DEFENSE,
     dngutil::ClassType::KNIGHT
 )
@@ -2958,7 +2959,7 @@ GryphonPhase3::GryphonPhase3(
         100,
         false,
         "Last Breath.",
-        "Attack1.wav",
+        WavFile("Attack1", false, false),
         dngutil::ClassType::WIZARD
     ),
     new Secondary(
@@ -2972,9 +2973,9 @@ GryphonPhase3::GryphonPhase3(
         0,
         "Dragons's armor."
     ),
-    "FinalBoss.mp3",
+    Mp3File("FinalBoss"),
     85,
-    "FinalDeath.wav",
+    WavFile("FinalDeath", false, false),
     dngutil::EvType::DEFENSE,
     dngutil::ClassType::WIZARD
 )
@@ -3071,7 +3072,7 @@ ReaperPhase1::ReaperPhase1(
         70,
         false,
         "A scythe from death",
-        "Attack4.wav",
+        WavFile("Attack4", false, false),
         dngutil::ClassType::KNIGHT
     ),
     new Secondary(
@@ -3085,9 +3086,9 @@ ReaperPhase1::ReaperPhase1(
         1.35,
         "Reapers's armor."
     ),
-    "hidden.mp3",
+    Mp3File("hidden"),
     85,
-    "Laugh.wav",
+    WavFile("Laugh", false, false),
     dngutil::EvType::ATTACK,
     dngutil::ClassType::ADVENTURER
 )
@@ -3176,7 +3177,7 @@ ReaperPhase2::ReaperPhase2(
         100,
         false,
         "Death's sycthe.",
-        "Attack4.wav",
+        WavFile("Attack4", false, false),
         dngutil::ClassType::KNIGHT
     ),
     new Secondary(
@@ -3190,9 +3191,9 @@ ReaperPhase2::ReaperPhase2(
         1.35,
         "Reapers armor."
     ),
-    "FinalBoss.mp3",
+    Mp3File("FinalBoss"),
     85,
-    "revival.wav",
+    WavFile("revival", false, false),
     dngutil::EvType::DEFENSE,
     dngutil::ClassType::ADVENTURER
 )
@@ -3275,7 +3276,7 @@ ReaperPhase3::ReaperPhase3(
         100,
         false,
         "Fire ball.",
-        "FireAttack1.wav",
+        WavFile("FireAttack1", false, false),
         dngutil::ClassType::WIZARD
     ),
     new Secondary(
@@ -3289,9 +3290,9 @@ ReaperPhase3::ReaperPhase3(
         1.3,
         "True Reapers's armor."
     ),
-    "hidden.mp3",
+    Mp3File("hidden"),
     85,
-    "FinalDeath.wav",
+    WavFile("FinalDeath", false, false),
     dngutil::EvType::DEFENSE,
     dngutil::ClassType::WIZARD
 )
@@ -3379,7 +3380,7 @@ MaskPhase1::MaskPhase1(
         70,
         false,
         "Mask's lazer",
-        "MagicAttack1.wav",
+        WavFile("MagicAttack1", false, false),
         dngutil::ClassType::WIZARD
     ),
     new Secondary(
@@ -3393,9 +3394,9 @@ MaskPhase1::MaskPhase1(
         1.25,
         "Mask's armor."
     ),
-    "FinalBoss.mp3",
+    Mp3File("FinalBoss"),
     85,
-    "Laugh.wav",
+    WavFile("Laugh", false, false),
     dngutil::EvType::ATTACK,
     dngutil::ClassType::WIZARD
 )
@@ -3485,7 +3486,7 @@ MaskPhase2::MaskPhase2(
         100,
         false,
         "Melee attack.",
-        "Attack4.wav",
+        WavFile("Attack4", false, false),
         dngutil::ClassType::KNIGHT
     ),
     new Secondary(
@@ -3499,9 +3500,9 @@ MaskPhase2::MaskPhase2(
         1.25,
         "Reapers armor."
     ),
-    "FinalBoss.mp3",
+    Mp3File("FinalBoss"),
     85,
-    "Laugh.wav",
+    WavFile("Laugh", false, false),
     dngutil::EvType::DEFENSE,
     dngutil::ClassType::KNIGHT
 )
@@ -3584,7 +3585,7 @@ MaskPhase3::MaskPhase3(
         100,
         false,
         "SLAAAAMMMIIN.",
-        "Attack4.wav",
+        WavFile("Attack4", false, false),
         dngutil::ClassType::KNIGHT
     ),
     new Secondary(
@@ -3598,9 +3599,9 @@ MaskPhase3::MaskPhase3(
         1.38,
         "Mask's armor."
     ),
-    "FinalBoss.mp3",
+    Mp3File("FinalBoss"),
     85,
-    "FinalDeath.wav",
+    WavFile("FinalDeath", false, false),
     dngutil::EvType::DEFENSE,
     dngutil::ClassType::KNIGHT
 )
@@ -3681,20 +3682,20 @@ bool Segboss::segmentedBattle(Player* player)
     pressEnter(vcursor, v);
     v->txtmacs.clearDivider("bottom");
 
-    startMp3(segments.front()->getBattleMusic());
+    segments.front()->getBattleMusic().play();
 
     for (auto& i : segments)
     {
         if (!i->battle(i))
         {
-            stopMp3();
+            stopSound(SoundType::MP3);
             return false;
         }
 
         t.clearMapArea(false, NULL);
         t.clearDivider("bottom");
     }
-    stopMp3();
+    stopSound(SoundType::MP3);
     // If you are here you won
 
     segments.back()->deathSequence();

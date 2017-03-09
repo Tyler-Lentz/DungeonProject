@@ -205,14 +205,6 @@ void pressEnter(Coordinate cursorpos, VirtualWindow* vwin, int color = dngutil::
 
 int getExpToLevel(unsigned int level);
 
-void startMp3(std::string fileName);
-
-void stopMp3();
-
-void soundEffect(std::string fileName, bool loop, bool async);
-
-void stopSound();
-
 int getHealthbarSleepTime(int damageDealt);
 
 void credits(dngutil::CreditType c, Game* pgame, dngutil::DungeonType dungeon);

@@ -10,6 +10,7 @@
 
 #include "utilities.h"
 #include "colorstring.h"
+#include "soundfile.h"
 
 class Room;
 class MapObject;
@@ -35,7 +36,7 @@ public:
     std::list<MapObject*> deletionList;
 
     // overworld music
-    std::string overworldMusic;
+    Mp3File overworldMusic;
 
     // story, int is number of lines after normal newline
     std::vector<std::pair<ColorString, int>> story;

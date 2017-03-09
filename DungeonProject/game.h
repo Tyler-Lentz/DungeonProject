@@ -4,6 +4,7 @@
 #include "coordinate.h"
 #include "utilities.h"
 #include "dungeon.h"
+#include "soundfile.h"
 
 #include <map>
 #include <list>
@@ -72,7 +73,7 @@ public:
 
     const Difficulty& getDifficulty();
 
-    std::string getOverworldMusic() const;
+    Mp3File getOverworldMusic() const;
 
     void setExitToFalse();
     bool shouldExit();

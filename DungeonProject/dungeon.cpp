@@ -40,7 +40,7 @@ Dungeon::~Dungeon()
 DragonsLair::DragonsLair(Game* game) :
     Dungeon(game, 1)
 {
-    overworldMusic = "DragonsLair.mp3";
+    overworldMusic = Mp3File("DragonsLair");
 
     story.push_back(std::make_pair(ColorString("Your village has been destroyed by a dragon,", dngutil::WHITE), 0));
     story.push_back(std::make_pair(ColorString("and you are the sole survivor...", dngutil::WHITE), 2));
@@ -54,15 +54,15 @@ DragonsLair::DragonsLair(Game* game) :
         VirtualWindow* v = game->getVWin();
         TextMacros& t = v->txtmacs;
         Player* player = game->getPlayer();
-        stopMp3();
+        stopSound(SoundType::MP3);
         Sleep(150);
-        soundEffect("EnterBattle.wav", false, true);
+        playSound(WavFile("EnterBattle", false, true));
         t.clearMapArea(true, 20);
         t.clearDivider("bottom");
 
         Coordinate vcursor(15, t.DIVIDER_LINES[1] + 1);
 
-        startMp3("BeastTheme.mp3");
+        playSound(Mp3File("BeastTheme"));
         int color = dngutil::WHITE;
         v->put(ColorString(R"(		             \                  /)", color), vcursor); Sleep(50); vcursor.y++;
         v->put(ColorString(R"(		    _________))                ((__________)", color), vcursor); Sleep(50); vcursor.y++;
@@ -84,7 +84,7 @@ DragonsLair::DragonsLair(Game* game) :
         v->put(ColorString(R"(		                      ()", color), vcursor); Sleep(50); vcursor.y++;
         v->put(ColorString(R"(		                      ` )", color), vcursor); Sleep(50);
 
-        soundEffect("Screech.wav", false, false);
+        playSound(WavFile("Screech", false, false));
 
         vcursor.y = t.BOTTOM_DIVIDER_TEXT_LINE;
         v->putcen(ColorString("The Dungeon Beast has appeared!", dngutil::WHITE), vcursor.y++);
@@ -94,7 +94,7 @@ DragonsLair::DragonsLair(Game* game) :
         int healthDecrease = static_cast<int>(player->getHp() / 2.0);
         int sleepTime = static_cast<int>(5000.0 / healthDecrease);
 
-        soundEffect("HealthDrain.wav", false, true);
+        playSound(WavFile("HealthDrain", false, true));
         for (int i = 0; i < healthDecrease; i++)
         {
             player->decreaseHealth(1);
@@ -106,10 +106,10 @@ DragonsLair::DragonsLair(Game* game) :
         t.clearDivider("bottom");
         t.displayGame(game);
 
-        stopMp3();
+        stopSound(SoundType::MP3);
 
-        startMp3(game->getOverworldMusic());
-        soundEffect("ExitToMap.wav", false, true);
+        game->getOverworldMusic().play();
+        playSound(WavFile("ExitToMap", false, true));
     };
     makeRooms();
 }
@@ -530,7 +530,7 @@ void DragonsLair::makeFloor1(std::mutex& roomMut)
             70,
             false,
             "A spear that is colored pitch black",
-            "Attack3.wav",
+            WavFile("Attack3", false, false),
             dngutil::ClassType::KNIGHT
         ));
 
@@ -1145,7 +1145,7 @@ void DragonsLair::makeFloor2(std::mutex& roomMut)
             50,
             true,
             "A very innacurate, slow, high-damaging rifle.",
-            "GunAttack1.wav",
+            WavFile("GunAttack1", false, false),
             dngutil::ClassType::RANGER
         ));
 
@@ -1440,7 +1440,7 @@ void DragonsLair::makeFloor3(std::mutex& roomMut)
             100,
             false,
             "A sword found next to a dead body.",
-            "Attack1.wav",
+            WavFile("Attack1", false, false),
             dngutil::ClassType::KNIGHT
         ));
 
@@ -1730,7 +1730,7 @@ void DragonsLair::makeFloor4(std::mutex& roomMut)
 GryphonsTower::GryphonsTower(Game* game):
     Dungeon(game, 1)
 {
-    overworldMusic = "GryphonsTower.mp3";
+    overworldMusic = Mp3File("GryphonsTower");
 
     story.push_back(std::make_pair(ColorString("Your family has been kidnapped by a gryphon.", dngutil::WHITE), 2));
 
@@ -1745,15 +1745,15 @@ GryphonsTower::GryphonsTower(Game* game):
         VirtualWindow* v = game->getVWin();
         TextMacros& t = v->txtmacs;
         Player* player = game->getPlayer();
-        stopMp3();
+        stopSound(SoundType::MP3);
         Sleep(150);
-        soundEffect("EnterBattle.wav", false, true);
+        playSound(WavFile("EnterBattle", false, true));
         t.clearMapArea(true, 20);
         t.clearDivider("bottom");
 
         Coordinate vcursor(15, t.DIVIDER_LINES[1] + 1);
 
-        startMp3("BeastTheme.mp3");
+        playSound(Mp3File("BeastTheme"));
         int color = dngutil::WHITE;
         v->put(ColorString(R"(		             \                  /)", color), vcursor); Sleep(50); vcursor.y++;
         v->put(ColorString(R"(		    _________))                ((__________)", color), vcursor); Sleep(50); vcursor.y++;
@@ -1775,7 +1775,7 @@ GryphonsTower::GryphonsTower(Game* game):
         v->put(ColorString(R"(		                      ()", color), vcursor); Sleep(50); vcursor.y++;
         v->put(ColorString(R"(		                      ` )", color), vcursor); Sleep(50);
 
-        soundEffect("Screech.wav", false, false);
+        playSound(WavFile("Screech", false, false));
 
         vcursor.y = t.BOTTOM_DIVIDER_TEXT_LINE;
         v->putcen(ColorString("The Dungeon Beast has appeared!", dngutil::WHITE), vcursor.y++);
@@ -1785,22 +1785,23 @@ GryphonsTower::GryphonsTower(Game* game):
         int healthDecrease = static_cast<int>(player->getHp() / 2.0);
         int sleepTime = static_cast<int>(5000.0 / healthDecrease);
 
-        soundEffect("HealthDrain.wav", false, true);
+        playSound(WavFile("HealthDrain", false, true));
         for (int i = 0; i < healthDecrease; i++)
         {
             player->decreaseHealth(1);
             v->putcen(player->getHealthBar(), healthbarLine);
             Sleep(sleepTime); vcursor.y++;
         }
+        stopSound(SoundType::WAV);
 
         t.clearMapArea(true, 50);
         t.clearDivider("bottom");
         t.displayGame(game);
 
-        stopMp3();
+        stopSound(SoundType::MP3);
 
-        startMp3(game->getOverworldMusic());
-        soundEffect("ExitToMap.wav", false, true);
+        game->getOverworldMusic().play();
+        playSound(WavFile("ExitToMap", false, true));
     };
 
     gamespace.resize(7);
@@ -2829,7 +2830,7 @@ void GryphonsTower::makeFloor4(std::mutex& roomMut)
             95,
             true,
             "A very accurate ranged weapon. Shoots with force.",
-            "BowAttack1.wav",
+            WavFile("BowAttack1", false, false),
             dngutil::ClassType::RANGER
         ));
         specificObjects.emplace(Coordinate(3, 3), new Potion(pgame, Coordinate(3, 3), dngutil::POTION_HEAL + 20));
@@ -3434,7 +3435,7 @@ void GryphonsTower::makeFloor6(std::mutex& roomMut)
 PitOf50Trials::PitOf50Trials(Game* game) :
     Dungeon(game, 1)
 {
-    overworldMusic = "PitOf50Trials.mp3";
+    overworldMusic = Mp3File("PitOf50Trials");
 
     story.push_back(std::make_pair(ColorString("Legends tell of a dungeon of fifty trials...", dngutil::WHITE), 0));
     story.push_back(std::make_pair(ColorString("Fifty trials of unspeakable pain.", dngutil::WHITE), 2));
@@ -3650,7 +3651,7 @@ void PitOf50Trials::generateDungeon()
 UnderwaterTemple::UnderwaterTemple(Game* game) :
     Dungeon(game, 2)
 {
-    overworldMusic = "UnderwaterTemple.mp3";
+    overworldMusic = Mp3File("UnderwaterTemple");
 
     story.push_back(std::make_pair(ColorString("You have stumbled across an temple at the bottom of the sea.", dngutil::WHITE), 2));
 
@@ -3663,15 +3664,15 @@ UnderwaterTemple::UnderwaterTemple(Game* game) :
         VirtualWindow* v = game->getVWin();
         TextMacros& t = v->txtmacs;
         Player* player = game->getPlayer();
-        stopMp3();
+        stopSound(SoundType::MP3);
         Sleep(150);
-        soundEffect("EnterBattle.wav", false, true);
+        playSound(WavFile("EnterBattle", false, true));
         t.clearMapArea(true, 20);
         t.clearDivider("bottom");
 
         Coordinate vcursor(0, t.DIVIDER_LINES[1] + 1);
         Sleep(450);
-        startMp3("BeastTheme.mp3");
+        playSound(Mp3File("BeastTheme"));
         int color = dngutil::LIGHTBLUE;
         for (; vcursor.x < 10; vcursor.x++)
         {
@@ -3699,13 +3700,13 @@ UnderwaterTemple::UnderwaterTemple(Game* game) :
         }
         Sleep(100);
 
-        soundEffect("Screech.wav", false, false);
+        playSound(WavFile("Screech", false, false));
 
         vcursor.y = t.BOTTOM_DIVIDER_TEXT_LINE;
         v->putcen(ColorString("Bloodjaw has appeared!", dngutil::WHITE), vcursor.y++);
         pressEnter(vcursor, v);
         t.clearDivider("bottom");
-        soundEffect("PlayerHit.wav", false, true);
+        playSound(WavFile("PlayerHit", false, true));
         int iCap = static_cast<int>(player->getHp() / 2);
 
         for (int i = 0; i < iCap; i++)
@@ -3744,10 +3745,10 @@ UnderwaterTemple::UnderwaterTemple(Game* game) :
         t.clearDivider("bottom");
         t.displayGame(game);
 
-        stopMp3();
+        stopSound(SoundType::MP3);
 
-        startMp3(game->getOverworldMusic());
-        soundEffect("ExitToMap.wav", false, true);
+        game->getOverworldMusic().play();
+        playSound(WavFile("ExitToMap", false, true));
     };
 
     gamespace.resize(7);

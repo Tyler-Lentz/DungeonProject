@@ -5,6 +5,7 @@
 #include "colorstring.h"
 #include "coordinate.h"
 #include "utilities.h"
+#include "soundfile.h"
 
 #include <string>
 
@@ -76,7 +77,7 @@ public:
         int accuracy,
         bool startReady,
         std::string description,
-        std::string hitsound,
+        WavFile hitsound,
         dngutil::ClassType classType
     ) :RItem(pgame, mapRep, coord, name, true, rawoutput, false, dngutil::TID::Primary, false, description)
     {
@@ -94,7 +95,7 @@ public:
     const int& getAttSpeed() const;
     const int& getAccuracy() const;
     const bool& getStartReady() const;
-    const std::string& getHitsound() const;
+    const WavFile& getHitsound() const;
 
     bool hit() const;
 
@@ -116,8 +117,8 @@ private:
     // will be fully charged.
     bool startReady;
 
-    // name of .wav file that plays when the weapon is used
-    std::string hitsound;
+    // wav file that plays when the weapon is used
+    WavFile hitsound;
 };
 
 class Secondary : public RItem

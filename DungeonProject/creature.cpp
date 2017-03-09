@@ -339,7 +339,7 @@ bool Creature::battle(MapObject* t_enemy)
     vwin->txtmacs.clearMapArea(true, 20);
     vwin->txtmacs.clearDivider("bottom");
 
-    startMp3(enemy->getBattleMusic());
+    enemy->getBattleMusic().play();
 
     enemy->printSelf();
     Coordinate vcursor(0, vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE);
@@ -413,10 +413,10 @@ bool Creature::battle(MapObject* t_enemy)
                 {
                     enemy->printSelf();
                     vwin->txtmacs.displayHealthBars(enemy, player);
-                    stopMp3();
+                    stopSound(SoundType::MP3);
 
                     Sleep(100);
-                    soundEffect(enemy->getDeathSound(), false, false);
+                    enemy->getDeathSound().play();
 
                     enemy->deathSequence();
 
@@ -425,8 +425,8 @@ bool Creature::battle(MapObject* t_enemy)
                     getPGame()->getVWin()->txtmacs.clearDivider("bottom");
                     pressEnter(Coordinate(0, getPGame()->getVWin()->txtmacs.BOTTOM_DIVIDER_TEXT_LINE), getPGame()->getVWin());
                     getPGame()->getVWin()->txtmacs.clearDivider("bottom");
-                    startMp3(getPGame()->getOverworldMusic());
-                    soundEffect("ExitToMap.wav", false, true);
+                    getPGame()->getOverworldMusic().play();
+                    playSound(WavFile("ExitToMap", false, true));
 
                     getPGame()->getActiveRoom()->getCreatureList().remove(enemy);
                     return true;
@@ -469,7 +469,7 @@ bool Creature::battle(MapObject* t_enemy)
 
                     if (!revived)
                     {
-                        stopMp3();
+                        stopSound(SoundType::MP3);
                         getPGame()->cleanup(getPGame()->getVWin()->txtmacs.deathScreen(getPGame()));
                         return false;
                     }
@@ -479,15 +479,15 @@ bool Creature::battle(MapObject* t_enemy)
                         vwin->txtmacs.displayHealthBars(enemy, player);
                         vwin->txtmacs.outputBattleInfo(playerTimer, playerWeaponSpeed, enemyTimer, enemyWeaponSpeed);
 
-                        soundEffect("MagicalPotion.wav", false, false);
-                        soundEffect("RefillHealth.wav", true, true);
+                        playSound(WavFile("MagicalPotion", false, false));
+                        playSound(WavFile("RefillHealth", true, true));
                         for (int i = 0; i < static_cast<int>(player->getMaxhp() * .75); i++)
                         {
                             player->increaseHealth(1);
                             vwin->txtmacs.displayHealthBars(enemy, player);
                             Sleep(40);
                         }
-                        stopSound();
+                        stopSound(SoundType::WAV);
                     }
                 }
                 break;
@@ -729,13 +729,13 @@ Damage Creature::getDamageDealt(Creature* defender)
         {
             if (keypress(VK_SPACE))
             {
-                soundEffect("ShieldDeflect.wav", false, false);
+                playSound(WavFile("ShieldDeflect", false, false));
                 deflect = true;
             }
         }
     }
 
-    soundEffect(getPrimary().getHitsound(), false, false);
+    getPrimary().getHitsound().play();
 
     if (!miss)
     {
@@ -752,23 +752,23 @@ Damage Creature::getDamageDealt(Creature* defender)
         if (crit && this == getPGame()->getPlayer())
         {
             attack *= 2;
-            soundEffect("CriticalHit.wav", false, false);
+            playSound(WavFile("CriticalHit", false, false));
         }
         else
         {
             if (getTypeId() == dngutil::TID::Player)
             {
-                soundEffect("EnemyHit.wav", false, true);
+                playSound(WavFile("EnemyHit", false, true));
             }
             else
             {
-                soundEffect("PlayerHit.wav", false, true);
+                playSound(WavFile("PlayerHit", false, true));
             }
         }
     }
     else
     {
-        soundEffect("WeaponMiss.wav", false, true);
+        playSound(WavFile("WeaponMiss", false, true));
         canMiss = false;
     }
 
