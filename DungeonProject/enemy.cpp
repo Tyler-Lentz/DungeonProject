@@ -1519,7 +1519,7 @@ PitDragon::PitDragon(
     pgame,
     ColorChar('S', dngutil::GREEN),
     coord,
-    "Pit Dragon",
+    "Green Dragon",
     false,
     dngutil::TID::PitDragon,
     hp,
