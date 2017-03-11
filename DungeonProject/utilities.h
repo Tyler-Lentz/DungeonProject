@@ -185,6 +185,8 @@ namespace dngutil
 
     const int CLASS_CHOOSING_LEVEL = 6;
     const int PROMOTION_LEVEL = 14;
+
+    const int MOVEMENT_RANDOM_CHANCE = 100;
 }
 
 void errorMessage(std::string error, int line, std::string file);

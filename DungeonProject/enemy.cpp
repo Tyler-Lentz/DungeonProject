@@ -214,9 +214,10 @@ setPrimary(nullptr);
 }
 bool REnemy::movement()
 {
+    // smart enemies movement may change with this one
     if (!(getLastMoveTime() + ((dngutil::MAX_SPD * 3) - getSpd()) > GetTickCount()))
     {
-        switch (random(100))
+        switch (random(dngutil::MOVEMENT_RANDOM_CHANCE))
         {
         case 0:
             return adjustPosition(dngutil::Movement::UP);
@@ -232,6 +233,61 @@ bool REnemy::movement()
             break;
         }
     }
+    return false;
+}
+
+//----------------------------------------------------------------
+
+//----------------------------------------------------------------
+// SmartEnemy functions
+
+bool SmartEnemy::movement()
+{
+    // regular enemy's movement may change with this one
+    if (!(getLastMoveTime() + ((dngutil::MAX_SPD * 3) - getSpd()) > GetTickCount()))
+    {
+        Player* p = getPGame()->getPlayer();
+
+        int xdiff = this->getCoord().x - p->getCoord().x;
+        int ydiff = this->getCoord().y - p->getCoord().y;
+
+        if (abs(xdiff) < 3 && abs(ydiff) < 3)
+        {
+            if (random(dngutil::MOVEMENT_RANDOM_CHANCE))
+            {
+                std::vector<dngutil::Movement> movements;
+
+                if (xdiff < 0)
+                {
+                    movements.push_back(dngutil::Movement::RIGHT);
+                }
+                else if (xdiff > 0)
+                {
+                    movements.push_back(dngutil::Movement::LEFT);
+                }
+
+                if (ydiff > 0)
+                {
+                    movements.push_back(dngutil::Movement::UP);
+                }
+                else if (ydiff < 0)
+                {
+                    movements.push_back(dngutil::Movement::DOWN);
+                }
+
+                if (!movements.empty())
+                {
+                    dngutil::Movement move = movements[random(movements.size() - 1)];
+                    return adjustPosition(move);
+                }
+            }
+        }
+        else 
+        {
+            return REnemy::movement();
+        }
+    }
+
     return false;
 }
 
@@ -381,7 +437,7 @@ BloodSkeleton::BloodSkeleton(
     unsigned int lck,
     unsigned int spd,
     unsigned int lvl
-) : REnemy(
+) : SmartEnemy(
     pgame,
     ColorChar('T', dngutil::RED),
     coord,
@@ -1857,7 +1913,7 @@ LSKnight::LSKnight(
     unsigned int lck,
     unsigned int spd,
     unsigned int lvl
-) : REnemy(
+) : SmartEnemy(
     pgame,
     ColorChar('A', dngutil::MAGENTA),
     coord,
@@ -1950,7 +2006,7 @@ SSKnight::SSKnight(
     unsigned int lck,
     unsigned int spd,
     unsigned int lvl
-) : REnemy(
+) : SmartEnemy(
     pgame,
     ColorChar('A', dngutil::MAGENTA),
     coord,
@@ -2043,7 +2099,7 @@ Mage::Mage(
     unsigned int lck,
     unsigned int spd,
     unsigned int lvl
-) : REnemy(
+) : SmartEnemy(
     pgame,
     ColorChar('I', dngutil::YELLOW),
     coord,

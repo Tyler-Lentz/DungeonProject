@@ -89,6 +89,37 @@ public:
     bool movement() override;
 };
 
+class SmartEnemy : public REnemy
+{
+public:
+    SmartEnemy(
+        Game* pgame,
+        ColorChar mapRep,
+        Coordinate coord,
+        std::string name,
+        bool rawoutput,
+        dngutil::TID typeId,
+        int hp,
+        unsigned int att,
+        unsigned int def,
+        unsigned int lck,
+        unsigned int spd,
+        unsigned int lvl,
+        Primary* primary,
+        Secondary* secondary,
+        Mp3File battlemusic,
+        unsigned int experienceGiven,
+        WavFile deathSound,
+        dngutil::EvType ev,
+        dngutil::ClassType classType
+    ) : REnemy(pgame, mapRep, coord, name, rawoutput, typeId, hp, att, def,
+        lck, spd, lvl, primary, secondary, battlemusic, experienceGiven,
+        deathSound, ev, classType
+    ) {}
+
+    bool movement() final override;
+};
+
 class Skeleton : public REnemy
 {
 public:
@@ -106,7 +137,7 @@ public:
     void printSelf() override;
 };
 
-class BloodSkeleton : public REnemy
+class BloodSkeleton : public SmartEnemy
 {
 public:
     BloodSkeleton(
@@ -123,7 +154,7 @@ public:
     void printSelf() override;
 };
 
-class LSKnight : public REnemy
+class LSKnight : public SmartEnemy
 {
 public:
     LSKnight(
@@ -140,7 +171,7 @@ public:
     void printSelf() override;
 };
 
-class SSKnight : public REnemy
+class SSKnight : public SmartEnemy
 {
 public:
     SSKnight(
@@ -157,7 +188,7 @@ public:
     void printSelf() override;
 };
 
-class Mage : public REnemy
+class Mage : public SmartEnemy
 {
 public:
     Mage(
