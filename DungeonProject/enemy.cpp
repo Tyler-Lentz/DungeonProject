@@ -3502,7 +3502,7 @@ MaskPhase2::MaskPhase2(
     ),
     Mp3File("FinalBoss"),
     85,
-    WavFile("Laugh", false, false),
+    WavFile("revival", false, false),
     dngutil::EvType::DEFENSE,
     dngutil::ClassType::KNIGHT
 )
@@ -3616,7 +3616,7 @@ void MaskPhase3::printSelf()
 {
     Coordinate vcursor(0, getPGame()->getVWin()->txtmacs.DIVIDER_LINES[1] + 1);
     VirtualWindow* t = getPGame()->getVWin();
-    int color = dngutil::BROWN;
+    int color = dngutil::LIGHTRED;
     t->put(ColorString(R"(          )", color), vcursor); vcursor.y++;
     t->put(ColorString(R"(          )", color), vcursor); vcursor.y++;
     t->put(ColorString(R"(          )", color), vcursor); vcursor.y++;
