@@ -147,6 +147,10 @@ Collision ExitObject::mapAction(MapObject* collider, std::list<MapObject*>::iter
                     getPGame()->getActiveRoom()->getObjects(collider->getCoord()).push_back(collider);
                     getPGame()->getVWin()->txtmacs.displayGame(getPGame());
                     getPGame()->clearDeletionList();
+                    if (getPGame()->getActiveRoom()->hasPuzzle())
+                    {
+                        playSound(WavFile("Puzzle", false, true));
+                    }
                     return Collision(true, true, true);
                 }
                 else
@@ -174,6 +178,10 @@ Collision ExitObject::mapAction(MapObject* collider, std::list<MapObject*>::iter
                     getPGame()->getActiveRoom()->getObjects(collider->getCoord()).push_back(collider);
                     getPGame()->getVWin()->txtmacs.displayGame(getPGame());
                     getPGame()->clearDeletionList();
+                    if (getPGame()->getActiveRoom()->hasPuzzle())
+                    {
+                        playSound(WavFile("Puzzle", false, true));
+                    }
                     return Collision(true, true, true);
                 }
                 else
@@ -244,6 +252,10 @@ Collision HoleObject::mapAction(MapObject* collider, std::list<MapObject*>::iter
                 getPGame()->getVWin()->txtmacs.displayGame(getPGame());
                 getPGame()->clearDeletionList();
                 getPGame()->getVWin()->txtmacs.fallingScreen(getPGame());
+                if (getPGame()->getActiveRoom()->hasPuzzle())
+                {
+                    playSound(WavFile("Puzzle", false, true));
+                }
                 return Collision(true, true, false);
             }
             else
