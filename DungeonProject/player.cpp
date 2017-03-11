@@ -392,9 +392,17 @@ void Player::addExperience(unsigned int experience, dngutil::EvType ev)
         {
             increaseHealth(1);
             vwin->putcen(getHealthBar(), vcursor.y);
-            Sleep(50);
+            if (!keypress(VK_RETURN))
+            {
+                Sleep(50);
+            }
         }
         stopSound(SoundType::WAV);
+
+        while (keypress(VK_RETURN)) // wait for a keyrelease so it doesnt zoom through while holding enter
+        {
+
+        }
 
         vcursor.y += 2;
 
