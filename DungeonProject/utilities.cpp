@@ -426,9 +426,9 @@ void statIncreaseDisplay(int change, int prevValue, int color, std::string text,
 
     vcursor.y += 3;
 
-    playSound(WavFile("PickupItem", false, false));
     if (!keypress(VK_RETURN))
     {
+        playSound(WavFile("PickupItem", false, false));
         Sleep(350);
     }
 }
