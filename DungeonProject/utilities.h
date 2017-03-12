@@ -212,4 +212,6 @@ int getHealthbarSleepTime(int damageDealt);
 void credits(dngutil::CreditType c, Game* pgame, dngutil::DungeonType dungeon);
 
 void intro(VirtualWindow* vwin);
+
+void statIncreaseDisplay(int change, int prevValue, int color, std::string text, VirtualWindow* vwin, Coordinate& vcursor);
 #endif

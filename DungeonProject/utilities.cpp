@@ -407,3 +407,28 @@ void intro(VirtualWindow* vwin)
     vwin->clearScreen();
     Sleep(333);
 }
+
+
+void statIncreaseDisplay(int change, int prevValue, int color, std::string text, VirtualWindow* vwin, Coordinate& vcursor)
+{
+    playSound(WavFile("Experience", true, true));
+    vwin->putcen(ColorString("*---------------------------------*", color), vcursor.y - 1);
+    vwin->putcen(ColorString("*---------------------------------*", color), vcursor.y + 1);
+    for (int i = 0; i <= change; i++)
+    {
+        vwin->putcen(ColorString(text + std::to_string(prevValue + i), color), vcursor.y);
+        if (!keypress(VK_RETURN))
+        {
+            Sleep(250);
+        }
+    }
+    stopSound(SoundType::WAV);
+
+    vcursor.y += 3;
+
+    playSound(WavFile("PickupItem", false, false));
+    if (!keypress(VK_RETURN))
+    {
+        Sleep(350);
+    }
+}

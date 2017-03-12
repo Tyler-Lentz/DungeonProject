@@ -365,7 +365,7 @@ void Player::addExperience(unsigned int experience, dngutil::EvType ev)
         vcursor.y++;
 
         int prevAtt = getAtt();
-        int prevHp = getHp();
+        int prevMaxhp = getMaxhp();
         int prevDef = getDef();
         int prevLck = getLck();
         int prevSpd = getSpd();
@@ -373,18 +373,20 @@ void Player::addExperience(unsigned int experience, dngutil::EvType ev)
         levelUpStats();
         getPGame()->adjustScore(dngutil::BASE_SCORE_INCREASE_LEVEL);
 
+        int hpChange = getMaxhp() - prevMaxhp;
+        int attChange = getAtt() - prevAtt;
+        int defChange = getDef() - prevDef;
+        int lckChange = getLck() - prevLck;
+        int spdChange = getSpd() - prevSpd;
+
         vcursor.y += 2; vcursor.x = 0;
 
-        vwin->putcen(ColorString("Health + " + std::to_string(getHp() - prevHp), dngutil::RED), vcursor.y++);
-        playSound(WavFile("PickupItem", false, false));
-        vwin->putcen(ColorString("Attack + " + std::to_string(getAtt() - prevAtt), dngutil::GREEN), vcursor.y++);
-        playSound(WavFile("PickupItem", false, false));
-        vwin->putcen(ColorString("Defense + " + std::to_string(getDef() - prevDef), dngutil::BLUE), vcursor.y++);
-        playSound(WavFile("PickupItem", false, false));
-        vwin->putcen(ColorString("Luck + " + std::to_string(getLck() - prevLck), dngutil::YELLOW), vcursor.y++);
-        playSound(WavFile("PickupItem", false, false));
-        vwin->putcen(ColorString("Speed + " + std::to_string(getSpd() - prevSpd), dngutil::CYAN), vcursor.y);
-        playSound(WavFile("PickupItem", false, false));
+        statIncreaseDisplay(hpChange, prevMaxhp, dngutil::RED, "Max Health: ", vwin, vcursor);
+        statIncreaseDisplay(attChange, prevAtt, dngutil::GREEN, "Attack: ", vwin, vcursor);
+        statIncreaseDisplay(defChange, prevDef, dngutil::BLUE, "Defense: ", vwin, vcursor);
+        statIncreaseDisplay(lckChange, prevLck, dngutil::YELLOW, "Luck: ", vwin, vcursor);
+        statIncreaseDisplay(spdChange, prevSpd, dngutil::CYAN, "Speed: ", vwin, vcursor);
+        
         vcursor.y += 3;
 
         playSound(WavFile("RefillHealth", true, true));
