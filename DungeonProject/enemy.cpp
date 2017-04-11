@@ -567,7 +567,7 @@ SkeletonKing::SkeletonKing(
         .8,
         "A corpses head, cursed by the skeleton king."
     ),
-    Mp3File("SkeletonKingTheme"),
+    Mp3File("MinibossTheme"),
     50,
     WavFile("Screech", false, false),
     dngutil::EvType::ATTACK,
@@ -668,7 +668,7 @@ FlameHorse::FlameHorse(
         1.15,
         "You cant get this so this doesnt matter"
     ),
-    Mp3File("SkeletonKingTheme"),
+    Mp3File("MinibossTheme"),
     80,
     WavFile("Screech", false, false),
     dngutil::EvType::DEFENSE,
@@ -768,7 +768,7 @@ WaterHorse::WaterHorse(
         1.213,
         "You cant get this so this doesnt matter"
     ),
-    Mp3File("SkeletonKingTheme"),
+    Mp3File("MinibossTheme"),
     68,
     WavFile("Screech", false, false),
     dngutil::EvType::SPEED,
@@ -875,7 +875,7 @@ BloodjawPhase1::BloodjawPhase1(
         1.313,
         "You cant get this so this doesnt matter"
     ),
-    Mp3File("FinalBoss"),
+    Mp3File("DungeonBoss"),
     68,
     WavFile("SegDeath", false, false),
     dngutil::EvType::SPEED,
@@ -970,7 +970,7 @@ BloodjawPhase2::BloodjawPhase2(
         1.313,
         "You cant get this so this doesnt matter"
     ),
-    Mp3File("FinalBoss"),
+    Mp3File("DungeonBoss"),
     68,
     WavFile("SegDeath", false, false),
     dngutil::EvType::SPEED,
@@ -1060,7 +1060,7 @@ BloodjawPhase3::BloodjawPhase3(
         1.283,
         "You cant get this so this doesnt matter"
     ),
-    Mp3File("FinalBoss"),
+    Mp3File("DungeonBoss"),
     68,
     WavFile("FinalDeath", false, true),
     dngutil::EvType::SPEED,
@@ -1169,7 +1169,7 @@ EvilBeastPhase1::EvilBeastPhase1(
         1.3,
         "You cant get this so this doesnt matter"
     ),
-    Mp3File("hidden"),
+    Mp3File("ZorlockTheme"),
     68,
     WavFile("Laugh", false, false),
     dngutil::EvType::SPEED,
@@ -1266,7 +1266,7 @@ EvilBeastPhase2::EvilBeastPhase2(
         1.3,
         "You cant get this so this doesnt matter"
     ),
-    Mp3File("hidden"),
+    Mp3File("ZorlockTheme"),
     68,
     WavFile("SegDeath", false, false),
     dngutil::EvType::SPEED,
@@ -1357,7 +1357,7 @@ EvilBeastPhase3::EvilBeastPhase3(
         1.28,
         "You cant get this so this doesnt matter"
     ),
-    Mp3File("hidden"),
+    Mp3File("ZorlockTheme"),
     68,
     WavFile("SegDeath", false, false),
     dngutil::EvType::SPEED,
@@ -1449,7 +1449,7 @@ EvilBeastPhase4::EvilBeastPhase4(
         1.45,
         "You cant get this so this doesnt matter"
     ),
-    Mp3File("hidden"),
+    Mp3File("ZorlockTheme"),
     68,
     WavFile("FinalDeath", false, true),
     dngutil::EvType::SPEED,
@@ -1553,7 +1553,7 @@ PitDragon::PitDragon(
         1.2,
         "You cant get this so this doesnt matter"
     ),
-    Mp3File("SkeletonKingTheme"),
+    Mp3File("MinibossTheme"),
     80,
     WavFile("Screech", false, false),
     dngutil::EvType::DEFENSE,
@@ -1751,7 +1751,7 @@ MegaBeastPhase1::MegaBeastPhase1(
         1,
         "Spirits's armor."
     ),
-    Mp3File("hidden"),
+    Mp3File("ZorlockTheme"),
     85,
     WavFile("revival", false, false),
     dngutil::EvType::DEFENSE,
@@ -1849,7 +1849,7 @@ MegaBeastPhase2::MegaBeastPhase2(
         1.2,
         "Beast's armor."
     ),
-    Mp3File("hidden"),
+    Mp3File("ZorlockTheme"),
     85,
     WavFile("FinalDeath", false, true),
     dngutil::EvType::DEFENSE,
@@ -2496,7 +2496,7 @@ DragonTail::DragonTail(
         1.25,
         "Dragons's armor."
     ),
-    Mp3File("FinalBoss"),
+    Mp3File("DungeonBoss"),
     85,
     WavFile("SegDeath", false, false),
     dngutil::EvType::DEFENSE,
@@ -2606,7 +2606,7 @@ DragonWings::DragonWings(
         1,
         "Dragons's armor."
     ),
-    Mp3File("FinalBoss"),
+    Mp3File("DungeonBoss"),
     85,
     WavFile("SegDeath", false, false),
     dngutil::EvType::DEFENSE,
@@ -2706,7 +2706,7 @@ DragonHead::DragonHead(
         1.2,
         "Dragons's armor."
     ),
-    Mp3File("FinalBoss"),
+    Mp3File("DungeonBoss"),
     85,
     WavFile("FinalDeath", false, true),
     dngutil::EvType::DEFENSE,
@@ -2821,7 +2821,7 @@ GryphonPhase1::GryphonPhase1(
         1.25,
         "Gryphon's armor."
     ),
-    Mp3File("FinalBoss"),
+    Mp3File("DungeonBoss"),
     85,
     WavFile("SegDeath", false, false),
     dngutil::EvType::DEFENSE,
@@ -2929,7 +2929,7 @@ GryphonPhase2::GryphonPhase2(
         1.25,
         "Gryphon Armos."
     ),
-    Mp3File("FinalBoss"),
+    Mp3File("DungeonBoss"),
     85,
     WavFile("revival", false, false),
     dngutil::EvType::DEFENSE,
@@ -3029,7 +3029,7 @@ GryphonPhase3::GryphonPhase3(
         0,
         "Dragons's armor."
     ),
-    Mp3File("FinalBoss"),
+    Mp3File("DungeonBoss"),
     85,
     WavFile("FinalDeath", false, true),
     dngutil::EvType::DEFENSE,
@@ -3142,7 +3142,7 @@ ReaperPhase1::ReaperPhase1(
         1.35,
         "Reapers's armor."
     ),
-    Mp3File("hidden"),
+    Mp3File("ZorlockTheme"),
     85,
     WavFile("Laugh", false, false),
     dngutil::EvType::ATTACK,
@@ -3247,7 +3247,7 @@ ReaperPhase2::ReaperPhase2(
         1.35,
         "Reapers armor."
     ),
-    Mp3File("FinalBoss"),
+    Mp3File("DungeonBoss"),
     85,
     WavFile("revival", false, false),
     dngutil::EvType::DEFENSE,
@@ -3346,7 +3346,7 @@ ReaperPhase3::ReaperPhase3(
         1.3,
         "True Reapers's armor."
     ),
-    Mp3File("hidden"),
+    Mp3File("ZorlockTheme"),
     85,
     WavFile("FinalDeath", false, true),
     dngutil::EvType::DEFENSE,
@@ -3450,7 +3450,7 @@ MaskPhase1::MaskPhase1(
         1.25,
         "Mask's armor."
     ),
-    Mp3File("FinalBoss"),
+    Mp3File("DungeonBoss"),
     85,
     WavFile("Laugh", false, false),
     dngutil::EvType::ATTACK,
@@ -3556,7 +3556,7 @@ MaskPhase2::MaskPhase2(
         1.2,
         "Reapers armor."
     ),
-    Mp3File("FinalBoss"),
+    Mp3File("DungeonBoss"),
     85,
     WavFile("revival", false, false),
     dngutil::EvType::DEFENSE,
@@ -3655,7 +3655,7 @@ MaskPhase3::MaskPhase3(
         1.38,
         "Mask's armor."
     ),
-    Mp3File("FinalBoss"),
+    Mp3File("DungeonBoss"),
     85,
     WavFile("FinalDeath", false, true),
     dngutil::EvType::DEFENSE,

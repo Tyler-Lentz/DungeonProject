@@ -6,6 +6,7 @@
 #include "room.h"
 #include "item.h"
 #include "soundfile.h"
+#include "map.h"
 
 #include <chrono>
 #include <string>
@@ -20,7 +21,7 @@ dngutil::ReturnVal Game::run()
     if (!exit)
     {
         vwin->txtmacs.displayGame(this);
-        dungeon->overworldMusic.play();
+        map->overworldMusic.play();
     }
 
     while (!exit)
@@ -54,19 +55,16 @@ Game::Game(VirtualWindow* vwin)
     spawnBeast = false;
     score = 0;
 
+    map = new Map(this);
+
     titleScreen();
 }
 
 Game::~Game()
 {
-    delete dungeon;
+    delete map;
 
     delete player;
-}
-
-void Game::beastSequence()
-{
-    dungeon->beastSequence(this);
 }
 
 Room* Game::getActiveRoom()
@@ -96,7 +94,7 @@ bool Game::shouldExit()
 
 Mp3File Game::getOverworldMusic() const
 {
-    return dungeon->overworldMusic;
+    return map->overworldMusic;
 }
 
 bool Game::shouldSpawnBeast()
@@ -121,7 +119,7 @@ void Game::setActiveRoom(Room* room)
 
 std::map<Coordinate, Room*>& Game::getActiveFloor()
 {
-    return dungeon->gamespace[floor];
+    return map->gamespace[floor];
 }
 
 int Game::getRawFloor() const
@@ -131,17 +129,17 @@ int Game::getRawFloor() const
 
 std::list<MapObject*>& Game::getDeletionList()
 {
-    return dungeon->deletionList;
+    return map->deletionList;
 }
 
 void Game::clearDeletionList()
 {
-    for (auto& i : dungeon->deletionList)
+    for (auto& i : map->deletionList)
     {
         delete i;
     }
 
-    dungeon->deletionList.clear();
+    map->deletionList.clear();
 }
 
 Creature* Game::generateCreature(int difficulty, dngutil::TID tid)
@@ -315,249 +313,38 @@ void Game::titleScreen()
 
     vwin->txtmacs.drawDividers();
     vwin->txtmacs.clearDivider("bottom");
-    vwin->putcen(ColorString("Dungeon RPG 1.2 INDEV", dngutil::GREEN), vwin->txtmacs.DIVIDER_LINES[0] + 1);
+    vwin->putcen(ColorString("Harp of the Gods", dngutil::GREEN), vwin->txtmacs.DIVIDER_LINES[0] + 1);
     vwin->putcen(ColorString("Enter - Continue, C - credits, Esc - exit", dngutil::LIGHTGRAY), vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE);
 
-    int r = random(3);
-    if (r == 0)
-    {
-        Coordinate vcursor(0, vwin->txtmacs.DIVIDER_LINES[1] + 5);
-        VirtualWindow* t = vwin;
-        int skeletoncolor = dngutil::WHITE;
-        int weaponcolor = dngutil::BROWN;
-        t->putcen(ColorString("                              _.--\"\"-._                     \n", skeletoncolor), vcursor.y); vcursor.y++;
-        t->putcen(ColorString("  .", weaponcolor) + ColorString("                        .\"         \".                   \n", skeletoncolor), vcursor.y); vcursor.y++;
-        t->putcen(ColorString(" / \\    ,^.", weaponcolor) + ColorString("         /(     Y             |      )\\          \n", skeletoncolor), vcursor.y); vcursor.y++;
-        t->putcen(ColorString("/   `---. |--\'\\", weaponcolor) + ColorString("    (  \\__..\'--   -   -- -\'\"\"-.-\'  )          \n", skeletoncolor), vcursor.y); vcursor.y++;
-        t->putcen(ColorString("|        :|    `> ", weaponcolor) + ColorString("  \'.     l_..-------.._l      .\'          \n", skeletoncolor), vcursor.y); vcursor.y++;
-        t->putcen(ColorString("|      __l;__ .\'", weaponcolor) + ColorString("      \"-.__.||_.-\'v\'-._||`\"----\"            \n", skeletoncolor), vcursor.y); vcursor.y++;
-        t->putcen(ColorString(" \\  .-\' | |  `", weaponcolor) + ColorString("              l._       _.\'                   \n", skeletoncolor), vcursor.y); vcursor.y++;
-        t->putcen(ColorString("  \\/    | |   ", weaponcolor) + ColorString("                l`^^\'^^\'j                     \n", skeletoncolor), vcursor.y); vcursor.y++;
-        t->putcen(ColorString("        | |  ", weaponcolor) + ColorString("              _   \\_____/     _                \n", skeletoncolor), vcursor.y); vcursor.y++;
-        t->putcen(ColorString("        j |  ", weaponcolor) + ColorString("             l `--__)-\'(__.--\' |               \n", skeletoncolor), vcursor.y); vcursor.y++;
-        t->putcen(ColorString("        | |    ", weaponcolor) + ColorString("           | /`---``-----\'\"1 |", skeletoncolor) + ColorString("  ,-----.      \n", weaponcolor), vcursor.y); vcursor.y++;
-        t->putcen(ColorString("        | |    ", weaponcolor) + ColorString("           )/  `--\' \'---\' ", skeletoncolor) + ColorString("   /'-\'  ___  `-.   \n", weaponcolor), vcursor.y); vcursor.y++;
-        t->putcen(ColorString("        | |     ", weaponcolor) + ColorString("         //  `-\'  \'`----\'", skeletoncolor) + ColorString("  /  ,-\'   I`.  \\  \n", weaponcolor), vcursor.y); vcursor.y++;
-        t->putcen(ColorString("      _ L |_     ", weaponcolor) + ColorString("       //  `-.-.\'`-----\' ", skeletoncolor) + ColorString("/  /  |   |  `. \\ \n", weaponcolor), vcursor.y); vcursor.y++;
-        t->putcen(ColorString("     \'._\' / \\         _/(   '-  -'- ---\' ", skeletoncolor) + ColorString(";  /__.J   L.__.\\ :\n", weaponcolor), vcursor.y); vcursor.y++;
-        t->putcen(ColorString("      `._;/7(-.......\'  /        ) (  ", skeletoncolor) + ColorString("   |  |            | |\n", weaponcolor), vcursor.y); vcursor.y++;
-        t->putcen(ColorString("      `._;l _\'--------_/        )-\'/  ", skeletoncolor) + ColorString("   :  |___.    _._./ ;\n", weaponcolor), vcursor.y); vcursor.y++;
-        t->putcen(ColorString("        | |        ", weaponcolor) + ColorString("         .__ )-\'\\  __ ", skeletoncolor) + ColorString(" \\  \\  I   1   / / \n", weaponcolor), vcursor.y); vcursor.y++;
-        t->putcen(ColorString("        `-\'    ", weaponcolor) + ColorString("            /   `-\\-(-\'   \\", skeletoncolor) + ColorString(" \\  `.|   | ,\' /  \n", weaponcolor), vcursor.y); vcursor.y++;
-        t->putcen(ColorString("                           \\__  `-\'    __/ ", skeletoncolor) + ColorString("  `-. `---\'\',-\'   \n", weaponcolor), vcursor.y); vcursor.y++;
-        t->putcen(ColorString("                              )-._.-- (  ", skeletoncolor) + ColorString("      `-----\'      \n", weaponcolor), vcursor.y); vcursor.y++;
-
-    }
-    else if (r == 1)
-    {
-        Coordinate vcursor(15, vwin->txtmacs.DIVIDER_LINES[1] + 1);
-        VirtualWindow* t = vwin;
-        int color = dngutil::YELLOW;
-        t->put(ColorString(R"()", color), vcursor); vcursor.y++;
-        t->put(ColorString(R"()", color), vcursor); vcursor.y++;
-        t->put(ColorString(R"()", color), vcursor); vcursor.y++;
-        t->put(ColorString(R"(                             _,-'|)", color), vcursor); vcursor.y++;
-        t->put(ColorString(R"(                          ,-'._  |)", color), vcursor); vcursor.y++;
-        t->put(ColorString(R"(                .||,      |####\ |)", color), vcursor); vcursor.y++;
-        t->put(ColorString(R"(               \.`',/     \####| |)", color), vcursor); vcursor.y++;
-        t->put(ColorString(R"(               = ,. =      |###| |)", color), vcursor); vcursor.y++;
-        t->put(ColorString(R"(               / || \    ,-'\#/,'`.)", color), vcursor); vcursor.y++;
-        t->put(ColorString(R"(                 ||     ,'   `,,. `.)", color), vcursor); vcursor.y++;
-        t->put(ColorString(R"(                 ,|____,' , ,;' \| |)", color), vcursor); vcursor.y++;
-        t->put(ColorString(R"(                (3|\    _/|/'   _| |)", color), vcursor); vcursor.y++;
-        t->put(ColorString(R"(                 ||/,-''  | >-'' _,\\)", color), vcursor); vcursor.y++;
-        t->put(ColorString(R"(                 ||'      ==\ ,-'  ,')", color), vcursor); vcursor.y++;
-        t->put(ColorString(R"(                 ||       |  V \ ,|)", color), vcursor); vcursor.y++;
-        t->put(ColorString(R"(                 ||       |    |` |)", color), vcursor); vcursor.y++;
-        t->put(ColorString(R"(                 ||       |    |   \)", color), vcursor); vcursor.y++;
-        t->put(ColorString(R"(                 ||       |    \    \)", color), vcursor); vcursor.y++;
-        t->put(ColorString(R"(                 ||       |     |    \)", color), vcursor); vcursor.y++;
-        t->put(ColorString(R"(                 ||       |      \_,-')", color), vcursor); vcursor.y++;
-        t->put(ColorString(R"(                 ||       |___,,--")_\)", color), vcursor); vcursor.y++;
-        t->put(ColorString(R"(                 ||         |_|   ccc/)", color), vcursor); vcursor.y++;
-        t->put(ColorString(R"(                 ||        ccc/)", color), vcursor); vcursor.y++;
-        t->put(ColorString(R"(                 ||         )", color), vcursor); vcursor.y++;
-    }
-    else if (r == 2)
-    {
-        Coordinate vcursor(15, vwin->txtmacs.DIVIDER_LINES[1] + 1);
-        VirtualWindow* t = vwin;
-        int color = dngutil::MAGENTA;
-        t->put(ColorString(R"(               )", color), vcursor); vcursor.y++;
-        t->put(ColorString(R"(                )", color), vcursor); vcursor.y++;
-        t->put(ColorString(R"(                )", color), vcursor); vcursor.y++;
-        t->put(ColorString(R"(                )", color), vcursor); vcursor.y++;
-        t->put(ColorString(R"(                )", color), vcursor); vcursor.y++;
-        t->put(ColorString(R"(                   ,'`.)", color), vcursor); vcursor.y++;
-        t->put(ColorString(R"(                  ;\  /:)", color), vcursor); vcursor.y++;
-        t->put(ColorString(R"(              .  /  \/  \)", color), vcursor); vcursor.y++;
-        t->put(ColorString(R"(             /.\<.<_\/_>,>)", color), vcursor); vcursor.y++;
-        t->put(ColorString(R"(             |.| \`.::,'/)", color), vcursor); vcursor.y++;
-        t->put(ColorString(R"(             |.|,'.'||'/.)", color), vcursor); vcursor.y++;
-        t->put(ColorString(R"(          ,-'|.|.`.____,'`.)", color), vcursor); vcursor.y++;
-        t->put(ColorString(R"(        ,' .`|.| `.____,;/ \)", color), vcursor); vcursor.y++;
-        t->put(ColorString(R"(       ,'=-.`|.|\ .   \ |,':)", color), vcursor); vcursor.y++;
-        t->put(ColorString(R"(      /_   :)|.|.`.___:,:,'|.)", color), vcursor); vcursor.y++;
-        t->put(ColorString(R"(     (  `-:;\|.|.`.)  |.`-':,\)", color), vcursor); vcursor.y++;
-        t->put(ColorString(R"(     /.   /  ;.:--'   |    | ,`.    _____)", color), vcursor); vcursor.y++;
-        t->put(ColorString(R"(    / _>-'._.'-'.     |.   |' / )._/     \)", color), vcursor); vcursor.y++;
-        t->put(ColorString(R"(   :.'    ((.__;/     |    |._ /__/   |   |)", color), vcursor); vcursor.y++;
-        t->put(ColorString(R"(   `.>._.-' |)=(      |.   ;  '--.|  -|-  |)", color), vcursor); vcursor.y++;
-        t->put(ColorString(R"(            ',--'`-._ | _,:       |   |   |)", color), vcursor); vcursor.y++;
-        t->put(ColorString(R"(            /_`-. `..`:'/_.\       \  |  /)", color), vcursor); vcursor.y++;
-        t->put(ColorString(R"(           :__``--..\\_/_..:        \___/)", color), vcursor); vcursor.y++;
-        t->put(ColorString(R"(           |  ``--..,:;\__.|)", color), vcursor); vcursor.y++;
-        t->put(ColorString(R"(           |`--..__/:;  :__|)", color), vcursor); vcursor.y++;
-        t->put(ColorString(R"(           `._____:-;_,':__;)", color), vcursor); vcursor.y++;
-    }
-    else
-    {
-        Coordinate vcursor(15, vwin->txtmacs.DIVIDER_LINES[1] + 1);
-        VirtualWindow* t = vwin;
-        int color = dngutil::MAGENTA;
-        t->put(ColorString(R"(              .)", color), vcursor); vcursor.y++;
-        t->put(ColorString(R"(             /.\)", color), vcursor); vcursor.y++;
-        t->put(ColorString(R"(             |.|)", color), vcursor); vcursor.y++;
-        t->put(ColorString(R"(             |.|)", color), vcursor); vcursor.y++;
-        t->put(ColorString(R"(             |.|)", color), vcursor); vcursor.y++;
-        t->put(ColorString(R"(             |.|   ,'`.)", color), vcursor); vcursor.y++;
-        t->put(ColorString(R"(             |.|  ;\  /:)", color), vcursor); vcursor.y++;
-        t->put(ColorString(R"(             |.| /  \/  \)", color), vcursor); vcursor.y++;
-        t->put(ColorString(R"(             |.|<.<_\/_>,>)", color), vcursor); vcursor.y++;
-        t->put(ColorString(R"(             |.| \`.::,'/)", color), vcursor); vcursor.y++;
-        t->put(ColorString(R"(             |.|,'.'||'/.)", color), vcursor); vcursor.y++;
-        t->put(ColorString(R"(          ,-'|.|.`.____,'`.)", color), vcursor); vcursor.y++;
-        t->put(ColorString(R"(        ,' .`|.| `.____,;/ \)", color), vcursor); vcursor.y++;
-        t->put(ColorString(R"(       ,'=-.`|.|\ .   \ |,':)", color), vcursor); vcursor.y++;
-        t->put(ColorString(R"(      /_   :)|.|.`.___:,:,'|.)", color), vcursor); vcursor.y++;
-        t->put(ColorString(R"(     (  `-:;\|.|.`.)  |.`-':,\)", color), vcursor); vcursor.y++;
-        t->put(ColorString(R"(     /.   /  ;.:--'   |    | ,`.    _____)", color), vcursor); vcursor.y++;
-        t->put(ColorString(R"(    / _>-'._.'-'.     |.   |' / )._/     \)", color), vcursor); vcursor.y++;
-        t->put(ColorString(R"(   :.'    ((.__;/     |    |._ /__/   |   |)", color), vcursor); vcursor.y++;
-        t->put(ColorString(R"(   `.>._.-' |)=(      |.   ;  '--.|  -|-  |)", color), vcursor); vcursor.y++;
-        t->put(ColorString(R"(            ',--'`-._ | _,:       |   |   |)", color), vcursor); vcursor.y++;
-        t->put(ColorString(R"(            /_`-. `..`:'/_.\       \  |  /)", color), vcursor); vcursor.y++;
-        t->put(ColorString(R"(           :__``--..\\_/_..:        \___/)", color), vcursor); vcursor.y++;
-        t->put(ColorString(R"(           |  ``--..,:;\__.|)", color), vcursor); vcursor.y++;
-        t->put(ColorString(R"(           |`--..__/:;  :__|)", color), vcursor); vcursor.y++;
-        t->put(ColorString(R"(           `._____:-;_,':__;)", color), vcursor); vcursor.y++;
-    }
+    Coordinate vcursor(0, vwin->txtmacs.DIVIDER_LINES[1] + 5);
+    VirtualWindow* t = vwin;
+    t->putcen(ColorString(R"(         ____                   )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+    t->putcen(ColorString(R"(         SSSS____.              )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+    t->putcen(ColorString(R"(         (WW);;;;;\             )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+    t->putcen(ColorString(R"(         `WW'____ |     ,_____  )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+    t->putcen(ColorString(R"(          UU ||||\ \___/,---. ) )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+    t->putcen(ColorString(R"(          UU |||||\____/||| //  )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+    t->putcen(ColorString(R"(          UU ||||||||||||" //   )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+    t->putcen(ColorString(R"(          UU |||||||||||' //    )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+    t->putcen(ColorString(R"(          UU |||||||||"  //     )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+    t->putcen(ColorString(R"(          UU ||||||||'  //      )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+    t->putcen(ColorString(R"(          UU |||||||"  //       )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+    t->putcen(ColorString(R"(          UU ||||||'  //        )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+    t->putcen(ColorString(R"(          UU ||||"   //         )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+    t->putcen(ColorString(R"(          UU |||"   //          )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+    t->putcen(ColorString(R"(          UU ||'   //           )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+    t->putcen(ColorString(R"(          UU |"   //            )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+    t->putcen(ColorString(R"(         ,UU,'   ||             )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+    t->putcen(ColorString(R"(       (~~~~~~~~~~~~]""'        )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+    t->putcen(ColorString(R"(~~~~~~~~~~~~~~~~~~~~~~~~~~~     )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+        
 
     while (true)
     {
         if (keypress(VK_RETURN))
         {
-
             vwin->txtmacs.clearMapArea(false, NULL);
             vwin->txtmacs.clearDivider("bottom");
-
-
-            Coordinate vcursor(0, vwin->txtmacs.DIVIDER_LINES[1] + 10);
-            vwin->putcen(ColorString("Dungeon Selection", dngutil::WHITE), vcursor.y++);
-            vcursor.y += 5;
-            vwin->putcen(ColorString("(1) - Dragon's Lair", dngutil::LIGHTRED), vcursor.y++);
-            vcursor.y++;
-            vwin->putcen(ColorString("(2) - Gryphon's Tower", dngutil::MAGENTA), vcursor.y++);
-            vcursor.y++;
-            vwin->putcen(ColorString("(3) - Pit of 50 Trials", dngutil::WHITE), vcursor.y++);
-            vcursor.y++;
-            vwin->putcen(ColorString("(4) - Underwater Temple", dngutil::LIGHTBLUE), vcursor.y++);
-
-            dngutil::DungeonType dungeonToMake;
-            while (true)
-            {
-                if (keypress('1'))
-                {
-                    dungeonToMake = dngutil::DungeonType::DRAGONS_LAIR;
-                    break;
-                }
-                else if (keypress('2'))
-                {
-                    dungeonToMake = dngutil::DungeonType::GRYPHONS_TOWER;
-                    break;
-                }
-                else if (keypress('3'))
-                {
-                    dungeonToMake = dngutil::DungeonType::FIFTYTRIALS;
-                    break;
-                }
-                else if (keypress('4'))
-                {
-                    dungeonToMake = dngutil::DungeonType::UNDERWATER_DUNGEON;
-                    break;
-                }
-            }
-
-            vwin->txtmacs.clearMapArea(false, NULL);
-            vcursor = Coordinate(0, vwin->txtmacs.DIVIDER_LINES[1] + 10);
-            vwin->putcen(ColorString("Difficulty Selection", dngutil::WHITE), vcursor.y++);
-            vcursor.y += 5;
-            vwin->putcen(ColorString("(1) - Easy", dngutil::LIGHTMAGENTA), vcursor.y++);
-            vcursor.y++;
-            vwin->putcen(ColorString("(2) - Classic", dngutil::GREEN), vcursor.y++);
-            vcursor.y++;
-            vwin->putcen(ColorString("(3) - Hardcore", dngutil::LIGHTRED), vcursor.y);
-
-            Sleep(200);
-
-            while (true)
-            {
-                if (keypress('1'))
-                {
-                    // needs to adjust the difficulty values
-                    difficulty.beastSteps = 275;
-                    difficulty.canFightMegabeast = false;
-                    difficulty.color = dngutil::LIGHTMAGENTA;
-                    difficulty.deflectModifier = 1.75;
-                    difficulty.damageMultiplier = 1.1;
-                    difficulty.healthIncreaseBoost = 1;
-                    break;
-                }
-                else if (keypress('2'))
-                {
-                    // difficulty is already set to what it needs to be
-                    break;
-                }
-                else if (keypress('3'))
-                {
-                    // needs to adjust the difficulty values
-                    difficulty.beastSteps = 150;
-                    difficulty.canFightMegabeast = true;
-                    difficulty.color = dngutil::LIGHTRED;
-                    difficulty.deflectModifier = 0.65;
-                    difficulty.damageMultiplier = .9;
-                    difficulty.healthIncreaseBoost = 0;
-                    break;
-                }
-            }
-            getPlayer()->changeMapChar(ColorChar(getPlayer()->getMapRep().character, difficulty.color));
-            getPlayer()->adjustSecondaryDeflectTime(difficulty.deflectModifier);
-
-            switch (dungeonToMake)
-            {
-            case dngutil::DungeonType::DRAGONS_LAIR:
-                dungeon = new DragonsLair(this);
-                break;
-            case dngutil::DungeonType::GRYPHONS_TOWER:
-                dungeon = new GryphonsTower(this);
-                break;
-            case dngutil::DungeonType::FIFTYTRIALS:
-                dungeon = new PitOf50Trials(this);
-                break;
-            case dngutil::DungeonType::UNDERWATER_DUNGEON:
-                dungeon = new UnderwaterTemple(this);
-                break;
-            }
-            difficulty.beastSteps = static_cast<int>(difficulty.beastSteps * dungeon->beastMultiplier);
-
-            vwin->txtmacs.clearMapArea(false, NULL);
-            vcursor.y = vwin->txtmacs.DIVIDER_LINES[1] + 5;
-            for (auto& i : dungeon->story)
-            {
-                vwin->putcen(i.first, vcursor.y);
-                vcursor.y += i.second + 1;
-            }
-            pressEnter(vcursor, vwin);
             break;
         }
         else if (keypress(VK_ESCAPE))

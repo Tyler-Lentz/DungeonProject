@@ -54,13 +54,13 @@
     <ClInclude Include="room.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="dungeon.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="soundfile.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="savefile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="map.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -98,13 +98,13 @@
     <ClCompile Include="room.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="dungeon.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="soundfile.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="savefile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="map.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -193,12 +193,6 @@ bool Player::movement()
     int adjustedSpeed = static_cast<int>(dngutil::MAX_SPD * 1.5);
     bool canmove = !((getLastMoveTime() + ((adjustedSpeed - getSpd())) > GetTickCount()));
 
-    if (steps < 1 && getPGame()->shouldSpawnBeast())
-    {
-        getPGame()->beastSequence();
-        steps = getPGame()->getDifficulty().beastSteps;
-    }
-
     if (canmove)
     {
         if (keypress(VK_LEFT))
@@ -225,10 +219,6 @@ bool Player::movement()
         else if (keypress('U'))
         {
             statsMenu();
-        }
-        else if (keypress('S'))
-        {
-            saveGame(this, getPGame());
         }
     }
     return false;

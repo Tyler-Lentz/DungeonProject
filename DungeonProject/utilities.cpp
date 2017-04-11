@@ -280,94 +280,38 @@ void intro(VirtualWindow* vwin)
         int timesThrough = 0;
         for (int i = dngutil::CONSOLEY - 1; i > 2; i--)
         {
-            Coordinate vcursor(0, i);
+            Coordinate vcursor(5, i);
             VirtualWindow* t = vwin;
             t->clearScreen();
-            int color = dngutil::GREEN;
+            int color = dngutil::YELLOW;
             int scolor = dngutil::WHITE;
-            t->put(ColorString(R"( ________  ___  ___  ________   ________  _______   ________  ________      )", color), vcursor); vcursor.y++;
+            t->put(ColorString(R"(   __ __                     ___  __  __         _____        __  )", color), vcursor); vcursor.y++;
             if (timesThrough > 1)
             {
-                t->put(ColorString(R"(|\   ___ \|\  \|\  \|\   ___  \|\   ____\|\  ___ \ |\   __  \|\   ___  \    )", color), vcursor); vcursor.y++;
+                t->put(ColorString(R"(  / // /__ ________    ___  / _/ / /_/ /  ___   / ___/__  ___/ /__)", color), vcursor); vcursor.y++;
             }
             if (timesThrough > 2)
             {
-                t->put(ColorString(R"(\ \  \_|\ \ \  \\\  \ \  \\ \  \ \  \___|\ \   __/|\ \  \|\  \ \  \\ \  \   )", color), vcursor); vcursor.y++;
+                t->put(ColorString(R"( / _  / _ `/ __/ _ \  / _ \/ _/ / __/ _ \/ -_) / (_ / _ \/ _  (_-<)", color), vcursor); vcursor.y++;
             }
             if (timesThrough > 3)
             {
-                t->put(ColorString(R"( \ \  \ \\ \ \  \\\  \ \  \\ \  \ \  \  __\ \  \_|/_\ \  \\\  \ \  \\ \  \  )", color), vcursor); vcursor.y++;
+                t->put(ColorString(R"(/_//_/\_,_/_/ / .__/  \___/_/   \__/_//_/\__/  \___/\___/\_,_/___/)", color), vcursor); vcursor.y++;
             }
             if (timesThrough > 4)
             {
-                t->put(ColorString(R"(  \ \  \_\\ \ \  \\\  \ \  \\ \  \ \  \|\  \ \  \_|\ \ \  \\\  \ \  \\ \  \ )", color), vcursor); vcursor.y++;
-            }
-            if (timesThrough > 5)
-            {
-                t->put(ColorString(R"(   \ \_______\ \_______\ \__\\ \__\ \_______\ \_______\ \_______\ \__\\ \__\)", color), vcursor); vcursor.y++;
-            }
-            if (timesThrough > 6)
-            {
-                t->put(ColorString(R"(    \|_______|\|_______|\|__| \|__|\|_______|\|_______|\|_______|\|__| \|__|)", color), vcursor); vcursor.y++;
-            }
-            if (timesThrough > 7)
-            {
-                t->put(ColorString(R"(                       ________  ________  ________                         )", color), vcursor); vcursor.y++;
-            }
-            if (timesThrough > 8)
-            {
-                t->put(ColorString(R"(                      |\   __  \|\   __  \|\   ____\                        )", color), vcursor); vcursor.y++;
-            }
-            if (timesThrough > 9)
-            {
-                t->put(ColorString(R"(                      \ \  \|\  \ \  \|\  \ \  \___|                        )", color), vcursor); vcursor.y++;
-            }
-            if (timesThrough > 10)
-            {
-                t->put(ColorString(R"(                       \ \   _  _\ \   ____\ \  \  ___                      )", color), vcursor); vcursor.y++;
-            }
-            if (timesThrough > 11)
-            {
-                t->put(ColorString(R"(                        \ \  \\  \\ \  \___|\ \  \|\  \                     )", color), vcursor); vcursor.y++;
-            }
-            if (timesThrough > 12)
-            {
-                t->put(ColorString(R"(                         \ \__\\ _\\ \__\    \ \_______\                    )", color), vcursor); vcursor.y++;
-            }
-            if (timesThrough > 13)
-            {
-                t->put(ColorString(R"(                          \|__|\|__|\|__|     \|_______|                    )", color), vcursor); vcursor.y++;
-            }
-            if (timesThrough > 14)
-            {
-                t->putcen(ColorString(R"(           /\                                                 /\           )", scolor), vcursor.y); vcursor.y++;
-            }
-            if (timesThrough > 15)
-            {
-                t->putcen(ColorString(R"( _         )( ______________________   ______________________ )(         _ )", scolor), vcursor.y); vcursor.y++;
-            }
-            if (timesThrough > 16)
-            {
-                t->putcen(ColorString(R"((_)///////(**)______________________> <______________________(**)\\\\\\\(_))", scolor), vcursor.y); vcursor.y++;
-            }
-            if (timesThrough > 17)
-            {
-                t->putcen(ColorString(R"(           )(                                                 )(           )", scolor), vcursor.y); vcursor.y++;
-            }
-            if (timesThrough > 18)
-            {
-                t->putcen(ColorString(R"(           \/                                                 \/           )", scolor), vcursor.y); vcursor.y++;
+                t->put(ColorString(R"(             /_/                                                  )", color), vcursor); vcursor.y++;
             }
             
             timesThrough++;
             
-            if (timesThrough < 18)
+            if (timesThrough < 4)
             {
-                Sleep(75);
+                Sleep(150);
             }
             else
             {   
-                Sleep(50);
+                Sleep(125);
             }
             if (keypress(VK_RETURN))
             {

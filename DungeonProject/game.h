@@ -3,7 +3,7 @@
 
 #include "coordinate.h"
 #include "utilities.h"
-#include "dungeon.h"
+#include "map.h"
 #include "soundfile.h"
 
 #include <map>
@@ -78,8 +78,6 @@ public:
     void setExitToFalse();
     bool shouldExit();
 
-    void beastSequence();
-
     int getRawFloor() const;
 private:
     VirtualWindow* vwin;
@@ -90,7 +88,7 @@ private:
     bool exit;
     dngutil::ReturnVal returnVal;
 
-    Dungeon* dungeon;
+    Map* map;
 
     int stepsToBeast;
     Difficulty difficulty;
