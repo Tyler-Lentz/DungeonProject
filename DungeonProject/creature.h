@@ -106,7 +106,7 @@ public:
     void setClass(dngutil::ClassType classType);
 
     void adjustSecondaryDeflectTime(double modifier);
-protected:
+
     Primary*& getPrimaryMemory();
     Secondary*& getSecondaryMemory();
 

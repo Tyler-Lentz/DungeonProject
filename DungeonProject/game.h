@@ -79,6 +79,8 @@ public:
     bool shouldExit();
 
     void beastSequence();
+
+    int getRawFloor() const;
 private:
     VirtualWindow* vwin;
     Room* activeRoom;

@@ -46,7 +46,7 @@ Game::Game(VirtualWindow* vwin)
     :difficulty()
 {
     this->vwin = vwin;
-    player = new Player(this, Coordinate(-1, -1));
+    player = new Player(this, Coordinate(-1, -1), "Link");
 
     activeRoom = nullptr;
     floor = 0;
@@ -122,6 +122,11 @@ void Game::setActiveRoom(Room* room)
 std::map<Coordinate, Room*>& Game::getActiveFloor()
 {
     return dungeon->gamespace[floor];
+}
+
+int Game::getRawFloor() const
+{
+    return floor;
 }
 
 std::list<MapObject*>& Game::getDeletionList()

@@ -60,6 +60,9 @@
     <ClInclude Include="soundfile.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="savefile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="colorstring.cpp">
@@ -101,5 +104,13 @@
     <ClCompile Include="soundfile.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="savefile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\..\..\..\plan.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

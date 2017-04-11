@@ -8,20 +8,21 @@
 #include "game.h"
 #include "room.h"
 #include "virtualwindow.h"
-
+#include "savefile.h"
 
 //------------------------------------------------------------
 // Player Functions
 
 Player::Player(
     Game* pgame,
-    Coordinate coord
+    Coordinate coord,
+    std::string name
 )
     :Creature(
         pgame,
         ColorChar('A', dngutil::BLACK),
         coord,
-        "Player",
+        name,
         true,
         false,
         false,
@@ -225,6 +226,10 @@ bool Player::movement()
         {
             statsMenu();
         }
+        else if (keypress('S'))
+        {
+            saveGame(this, getPGame());
+        }
     }
     return false;
 }
@@ -410,15 +415,6 @@ void Player::addExperience(unsigned int experience, dngutil::EvType ev)
 
         vcursor.y = vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE;
         pressEnter(vcursor, vwin);
-
-        if (getLvl() == dngutil::CLASS_CHOOSING_LEVEL)
-        {
-            chooseClass();
-        }
-        else if (getLvl() == dngutil::PROMOTION_LEVEL)
-        {
-            getPromotion();
-        }
     }
     
     if (overFlowXp > 0)
@@ -427,46 +423,14 @@ void Player::addExperience(unsigned int experience, dngutil::EvType ev)
     }
 }
 
-void Player::getPromotion()
+int Player::getExp() const
 {
-    VirtualWindow* v = getPGame()->getVWin();
-    TextMacros& t = v->txtmacs;
+    return exp;
+}
 
-    t.clearMapArea(false, NULL);
-    t.clearDivider("bottom");
-    Coordinate vcursor(0, t.DIVIDER_LINES[1] + 5);
-
-    playSound(WavFile("Levelup", false, true));
-
-    v->putcen(ColorString("Promotion!", dngutil::LIGHTBLUE), vcursor.y++);
-    vcursor.y++;
-
-    v->putcen(ColorString("You are now a " + getClassName(), dngutil::WHITE), vcursor.y++);
-    vcursor.y += 5;
-
-    ColorString output;
-    if (getClass() == dngutil::ClassType::KNIGHT)
-    {
-        output = ColorString("+10 Health +2 defense", dngutil::WHITE);
-        increaseHealth(10);
-        increaseDef(2);
-    }
-    else if (getClass() == dngutil::ClassType::RANGER)
-    {
-        output = ColorString("+15 Luck +2 attack", dngutil::WHITE);
-        increaseLck(15);
-        increaseAtt(2);
-    }
-    else if (getClass() == dngutil::ClassType::WIZARD)
-    {
-        output = ColorString("+2 Attack +2 defense", dngutil::WHITE);
-        increaseAtt(2);
-        increaseDef(2);
-    }
-    v->putcen(output, vcursor.y);
-    vcursor.y += 2;
-
-    pressEnter(vcursor, v);
+int Player::getPlayersExpToLevel() const
+{
+    return expToLevel;
 }
 
 void Player::levelUpStats()

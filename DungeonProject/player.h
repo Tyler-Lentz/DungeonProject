@@ -30,7 +30,8 @@ class Player : public Creature
 public:
     Player(
         Game* pgame,
-        Coordinate coord
+        Coordinate coord,
+        std::string name
     );
 
     bool movement() override;
@@ -62,7 +63,9 @@ public:
     int getStepCount();
 
     void chooseClass();
-    void getPromotion();
+
+    int getExp() const;
+    int getPlayersExpToLevel() const;
 private:
 
     double hpEv;
@@ -76,6 +79,8 @@ private:
     Inventory inventory;
 
     int steps;
+
+    std::string name;
 };
 
 #endif
