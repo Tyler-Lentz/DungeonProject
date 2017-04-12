@@ -115,6 +115,11 @@ void MapObject::removeFromMap(bool deleteit)
     }
 }
 
+void MapObject::setName(std::string name)
+{
+    this->name = name;
+}
+
 //---------------------------------------------------------------
 
 //---------------------------------------------------------------

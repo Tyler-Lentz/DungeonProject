@@ -7,6 +7,7 @@
 #include "item.h"
 #include "soundfile.h"
 #include "map.h"
+#include "savefile.h"
 
 #include <chrono>
 #include <string>
@@ -57,6 +58,7 @@ Game::Game(VirtualWindow* vwin)
 
     map = new Map(this);
 
+    //must happen after making new map
     titleScreen();
 }
 
@@ -115,6 +117,15 @@ void Game::setActiveRoom(Room* room)
     }
     activeRoom = room;
     room->getCreatureList().push_back(player);
+}
+
+void Game::setActiveRoomFromLoadSave(Coordinate roomCoord)
+{
+    activeRoom->getCreatureList().remove(player);
+    auto it = activeRoom->getObjects(player->getCoord()).back();// this is guarenteed to be where player will be if game has just started
+    activeRoom->getObjects(player->getCoord()).remove(it);
+    activeRoom = getActiveFloor()[roomCoord];
+    activeRoom->getCreatureList().push_back(player);
 }
 
 std::map<Coordinate, Room*>& Game::getActiveFloor()
@@ -313,8 +324,8 @@ void Game::titleScreen()
 
     vwin->txtmacs.drawDividers();
     vwin->txtmacs.clearDivider("bottom");
-    vwin->putcen(ColorString("Harp of the Gods", dngutil::GREEN), vwin->txtmacs.DIVIDER_LINES[0] + 1);
-    vwin->putcen(ColorString("Enter - Continue, C - credits, Esc - exit", dngutil::LIGHTGRAY), vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE);
+    vwin->putcen(ColorString("The Harp of the Gods", dngutil::GREEN), vwin->txtmacs.DIVIDER_LINES[0] + 1);
+    vwin->putcen(ColorString("1 - New Game, 2 - Load \"save.dat\", C - credits, Esc - exit", dngutil::LIGHTGRAY), vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE);
 
     Coordinate vcursor(0, vwin->txtmacs.DIVIDER_LINES[1] + 5);
     VirtualWindow* t = vwin;
@@ -341,10 +352,17 @@ void Game::titleScreen()
 
     while (true)
     {
-        if (keypress(VK_RETURN))
+        if (keypress('1'))
         {
             vwin->txtmacs.clearMapArea(false, NULL);
             vwin->txtmacs.clearDivider("bottom");
+            break;
+        }
+        else if (keypress('2'))
+        {
+            vwin->txtmacs.clearMapArea(false, NULL);
+            vwin->txtmacs.clearDivider("bottom");
+            loadGame(this);
             break;
         }
         else if (keypress(VK_ESCAPE))

@@ -66,6 +66,13 @@ public:
 
     int getExp() const;
     int getPlayersExpToLevel() const;
+
+    void setHarp(int number, bool value);
+    bool hasFullHarp() const;
+    bool hasHarpPiece(int number) const;
+
+    void setExp(int value);
+    void setExpToLevel(int value);
 private:
 
     double hpEv;
@@ -73,6 +80,11 @@ private:
     double defEv;
     double lckEv;
     double spdEv;
+
+    bool harp1;
+    bool harp2;
+    bool harp3;
+    bool harp4;
 
     unsigned int exp;
     unsigned int expToLevel;

@@ -62,6 +62,11 @@ Player::Player(
         dngutil::ClassType::ADVENTURER
     )
 {
+    harp1 = false;
+    harp2 = false;
+    harp3 = false;
+    harp4 = false;
+
     this->exp = 0;
     this->expToLevel = getExpToLevel(getLvl());
     inventory.push_back(new Potion(getPGame(), Coordinate(-1, -1), dngutil::POTION_HEAL));
@@ -73,6 +78,53 @@ Player::Player(
     spdEv = 0;
 
     steps = pgame->getDifficulty().beastSteps;
+}
+
+void Player::setHarp(int number, bool value)
+{
+    switch (number)
+    {
+    case 1:
+        harp1 = value;
+        break;
+    case 2:
+        harp2 = value;
+        break;
+    case 3:
+        harp3 = value;
+        break;
+    case 4:
+        harp4 = value;
+        break;
+    default: errorMessage("Invalid number passed to setHarp()", __LINE__, __FILE__);
+    }
+}
+
+bool Player::hasFullHarp() const
+{
+    return (harp1 && harp2 && harp3 && harp4);
+}
+
+bool Player::hasHarpPiece(int number) const
+{
+    switch (number)
+    {
+    case 1: return harp1;
+    case 2: return harp2;
+    case 3: return harp3;
+    case 4: return harp4;
+    default: errorMessage("Invalid number passed to getHarpPiece()", __LINE__, __FILE__);
+    }
+}
+
+void Player::setExp(int value)
+{
+    exp = value;
+}
+
+void Player::setExpToLevel(int value)
+{
+    expToLevel = value;
 }
 
 void Player::chooseClass()

@@ -40,10 +40,11 @@ public:
     const int& getPriority() const;
     const dngutil::BTID& getBTypeId() const;
 
+
     Game* getPGame();
 
     void setPosition(Coordinate coord);
-
+    void setName(std::string name);
     void changeMapChar(ColorChar Char);
 
     virtual Collision mapAction(MapObject* collider, std::list<MapObject*>::iterator& it)

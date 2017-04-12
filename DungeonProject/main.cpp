@@ -9,7 +9,7 @@
 int main()
 {
     std::unique_ptr<VirtualWindow> vwin(new VirtualWindow(dngutil::CONSOLEX, dngutil::CONSOLEY));
-    vwin->getConsole().setTitle("Dungeon RPG");
+    vwin->getConsole().setTitle("Harp of the Gods");
 
     bool exit = false;
     std::thread framerate([&vwin, &exit]()

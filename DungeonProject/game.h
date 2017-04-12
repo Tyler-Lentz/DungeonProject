@@ -51,7 +51,8 @@ public:
     VirtualWindow* getVWin();
 
     void setActiveFloor(unsigned int floor);
-    void setActiveRoom(Room*);
+    void setActiveRoom(Room* room);
+    void setActiveRoomFromLoadSave(Coordinate coord);
     std::map<Coordinate, Room*>& getActiveFloor();
 
     std::list<MapObject*>& getDeletionList();
