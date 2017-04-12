@@ -9,6 +9,7 @@
 #include "map.h"
 #include "savefile.h"
 
+#include <iostream>
 #include <chrono>
 #include <string>
 #include <thread>
@@ -356,6 +357,12 @@ void Game::titleScreen()
         {
             vwin->txtmacs.clearMapArea(false, NULL);
             vwin->txtmacs.clearDivider("bottom");
+
+            vwin->put(ColorString("Enter your name: ", dngutil::WHITE), Coordinate(15, 20));
+            std::string name;
+            std::cin >> name;
+            player->setName(name);
+            vwin->clearScreen();
             break;
         }
         else if (keypress('2'))

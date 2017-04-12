@@ -34,6 +34,9 @@ public:
 
     // overworld music
     Mp3File overworldMusic;
+
+private:
+    void makeOverworld(std::mutex& mut);
 };
 
 #endif

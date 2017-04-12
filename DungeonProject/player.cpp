@@ -43,7 +43,7 @@ Player::Player(
             3,
             80,
             false,
-            "A rusty old sword.",
+            "A rusty old sword - but it gets the job done",
             WavFile("Attack1", false, false),
             dngutil::ClassType::ADVENTURER
         ),
@@ -56,7 +56,7 @@ Player::Player(
             dngutil::TID::Secondary,
             100,
             1,
-            "A very simple shield."
+            "A very bland shield."
         ),
         dngutil::P_PLAYER,
         dngutil::ClassType::ADVENTURER
