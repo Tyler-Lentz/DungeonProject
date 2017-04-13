@@ -75,15 +75,21 @@ public:
     const Difficulty& getDifficulty();
 
     Mp3File getOverworldMusic() const;
+    void setOverworldMusic(Mp3File mp3);
 
     void setExitToFalse();
     bool shouldExit();
 
     int getRawFloor() const;
+
+    // overworld music
+    Mp3File overworldMusic;
 private:
     VirtualWindow* vwin;
     Room* activeRoom;
     Player* player;
+
+    void backgroundStory();
 
     int floor;
     bool exit;

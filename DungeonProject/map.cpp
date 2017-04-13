@@ -22,8 +22,6 @@ Map::Map(Game* game)
 {
     pgame = game;
 
-    overworldMusic = Mp3File("OverworldTheme");
-
     gamespace.resize(15);
 
     std::mutex mut;
@@ -66,7 +64,7 @@ void Map::makeOverworld(std::mutex& mut)
         Coordinate mapCoord(0, 0);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
 
-        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr));
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("OverworldTheme")));
         pgame->setActiveRoom(gamespace[tfloor][mapCoord]); // sets starting active room
     }
 
@@ -98,7 +96,7 @@ void Map::makeOverworld(std::mutex& mut)
         Coordinate mapCoord(0, 0);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
 
-        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr));
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("CaveTheme")));
     }
 }
 

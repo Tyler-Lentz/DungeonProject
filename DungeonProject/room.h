@@ -3,6 +3,7 @@
 
 #include "coordinate.h"
 #include "utilities.h"
+#include "soundfile.h"
 
 #include <list>
 #include <map>
@@ -96,7 +97,7 @@ class Room
 {
 public:
     // if there is no puzzle pass through a nullptr for the puzzle
-    Room(Game* game_pointer, RoomInfo mapToGenerate, Puzzle* puzzle);
+    Room(Game* game_pointer, RoomInfo mapToGenerate, Puzzle* puzzle, Mp3File music);
     ~Room();
 
     int getRoomX() const;
@@ -137,8 +138,12 @@ public:
 
     // Returns true if there is a puzzle set
     bool hasPuzzle();
+
+    Mp3File getMusic() const;
 private:
     GAMEMAP gameMap;
+
+    Mp3File music;
 
     std::list<Coordinate> adjustedPositions;
     std::map<Coordinate, MapObject*> objects;

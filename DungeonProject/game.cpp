@@ -23,7 +23,7 @@ dngutil::ReturnVal Game::run()
     if (!exit)
     {
         vwin->txtmacs.displayGame(this);
-        map->overworldMusic.play();
+        overworldMusic.play();
     }
 
     while (!exit)
@@ -51,6 +51,8 @@ Game::Game(VirtualWindow* vwin)
     this->vwin = vwin;
     player = new Player(this, Coordinate(-1, -1), "Link");
 
+    overworldMusic = Mp3File("OverworldTheme");
+
     activeRoom = nullptr;
     floor = 0;
 
@@ -59,7 +61,7 @@ Game::Game(VirtualWindow* vwin)
 
     map = new Map(this);
 
-    //must happen after making new map
+    //must happen after making new map & player
     titleScreen();
 }
 
@@ -97,7 +99,12 @@ bool Game::shouldExit()
 
 Mp3File Game::getOverworldMusic() const
 {
-    return map->overworldMusic;
+    return overworldMusic;
+}
+
+void Game::setOverworldMusic(Mp3File mp3)
+{
+    overworldMusic = mp3;
 }
 
 bool Game::shouldSpawnBeast()
@@ -360,9 +367,17 @@ void Game::titleScreen()
 
             vwin->put(ColorString("Enter your name: ", dngutil::WHITE), Coordinate(15, 20));
             std::string name;
+            std::cin.ignore();
             std::cin >> name;
+            if (name.size() > 8)
+            {
+                name.resize(8);
+            }
+            std::cin.ignore();
             player->setName(name);
-            vwin->clearScreen();
+
+            backgroundStory();
+
             break;
         }
         else if (keypress('2'))
@@ -412,5 +427,191 @@ void Game::adjustScore(int adjust)
 int Game::getScore()
 {
     return score;
+}
+
+void Game::backgroundStory()
+{
+    VirtualWindow* t = vwin;
+    TextMacros* tm = &vwin->txtmacs;
+
+    t->clearScreen();
+
+    stopSound(SoundType::MP3);
+    playSound(Mp3File("StoryMusic"));
+
+    const int onelineTime = 4000;
+    const int tlx = 3;
+    const int tly = 1;
+    int color = dngutil::WHITE;
+    Coordinate vcursor(tlx, tly);
+    t->put(ColorString(R"(                  [\)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                  |\)                                ____)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                  |                               __(_   )__)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                  Y\          ___               _(          ))", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                 T  \       __)  )--.          (     )-----`)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                J    \   ,-(         )_         `---')", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(               Y/T`-._\ (     (       _)                 __)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(               /[|   ]|  `-(__  ___)-`  |\          ,-(  __))", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(               | |    |      (__)       J'         (     ))", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(   _           | |  ] |    _           /;\          `-  ')", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(  (,,)        [| |    |    L'         /;  \)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(             /||.| /\ |   /\         /.,-._\        ___ _)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(            /_|||| || |  /  \        | |{  |       (._.'_))", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(  L/\       | \| | '` |_ _ {|        | | U |   /\)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"( /v^v\/\   `|  Y | [  '-' '--''-''-"-'`'   | ,`^v\ /\,`\)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(/ ,'./  \.` |[   |       [     __   L    ] |      /^v\  \)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(,'     `    |    |           ,`##Y.   ]    |___Y Y____,_,,_,,_)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(--   -----.-(] [ |   ]     o/####U|o      ]|| /`-, Y   _   Y  Y)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(   Y Y  --;`~T   |      }   \####U|[\ _,.-(^) ,-'  _  (^)__  _)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(  Y  YY   ;'~~l  |   L     [|\###U'E'\  \ \Y-` _  (^) _Y  _)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"( Y  Y Y   ;\~~/\{| [      _,'-\`= = '.\_ ,`   (^)(^) (^) (^))", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(     --   ;\~~~/\|  _,.-'`_  `.\_..-'"  _ . ,_ Y_ Y_ _Y  _Y__)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(    _    _; \~~( Y``   Y (^) / `,      (^)      _   (^) (^))", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(   (^)  (^)`._~ /  L \  _.Y'`  _  ` --  Y - - -(^) - Y - Y -)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(    Y    Y    `'--..,-'`      (^)   _  -    _   Y ____)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(      --           _    _ --   Y   (^)   _ (^)  ===   ----)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(          __   -  (^)  (^)      --- Y   (^) Y)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(      _            Y    Y                Y             )", color), vcursor); vcursor.y++;
+    int topOfText = vcursor.y + 5;
+
+    t->putcen(ColorString("A long time ago in the Kingdom of Bora the people lived among the gods.", dngutil::WHITE), topOfText);
+    Sleep(onelineTime);
+    tm->clearLine(topOfText);
+
+    t->putcen(ColorString("They erected shrines all over the land to appease them,", dngutil::WHITE), topOfText);
+    t->putcen(ColorString("and in return the gods gave their people a gift-",dngutil::WHITE), topOfText + 1);
+    Sleep(onelineTime * 2);
+    tm->clearLine(topOfText);
+    tm->clearLine(topOfText + 1);
+
+    t->clearScreen();
+    vcursor.x = tlx;
+    vcursor.y = tly;
+    t->putcen(ColorString(R"(         ____                   )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+    t->putcen(ColorString(R"(         SSSS____.              )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+    t->putcen(ColorString(R"(         (WW);;;;;\             )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+    t->putcen(ColorString(R"(         `WW'____ |     ,_____  )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+    t->putcen(ColorString(R"(          UU ||||\ \___/,---. ) )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+    t->putcen(ColorString(R"(          UU |||||\____/||| //  )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+    t->putcen(ColorString(R"(          UU ||||||||||||" //   )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+    t->putcen(ColorString(R"(          UU |||||||||||' //    )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+    t->putcen(ColorString(R"(          UU |||||||||"  //     )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+    t->putcen(ColorString(R"(          UU ||||||||'  //      )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+    t->putcen(ColorString(R"(          UU |||||||"  //       )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+    t->putcen(ColorString(R"(          UU ||||||'  //        )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+    t->putcen(ColorString(R"(          UU ||||"   //         )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+    t->putcen(ColorString(R"(          UU |||"   //          )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+    t->putcen(ColorString(R"(          UU ||'   //           )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+    t->putcen(ColorString(R"(          UU |"   //            )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+    t->putcen(ColorString(R"(         ,UU,'   ||             )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+    t->putcen(ColorString(R"(       (~~~~~~~~~~~~]""'        )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+    t->putcen(ColorString(R"(~~~~~~~~~~~~~~~~~~~~~~~~~~~     )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+
+    t->putcen(ColorString("The Harp of the Gods", dngutil::YELLOW), topOfText);
+    Sleep(onelineTime);
+    tm->clearLine(topOfText);
+
+    t->putcen(ColorString("Legends say it could grant what the user wanted the most by playing it", dngutil::WHITE), topOfText);
+    Sleep(onelineTime);
+    tm->clearLine(topOfText);
+
+    t->putcen(ColorString("Among the shrines, the most important was the Tower of the Gods", dngutil::WHITE), topOfText);
+    Sleep(onelineTime);
+    tm->clearLine(topOfText);
+
+    t->putcen(ColorString("Sacred rituals were performed there, all using the Harp", dngutil::WHITE), topOfText);
+    Sleep(onelineTime);
+    tm->clearLine(topOfText);
+
+    t->clearScreen();
+
+    t->putcen(ColorString("However", dngutil::RED), topOfText);
+    Sleep(onelineTime);
+    tm->clearLine(topOfText);
+
+    vcursor.x = tlx;
+    vcursor.y = tly;
+
+    t->put(ColorString(R"(           _/          ,          .                                          )", dngutil::MAGENTA), vcursor); vcursor.y++;
+    t->put(ColorString(R"(       , -' )         ( \-------.,')            (\_________________________  )", dngutil::MAGENTA), vcursor); vcursor.y++;
+    t->put(ColorString(R"(     , ,-/ |          /\_) )     \/            ,' _.----------------------,\ )", dngutil::MAGENTA), vcursor); vcursor.y++;
+    t->put(ColorString(R"(   ,',  /, |         /      >--. ,)           / /\\                          )", dngutil::MAGENTA), vcursor); vcursor.y++;
+    t->put(ColorString(R"(  / ,  //|,'        /'     '\--'\\)          /,'  \\     `         `   ,     )", dngutil::MAGENTA), vcursor); vcursor.y++;
+    t->put(ColorString(R"( / ,  // ||       ,'     (.--^( `')         //     \\                \       )", dngutil::MAGENTA), vcursor); vcursor.y++;
+    t->put(ColorString(R"(( ,  //  ||,___,-'    (___\\  '^^^'        //       \\              ,        )", dngutil::MAGENTA), vcursor); vcursor.y++;
+    t->put(ColorString(R"( \  //   ||--.__     (     \`^--)  _____.-'/         \\   `                  )", dngutil::MAGENTA), vcursor); vcursor.y++;
+    t->put(ColorString(R"(  >'/    ||,        (       \|_(\-'      ,'           \\         \,          )", dngutil::MAGENTA), vcursor); vcursor.y++;
+    t->put(ColorString(R"( /,'     ||          \           \      /              \\                    )", dngutil::MAGENTA), vcursor); vcursor.y++;
+    t->put(ColorString(R"((/       ||           \           )  ,'(     `     `    \\      ,            )", dngutil::MAGENTA), vcursor); vcursor.y++;
+    t->put(ColorString(R"( `       ||\           \      ) ,'  /_  )                \\    \             )", dngutil::MAGENTA), vcursor); vcursor.y++;
+    t->put(ColorString(R"(         || `.          `.    ,'   /( `.\  \ , \ \,       \\   ,             )", dngutil::MAGENTA), vcursor); vcursor.y++;
+    t->put(ColorString(R"(   `     || (_`.          ` .'   .'  )  `)'            ,   \\                )", dngutil::MAGENTA), vcursor); vcursor.y++;
+    t->put(ColorString(R"(         ||  (_ `-v-------  ^--v' , )                      '\\,              )", dngutil::MAGENTA), vcursor); vcursor.y++;
+    t->put(ColorString(R"(         ||    (    , _,-  /  -./ )'                         `)              )", dngutil::MAGENTA), vcursor); vcursor.y++;
+    t->put(ColorString(R"(     `   '|     ),  ,'    '     )'                                           )", dngutil::MAGENTA), vcursor); vcursor.y++;
+    t->put(ColorString(R"(        ' ;    /  ,'          ,'                                             )", dngutil::MAGENTA), vcursor); vcursor.y++;
+    t->put(ColorString(R"(       /,'    /  /      '    /     , - --- .                                 )", dngutil::MAGENTA), vcursor); vcursor.y++;
+    t->put(ColorString(R"(       \|    /  (          ,'   '           `.                               )", dngutil::MAGENTA), vcursor); vcursor.y++;
+    t->put(ColorString(R"(       ('  ,'    `.    "  / ,'                \                              )", dngutil::MAGENTA), vcursor); vcursor.y++;
+    t->put(ColorString(R"(         ,'        \    ,/,'        '`)   (_   )                             )", dngutil::MAGENTA), vcursor); vcursor.y++;
+    t->put(ColorString(R"(        /           \ , /'          ,      /  /                              )", dngutil::MAGENTA), vcursor); vcursor.y++;
+    t->put(ColorString(R"(       .             )  ,       ,         '  /                               )", dngutil::MAGENTA), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                      )      ,              /                                )", dngutil::MAGENTA), vcursor); vcursor.y++;
+    t->put(ColorString(R"(       .            ' `|   ,'              /                                 )", dngutil::MAGENTA), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                    '  |  /              ,'                                  )", dngutil::MAGENTA), vcursor); vcursor.y++;
+    t->put(ColorString(R"(        |\             | <    ______,---'                                    )", dngutil::MAGENTA), vcursor); vcursor.y++;
+    t->put(ColorString(R"(        ` \            ','   (                                               )", dngutil::MAGENTA), vcursor); vcursor.y++;
+    t->put(ColorString(R"(         \ '          /(____ ,`-._,-.                                        )", dngutil::MAGENTA), vcursor); vcursor.y++;
+    t->put(ColorString(R"(          `.         /      `._, )---)                                       )", dngutil::MAGENTA), vcursor); vcursor.y++;
+    t->put(ColorString(R"(            `-------'\         `/ \    )", dngutil::MAGENTA), vcursor); vcursor.y++;
+
+    t->putcen(ColorString("One day the Demon Lord Zorock rose from the underworld and attacked Bora", dngutil::WHITE), topOfText);
+    Sleep(onelineTime);
+    tm->clearLine(topOfText);
+
+    t->putcen(ColorString("He created monsters throughout the land - which made their own strongholds", dngutil::WHITE), topOfText);
+    Sleep(onelineTime);
+    tm->clearLine(topOfText);
+
+    t->putcen(ColorString("He took over the Tower of the Gods and broke the Harp into 4 pieces", dngutil::WHITE), topOfText);
+    Sleep(onelineTime);
+    tm->clearLine(topOfText);
+
+    t->putcen(ColorString("In a final confrontation he was attacked by the gods", dngutil::WHITE), topOfText);
+    Sleep(onelineTime);
+    tm->clearLine(topOfText);
+
+    t->putcen(ColorString("They too lost, and were weakened...", dngutil::WHITE), topOfText);
+    Sleep(onelineTime);
+    tm->clearLine(topOfText);
+
+    t->putcen(ColorString("However, in a last ditch effort to save Bora one of the gods cast a spell", dngutil::WHITE), topOfText);
+    t->putcen(ColorString("that would keep Zorock stuck inside the Tower of the Gods.", dngutil::WHITE), topOfText + 1);
+    Sleep(onelineTime * 2);
+    tm->clearLine(topOfText);
+    tm->clearLine(topOfText + 1);
+
+    t->putcen(ColorString("The only way to regain entry to the tower is to use the power of the harp.", dngutil::WHITE), topOfText);
+    Sleep(onelineTime);
+    tm->clearLine(topOfText);
+
+    t->clearScreen();
+    t->putcen(ColorString("Centries passed...", color), topOfText);
+    Sleep(onelineTime);
+    tm->clearLine(topOfText);
+
+    t->putcen(ColorString("Zorock's seal has begun to weaken...", color), topOfText);
+    Sleep(onelineTime);
+    tm->clearLine(topOfText);
+
+    t->putcen(ColorString("Oh, " + player->getName() + ", the brave hero", color), topOfText);
+    t->putcen(ColorString("Can you unite the Harp and destroy Zorock for good before it's too late?", color), topOfText + 1);
+    Sleep(onelineTime * 2.2);
+    tm->clearLine(topOfText);
+    tm->clearLine(topOfText + 1);
+
+    t->clearScreen();
+
+    playSound(WavFile("ExitToMap", false, true));
 }
 //-------------------------------------------------------

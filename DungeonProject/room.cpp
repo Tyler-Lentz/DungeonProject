@@ -6,6 +6,7 @@
 #include "utilities.h"
 #include "player.h"
 #include "virtualwindow.h"
+#include "soundfile.h"
 
 #include <array>
 #include <list>
@@ -14,10 +15,11 @@
 // Room Functions
 
 
-Room::Room(Game* t_game_pointer, RoomInfo roomToGenerate, Puzzle* puzzle)
+Room::Room(Game* t_game_pointer, RoomInfo roomToGenerate, Puzzle* puzzle, Mp3File mp3)
     :roomInfo(roomToGenerate)
 {
     this->puzzle = puzzle;
+    music = mp3;
 
     game_pointer = t_game_pointer;
 
@@ -285,6 +287,11 @@ std::list<MapObject*>& Room::getObjects(Coordinate coord)
 std::list<Creature*>& Room::getCreatureList()
 {
     return creatureList;
+}
+
+Mp3File Room::getMusic() const
+{
+    return music;
 }
 
 void Room::addCreature(Creature* type, Coordinate coord)

@@ -32,9 +32,6 @@ public:
     // List of items that need to be deleted.
     std::list<MapObject*> deletionList;
 
-    // overworld music
-    Mp3File overworldMusic;
-
 private:
     void makeOverworld(std::mutex& mut);
 };

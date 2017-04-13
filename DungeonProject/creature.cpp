@@ -672,6 +672,14 @@ bool Creature::adjustPosition(dngutil::Movement movement)
             getPGame()->getVWin()->txtmacs.screenScroll(movement, tempOldRoom, getPGame()->getActiveRoom(), getPGame());
 
             getPGame()->clearDeletionList();
+
+            if (getPGame()->getOverworldMusic().getFilename() != getPGame()->getActiveRoom()->getMusic().getFilename())
+            {
+                // if this changes change where it is in staircases
+                getPGame()->setOverworldMusic(getPGame()->getActiveRoom()->getMusic());
+                stopSound(SoundType::MP3);
+                getPGame()->getOverworldMusic().play();
+            }
             return true;
         }
 
