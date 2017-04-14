@@ -1189,16 +1189,8 @@ BloodjawPhase3::BloodjawPhase3(
 
 void BloodjawPhase3::deathSequence()
 {
-    getPGame()->adjustScore(dngutil::BASE_SCORE_BOSS_BOOST * 3);
-    if (getPGame()->getPlayer()->getLvl() < dngutil::PROMOTION_LEVEL || !getPGame()->getDifficulty().canFightMegabeast)
-    {
-        credits(dngutil::CreditType::VICTORY, getPGame(), dngutil::DungeonType::UNDERWATER_DUNGEON);
-    }
-    else
-    {
-        Sleep(5000);
-        getPGame()->cleanup(dngutil::ReturnVal::RESTART); // tells the puzzle the fight is over
-    }
+    getPGame()->getPlayer()->setHarp(4, true);
+    getPGame()->getPlayer()->gotoDungeonStart();
 }
 
 void BloodjawPhase3::printSelf()
@@ -1722,6 +1714,13 @@ ColorString ForestDragon::getBattleInfo() const
     return ColorString("The dragon of the forest appears", dngutil::WHITE);
 }
 
+
+void ForestDragon::deathSequence()
+{
+    getPGame()->getPlayer()->setHarp(1, true);
+    getPGame()->getPlayer()->gotoDungeonStart();
+}
+
 //----------------------------------------------------------------
 
 
@@ -1915,8 +1914,8 @@ void MegaBeastPhase2::printSelf()
 
 void MegaBeastPhase2::deathSequence()
 {
-    getPGame()->adjustScore(dngutil::BASE_SCORE_BOSS_BOOST * 5);
-    credits(dngutil::CreditType::SECRET_VICTORY, getPGame(), dngutil::DungeonType::DRAGONS_LAIR);
+    getPGame()->getPlayer()->setHarp(2, true);
+    getPGame()->getPlayer()->gotoDungeonStart();
 }
 
 //----------------------------------------------------------------
@@ -2777,16 +2776,8 @@ void DragonHead::printSelf()
 
 void DragonHead::deathSequence()
 {
-    getPGame()->adjustScore(dngutil::BASE_SCORE_BOSS_BOOST * 3);
-    if (getPGame()->getPlayer()->getLvl() < dngutil::PROMOTION_LEVEL || !getPGame()->getDifficulty().canFightMegabeast)
-    {
-        credits(dngutil::CreditType::VICTORY, getPGame(), dngutil::DungeonType::DRAGONS_LAIR);
-    }
-    else
-    {
-        Sleep(5000);
-        getPGame()->cleanup(dngutil::ReturnVal::RESTART); // tells the puzzle the fight is over
-    }
+    getPGame()->getPlayer()->setHarp(3, true);
+    getPGame()->getPlayer()->gotoDungeonStart();
 }
 
 //----------------------------------------------------------------

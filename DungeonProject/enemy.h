@@ -340,6 +340,7 @@ public:
     );
     ColorString getBattleInfo() const;
     void printSelf() override;
+    void deathSequence() override;
 };
 
 class SegEnemy : public BEnemy

@@ -80,6 +80,11 @@ Player::Player(
     steps = pgame->getDifficulty().beastSteps;
 }
 
+void Player::gotoDungeonStart()
+{
+
+}
+
 void Player::setHarp(int number, bool value)
 {
     switch (number)

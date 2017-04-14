@@ -73,6 +73,7 @@ public:
 
     void setExp(int value);
     void setExpToLevel(int value);
+    void gotoDungeonStart();
 private:
 
     double hpEv;
