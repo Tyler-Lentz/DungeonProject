@@ -120,7 +120,7 @@ void Map::makeOverworld(std::mutex& mut)
         int difficulty = 0;
         int backColor = dngutil::GREEN;
         std::string name = "";
-        Coordinate mapCoord(-1, -1);
+        Coordinate mapCoord(-1, 1);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
 
         gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("OverworldTheme")));
@@ -149,7 +149,7 @@ void Map::makeOverworld(std::mutex& mut)
         int difficulty = 0;
         int backColor = dngutil::GREEN;
         std::string name = "Forest Entrance";
-        Coordinate mapCoord(-1, 0);
+        Coordinate mapCoord(0, 1);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
 
         gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("ForestTheme")));
@@ -209,7 +209,7 @@ void Map::makeOverworld(std::mutex& mut)
         int difficulty = 1;
         int backColor = dngutil::GREEN;
         std::string name = "Altar Cave";
-        Coordinate mapCoord(-1, 0);
+        Coordinate mapCoord(0, 1);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
 
         gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("CaveTheme")));

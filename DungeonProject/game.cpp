@@ -63,6 +63,7 @@ Game::Game(VirtualWindow* vwin)
 
     //must happen after making new map & player
     titleScreen();
+    overworldMusic = activeRoom->getMusic();
 }
 
 Game::~Game()
@@ -328,10 +329,11 @@ void Game::titleScreen()
         {
             vwin->txtmacs.clearMapArea(false, NULL);
             vwin->txtmacs.clearDivider("bottom");
+            vwin->putcen(ColorString("Enter - select    Shift+Enter - select and skip story", dngutil::WHITE), vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE);
 
             vwin->put(ColorString("Enter your name: ", dngutil::WHITE), Coordinate(15, 20));
             std::string name;
-            std::cin.ignore();
+            std::cin.sync();
             std::cin >> name;
             if (name.size() > 8)
             {
@@ -340,7 +342,14 @@ void Game::titleScreen()
             std::cin.ignore();
             player->setName(name);
 
-            backgroundStory();
+            if (keypress(VK_SHIFT))
+            {
+                vwin->clearScreen();
+            }
+            else
+            {
+                backgroundStory();
+            }
 
             break;
         }
