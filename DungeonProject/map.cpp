@@ -60,7 +60,7 @@ void Map::makeOverworld(std::mutex& mut)
 
         int difficulty = 0;
         int backColor = dngutil::GREEN;
-        std::string name = "(0, 0)";
+        std::string name = "Begining";
         Coordinate mapCoord(0, 0);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
 
@@ -207,7 +207,7 @@ void Map::makeOverworld(std::mutex& mut)
         possibleCreatures.push_back(dngutil::TID::Skeleton);
 
         int difficulty = 1;
-        int backColor = dngutil::GREEN;
+        int backColor = dngutil::DARKGRAY;
         std::string name = "Altar Cave";
         Coordinate mapCoord(0, 1);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
