@@ -117,6 +117,10 @@ Room::Room(Game* t_game_pointer, RoomInfo roomToGenerate, Puzzle* puzzle, Mp3Fil
             case '+':
                 gameMap[i][j].push_back(new AltarObject(game_pointer, Coordinate(j, i)));
                 break;
+
+            case '0':
+                gameMap[i][j].push_back(new TreeObject(game_pointer, Coordinate(j, i)));
+                break;
             }
         }
     }

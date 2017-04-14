@@ -171,6 +171,12 @@ public:
     OutsideObject(Game* game, Coordinate coord);
 };
 
+class TreeObject : public MapObject
+{
+public:
+    TreeObject(Game* game, Coordinate coord);
+};
+
 class DoorObject : public MapObject
 {
 public:

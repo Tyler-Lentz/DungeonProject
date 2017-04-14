@@ -60,7 +60,7 @@ void Map::makeOverworld(std::mutex& mut)
 
         int difficulty = 0;
         int backColor = dngutil::GREEN;
-        std::string name = "Overworld";
+        std::string name = "(0, 0)";
         Coordinate mapCoord(0, 0);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
 
@@ -90,11 +90,69 @@ void Map::makeOverworld(std::mutex& mut)
 
         int difficulty = 0;
         int backColor = dngutil::GREEN;
-        std::string name = "Overworld";
+        std::string name = "";
         Coordinate mapCoord(-1, 0);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
 
         gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("OverworldTheme")));
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("###########   ##########");
+        roomTemplate.push_back("##########      ########");
+        roomTemplate.push_back("##########       #######");
+        roomTemplate.push_back("#########           ####");
+        roomTemplate.push_back("#####          e      ##");
+        roomTemplate.push_back("##                      ");
+        roomTemplate.push_back("#                       ");
+        roomTemplate.push_back("#       e            ###");
+        roomTemplate.push_back("                   #####");
+        roomTemplate.push_back("                ########");
+        roomTemplate.push_back("               #########");
+        roomTemplate.push_back("            ############");
+        roomTemplate.push_back("         ###############");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Bowman);
+
+        int difficulty = 0;
+        int backColor = dngutil::GREEN;
+        std::string name = "";
+        Coordinate mapCoord(-1, -1);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("OverworldTheme")));
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("#########     0     ####");
+        roomTemplate.push_back("#####                 ##");
+        roomTemplate.push_back("           0            ");
+        roomTemplate.push_back("      0  e       0      ");
+        roomTemplate.push_back("#            0       ###");
+        roomTemplate.push_back("#         0        #####");
+        roomTemplate.push_back("##    0         ########");
+        roomTemplate.push_back("####         0 #########");
+        roomTemplate.push_back("######## v  ############");
+        roomTemplate.push_back("########################");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Bowman);
+
+        int difficulty = 0;
+        int backColor = dngutil::GREEN;
+        std::string name = "Forest Entrance";
+        Coordinate mapCoord(-1, 0);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("ForestTheme")));
     }
 
     tfloor = 1;
@@ -123,6 +181,35 @@ void Map::makeOverworld(std::mutex& mut)
         int backColor = dngutil::DARKGRAY;
         std::string name = "Altar Room";
         Coordinate mapCoord(0, 0);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("CaveTheme")));
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("#######           ######");
+        roomTemplate.push_back("#####     +        #####");
+        roomTemplate.push_back("####                ####");
+        roomTemplate.push_back("###   e             ####");
+        roomTemplate.push_back("##           e     #####");
+        roomTemplate.push_back("##                ######");
+        roomTemplate.push_back("###              #######");
+        roomTemplate.push_back("#####          #########");
+        roomTemplate.push_back("######## ^   ###########");
+        roomTemplate.push_back("########################");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Skeleton);
+
+        int difficulty = 1;
+        int backColor = dngutil::GREEN;
+        std::string name = "Altar Cave";
+        Coordinate mapCoord(-1, 0);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
 
         gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("CaveTheme")));

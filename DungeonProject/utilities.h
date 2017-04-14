@@ -83,7 +83,8 @@ namespace dngutil
         EvilBeastPhase2,
         EvilBeastPhase3,
         EvilBeastPhase4,
-        GhostHorse
+        GhostHorse,
+        Tree
     };
 
     enum class BTID

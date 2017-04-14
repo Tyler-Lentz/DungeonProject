@@ -312,6 +312,24 @@ OutsideObject::OutsideObject(Game* game, Coordinate coord) :
 //---------------------------------------------------------------
 
 //---------------------------------------------------------------
+// Tree Object Functions
+TreeObject::TreeObject(Game* game, Coordinate coord) :
+    MapObject(
+        game,
+        ColorChar('o', dngutil::BLACK),
+        coord,
+        "TREE",
+        false,
+        false,
+        false,
+        dngutil::TID::Tree,
+        dngutil::P_EMPTY,
+        dngutil::BTID::None,
+        true
+    ) {}
+//---------------------------------------------------------------
+
+//---------------------------------------------------------------
 // DoorObject Functions
 DoorObject::DoorObject(Game* game, Coordinate coord, ColorChar mapRep) :
     MapObject(
