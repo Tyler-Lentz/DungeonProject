@@ -255,7 +255,7 @@ public:
     void deathSequence() override;
 };
 
-class SkeletonKing : public BEnemy
+class SkeletonKing : public BEnemy 
 {
 public:
     SkeletonKing(
@@ -268,24 +268,8 @@ public:
         unsigned int spd,
         unsigned int lvl
     );
-
-    void printSelf() override;
-};
-
-class DungeonBeast : public BEnemy
-{
-public:
-    DungeonBeast(
-        Game* pgame,
-        Coordinate coord,
-        int hp,
-        unsigned int att,
-        unsigned int def,
-        unsigned int lck,
-        unsigned int spd,
-        unsigned int lvl
-    );
     ColorString getBattleInfo() const override;
+
     void printSelf() override;
 };
 
@@ -302,7 +286,24 @@ public:
         unsigned int spd,
         unsigned int lvl
     );
+    ColorString getBattleInfo() const override;
+    void printSelf() override;
+};
 
+class GhostHorse : public BEnemy
+{
+public:
+    GhostHorse(
+        Game* pgame,
+        Coordinate coord,
+        int hp,
+        unsigned int att,
+        unsigned int def,
+        unsigned int lck,
+        unsigned int spd,
+        unsigned int lvl
+    );
+    ColorString getBattleInfo() const override;
     void printSelf() override;
 };
 
@@ -324,10 +325,10 @@ public:
     ColorString getBattleInfo() const override;
 };
 
-class PitDragon : public BEnemy
+class ForestDragon : public BEnemy
 {
 public:
-    PitDragon(
+    ForestDragon(
         Game* pgame,
         Coordinate coord,
         int hp,
@@ -337,7 +338,7 @@ public:
         unsigned int spd,
         unsigned int lvl
     );
-
+    ColorString getBattleInfo() const;
     void printSelf() override;
 };
 
@@ -464,169 +465,6 @@ class DragonHead : public SegEnemy
 {
 public:
     DragonHead(
-        Game* pgame,
-        Coordinate coord,
-        int hp,
-        unsigned int att,
-        unsigned int def,
-        unsigned int lck,
-        unsigned int spd,
-        unsigned int lvl
-    );
-    void printSelf() override;
-    void deathSequence() override;
-};
-
-
-
-class GryphonPhase1 : public SegEnemy
-{
-public:
-    GryphonPhase1(
-        Game* pgame,
-        Coordinate coord,
-        int hp,
-        unsigned int att,
-        unsigned int def,
-        unsigned int lck,
-        unsigned int spd,
-        unsigned int lvl
-    );
-
-    ColorString getBattleInfo() const override;
-    void printSelf() override;
-
-};
-
-class GryphonPhase2 : public SegEnemy
-{
-public:
-    GryphonPhase2(
-        Game* pgame,
-        Coordinate coord,
-        int hp,
-        unsigned int att,
-        unsigned int def,
-        unsigned int lck,
-        unsigned int spd,
-        unsigned int lvl
-    );
-    void printSelf() override;
-
-};
-
-class GryphonPhase3 : public SegEnemy
-{
-public:
-    GryphonPhase3(
-        Game* pgame,
-        Coordinate coord,
-        int hp,
-        unsigned int att,
-        unsigned int def,
-        unsigned int lck,
-        unsigned int spd,
-        unsigned int lvl
-    );
-    void printSelf() override;
-    void deathSequence() override;
-};
-
-
-class ReaperPhase1 : public SegEnemy
-{
-public:
-    ReaperPhase1(
-        Game* pgame,
-        Coordinate coord,
-        int hp,
-        unsigned int att,
-        unsigned int def,
-        unsigned int lck,
-        unsigned int spd,
-        unsigned int lvl
-    );
-
-    ColorString getBattleInfo() const override;
-    void printSelf() override;
-
-};
-
-class ReaperPhase2 : public SegEnemy
-{
-public:
-    ReaperPhase2(
-        Game* pgame,
-        Coordinate coord,
-        int hp,
-        unsigned int att,
-        unsigned int def,
-        unsigned int lck,
-        unsigned int spd,
-        unsigned int lvl
-    );
-    void printSelf() override;
-
-};
-
-class ReaperPhase3 : public SegEnemy
-{
-public:
-    ReaperPhase3(
-        Game* pgame,
-        Coordinate coord,
-        int hp,
-        unsigned int att,
-        unsigned int def,
-        unsigned int lck,
-        unsigned int spd,
-        unsigned int lvl
-    );
-    void printSelf() override;
-    void deathSequence() override;
-};
-
-
-class MaskPhase1 : public SegEnemy
-{
-public:
-    MaskPhase1(
-        Game* pgame,
-        Coordinate coord,
-        int hp,
-        unsigned int att,
-        unsigned int def,
-        unsigned int lck,
-        unsigned int spd,
-        unsigned int lvl
-    );
-
-    ColorString getBattleInfo() const override;
-    void printSelf() override;
-
-};
-
-class MaskPhase2 : public SegEnemy
-{
-public:
-    MaskPhase2(
-        Game* pgame,
-        Coordinate coord,
-        int hp,
-        unsigned int att,
-        unsigned int def,
-        unsigned int lck,
-        unsigned int spd,
-        unsigned int lvl
-    );
-    void printSelf() override;
-
-};
-
-class MaskPhase3 : public SegEnemy
-{
-public:
-    MaskPhase3(
         Game* pgame,
         Coordinate coord,
         int hp,

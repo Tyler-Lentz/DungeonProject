@@ -221,7 +221,7 @@ Primary* getPrimaryFromSaveString(std::string str, Game* game)
     // 0    1         2    3          4     5       6           7           8        9         10        11
     return new Primary(
         game,
-        ColorChar(tokens[4][0], stoi(tokens[5])), // the extra [0] is so it takes the first character of the string (it will only be 1 character)
+        ColorChar(stoi(tokens[4]), stoi(tokens[5])), // the extra [0] is so it takes the first character of the string (it will only be 1 character)
         Coordinate(-1, -1), // already in inventory so doesnt need coord
         tokens[2],
         static_cast<bool>(stoi(tokens[6])),
@@ -255,7 +255,7 @@ Secondary* getSecondaryFromSaveString(std::string str, Game* game)
     // 0    1         2           3       4       5           6             7
     return new Secondary(
         game,
-        ColorChar(tokens[3][0], stoi(tokens[4])),
+        ColorChar(stoi(tokens[3]), stoi(tokens[4])),
         Coordinate(-1, -1),
         tokens[1],
         static_cast<bool>(stoi(tokens[5])),

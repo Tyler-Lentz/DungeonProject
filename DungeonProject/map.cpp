@@ -67,6 +67,35 @@ void Map::makeOverworld(std::mutex& mut)
         gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("OverworldTheme")));
         pgame->setActiveRoom(gamespace[tfloor][mapCoord]); // sets starting active room
     }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("##   ###################");
+        roomTemplate.push_back("#       e              #");
+        roomTemplate.push_back("#            #  #      #");
+        roomTemplate.push_back("#            #  #      #");
+        roomTemplate.push_back("#            #  #      #");
+        roomTemplate.push_back("#                      #");
+        roomTemplate.push_back("             e          ");
+        roomTemplate.push_back("             ####       ");
+        roomTemplate.push_back("#    #####     ###     #");
+        roomTemplate.push_back("#    #####       #######");
+        roomTemplate.push_back("                 #######");
+        roomTemplate.push_back("   e            ########");
+        roomTemplate.push_back("###########   ##########");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Skeleton);
+
+        int difficulty = 0;
+        int backColor = dngutil::GREEN;
+        std::string name = "Overworld";
+        Coordinate mapCoord(-1, 0);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("OverworldTheme")));
+    }
 
     tfloor = 1;
     {

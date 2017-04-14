@@ -74,7 +74,7 @@ namespace dngutil
         MaskPhase1,
         MaskPhase2,
         MaskPhase3,
-        PitDragon,
+        ForestDragon,
         WaterHorse,
         BloodJawPhase1,
         BloodJawPhase2,
@@ -82,7 +82,8 @@ namespace dngutil
         EvilBeastPhase1,
         EvilBeastPhase2,
         EvilBeastPhase3,
-        EvilBeastPhase4
+        EvilBeastPhase4,
+        GhostHorse
     };
 
     enum class BTID

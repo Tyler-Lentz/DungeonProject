@@ -574,6 +574,11 @@ SkeletonKing::SkeletonKing(
     dngutil::ClassType::KNIGHT
 ) {}
 
+ColorString SkeletonKing::getBattleInfo() const
+{
+    return ColorString("The king of Skeletons towers over you", dngutil::WHITE);
+}
+
 void SkeletonKing::printSelf()
 {
     Coordinate vcursor(0, getPGame()->getVWin()->txtmacs.DIVIDER_LINES[1] + 1);
@@ -679,11 +684,121 @@ FlameHorse::FlameHorse(
     setHp(getMaxhp());
 }
 
+ColorString FlameHorse::getBattleInfo() const
+{
+    return ColorString("A flare of heat comes upon you", dngutil::RED);
+}
+
 void FlameHorse::printSelf()
 {
     Coordinate vcursor(0, getPGame()->getVWin()->txtmacs.DIVIDER_LINES[1] + 1);
     VirtualWindow* t = getPGame()->getVWin();
     int color = dngutil::LIGHTRED;
+    t->put(ColorString("                      . . . .\n", color), vcursor); vcursor.y++;
+    t->put(ColorString("                      ,`,`,`,`,\n", color), vcursor); vcursor.y++;
+    t->put(ColorString(". . . .               `\\`\\`\\`\\;\n", color), vcursor); vcursor.y++;
+    t->put(ColorString("`\\`\\`\\`\\`,            ~|;!;!;\\!\n", color), vcursor); vcursor.y++;
+    t->put(ColorString(" ~\\;\\;\\;\\|\\          (--,!!!~`!       .\n", color), vcursor); vcursor.y++;
+    t->put(ColorString("(--,\\\\\\===~\\         (--,|||~`!     ./\n", color), vcursor); vcursor.y++;
+    t->put(ColorString(" (--,\\\\\\===~\\         `,-,~,=,:. _,//\n", color), vcursor); vcursor.y++;
+    t->put(ColorString("  (--,\\\\\\==~`\\        ~-=~-.---|\\;/J,\n", color), vcursor); vcursor.y++;
+    const int TOP_CURSOR_Y = vcursor.y;
+    t->put(ColorString("   (--,\\\\\\((```==.    ~'`~/       a |\n", color), vcursor); vcursor.y++;
+    t->put(ColorString("     (-,.\\\\('('(`\\\\.  ~'=~|     \\_.  \\\n", color), vcursor); vcursor.y++;
+    t->put(ColorString("        (,--(,(,(,'\\\\. ~'=|       \\\\_;>\n", color), vcursor); vcursor.y++;
+    t->put(ColorString("          (,-( ,(,(,;\\\\ ~=/        \\\n", color), vcursor); vcursor.y++;
+    t->put(ColorString("          (,-/ (.(.(,;\\\\,/          )\n", color), vcursor); vcursor.y++;
+    t->put(ColorString("           (,--/,;,;,;,\\\\         ./------.\n", color), vcursor); vcursor.y++;
+    t->put(ColorString("             (==,-;-'`;'         /_,----`. \\\n", color), vcursor); vcursor.y++;
+    t->put(ColorString("     ,.--_,__.-'                    `--.  ` \\\n", color), vcursor); vcursor.y++;
+    t->put(ColorString("    (='~-_,--/        ,       ,!,___--. \\  \\_)\n", color), vcursor); vcursor.y++;
+    t->put(ColorString("   (-/~(     |         \\   ,_-         | ) /_|\n", color), vcursor); vcursor.y++;
+    t->put(ColorString("   (~/((\\    )\\._,      |-'         _,/ /\n", color), vcursor); vcursor.y++;
+    t->put(ColorString("    \\\\))))  /   ./~.    |           \\_\\;\n", color), vcursor); vcursor.y++;
+    t->put(ColorString(" ,__/////  /   /    )  /\n", color), vcursor); vcursor.y++;
+    t->put(ColorString("  '===~'   |  |    (, <.\n", color), vcursor); vcursor.y++;
+    t->put(ColorString("           / /       \\. \\\n", color), vcursor); vcursor.y++;
+    t->put(ColorString("         _/ /          \\_\\\n", color), vcursor); vcursor.y++;
+    t->put(ColorString("        /_!/            >_\\\n", color), vcursor); vcursor.y++;
+
+    const int LONGEST_LINE_LENGTH = 59;
+
+    printStats(LONGEST_LINE_LENGTH, TOP_CURSOR_Y);
+}
+
+//----------------------------------------------------------------
+
+//----------------------------------------------------------------
+// Ghost Horse Functions
+
+GhostHorse::GhostHorse(
+    Game* pgame,
+    Coordinate coord,
+    int hp,
+    unsigned int att,
+    unsigned int def,
+    unsigned int lck,
+    unsigned int spd,
+    unsigned int lvl
+) : BEnemy(
+    pgame,
+    ColorChar('M', dngutil::WHITE),
+    coord,
+    "Ghost Horse",
+    false,
+    dngutil::TID::GhostHorse,
+    hp,
+    att,
+    def,
+    lck,
+    spd,
+    lvl,
+    new Primary(
+        pgame,
+        ColorChar('|', dngutil::DARKGRAY),
+        coord,
+        "Spirit Charge",
+        false,
+        2,
+        5,
+        95,
+        false,
+        "You cant get this so this doesnt matter",
+        WavFile("Attack4", false, false),
+        dngutil::ClassType::KNIGHT
+    ),
+    new Secondary(
+        pgame,
+        ColorChar('*', dngutil::LIGHTRED),
+        coord,
+        "Spirit Shield",
+        false,
+        dngutil::TID::Secondary,
+        0,
+        1.15,
+        "You cant get this so this doesnt matter"
+    ),
+    Mp3File("MinibossTheme"),
+    80,
+    WavFile("Screech", false, false),
+    dngutil::EvType::DEFENSE,
+    dngutil::ClassType::KNIGHT
+)
+{
+    setMaxhp(getHp() * 2);
+    setHp(getMaxhp());
+}
+
+ColorString GhostHorse::getBattleInfo() const
+{
+    return ColorString("You feel pressure in your chest", dngutil::WHITE);
+}
+
+void GhostHorse::printSelf()
+{
+    Coordinate vcursor(0, getPGame()->getVWin()->txtmacs.DIVIDER_LINES[1] + 1);
+    VirtualWindow* t = getPGame()->getVWin();
+    int color = dngutil::WHITE;
     t->put(ColorString("                      . . . .\n", color), vcursor); vcursor.y++;
     t->put(ColorString("                      ,`,`,`,`,\n", color), vcursor); vcursor.y++;
     t->put(ColorString(". . . .               `\\`\\`\\`\\;\n", color), vcursor); vcursor.y++;
@@ -1135,7 +1250,7 @@ EvilBeastPhase1::EvilBeastPhase1(
     pgame,
     ColorChar('?', dngutil::MAGENTA),
     coord,
-    "Evil Beast",
+    "Zorlock",
     false,
     dngutil::TID::EvilBeastPhase1,
     hp,
@@ -1232,7 +1347,7 @@ EvilBeastPhase2::EvilBeastPhase2(
     pgame,
     ColorChar('?', dngutil::MAGENTA),
     coord,
-    "Evil Beast",
+    "Zorlock",
     false,
     dngutil::TID::EvilBeastPhase2,
     hp,
@@ -1323,7 +1438,7 @@ EvilBeastPhase3::EvilBeastPhase3(
     pgame,
     ColorChar('0', dngutil::LIGHTGRAY),
     coord,
-    "Flaming Beast",
+    "Flaming Zorlock",
     false,
     dngutil::TID::EvilBeastPhase3,
     hp,
@@ -1415,7 +1530,7 @@ EvilBeastPhase4::EvilBeastPhase4(
     pgame,
     ColorChar('?', dngutil::LIGHTRED),
     coord,
-    "Fire Beast 2",
+    "Flaming Zorlock II",
     false,
     dngutil::TID::EvilBeastPhase4,
     hp,
@@ -1506,7 +1621,7 @@ void EvilBeastPhase4::printSelf()
 //----------------------------------------------------------------
 // Pit Dragon Functions
 
-PitDragon::PitDragon(
+ForestDragon::ForestDragon(
     Game* pgame,
     Coordinate coord,
     int hp,
@@ -1519,9 +1634,9 @@ PitDragon::PitDragon(
     pgame,
     ColorChar('S', dngutil::GREEN),
     coord,
-    "Green Dragon",
+    "Forest Dragon",
     false,
-    dngutil::TID::PitDragon,
+    dngutil::TID::ForestDragon,
     hp,
     att,
     def,
@@ -1553,7 +1668,7 @@ PitDragon::PitDragon(
         1.2,
         "You cant get this so this doesnt matter"
     ),
-    Mp3File("MinibossTheme"),
+    Mp3File("DungeonBoss"),
     80,
     WavFile("Screech", false, false),
     dngutil::EvType::DEFENSE,
@@ -1564,7 +1679,7 @@ PitDragon::PitDragon(
     setHp(getMaxhp());
 }
 
-void PitDragon::printSelf()
+void ForestDragon::printSelf()
 {
     Coordinate vcursor(0, getPGame()->getVWin()->txtmacs.DIVIDER_LINES[1] + 1);
     VirtualWindow* t = getPGame()->getVWin();
@@ -1602,107 +1717,16 @@ void PitDragon::printSelf()
     printStats(LONGEST_LINE_LENGTH, TOP_CURSOR_Y);
 }
 
+ColorString ForestDragon::getBattleInfo() const
+{
+    return ColorString("The dragon of the forest appears", dngutil::WHITE);
+}
+
 //----------------------------------------------------------------
 
 
 //----------------------------------------------------------------
-// Both beasts Functions
-
-DungeonBeast::DungeonBeast(
-    Game* pgame,
-    Coordinate coord,
-    int hp,
-    unsigned int att,
-    unsigned int def,
-    unsigned int lck,
-    unsigned int spd,
-    unsigned int lvl
-) : BEnemy(
-    pgame,
-    ColorChar('S', dngutil::WHITE),
-    coord,
-    "Dungeon Beast",
-    false,
-    dngutil::TID::DungeonBeast,
-    hp,
-    att,
-    def,
-    lck,
-    spd,
-    lvl,
-    new Primary(
-        pgame,
-        ColorChar('?', dngutil::LIGHTRED),
-        coord,
-        "Magical Beam",
-        false,
-        2.5,
-        6,
-        100,
-        false,
-        "A magical beam.",
-        WavFile("MagicAttack1", false, false),
-        dngutil::ClassType::WIZARD
-    ),
-    new Secondary(
-        pgame,
-        ColorChar('?', dngutil::GREEN),
-        coord,
-        "Beast Armor",
-        false,
-        dngutil::TID::Secondary,
-        0,
-        1.1,
-        "Beast's armor."
-    ),
-    Mp3File("BeastTheme"),
-    85,
-    WavFile("KillDemon", false, false),
-    dngutil::EvType::DEFENSE,
-    dngutil::ClassType::WIZARD
-) 
-{
-    setMaxhp(static_cast<int>(getMaxhp() * 1.3));
-    setHp(getMaxhp());
-}
-
-
-
-ColorString DungeonBeast::getBattleInfo() const
-{
-    return ColorString("A chill runs down your spine...", dngutil::MAGENTA);
-}
-
-void DungeonBeast::printSelf()
-{
-    Coordinate vcursor(0, getPGame()->getVWin()->txtmacs.DIVIDER_LINES[1] + 1);
-    VirtualWindow* t = getPGame()->getVWin();
-    int color = dngutil::WHITE;
-    t->put(ColorString(R"(		             \                  /)", color), vcursor);  vcursor.y++;
-    t->put(ColorString(R"(		    _________))                ((__________)", color), vcursor);  vcursor.y++;
-    t->put(ColorString(R"(		   /.-------./\\    \    /    //\.--------.\)", color), vcursor);  vcursor.y++;
-    t->put(ColorString(R"(		  //#######//##\\   ))  ((   //##\\########\\)", color), vcursor);  vcursor.y++;
-    t->put(ColorString(R"(		 //#######//###((  ((    ))  ))###\\########\\)", color), vcursor);  vcursor.y++;
-    t->put(ColorString(R"(		((#######((#####\\  \\  //  //#####))########)))", color), vcursor);  vcursor.y++;
-    t->put(ColorString(R"(		 \##' `###\######\\  \)(/  //######/####' `##/)", color), vcursor);  vcursor.y++;
-    t->put(ColorString(R"(		  )'    ``#)'  `##\`->oo<-'/##'  `(#''     `()", color), vcursor);  vcursor.y++;
-    const int TOP_CURSOR_Y = vcursor.y;
-    t->put(ColorString(R"(		          (       ``\`..'/''       ))", color), vcursor);  vcursor.y++;
-    t->put(ColorString(R"(		                     \""()", color), vcursor);  vcursor.y++;
-    t->put(ColorString(R"(		                      `- ))", color), vcursor);  vcursor.y++;
-    t->put(ColorString(R"(		                      / /)", color), vcursor);  vcursor.y++;
-    t->put(ColorString(R"(		                     ( /\)", color), vcursor);  vcursor.y++;
-    t->put(ColorString(R"(		                     /\| \)", color), vcursor);  vcursor.y++;
-    t->put(ColorString(R"(		                    (  \)", color), vcursor);  vcursor.y++;
-    t->put(ColorString(R"(		                        ))", color), vcursor);  vcursor.y++;
-    t->put(ColorString(R"(		                       /)", color), vcursor);  vcursor.y++;
-    t->put(ColorString(R"(		                      ()", color), vcursor);  vcursor.y++;
-    t->put(ColorString(R"(		                      ` )", color), vcursor);
-
-    const int LONGEST_LINE_LENGTH = 59;
-
-    printStats(LONGEST_LINE_LENGTH, TOP_CURSOR_Y);
-}
+// mega beasts Functions
 
 MegaBeastPhase1::MegaBeastPhase1(
     Game* pgame,
@@ -1751,7 +1775,7 @@ MegaBeastPhase1::MegaBeastPhase1(
         1,
         "Spirits's armor."
     ),
-    Mp3File("ZorlockTheme"),
+    Mp3File("DungeonBoss"),
     85,
     WavFile("revival", false, false),
     dngutil::EvType::DEFENSE,
@@ -1762,8 +1786,6 @@ MegaBeastPhase1::MegaBeastPhase1(
     setHp(getMaxhp());
     increaseDef(static_cast<unsigned int>(getDef() * 0.4));
 }
-
-
 
 ColorString MegaBeastPhase1::getBattleInfo() const
 {
@@ -1815,7 +1837,7 @@ MegaBeastPhase2::MegaBeastPhase2(
     pgame,
     ColorChar('S', dngutil::LIGHTMAGENTA),
     coord,
-    "Mega Beast",
+    "Evil Spirit",
     false,
     dngutil::TID::MegaBeastPhase2,
     hp,
@@ -1849,7 +1871,7 @@ MegaBeastPhase2::MegaBeastPhase2(
         1.2,
         "Beast's armor."
     ),
-    Mp3File("ZorlockTheme"),
+    Mp3File("DungeonBoss"),
     85,
     WavFile("FinalDeath", false, true),
     dngutil::EvType::DEFENSE,
@@ -1858,8 +1880,6 @@ MegaBeastPhase2::MegaBeastPhase2(
 {
     setMaxhp(dngutil::MAX_HP);
     setHp(getMaxhp());
-    increaseDef(static_cast<unsigned int>(getDef() * 1.1));
-    increaseAtt(static_cast<unsigned int>(getAtt() * .5));
 }
 
 void MegaBeastPhase2::printSelf()
@@ -2771,941 +2791,6 @@ void DragonHead::deathSequence()
 
 //----------------------------------------------------------------
 
-//----------------------------------------------------------------
-// All Gryphon phases
-
-GryphonPhase1::GryphonPhase1(
-    Game* pgame,
-    Coordinate coord,
-    int hp,
-    unsigned int att,
-    unsigned int def,
-    unsigned int lck,
-    unsigned int spd,
-    unsigned int lvl
-) : SegEnemy(
-    pgame,
-    ColorChar('?', dngutil::WHITE),
-    coord,
-    "The Gryphon",
-    false,
-    dngutil::TID::GryphonPhase1,
-    hp,
-    att,
-    def,
-    lck,
-    spd,
-    lvl,
-    new Primary(
-        pgame,
-        ColorChar('?', dngutil::LIGHTRED),
-        coord,
-        "Wind Gust",
-        false,
-        1.6,
-        4,
-        70,
-        false,
-        "Wind Gust",
-        WavFile("BowAttack1", false, false),
-        dngutil::ClassType::RANGER
-    ),
-    new Secondary(
-        pgame,
-        ColorChar('?', dngutil::GREEN),
-        coord,
-        "Gryphon Armor",
-        false,
-        dngutil::TID::Secondary,
-        0,
-        1.25,
-        "Gryphon's armor."
-    ),
-    Mp3File("DungeonBoss"),
-    85,
-    WavFile("SegDeath", false, false),
-    dngutil::EvType::DEFENSE,
-    dngutil::ClassType::RANGER
-)
-{
-    setMaxhp(static_cast<unsigned int>(getMaxhp() * 1.25));
-    setHp(getMaxhp());
-}
-
-
-
-ColorString GryphonPhase1::getBattleInfo() const
-{
-    return ColorString("The sun peeks over the horizon", dngutil::YELLOW);
-}
-
-void GryphonPhase1::printSelf()
-{
-    Coordinate vcursor(0, getPGame()->getVWin()->txtmacs.DIVIDER_LINES[1] + 1);
-    VirtualWindow* t = getPGame()->getVWin();
-    int color = dngutil::BROWN;
-    t->put(ColorString(R"(            //           //)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(           ///          ///)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(          ////         ////)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(          |////       /////)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(          |))//;     /)))//;)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(         /)))))/;   /)))))/;)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(     .---`,))))/;  /)))))))/;)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"( __--\/6-  \`))/; |)))))))/;)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"((----/    \\\``;  |))))))/;)", color), vcursor); vcursor.y++;
-    const int TOP_CURSOR_Y = vcursor.y;
-    t->put(ColorString(R"(   ~/-\  \\\\\``   \))))))/;)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(       \\\\\\\\`    |)))))/;)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(       |\\\\\\\\___/))))))/;__-------.)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(       //////|  %%_/))))))/;           \___,)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(      |||||||\   \%%%%VLK;:              \_. \)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(      |\\\\\\\\\                        |  | |)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(       \\\\\\\                          |  | |)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(        |\\\\               __|        /   / /)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(        | \\__\     \___----  |       |   / /)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(        |    / |     >     \   \      \  / /)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(        |   /  |    /       \   \      >/ /  ,,)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(        |   |  |   |         |   |    // /  //,)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(        |   |  |   |         |   |   /| |   |\\,)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(     _--'   _--'   |     _---_---'  |  \ \__/\|/)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(    (-(-===(-(-(===/    (-(-=(-(-(==/   \____/)", color), vcursor); vcursor.y++;
-    const int LONGEST_LINE_LENGTH = 65;
-
-    printStats(LONGEST_LINE_LENGTH, TOP_CURSOR_Y);
-}
-
-
-
-
-
-
-
-
-
-GryphonPhase2::GryphonPhase2(
-    Game* pgame,
-    Coordinate coord,
-    int hp,
-    unsigned int att,
-    unsigned int def,
-    unsigned int lck,
-    unsigned int spd,
-    unsigned int lvl
-) : SegEnemy(
-    pgame,
-    ColorChar('?', dngutil::WHITE),
-    coord,
-    "Enraged Gryphon",
-    false,
-    dngutil::TID::GryphonPhase2,
-    hp,
-    att,
-    def,
-    lck,
-    spd,
-    lvl,
-    new Primary(
-        pgame,
-        ColorChar('?', dngutil::LIGHTRED),
-        coord,
-        "Sharp Claws",
-        false,
-        2.2,
-        6,
-        100,
-        false,
-        "Sharp Claws.",
-        WavFile("Attack4", false, false),
-        dngutil::ClassType::KNIGHT
-    ),
-    new Secondary(
-        pgame,
-        ColorChar('?', dngutil::GREEN),
-        coord,
-        "Gryphon Armor",
-        false,
-        dngutil::TID::Secondary,
-        0,
-        1.25,
-        "Gryphon Armos."
-    ),
-    Mp3File("DungeonBoss"),
-    85,
-    WavFile("revival", false, false),
-    dngutil::EvType::DEFENSE,
-    dngutil::ClassType::KNIGHT
-)
-{
-    setMaxhp(dngutil::MAX_HP);
-    setHp(getMaxhp());
-
-}
-
-void GryphonPhase2::printSelf()
-{
-    Coordinate vcursor(0, getPGame()->getVWin()->txtmacs.DIVIDER_LINES[1] + 1);
-    VirtualWindow* t = getPGame()->getVWin();
-    int color = dngutil::LIGHTRED;
-    t->put(ColorString(R"(            //           //)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(           ///          ///)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(          ////         ////)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(          |////       /////)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(          |))//;     /)))//;)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(         /)))))/;   /)))))/;)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(     .---`,))))/;  /)))))))/;)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"( __--\/6-  \`))/; |)))))))/;)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"((----/    \\\``;  |))))))/;)", color), vcursor); vcursor.y++;
-    const int TOP_CURSOR_Y = vcursor.y;
-    t->put(ColorString(R"(   ~/-\  \\\\\``   \))))))/;)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(       \\\\\\\\`    |)))))/;)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(       |\\\\\\\\___/))))))/;__-------.)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(       //////|  %%_/))))))/;           \___,)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(      |||||||\   \%%%%VLK;:              \_. \)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(      |\\\\\\\\\                        |  | |)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(       \\\\\\\                          |  | |)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(        |\\\\               __|        /   / /)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(        | \\__\     \___----  |       |   / /)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(        |    / |     >     \   \      \  / /)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(        |   /  |    /       \   \      >/ /  ,,)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(        |   |  |   |         |   |    // /  //,)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(        |   |  |   |         |   |   /| |   |\\,)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(     _--'   _--'   |     _---_---'  |  \ \__/\|/)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(    (-(-===(-(-(===/    (-(-=(-(-(==/   \____/)", color), vcursor); vcursor.y++;
-    const int LONGEST_LINE_LENGTH = 65;
-
-    printStats(LONGEST_LINE_LENGTH, TOP_CURSOR_Y);
-}
-
-
-
-
-
-
-
-GryphonPhase3::GryphonPhase3(
-    Game* pgame,
-    Coordinate coord,
-    int hp,
-    unsigned int att,
-    unsigned int def,
-    unsigned int lck,
-    unsigned int spd,
-    unsigned int lvl
-) : SegEnemy(
-    pgame,
-    ColorChar('?', dngutil::WHITE),
-    coord,
-    "Dying Soul",
-    false,
-    dngutil::TID::GryphonPhase3,
-    hp,
-    att,
-    def,
-    lck,
-    spd,
-    lvl,
-    new Primary(
-        pgame,
-        ColorChar('?', dngutil::LIGHTRED),
-        coord,
-        "Last Breath",
-        false,
-        2.5,
-        3,
-        100,
-        false,
-        "Last Breath.",
-        WavFile("Attack1", false, false),
-        dngutil::ClassType::WIZARD
-    ),
-    new Secondary(
-        pgame,
-        ColorChar('?', dngutil::GREEN),
-        coord,
-        "Weakend Soul",
-        false,
-        dngutil::TID::Secondary,
-        0,
-        0,
-        "Dragons's armor."
-    ),
-    Mp3File("DungeonBoss"),
-    85,
-    WavFile("FinalDeath", false, true),
-    dngutil::EvType::DEFENSE,
-    dngutil::ClassType::WIZARD
-)
-{
-    setMaxhp(50);
-    setHp(getMaxhp());
-}
-
-void GryphonPhase3::printSelf()
-{
-    Coordinate vcursor(0, getPGame()->getVWin()->txtmacs.DIVIDER_LINES[1] + 1);
-    VirtualWindow* t = getPGame()->getVWin();
-    int deadcolor = dngutil::LIGHTMAGENTA;
-    t->put(ColorString(R"(                                                                             )", deadcolor), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                                                                             )", deadcolor), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                           *                                                 )", deadcolor), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                                   *        *                                )", deadcolor), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                                                                             )", deadcolor), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                               *                                             )", deadcolor), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                       *               *                                     )", deadcolor), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                                                                             )", deadcolor), vcursor); vcursor.y++;
-    const int TOP_CURSOR_Y = vcursor.y;
-    t->put(ColorString(R"(                                  * *                                        )", deadcolor), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                          *     *                                            )", deadcolor), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                                       *      *                              )", deadcolor), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                               *                                             )", deadcolor), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                                             *                               )", deadcolor), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                                                                             )", deadcolor), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                        *           *                                        )", deadcolor), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                               *                                             )", deadcolor), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                                                                             )", deadcolor), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                                                                             )", deadcolor), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                                                                             )", deadcolor), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                                                                             )", deadcolor), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                                                                             )", deadcolor), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                                                                             )", deadcolor), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                                                                             )", deadcolor), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                                                                             )", deadcolor), vcursor); vcursor.y++;
-    const int LONGEST_LINE_LENGTH = 60;
-
-    printStats(LONGEST_LINE_LENGTH, TOP_CURSOR_Y);
-}
-
-void GryphonPhase3::deathSequence()
-{
-
-    getPGame()->adjustScore(dngutil::BASE_SCORE_BOSS_BOOST * 3);
-    if (getPGame()->getPlayer()->getLvl() < dngutil::PROMOTION_LEVEL || !getPGame()->getDifficulty().canFightMegabeast)
-    {
-        credits(dngutil::CreditType::VICTORY, getPGame(), dngutil::DungeonType::GRYPHONS_TOWER);
-    }
-    else
-    {
-        Sleep(5000);
-        getPGame()->cleanup(dngutil::ReturnVal::RESTART); // tells the puzzle the fight is over
-    }
-}
-
-//----------------------------------------------------------------
-
-//----------------------------------------------------------------
-// Reaper phases
-
-ReaperPhase1::ReaperPhase1(
-    Game* pgame,
-    Coordinate coord,
-    int hp,
-    unsigned int att,
-    unsigned int def,
-    unsigned int lck,
-    unsigned int spd,
-    unsigned int lvl
-) : SegEnemy(
-    pgame,
-    ColorChar('A', dngutil::WHITE),
-    coord,
-    "The Reaper",
-    false,
-    dngutil::TID::ReaperPhase1,
-    hp,
-    att,
-    def,
-    lck,
-    spd,
-    lvl,
-    new Primary(
-        pgame,
-        ColorChar('/', dngutil::WHITE),
-        coord,
-        "Sycthe",
-        false,
-        2,
-        5,
-        70,
-        false,
-        "A scythe from death",
-        WavFile("Attack4", false, false),
-        dngutil::ClassType::KNIGHT
-    ),
-    new Secondary(
-        pgame,
-        ColorChar('?', dngutil::GREEN),
-        coord,
-        "Death Veil",
-        false,
-        dngutil::TID::Secondary,
-        0,
-        1.35,
-        "Reapers's armor."
-    ),
-    Mp3File("ZorlockTheme"),
-    85,
-    WavFile("Laugh", false, false),
-    dngutil::EvType::ATTACK,
-    dngutil::ClassType::ADVENTURER
-)
-{
-    setMaxhp(static_cast<unsigned int>(getMaxhp() * 1.25));
-    setHp(getMaxhp());
-}
-
-
-
-ColorString ReaperPhase1::getBattleInfo() const
-{
-    return ColorString("Your heart comes to a stop", dngutil::RED);
-}
-
-void ReaperPhase1::printSelf()
-{
-    Coordinate vcursor(0, getPGame()->getVWin()->txtmacs.DIVIDER_LINES[1] + 1);
-    VirtualWindow* t = getPGame()->getVWin();
-    int color = dngutil::WHITE;
-    t->put(ColorString(R"(                                         .""--..__)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                     _                     []       ``-.._)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                  .'` `'.                  ||__           `-._)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                 /    ,-.\                 ||_ ```---..__     `-.)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                /    /:::\\               /|//}          ``--._  `.)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                |    |:::||              |////}                `-. \)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                |    |:::||             //'///                    `.\)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                |    |:::||            //  ||'                      `|)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                /    |:::|/        _,-//\  ||)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(               /`    |:::|`-,__,-'`  |/  \ ||)", color), vcursor); vcursor.y++;
-    const int TOP_CURSOR_Y = vcursor.y;
-    t->put(ColorString(R"(             /`  |   |'' ||           \   |||)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(           /`    \   |   ||            |  /||)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(         |`       |  |   |)            \ | ||)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(        |          \ |   /      ,.__    \| ||)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(        /           `         /`    `\   | ||)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(       |                     /        \  / ||)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(       |                     |        | /  ||)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(       /         /           |        `(   ||)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(      /          .           /          )  ||)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(     |            \          |     ________||)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(    /             |          /     `-------.|)", color), vcursor); vcursor.y++;
-    const int LONGEST_LINE_LENGTH = 65;
-
-    printStats(LONGEST_LINE_LENGTH, TOP_CURSOR_Y);
-}
-
-
-
-
-
-
-
-
-
-ReaperPhase2::ReaperPhase2(
-    Game* pgame,
-    Coordinate coord,
-    int hp,
-    unsigned int att,
-    unsigned int def,
-    unsigned int lck,
-    unsigned int spd,
-    unsigned int lvl
-) : SegEnemy(
-    pgame,
-    ColorChar('A', dngutil::WHITE),
-    coord,
-    "The Reaper",
-    false,
-    dngutil::TID::ReaperPhase2,
-    hp,
-    att,
-    def,
-    lck,
-    spd,
-    lvl,
-    new Primary(
-        pgame,
-        ColorChar('?', dngutil::LIGHTRED),
-        coord,
-        "Sycthe",
-        false,
-        2,
-        4,
-        100,
-        false,
-        "Death's sycthe.",
-        WavFile("Attack4", false, false),
-        dngutil::ClassType::KNIGHT
-    ),
-    new Secondary(
-        pgame,
-        ColorChar('?', dngutil::GREEN),
-        coord,
-        "Death Veil",
-        false,
-        dngutil::TID::Secondary,
-        0,
-        1.35,
-        "Reapers armor."
-    ),
-    Mp3File("DungeonBoss"),
-    85,
-    WavFile("revival", false, false),
-    dngutil::EvType::DEFENSE,
-    dngutil::ClassType::ADVENTURER
-)
-{
-    setMaxhp(dngutil::MAX_HP - 25);
-    setHp(getMaxhp());
-    setDef(static_cast<int>(getDef() * 1.3));
-    setAtt(static_cast<int>(getAtt() * 1.2));
-}
-
-void ReaperPhase2::printSelf()
-{
-    Coordinate vcursor(0, getPGame()->getVWin()->txtmacs.DIVIDER_LINES[1] + 1);
-    VirtualWindow* t = getPGame()->getVWin();
-    int color = dngutil::WHITE;
-    t->put(ColorString(R"(                                           .""--.._)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                                           []      `'--.._)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                                           ||__           `'-,)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                                         `)||_ ```'--..       \)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                     _                    /|//}        ``--._  |)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                  .'` `'.                /////}              `\/)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                 /  .""".\              //{///    )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                /  /_  _`\\            // `||)", color), vcursor); vcursor.y++;
-    const int TOP_CURSOR_Y = vcursor.y;
-    t->put(ColorString(R"(                | |(_)(_)||          _//   ||)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                | |  /\  )|        _///\   ||)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                | |L====J |       / |/ |   ||)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(               /  /'-..-' /    .'`  \  |   ||)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(              /   |  :: | |_.-`      |  \  ||)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(             /|   `\-::.| |          \   | ||)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(           /` `|   /    | |          |   / ||)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(         |`    \   |    / /          \  |  ||)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(        |       `\_|    |/      ,.__. \ |  ||)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(        /                     /`    `\ ||  ||)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(       |           .         /        \||  ||)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(       |                     |         |/  ||)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(       /         /           |         (   ||)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(      /          .           /          )  ||)", color), vcursor); vcursor.y++;
-    const int LONGEST_LINE_LENGTH = 65;
-
-    printStats(LONGEST_LINE_LENGTH, TOP_CURSOR_Y);
-}
-
-
-
-
-
-
-
-ReaperPhase3::ReaperPhase3(
-    Game* pgame,
-    Coordinate coord,
-    int hp,
-    unsigned int att,
-    unsigned int def,
-    unsigned int lck,
-    unsigned int spd,
-    unsigned int lvl
-) : SegEnemy(
-    pgame,
-    ColorChar('?', dngutil::WHITE),
-    coord,
-    "The Reaper's True Form",
-    false,
-    dngutil::TID::ReaperPhase3,
-    hp,
-    att,
-    def,
-    lck,
-    spd,
-    lvl,
-    new Primary(
-        pgame,
-        ColorChar('?', dngutil::LIGHTRED),
-        coord,
-        "Fire",
-        false,
-        2.5,
-        5,
-        100,
-        false,
-        "Fire ball.",
-        WavFile("FireAttack1", false, false),
-        dngutil::ClassType::WIZARD
-    ),
-    new Secondary(
-        pgame,
-        ColorChar('?', dngutil::GREEN),
-        coord,
-        "Reaper's Soul",
-        false,
-        dngutil::TID::Secondary,
-        0,
-        1.3,
-        "True Reapers's armor."
-    ),
-    Mp3File("ZorlockTheme"),
-    85,
-    WavFile("FinalDeath", false, true),
-    dngutil::EvType::DEFENSE,
-    dngutil::ClassType::WIZARD
-)
-{
-    setMaxhp(dngutil::MAX_HP);
-    setHp(getMaxhp());
-    setDef(static_cast<int>(getDef() * 1.3));
-    setAtt(static_cast<int>(getAtt() * 1.2));
-}
-
-void ReaperPhase3::printSelf()
-{
-    Coordinate vcursor(0, getPGame()->getVWin()->txtmacs.DIVIDER_LINES[1] + 1);
-    VirtualWindow* t = getPGame()->getVWin();
-    int color = dngutil::LIGHTMAGENTA;
-    t->put(ColorString(R"(            ._                                            ,)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(             (`)..                                    ,.-'))", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(              (',.)-..                            ,.-(..`)         )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(               (,.' ,.)-..                    ,.-(. `.. )                    )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                (,.' ..' .)-..            ,.-( `.. `.. )                     )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                 (,.' ,.'  ..')-.     ,.-( `. `.. `.. )                      )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                  (,.'  ,.' ,.'  )-.-('   `. `.. `.. )                       )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                   ( ,.' ,.'    _== ==_     `.. `.. )                        )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                    ( ,.'   _==' ~  ~  `==_    `.. )                     )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                     \  _=='   ----..----  `==_   )                     )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                  ,.-:    ,----___.  .___----.    -..                        )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(              ,.-'   (   _--====_  \/  _====--_   )  `-..                 )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(          ,.-'   .__.'`.  `-_I0_-'    `-_0I_-'  .'`.__.  `-..     )", color), vcursor); vcursor.y++;
-    const int TOP_CURSOR_Y = vcursor.y;
-    t->put(ColorString(R"(      ,.-'.'   .'      (          |  |          )      `.   `.-..  )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(  ,.-'    :    `___--- '`.__.    / __ \    .__.' `---___'    :   `-..      )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(-'_________`-____________'__ \  (O)  (O)  / __`____________-'________`-     )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                            \ . _  __  _ . /                               )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                             \ `V-'  `-V' |                                 )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                              | \ \ | /  /                                 )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                               V \ ~| ~/V                                   )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                                |  \  /|                                    )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                                 \~ | V                    )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                                  \  |                                        )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                                   VV)", color), vcursor); vcursor.y++;
-    const int LONGEST_LINE_LENGTH = 60;
-
-    printStats(LONGEST_LINE_LENGTH, TOP_CURSOR_Y);
-}
-
-void ReaperPhase3::deathSequence()
-{
-    getPGame()->adjustScore(dngutil::BASE_SCORE_BOSS_BOOST * 5);
-    credits(dngutil::CreditType::SECRET_VICTORY, getPGame(), dngutil::DungeonType::GRYPHONS_TOWER);
-}
-
-//----------------------------------------------------------------
-// Mask phases
-
-MaskPhase1::MaskPhase1(
-    Game* pgame,
-    Coordinate coord,
-    int hp,
-    unsigned int att,
-    unsigned int def,
-    unsigned int lck,
-    unsigned int spd,
-    unsigned int lvl
-) : SegEnemy(
-    pgame,
-    ColorChar('O', dngutil::WHITE),
-    coord,
-    "The Mask",
-    false,
-    dngutil::TID::MaskPhase1,
-    hp,
-    att,
-    def,
-    lck,
-    spd,
-    lvl,
-    new Primary(
-        pgame,
-        ColorChar('/', dngutil::WHITE),
-        coord,
-        "Lazer",
-        false,
-        1.9,
-        5,
-        70,
-        false,
-        "Mask's lazer",
-        WavFile("MagicAttack1", false, false),
-        dngutil::ClassType::WIZARD
-    ),
-    new Secondary(
-        pgame,
-        ColorChar('?', dngutil::GREEN),
-        coord,
-        "Mask",
-        false,
-        dngutil::TID::Secondary,
-        0,
-        1.25,
-        "Mask's armor."
-    ),
-    Mp3File("DungeonBoss"),
-    85,
-    WavFile("Laugh", false, false),
-    dngutil::EvType::ATTACK,
-    dngutil::ClassType::WIZARD
-)
-{
-    setMaxhp(static_cast<unsigned int>(getMaxhp() * 1.5));
-    setHp(getMaxhp());
-}
-
-
-
-ColorString MaskPhase1::getBattleInfo() const
-{
-    return ColorString("You feel as if you are being watched...", dngutil::LIGHTMAGENTA);
-}
-
-void MaskPhase1::printSelf()
-{
-    Coordinate vcursor(0, getPGame()->getVWin()->txtmacs.DIVIDER_LINES[1] + 1);
-    VirtualWindow* t = getPGame()->getVWin();
-    int color = dngutil::BROWN;
-    t->put(ColorString(R"(          )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(          )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(          )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(          )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(          )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                                    ,-.                               )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(               ___,---.__          /'|`\          __,---,___          )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(            ,-'    \`    `-.____,-'  |  `-.____,-'    //    `-.       )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(          ,'        |           ~'\     /`~           |        `.      )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(         /      ___//              `. ,'          ,  , \___      \    )", color), vcursor); vcursor.y++;
-    const int TOP_CURSOR_Y = vcursor.y;
-    t->put(ColorString(R"(        |    ,-'   `-.__   _         |        ,    __,-'   `-.    |    )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(        |   /          /\_  `   .    |    ,      _/\          \   |   )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(        \  |           \ \`-.___ \   |   / ___,-'/ /           |  /  )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(         \  \           | `._   `\\  |  //'   _,' |           /  /      )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(          `-.\         /'  _ `---'' , . ``---' _  `\         /,-'     )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(             ``       /     \    ,='/ \`=.    /     \       ''          )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                     |__   /|\_,--.,-.--,--._/|\   __|                  )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                     /  `./  \\`\ |  |  | /,//' \,'  \                  )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                    /   /     ||--+--|--+-/-|     \   \                 )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                   |   |     /'\_\_\ | /_/_/`\     |   |                )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                    \   \__, \_     `~'     _/ .__/   /            )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(        			  `-._,-'   `-._______,-'   `-._,-')", color), vcursor); vcursor.y++;
-    const int LONGEST_LINE_LENGTH = 65;
-
-    printStats(LONGEST_LINE_LENGTH, TOP_CURSOR_Y);
-}
-
-
-
-
-
-
-
-
-
-MaskPhase2::MaskPhase2(
-    Game* pgame,
-    Coordinate coord,
-    int hp,
-    unsigned int att,
-    unsigned int def,
-    unsigned int lck,
-    unsigned int spd,
-    unsigned int lvl
-) : SegEnemy(
-    pgame,
-    ColorChar('O', dngutil::WHITE),
-    coord,
-    "The Mask",
-    false,
-    dngutil::TID::MaskPhase2,
-    hp,
-    att,
-    def,
-    lck,
-    spd,
-    lvl,
-    new Primary(
-        pgame,
-        ColorChar('?', dngutil::LIGHTRED),
-        coord,
-        "Headbutt",
-        false,
-        2.5,
-        6,
-        100,
-        false,
-        "Melee attack.",
-        WavFile("Attack4", false, false),
-        dngutil::ClassType::KNIGHT
-    ),
-    new Secondary(
-        pgame,
-        ColorChar('?', dngutil::GREEN),
-        coord,
-        "Mask",
-        false,
-        dngutil::TID::Secondary,
-        0,
-        1.2,
-        "Reapers armor."
-    ),
-    Mp3File("DungeonBoss"),
-    85,
-    WavFile("revival", false, false),
-    dngutil::EvType::DEFENSE,
-    dngutil::ClassType::KNIGHT
-)
-{
-    setMaxhp(static_cast<int>(getMaxhp() * 1.75));
-    setHp(getMaxhp());
-    setDef(static_cast<int>(getDef() * 1.05));
-    setAtt(static_cast<int>(getAtt() * 1.1));
-}
-
-void MaskPhase2::printSelf()
-{
-    Coordinate vcursor(0, getPGame()->getVWin()->txtmacs.DIVIDER_LINES[1] + 1);
-    VirtualWindow* t = getPGame()->getVWin();
-    int color = dngutil::BROWN;
-    t->put(ColorString(R"(          )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(          )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(          )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(          )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(          )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                                    ,-.                               )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(               ___,---.__          /'|`\          __,---,___          )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(            ,-'    \`    `-.____,-'  |  `-.____,-'    //    `-.       )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(          ,'        |           ~'\     /`~           |        `.      )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(         /      ___//              `. ,'          ,  , \___      \    )", color), vcursor); vcursor.y++;
-    const int TOP_CURSOR_Y = vcursor.y;
-    t->put(ColorString(R"(        |    ,-'   `-.__   _         |        ,    __,-'   `-.    |    )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(        |   /          /\_  `   .    |    ,      _/\          \   |   )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(        \  |           \ \`-.___ \   |   / ___,-'/ /           |  /  )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(         \  \           | `._   `\\  |  //'   _,' |           /  /      )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(          `-.\         /'  _ `---'' , . ``---' _  `\         /,-'     )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(             ``       /     \    ,='/ \`=.    /     \       ''          )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                     |__   /|\_,--.,-.--,--._/|\   __|                  )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                     /  `./  \\`\ |  |  | /,//' \,'  \                  )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                    /   /     ||--+--|--+-/-|     \   \                 )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                   |   |     /'\_\_\ | /_/_/`\     |   |                )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                    \   \__, \_     `~'     _/ .__/   /            )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(        			  `-._,-'   `-._______,-'   `-._,-')", color), vcursor); vcursor.y++;
-    const int LONGEST_LINE_LENGTH = 65;
-
-    printStats(LONGEST_LINE_LENGTH, TOP_CURSOR_Y);
-}
-
-
-
-
-
-
-
-MaskPhase3::MaskPhase3(
-    Game* pgame,
-    Coordinate coord,
-    int hp,
-    unsigned int att,
-    unsigned int def,
-    unsigned int lck,
-    unsigned int spd,
-    unsigned int lvl
-) : SegEnemy(
-    pgame,
-    ColorChar('?', dngutil::WHITE),
-    coord,
-    "The Mask",
-    false,
-    dngutil::TID::MaskPhase3,
-    hp,
-    att,
-    def,
-    lck,
-    spd,
-    lvl,
-    new Primary(
-        pgame,
-        ColorChar('?', dngutil::LIGHTRED),
-        coord,
-        "Slam Charge",
-        false,
-        1.8,
-        3,
-        100,
-        false,
-        "SLAAAAMMMIIN.",
-        WavFile("Attack4", false, false),
-        dngutil::ClassType::KNIGHT
-    ),
-    new Secondary(
-        pgame,
-        ColorChar('?', dngutil::GREEN),
-        coord,
-        "Mask",
-        false,
-        dngutil::TID::Secondary,
-        0,
-        1.38,
-        "Mask's armor."
-    ),
-    Mp3File("DungeonBoss"),
-    85,
-    WavFile("FinalDeath", false, true),
-    dngutil::EvType::DEFENSE,
-    dngutil::ClassType::KNIGHT
-)
-{
-    setMaxhp(dngutil::MAX_HP);
-    setHp(getMaxhp());
-    setDef(static_cast<int>(getDef() * 1.2));
-    setAtt(static_cast<int>(getAtt() * 1.25));
-}
-
-void MaskPhase3::printSelf()
-{
-    Coordinate vcursor(0, getPGame()->getVWin()->txtmacs.DIVIDER_LINES[1] + 1);
-    VirtualWindow* t = getPGame()->getVWin();
-    int color = dngutil::LIGHTRED;
-    t->put(ColorString(R"(          )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(          )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(          )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(          )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(          )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                                    ,-.                               )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(               ___,---.__          /'|`\          __,---,___          )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(            ,-'    \`    `-.____,-'  |  `-.____,-'    //    `-.       )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(          ,'        |           ~'\     /`~           |        `.      )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(         /      ___//              `. ,'          ,  , \___      \    )", color), vcursor); vcursor.y++;
-    const int TOP_CURSOR_Y = vcursor.y;
-    t->put(ColorString(R"(        |    ,-'   `-.__   _         |        ,    __,-'   `-.    |    )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(        |   /          /\_  `   .    |    ,      _/\          \   |   )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(        \  |           \ \`-.___ \   |   / ___,-'/ /           |  /  )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(         \  \           | `._   `\\  |  //'   _,' |           /  /      )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(          `-.\         /'  _ `---'' , . ``---' _  `\         /,-'     )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(             ``       /     \    ,='/ \`=.    /     \       ''          )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                     |__   /|\_,--.,-.--,--._/|\   __|                  )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                     /  `./  \\`\ |  |  | /,//' \,'  \                  )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                    /   /     ||--+--|--+-/-|     \   \                 )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                   |   |     /'\_\_\ | /_/_/`\     |   |                )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                    \   \__, \_     `~'     _/ .__/   /            )", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(        			  `-._,-'   `-._______,-'   `-._,-')", color), vcursor); vcursor.y++;
-    const int LONGEST_LINE_LENGTH = 65;
-
-    printStats(LONGEST_LINE_LENGTH, TOP_CURSOR_Y);
-}
-
-void MaskPhase3::deathSequence()
-{
-    getPGame()->adjustScore(dngutil::BASE_SCORE_BOSS_BOOST * 3);
-    credits(dngutil::CreditType::VICTORY, getPGame(), dngutil::DungeonType::FIFTYTRIALS );
-}
 
 //----------------------------------------------------------------
 // segboss
