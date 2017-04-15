@@ -524,6 +524,59 @@ void Map::makeForestTemple(std::mutex& mut)
     }
     {
         std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("############ ###########");
+        roomTemplate.push_back("##                    ##");
+        roomTemplate.push_back("##                    ##");
+        roomTemplate.push_back("                      ##");
+        roomTemplate.push_back("##                    ##");
+        roomTemplate.push_back("##                    ##");
+        roomTemplate.push_back("##                    # ");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("##                    ##");
+        roomTemplate.push_back("##  e              e  ##");
+        roomTemplate.push_back("##                    ##");
+        roomTemplate.push_back("##                    ##");
+        roomTemplate.push_back("############ ###########");
+        auto puzzleSolved = [](const std::list<Creature*>& creatureList, const GAMEMAP& gameMap) -> bool
+        {
+            for (auto it = creatureList.begin(); it != creatureList.end(); it++)
+            {
+                if ((*it)->getTypeId() != dngutil::TID::Player)
+                {
+                    return false;
+                }
+            }
+            return true;
+        };
+
+        auto puzzleAction = [this](std::list<Creature*> creatureList, GAMEMAP& gameMap) -> void
+        {
+            WallObject* wall = dynamic_cast<WallObject*>(gameMap[6][22].back());
+
+            if (wall == nullptr)
+            {
+                errorMessage("error in puzzle", __LINE__, __FILE__);
+            }
+
+            gameMap[6][22].remove(wall);
+            wall->removeFromMap(true);
+        };
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Bowman);
+
+        int difficulty = -1;
+        int backColor = dngutil::BROWN;
+        std::string name = "The Forest Temple";
+        Coordinate mapCoord(2, 2);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction), Mp3File("DungeonTheme")));
+        mut.unlock();
+    }
+    {
+        std::vector<std::string> roomTemplate;
         roomTemplate.push_back("########################");
         roomTemplate.push_back("##         wwwwwwwwwww##");
         roomTemplate.push_back("## wwwwww    wwwwwwwww##");
@@ -595,6 +648,101 @@ void Map::makeForestTemple(std::mutex& mut)
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
         mut.lock();
         gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("DungeonTheme")));
+        mut.unlock();
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("##          e         ##");
+        roomTemplate.push_back("##          e         ##");
+        roomTemplate.push_back("##          #         ##");
+        roomTemplate.push_back("##          #         ##");
+        roomTemplate.push_back("##          #         ##");
+        roomTemplate.push_back("            #         ##");
+        roomTemplate.push_back("##          #         ##");
+        roomTemplate.push_back("##          #         ##");
+        roomTemplate.push_back("##          #         ##");
+        roomTemplate.push_back("##          #         ##");
+        roomTemplate.push_back("##          #         ##");
+        roomTemplate.push_back("######  #########  #####");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Skeleton);
+
+        int difficulty = -1;
+        int backColor = dngutil::BROWN;
+        std::string name = "The Forest Temple";
+        Coordinate mapCoord(4, 2);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("DungeonTheme")));
+        mut.unlock();
+    }
+    
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("##wwwwwwwwwwwwwwwwwwww##");
+        roomTemplate.push_back("##wwwwwwwwwwwwwwwwwwww##");
+        roomTemplate.push_back("##wwwwwwwwwwwwwwwwwwww##");
+        roomTemplate.push_back("##wwwwwwwwwwwwwwwwwwww##");
+        roomTemplate.push_back("##                    ##");
+        roomTemplate.push_back("##        e             ");
+        roomTemplate.push_back("##                    ##");
+        roomTemplate.push_back("##wwwwwwwwwwwwwwwwwwww##");
+        roomTemplate.push_back("##wwwwwwwwwwwwwwwwwwww##");
+        roomTemplate.push_back("##wwwwwwwwwwwwwwwwwwww##");
+        roomTemplate.push_back("##wwwwwwwwwwwwwwwwwwww##");
+        roomTemplate.push_back("########################");
+        auto puzzleSolved = [](const std::list<Creature*>& creatureList, const GAMEMAP& gameMap) -> bool
+        {
+            for (auto it = creatureList.begin(); it != creatureList.end(); it++)
+            {
+                if ((*it)->getTypeId() != dngutil::TID::Player)
+                {
+                    return false;
+                }
+            }
+            return true;
+        };
+
+        auto puzzleAction = [this](std::list<Creature*> creatureList, GAMEMAP& gameMap) -> void
+        {
+            WallObject* wall = dynamic_cast<WallObject*>(gameMap[6][0].back());
+
+            if (wall == nullptr)
+            {
+                errorMessage("error in puzzle", __LINE__, __FILE__);
+            }
+
+            gameMap[6][0].remove(wall);
+            wall->removeFromMap(true);
+
+            wall = dynamic_cast<WallObject*>(gameMap[6][1].back());
+
+            if (wall == nullptr)
+            {
+                errorMessage("error in puzzle", __LINE__, __FILE__);
+            }
+
+            gameMap[6][1].remove(wall);
+            wall->removeFromMap(true);
+        };
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::SkeletonKing);
+
+        int difficulty = -3;
+        int backColor = dngutil::BROWN;
+        std::string name = "The Forest Temple";
+        Coordinate mapCoord(3, 2);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction), Mp3File("DungeonTheme")));
         mut.unlock();
     }
     {

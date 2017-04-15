@@ -206,7 +206,7 @@ Creature* Game::generateCreature(int difficulty, dngutil::TID tid)
         break;
 
     case dngutil::TID::SkeletonKing:
-        enemy = new SkeletonKing(this, Coordinate(-1, -1), health, attack, defense, luck, speed, difficulty);
+        enemy = new SkeletonKing(this, Coordinate(-1, -1), health, attack, defense, luck, speed, level);
         break;
 
     case dngutil::TID::BloodSkeleton:
@@ -230,67 +230,67 @@ Creature* Game::generateCreature(int difficulty, dngutil::TID tid)
         break;
 
     case dngutil::TID::DragonHead:
-        enemy = new DragonHead(this, Coordinate(-1, -1), health, attack, defense, luck, speed, difficulty);
+        enemy = new DragonHead(this, Coordinate(-1, -1), health, attack, defense, luck, speed, level);
         break;
 
     case dngutil::TID::DragonTail:
-        enemy = new DragonTail(this, Coordinate(-1, -1), health, attack, defense, luck, speed, difficulty);
+        enemy = new DragonTail(this, Coordinate(-1, -1), health, attack, defense, luck, speed, level);
         break;
 
     case dngutil::TID::DragonWings:
-        enemy = new DragonWings(this, Coordinate(-1, -1), health, attack, defense, luck, speed, difficulty);
+        enemy = new DragonWings(this, Coordinate(-1, -1), health, attack, defense, luck, speed, level);
         break;
 
     case dngutil::TID::MegaBeastPhase1:
-        enemy = new MegaBeastPhase1(this, Coordinate(-1, -1), health, attack, defense, luck, speed, difficulty);
+        enemy = new MegaBeastPhase1(this, Coordinate(-1, -1), health, attack, defense, luck, speed, level);
         break;
 
     case dngutil::TID::MegaBeastPhase2:
-        enemy = new MegaBeastPhase2(this, Coordinate(-1, -1), health, attack, defense, luck, speed, difficulty);
+        enemy = new MegaBeastPhase2(this, Coordinate(-1, -1), health, attack, defense, luck, speed, level);
         break;
 
     case dngutil::TID::FlameHorse:
-        enemy = new FlameHorse(this, Coordinate(-1, -1), health, attack, defense, luck, speed, difficulty);
+        enemy = new FlameHorse(this, Coordinate(-1, -1), health, attack, defense, luck, speed, level);
         break;
 
     case dngutil::TID::GhostHorse:
-        enemy = new GhostHorse(this, Coordinate(-1, -1), health, attack, defense, luck, speed, difficulty);
+        enemy = new GhostHorse(this, Coordinate(-1, -1), health, attack, defense, luck, speed, level);
         break;
 
     case dngutil::TID::ForestDragon:
-        enemy = new ForestDragon(this, Coordinate(-1, -1), health, attack, defense, luck, speed, difficulty);
+        enemy = new ForestDragon(this, Coordinate(-1, -1), health, attack, defense, luck, speed, level);
         break;
 
     case dngutil::TID::WaterHorse:
-        enemy = new WaterHorse(this, Coordinate(-1, -1), health, attack, defense, luck, speed, difficulty);
+        enemy = new WaterHorse(this, Coordinate(-1, -1), health, attack, defense, luck, speed, level);
         break;
 
     case dngutil::TID::BloodJawPhase1:
-        enemy = new BloodjawPhase1(this, Coordinate(-1, -1), health, attack, defense, luck, speed, difficulty);
+        enemy = new BloodjawPhase1(this, Coordinate(-1, -1), health, attack, defense, luck, speed, level);
         break;
 
     case dngutil::TID::BloodJawPhase2:
-        enemy = new BloodjawPhase2(this, Coordinate(-1, -1), health, attack, defense, luck, speed, difficulty);
+        enemy = new BloodjawPhase2(this, Coordinate(-1, -1), health, attack, defense, luck, speed, level);
         break;
 
     case dngutil::TID::BloodJawPhase3:
-        enemy = new BloodjawPhase3(this, Coordinate(-1, -1), health, attack, defense, luck, speed, difficulty);
+        enemy = new BloodjawPhase3(this, Coordinate(-1, -1), health, attack, defense, luck, speed, level);
         break;
 
     case dngutil::TID::EvilBeastPhase1:
-        enemy = new EvilBeastPhase1(this, Coordinate(-1, -1), health, attack, defense, luck, speed, difficulty);
+        enemy = new EvilBeastPhase1(this, Coordinate(-1, -1), health, attack, defense, luck, speed, level);
         break;
 
     case dngutil::TID::EvilBeastPhase2:
-        enemy = new EvilBeastPhase2(this, Coordinate(-1, -1), health, attack, defense, luck, speed, difficulty);
+        enemy = new EvilBeastPhase2(this, Coordinate(-1, -1), health, attack, defense, luck, speed, level);
         break;
 
     case dngutil::TID::EvilBeastPhase3:
-        enemy = new EvilBeastPhase3(this, Coordinate(-1, -1), health, attack, defense, luck, speed, difficulty);
+        enemy = new EvilBeastPhase3(this, Coordinate(-1, -1), health, attack, defense, luck, speed, level);
         break;
 
     case dngutil::TID::EvilBeastPhase4:
-        enemy = new EvilBeastPhase4(this, Coordinate(-1, -1), health, attack, defense, luck, speed, difficulty);
+        enemy = new EvilBeastPhase4(this, Coordinate(-1, -1), health, attack, defense, luck, speed, level);
         break;
     }
 
