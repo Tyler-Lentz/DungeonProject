@@ -85,10 +85,15 @@ public:
 
     // overworld music
     Mp3File overworldMusic;
+
+    void setDungeonLevel(int number);
+    int getDungeonLevel() const;
 private:
     VirtualWindow* vwin;
     Room* activeRoom;
     Player* player;
+
+    int dungeonLevel;
 
     void backgroundStory();
 

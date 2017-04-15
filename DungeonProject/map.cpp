@@ -462,6 +462,38 @@ void Map::makeForestTemple(std::mutex& mut)
     tfloor = 1;
     {
         std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("#######v        ^#######");
+        roomTemplate.push_back("########################");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Bowman);
+
+        int difficulty = 0;
+        int backColor = dngutil::BROWN;
+        std::string name = "Stairwell";
+        Coordinate mapCoord(2, 3);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("DungeonTheme")));
+        mut.unlock();
+    }
+
+    tfloor = 0;
+    {
+        std::vector<std::string> roomTemplate;
         roomTemplate.push_back("############-###########");
         roomTemplate.push_back("##                    ##");
         roomTemplate.push_back("##   #  #  # #  #  #  ##");
@@ -472,8 +504,8 @@ void Map::makeForestTemple(std::mutex& mut)
         roomTemplate.push_back("##                    ##");
         roomTemplate.push_back("##   #  #  # #  #  #  ##");
         roomTemplate.push_back("##                    ##");
-        roomTemplate.push_back("##   #  #  # #  #  #  ##");
-        roomTemplate.push_back("##              ^     ##");
+        roomTemplate.push_back("######  #  # #  #  #  ##");
+        roomTemplate.push_back("###### ^#             ##");
         roomTemplate.push_back("########################");
 
         std::map<Coordinate, MapObject*> specificObjects;
@@ -485,6 +517,66 @@ void Map::makeForestTemple(std::mutex& mut)
         int backColor = dngutil::BROWN;
         std::string name = "The Forest Temple";
         Coordinate mapCoord(2, 3);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("DungeonTheme")));
+        mut.unlock();
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("##          e         ##");
+        roomTemplate.push_back("##                    ##");
+        roomTemplate.push_back("##        BBBBB       ##");
+        roomTemplate.push_back("##        BBBBB       ##");
+        roomTemplate.push_back("##        BBBBB       ##");
+        roomTemplate.push_back("          BBBBB         ");
+        roomTemplate.push_back("##        BBBBB       ##");
+        roomTemplate.push_back("##        BBBBB       ##");
+        roomTemplate.push_back("##        BBBBB       ##");
+        roomTemplate.push_back("##                    ##");
+        roomTemplate.push_back("##          e         ##");
+        roomTemplate.push_back("########################");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Skeleton);
+
+        int difficulty = -1;
+        int backColor = dngutil::BROWN;
+        std::string name = "The Forest Temple";
+        Coordinate mapCoord(1, 3);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("DungeonTheme")));
+        mut.unlock();
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("##                    ##");
+        roomTemplate.push_back("##                    ##");
+        roomTemplate.push_back("##                    ##");
+        roomTemplate.push_back("##                    ##");
+        roomTemplate.push_back("##                    ##");
+        roomTemplate.push_back("##                      ");
+        roomTemplate.push_back("##                    ##");
+        roomTemplate.push_back("##                    ##");
+        roomTemplate.push_back("##                    ##");
+        roomTemplate.push_back("##                    ##");
+        roomTemplate.push_back("##                    ##");
+        roomTemplate.push_back("########################");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Skeleton);
+
+        int difficulty = -1;
+        int backColor = dngutil::BROWN;
+        std::string name = "The Forest Temple";
+        Coordinate mapCoord(0, 3);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
         mut.lock();
         gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("DungeonTheme")));

@@ -405,12 +405,14 @@ Collision DungeonCheck::mapAction(MapObject* collider, std::list<MapObject*>::it
             if (getPGame()->getPlayer()->hasFullHarp())
             {
                 getPGame()->getPlayer()->setDungeonStart();
+                getPGame()->setDungeonLevel(getPGame()->getPlayer()->getLvl());
                 return Collision(true, false, true);
             }
         }
         else if (!getPGame()->getPlayer()->hasHarpPiece(harpNumber))
         {
             getPGame()->getPlayer()->setDungeonStart();
+            getPGame()->setDungeonLevel(getPGame()->getPlayer()->getLvl());
             return Collision(true, false, true);
         }
     }

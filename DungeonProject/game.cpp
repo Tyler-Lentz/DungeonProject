@@ -64,6 +64,8 @@ Game::Game(VirtualWindow* vwin)
 
     map = new Map(this);
 
+    dungeonLevel = 1;
+
     //must happen after making new map & player
     titleScreen();
     overworldMusic = activeRoom->getMusic();
@@ -170,6 +172,16 @@ void Game::clearDeletionList()
     }
 
     map->deletionList.clear();
+}
+
+void Game::setDungeonLevel(int number)
+{
+    dungeonLevel = number;
+}
+
+int Game::getDungeonLevel() const
+{
+    return dungeonLevel;
 }
 
 Creature* Game::generateCreature(int difficulty, dngutil::TID tid)
