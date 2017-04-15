@@ -10,6 +10,11 @@
 #include "item.h"
 #include "savefile.h"
 
+void xorFile()
+{
+    
+}
+
 void saveGame(Player* player, Game* game)
 {
     std::ofstream file("save.dat", std::ios::trunc);
@@ -50,6 +55,7 @@ void saveGame(Player* player, Game* game)
 
     file << "DONE";
 
+    file.close();
     // obfusicate
 }
 
@@ -213,6 +219,8 @@ void loadGame(Game* game)
 
         std::getline(file, s);
     }
+
+    file.close();
 }
 
 Primary* getPrimaryFromSaveString(std::string str, Game* game)

@@ -10,6 +10,8 @@ class Item;
 class Primary;
 class Secondary;
 
+void xorFile();
+
 void saveGame(Player* player, Game* game);
 
 std::string getInventoryItemText(Item& i);
