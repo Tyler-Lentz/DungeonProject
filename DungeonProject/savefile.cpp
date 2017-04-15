@@ -304,6 +304,9 @@ Item* getItemFromId(dngutil::TID tid, Game* game)
     case dngutil::TID::Key: return new Key(game, Coordinate(-1, -1));
     case dngutil::TID::MagicalPotion: return new MagicalPotion(game, Coordinate(-1, -1));
     case dngutil::TID::Potion: return new Potion(game, Coordinate(-1, -1), dngutil::POTION_HEAL);
-    default: errorMessage("invalid tid passed to getItemFromId()", __LINE__, __FILE__);
     }
+    errorMessage("invalid tid passed to getItemFromId()", __LINE__, __FILE__);
+
+    // so i stop getting a warning
+    return nullptr;
 }

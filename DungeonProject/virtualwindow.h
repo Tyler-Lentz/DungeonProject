@@ -93,10 +93,10 @@ public:
     // Puts the char/string to the specified location in the VWIN, for strings
     // it is the starting location
     void put(ColorChar colchar, Coordinate coord);
-    void put(ColorString colstr, Coordinate coord);
+    void put(ColorString colstr, Coordinate coord, bool scrolling = false);
     // These center the string/char on the specified line
     void putcen(ColorChar colchar, unsigned int line);
-    void putcen(ColorString colstr, unsigned int line);
+    void putcen(ColorString colstr, unsigned int line, bool scrolling = false);
 
     // clears the entire screen and sets it to the color specified, default is black
     void clearScreen(int color = dngutil::BLACK);

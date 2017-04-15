@@ -175,6 +175,8 @@ namespace dngutil
     const unsigned int MAX_LCK = 100;
     const unsigned int MAX_SPD = 220;
 
+    const int TEXT_SCROLL_TIME = 40;
+
     const int SCROLL_TIME = 30;
 
     const int POTION_HEAL = 50;

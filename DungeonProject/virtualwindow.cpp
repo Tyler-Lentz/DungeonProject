@@ -418,11 +418,15 @@ void VirtualWindow::put(ColorChar colchar, Coordinate coord)
     refreshMut.unlock();
 }
 
-void VirtualWindow::put(ColorString colstr, Coordinate coord)
+void VirtualWindow::put(ColorString colstr, Coordinate coord, bool scrolling)
 {
     for (auto i : colstr)
     {
         put(i, coord);
+        if (scrolling)
+        {
+            Sleep(dngutil::TEXT_SCROLL_TIME);
+        }
 
         coord.x++;
         if (coord.x >= dngutil::CONSOLEX)
@@ -438,12 +442,16 @@ void VirtualWindow::putcen(ColorChar colchar, unsigned int line)
     put(colchar, Coordinate(static_cast<int>((width - 1) / 2), line));
 }
 
-void VirtualWindow::putcen(ColorString colstr, unsigned int line)
+void VirtualWindow::putcen(ColorString colstr, unsigned int line, bool scrolling)
 {
     Coordinate coord(static_cast<int>((width - colstr.size()) / 2), line);
     for (auto i : colstr)
     {
         put(i, coord);
+        if (scrolling)
+        {
+            Sleep(dngutil::TEXT_SCROLL_TIME);
+        }
         coord.x++;
         if (coord.x >= dngutil::CONSOLEX)
         {

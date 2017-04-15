@@ -145,8 +145,11 @@ bool Player::hasHarpPiece(int number) const
     case 2: return harp2;
     case 3: return harp3;
     case 4: return harp4;
-    default: errorMessage("Invalid number passed to getHarpPiece()", __LINE__, __FILE__);
     }
+    errorMessage("Invalid number passed to getHarpPiece()", __LINE__, __FILE__);
+
+    // so i dont get a warning or if somehow it gets to here
+    return false;
 }
 
 void Player::setExp(int value)
