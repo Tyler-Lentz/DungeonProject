@@ -727,7 +727,7 @@ bool Player::swapPrimary(Item*& itemToSwap)
 
     itemToSwap = getPrimaryMemory();
     getPrimaryMemory() = dynamic_cast<Primary*>(tempItem);
-    if (getPrimaryMemory()->getClass() != getClass() && getPrimaryMemory()->getClass() != dngutil::ClassType::ADVENTURER)
+    if (getPrimaryMemory() == nullptr)
     {
         getPrimaryMemory() = backupPrimary;
         itemToSwap = tempItem;

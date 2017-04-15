@@ -323,7 +323,7 @@ void Primary::action(Player* player, unsigned int inventoryIndex)
     }
     else
     {
-        output = "Your class cannot equip this primary.";
+        output = "An error occured trying to swap weapons - please report this bug";
     }
 
     getPGame()->getVWin()->putcen(ColorString(output, dngutil::LIGHTGRAY), getPGame()->getVWin()->txtmacs.BOTTOM_DIVIDER_TEXT_LINE);

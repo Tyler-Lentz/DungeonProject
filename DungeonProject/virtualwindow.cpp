@@ -246,11 +246,11 @@ void TextMacros::displayHealthBars(Creature* top, Creature* player)
 { 
     Coordinate vcursor(0, DIVIDER_LINES[2] - 6);
 
-    vwin->putcen(ColorString(top->getName() + " (" + top->getClassName() + ")", dngutil::LIGHTGRAY), vcursor.y);
+    vwin->putcen(ColorString(top->getName(), dngutil::LIGHTGRAY), vcursor.y);
 
     vwin->putcen(top->getHealthBar(), ++vcursor.y);
 
-    vwin->putcen(ColorString(player->getName() + " (" + player->getClassName() + ")", dngutil::LIGHTGRAY), ++vcursor.y);
+    vwin->putcen(ColorString(player->getName(), dngutil::LIGHTGRAY), ++vcursor.y);
 
     vwin->putcen(player->getHealthBar(), ++vcursor.y);
 
