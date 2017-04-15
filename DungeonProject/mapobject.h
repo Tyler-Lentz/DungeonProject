@@ -184,6 +184,16 @@ public:
     Collision mapAction(MapObject* collider, std::list<MapObject*>::iterator& it) override;
 };
 
+class DungeonCheck : public MapObject
+{
+public:
+    DungeonCheck(Game* game, Coordinate coord, int harp);
+    Collision mapAction(MapObject* collider, std::list<MapObject*>::iterator& it) override;
+
+private:
+    int harpNumber;
+};
+
 class AltarObject : public MapObject
 {
 public:

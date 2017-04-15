@@ -18,6 +18,10 @@ void saveGame(Player* player, Game* game)
 
     file << player->getName() << std::endl
         << game->getRawFloor() << std::endl
+        << player->getStartingDungeonRoomCoord().x << std::endl
+        << player->getStartingDungeonRoomCoord().y << std::endl
+        << player->getStartingDungeonMapCoord().x << std::endl
+        << player->getStartingDungeonMapCoord().y << std::endl
         << mapCoord.x << std::endl
         << mapCoord.y << std::endl
         << player->getCoord().x << std::endl
@@ -108,6 +112,17 @@ void loadGame(Game* game)
     game->setActiveFloor(stoi(s));
 
     Coordinate coord;
+    Coordinate coord2;
+    std::getline(file, s);
+    coord.x = stoi(s);
+    std::getline(file, s);
+    coord.y = stoi(s);
+    std::getline(file, s);
+    coord2.x = stoi(s);
+    std::getline(file, s);
+    coord2.y = stoi(s);
+    game->getPlayer()->setDungeonStart(coord, coord2);
+
     std::getline(file, s);
     coord.x = stoi(s);
     std::getline(file, s);

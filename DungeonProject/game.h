@@ -52,6 +52,7 @@ public:
 
     void setActiveFloor(unsigned int floor);
     void setActiveRoom(Room* room);
+    void setActiveRoom(Coordinate coord);
     void setActiveRoomFromLoadSave(Coordinate coord);
     std::map<Coordinate, Room*>& getActiveFloor();
 

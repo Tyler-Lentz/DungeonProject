@@ -376,6 +376,51 @@ Collision DoorObject::mapAction(MapObject* collider, std::list<MapObject*>::iter
 //---------------------------------------------------------------
 
 //---------------------------------------------------------------
+// DungeonCheck Functions
+DungeonCheck::DungeonCheck(Game* game, Coordinate coord, int harp) :
+    MapObject(
+        game,
+        ColorChar(' ', dngutil::BACKGROUND_COLOR),
+        coord,
+        "DUNGEONCHECK",
+        false,
+        false,
+        false,
+        dngutil::TID::DungeonCheck,
+        dngutil::P_EMPTY,
+        dngutil::BTID::None,
+        true
+    ) 
+{
+    harpNumber = harp;
+}
+
+Collision DungeonCheck::mapAction(MapObject* collider, std::list<MapObject*>::iterator& it)
+{
+    // dont use the it passed through in this function
+    if (collider == getPGame()->getPlayer())
+    {
+        if (harpNumber == 5)
+        {
+            if (getPGame()->getPlayer()->hasFullHarp())
+            {
+                getPGame()->getPlayer()->setDungeonStart();
+                return Collision(true, false, true);
+            }
+        }
+        else if (!getPGame()->getPlayer()->hasHarpPiece(harpNumber))
+        {
+            getPGame()->getPlayer()->setDungeonStart();
+            return Collision(true, false, true);
+        }
+    }
+    return Collision(false, true, false);
+}
+
+//---------------------------------------------------------------
+
+
+//---------------------------------------------------------------
 // altar object functions
 
 AltarObject::AltarObject(Game* game, Coordinate coord)

@@ -138,7 +138,7 @@ void Map::makeOverworld(std::mutex& mut)
         roomTemplate.push_back("#         0        #####");
         roomTemplate.push_back("##    0         ########");
         roomTemplate.push_back("####         0 #########");
-        roomTemplate.push_back("######## v  ############");
+        roomTemplate.push_back("#########v##############");
         roomTemplate.push_back("########################");
 
         std::map<Coordinate, MapObject*> specificObjects;
@@ -150,6 +150,181 @@ void Map::makeOverworld(std::mutex& mut)
         int backColor = dngutil::GREEN;
         std::string name = "Forest Entrance";
         Coordinate mapCoord(0, 1);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("ForestTheme")));
+    }
+
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########0    0       0 #");
+        roomTemplate.push_back("#####           e0      ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("        0     0     0   ");
+        roomTemplate.push_back("#   0                   ");
+        roomTemplate.push_back("#         0    0   0  0 ");
+        roomTemplate.push_back("##          e           ");
+        roomTemplate.push_back("####   0     0      0   ");
+        roomTemplate.push_back("#######        0  0     ");
+        roomTemplate.push_back("#########             0 ");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Bowman);
+
+        int difficulty = 0;
+        int backColor = dngutil::GREEN;
+        std::string name = "The Korloma Forest";
+        Coordinate mapCoord(1, 1);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("ForestTheme")));
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("#########               ");
+        roomTemplate.push_back("###########      0      ");
+        roomTemplate.push_back("#############           ");
+        roomTemplate.push_back("########       0    0   ");
+        roomTemplate.push_back("#####     0       e     ");
+        roomTemplate.push_back("####          0      0  ");
+        roomTemplate.push_back("####   0          0     ");
+        roomTemplate.push_back("###         0           ");
+        roomTemplate.push_back("#   0     0         0   ");
+        roomTemplate.push_back("##     e       0        ");
+        roomTemplate.push_back("####      0             ");
+        roomTemplate.push_back("#######          0   0  ");
+        roomTemplate.push_back("########################");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Bowman);
+
+        int difficulty = 0;
+        int backColor = dngutil::GREEN;
+        std::string name = "The Korloma Forest";
+        Coordinate mapCoord(1, 2);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("ForestTheme")));
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("        0      0        ");
+        roomTemplate.push_back("  0                0    ");
+        roomTemplate.push_back("        0      0     0  ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("    0   0      0        ");
+        roomTemplate.push_back("                    0   ");
+        roomTemplate.push_back(" 0      0      0        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("         ##  ##       0 ");
+        roomTemplate.push_back("    0   ###  ###  0     ");
+        roomTemplate.push_back("     ######  ######     ");
+        roomTemplate.push_back("###########  ###########");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Bowman);
+
+        int difficulty = 0;
+        int backColor = dngutil::GREEN;
+        std::string name = "The Korloma Forest";
+        Coordinate mapCoord(2, 2);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("ForestTheme")));
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("                      ##");
+        roomTemplate.push_back(" 0        0    0     ###");
+        roomTemplate.push_back("    0               ####");
+        roomTemplate.push_back("         0    0   ######");
+        roomTemplate.push_back("                 #######");
+        roomTemplate.push_back("    0      e     #######");
+        roomTemplate.push_back("                 #######");
+        roomTemplate.push_back("          0   0   ######");
+        roomTemplate.push_back(" 0                 #####");
+        roomTemplate.push_back("        e           ####");
+        roomTemplate.push_back("      0     0    0  ####");
+        roomTemplate.push_back("                     ###");
+        roomTemplate.push_back("########################");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Bowman);
+
+        int difficulty = 1;
+        int backColor = dngutil::GREEN;
+        std::string name = "The Korloma Forest";
+        Coordinate mapCoord(3, 2);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("ForestTheme")));
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########0 ##############");
+        roomTemplate.push_back(" ####       ############");
+        roomTemplate.push_back(" 0      0       ########");
+        roomTemplate.push_back("    0               ####");
+        roomTemplate.push_back(" 0     0   0 0     0    ");
+        roomTemplate.push_back("    e                 0 ");
+        roomTemplate.push_back("    0   0      0    0   ");
+        roomTemplate.push_back("  0        0      e     ");
+        roomTemplate.push_back("      0         0   0   ");
+        roomTemplate.push_back("  0          0          ");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Bowman);
+
+        int difficulty = 1;
+        int backColor = dngutil::GREEN;
+        std::string name = "The Korloma Forest";
+        Coordinate mapCoord(2, 1);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("ForestTheme")));
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("           #############");
+        roomTemplate.push_back("   0  0     0    #######");
+        roomTemplate.push_back("                  ######");
+        roomTemplate.push_back("  0     00    0     ####");
+        roomTemplate.push_back("      0              ###");
+        roomTemplate.push_back("  0         00    0   ##");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Bowman);
+
+        int difficulty = 1;
+        int backColor = dngutil::GREEN;
+        std::string name = "The Korloma Forest";
+        Coordinate mapCoord(3, 1);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
 
         gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("ForestTheme")));

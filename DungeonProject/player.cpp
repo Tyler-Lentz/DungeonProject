@@ -67,6 +67,9 @@ Player::Player(
     harp3 = false;
     harp4 = false;
 
+    startingDungeonMapCoord = Coordinate(0, 0);
+    startingDungeonRoomCoord = Coordinate(0, 0);
+
     this->exp = 0;
     this->expToLevel = getExpToLevel(getLvl());
     inventory.push_back(new Potion(getPGame(), Coordinate(-1, -1), dngutil::POTION_HEAL));
@@ -82,7 +85,31 @@ Player::Player(
 
 void Player::gotoDungeonStart()
 {
+    getPGame()->setActiveRoom(startingDungeonRoomCoord);
+    setPosition(startingDungeonMapCoord);
+    startingDungeonMapCoord = Coordinate(0, 0);
+    startingDungeonRoomCoord = Coordinate(0, 0);
+}
 
+void Player::setDungeonStart(Coordinate room, Coordinate map)
+{
+    startingDungeonRoomCoord = room;
+    startingDungeonMapCoord = map;
+}
+
+void Player::setDungeonStart()
+{
+    startingDungeonRoomCoord = this->getCoord();
+    startingDungeonMapCoord = getPGame()->getActiveRoom()->getRoomInfo().mapCoord;
+}
+
+Coordinate Player::getStartingDungeonMapCoord() const
+{
+    return startingDungeonMapCoord;
+}
+Coordinate Player::getStartingDungeonRoomCoord() const
+{
+    return startingDungeonRoomCoord;
 }
 
 void Player::setHarp(int number, bool value)

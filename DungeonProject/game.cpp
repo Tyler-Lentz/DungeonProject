@@ -131,6 +131,13 @@ void Game::setActiveRoom(Room* room)
     room->getCreatureList().push_back(player);
 }
 
+void Game::setActiveRoom(Coordinate roomCoord)
+{
+    activeRoom->getCreatureList().remove(player);
+    activeRoom = getActiveFloor()[roomCoord];
+    activeRoom->getCreatureList().push_back(player);
+}
+
 void Game::setActiveRoomFromLoadSave(Coordinate roomCoord)
 {
     activeRoom->getCreatureList().remove(player);

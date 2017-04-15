@@ -74,7 +74,14 @@ public:
     void setExp(int value);
     void setExpToLevel(int value);
     void gotoDungeonStart();
+    void setDungeonStart(Coordinate room, Coordinate map);
+    void setDungeonStart();
+    Coordinate getStartingDungeonMapCoord() const;
+    Coordinate getStartingDungeonRoomCoord() const;
 private:
+
+    Coordinate startingDungeonMapCoord;
+    Coordinate startingDungeonRoomCoord;
 
     double hpEv;
     double attEv;

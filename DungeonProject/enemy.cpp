@@ -2306,10 +2306,13 @@ bool SegEnemy::battle(MapObject* t_enemy)
     Player* player = getPGame()->getPlayer();
     VirtualWindow* vwin = getPGame()->getVWin();
 
-    if (enemy->getLvl() + 1 < player->getLvl())
+    if (getPGame()->getActiveRoom()->getRoomInfo().difficulty == -1)
     {
-        enemy->increaseLvl(1);
-        enemy->levelUpStats();
+        while (enemy->getLvl() < player->getLvl())
+        {
+            enemy->increaseLvl(1);
+            enemy->levelUpStats();
+        }
     }
 
     int enemyWeaponSpeed = enemy->getPrimary().getAttSpeed();
