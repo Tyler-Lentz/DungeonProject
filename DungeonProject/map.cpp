@@ -554,6 +554,51 @@ void Map::makeForestTemple(std::mutex& mut)
     }
     {
         std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("######  #########  #####");
+        roomTemplate.push_back("##         ###        ##");
+        roomTemplate.push_back("##         ###        ##");
+        roomTemplate.push_back("##         ###        ##");
+        roomTemplate.push_back("##         ###        ##");
+        roomTemplate.push_back("##    e    ###        ##");
+        roomTemplate.push_back("           ###        ##");
+        roomTemplate.push_back("##############        ##");
+        roomTemplate.push_back("##############        ##");
+        roomTemplate.push_back("##############        ##");
+        roomTemplate.push_back("############## o    o ##");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+        specificObjects.emplace(Coordinate(15, 10), new Potion(pgame, Coordinate(15, 10), dngutil::POTION_HEAL));
+        specificObjects.emplace(Coordinate(20, 10), new Primary(
+            pgame,
+            ColorChar('i', dngutil::WHITE),
+            Coordinate(20, 10),
+            "Rapier",
+            false,
+            1.1,
+            3,
+            90,
+            false,
+            "A very sharp sword",
+            WavFile("Attack1", false, false),
+            dngutil::ClassType::KNIGHT
+        ));
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Bowman);
+
+        int difficulty = -1;
+        int backColor = dngutil::BROWN;
+        std::string name = "The Forest Temple";
+        Coordinate mapCoord(4, 3);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("DungeonTheme")));
+        mut.unlock();
+    }
+    {
+        std::vector<std::string> roomTemplate;
         roomTemplate.push_back("########################");
         roomTemplate.push_back("##          e         ##");
         roomTemplate.push_back("##                    ##");
