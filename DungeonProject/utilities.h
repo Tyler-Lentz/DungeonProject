@@ -63,7 +63,7 @@ namespace dngutil
         Flute,
         HerosClaim,
         Bowman,
-        OutsideObject,
+        Water,
         FlameHorse,
         GryphonPhase1,
         GryphonPhase2,

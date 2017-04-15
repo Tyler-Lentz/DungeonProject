@@ -332,7 +332,7 @@ bool Creature::battle(MapObject* t_enemy)
 
     if (getPGame()->getActiveRoom()->getRoomInfo().difficulty == -1)
     {
-        while (enemy->getLvl() < getPGame()->getDungeonLevel())
+        while (static_cast<int>(enemy->getLvl()) < getPGame()->getDungeonLevel())
         {
             enemy->increaseLvl(1);
             enemy->levelUpStats();
@@ -343,7 +343,7 @@ bool Creature::battle(MapObject* t_enemy)
         int level = getPGame()->getActiveRoom()->getRoomInfo().difficulty;
         level = abs(level);
         level += getPGame()->getDungeonLevel();
-        while (enemy->getLvl() < level)
+        while (static_cast<int>(enemy->getLvl()) < level)
         {
             enemy->increaseLvl(1);
             enemy->levelUpStats();

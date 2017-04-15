@@ -165,10 +165,10 @@ public:
     Collision mapAction(MapObject* collider, std::list<MapObject*>::iterator& it) override;
 };
 
-class OutsideObject : public MapObject
+class Water : public MapObject
 {
 public:
-    OutsideObject(Game* game, Coordinate coord);
+    Water(Game* game, Coordinate coord);
 };
 
 class TreeObject : public MapObject

@@ -295,7 +295,7 @@ Collision HoleObject::mapAction(MapObject* collider, std::list<MapObject*>::iter
 
 //---------------------------------------------------------------
 // Outside Object Functions
-OutsideObject::OutsideObject(Game* game, Coordinate coord) :
+Water::Water(Game* game, Coordinate coord) :
     MapObject(
         game,
         ColorChar(' ', getColor(dngutil::BLUE, dngutil::BLUE)),
@@ -304,7 +304,7 @@ OutsideObject::OutsideObject(Game* game, Coordinate coord) :
         false,
         true,
         false,
-        dngutil::TID::OutsideObject,
+        dngutil::TID::Water,
         dngutil::P_EMPTY,
         dngutil::BTID::None,
         true
