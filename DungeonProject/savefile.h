@@ -20,7 +20,7 @@ std::string getPrimarySaveText(Primary& p);
 
 std::string getSecondarySaveText(Secondary& s);
 
-void loadGame(Game* game);
+bool loadGame(Game* game);
 
 Primary* getPrimaryFromSaveString(std::string, Game* game);
 Secondary* getSecondaryFromSaveString(std::string, Game* game);

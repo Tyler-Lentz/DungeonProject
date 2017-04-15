@@ -381,10 +381,12 @@ void Game::titleScreen()
         }
         else if (keypress('2'))
         {
-            vwin->txtmacs.clearMapArea(false, NULL);
-            vwin->txtmacs.clearDivider("bottom");
-            loadGame(this);
-            break;
+            if (loadGame(this))
+            {
+                vwin->txtmacs.clearMapArea(false, NULL);
+                vwin->txtmacs.clearDivider("bottom");
+                break;
+            }
         }
         else if (keypress(VK_ESCAPE))
         {

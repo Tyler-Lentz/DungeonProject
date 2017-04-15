@@ -105,12 +105,17 @@ std::string getSecondarySaveText(Secondary& s)
     return text;
 }
 
-void loadGame(Game* game)
+bool loadGame(Game* game)
 {
     Player* p = game->getPlayer();
     std::ifstream file("save.dat");
     std::string s;
 
+    if (file.peek() == std::ifstream::traits_type::eof())
+    {
+        return false;
+    }
+    
     std::getline(file, s);
     p->setName(s);
 
@@ -221,6 +226,7 @@ void loadGame(Game* game)
     }
 
     file.close();
+    return true;
 }
 
 Primary* getPrimaryFromSaveString(std::string str, Game* game)
