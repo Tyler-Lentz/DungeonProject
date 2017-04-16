@@ -570,7 +570,7 @@ void Game::backgroundStory()
     t->put(ColorString(R"(          `.         /      `._, )---)                                       )", dngutil::MAGENTA), vcursor); vcursor.y++;
     t->put(ColorString(R"(            `-------'\         `/ \    )", dngutil::MAGENTA), vcursor); vcursor.y++;
 
-    t->putcen(ColorString("The Demon Lord Zorock rose from the underworld and attacked Bora", dngutil::WHITE), topOfText, true);
+    t->putcen(ColorString("The Demon Lord Zorlock rose from the underworld and attacked Bora", dngutil::WHITE), topOfText, true);
     Sleep(onelineTime);
     tm->clearLine(topOfText);
 
