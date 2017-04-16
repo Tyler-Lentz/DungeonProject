@@ -20,7 +20,7 @@ Player::Player(
 )
     :Creature(
         pgame,
-        ColorChar('A', dngutil::LIGHTCYAN),
+        ColorChar('A', dngutil::YELLOW),
         coord,
         name,
         true,
@@ -74,6 +74,9 @@ Player::Player(
     this->expToLevel = getExpToLevel(getLvl());
     inventory.push_back(new Potion(getPGame(), Coordinate(-1, -1), dngutil::POTION_HEAL));
 
+    armor = new BlueTunic(getPGame(), Coordinate(-1, -1));
+    boots = new StandardBoots(getPGame(), Coordinate(-1, -1));
+
     hpEv = 0;
     attEv = 0;
     defEv = 0;
@@ -81,6 +84,16 @@ Player::Player(
     spdEv = 0;
 
     steps = pgame->getDifficulty().beastSteps;
+}
+
+void Player::setArmor(Equipment* equip)
+{
+    armor = equip;
+}
+
+void Player::setBoots(Equipment* equip)
+{
+    boots = equip;
 }
 
 void Player::gotoDungeonStart()
@@ -363,9 +376,11 @@ void Player::printStats(int startingXCoord, int startingCursorY)
     vcursor.y++; vcursor.x = 0;
 
     getPGame()->getVWin()->putcen(ColorString(
-        "       " + getPrimary().getName() +
-        " and " + getSecondary().getName() +
-        "       ", dngutil::WHITE), vcursor.y);
+        " Primary: " + getPrimary().getName() +
+        " Secondary: " + getSecondary().getName() +
+        " Armor: " + getArmorMemory()->getName() +
+        " Boots: " + getBootsMemory()->getName() +
+        " ", dngutil::WHITE), vcursor.y);
 }
 
 ColorString Player::getExperienceBar()
@@ -750,6 +765,48 @@ bool Player::swapSecondary(Item*& itemToSwap)
         return false;
     }
     return true;
+}
+
+bool Player::swapArmor(Item*& itemToSwap)
+{
+    Item* tempItem = itemToSwap;
+    Equipment* backupArmor = armor;
+
+    itemToSwap = armor;
+    armor = dynamic_cast<Equipment*>(tempItem);
+    if (armor == nullptr)
+    {
+        armor = backupArmor;
+        itemToSwap = tempItem;
+        return false;
+    }
+    return true;
+}
+
+bool Player::swapBoots(Item*& itemToSwap)
+{
+    Item* tempItem = itemToSwap;
+    Equipment* backupBoots = boots;
+
+    itemToSwap = boots;
+    boots = dynamic_cast<Equipment*>(tempItem);
+    if (boots == nullptr)
+    {
+        boots = backupBoots;
+        itemToSwap = tempItem;
+        return false;
+    }
+    return true;
+}
+
+Equipment*& Player::getBootsMemory()
+{
+    return boots;
+}
+
+Equipment*& Player::getArmorMemory()
+{
+    return armor;
 }
 
 Inventory& Player::getInventoryNotConst()

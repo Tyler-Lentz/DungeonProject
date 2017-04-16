@@ -86,7 +86,10 @@ namespace dngutil
         GhostHorse,
         Tree,
         DungeonCheck,
-        Waterboots
+        Waterboots,
+        Speedboots,
+        BlueTunic,
+        StandardBoots
     };
 
     enum class BTID

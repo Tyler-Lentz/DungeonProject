@@ -53,6 +53,8 @@ Game::Game(VirtualWindow* vwin)
 {
     this->vwin = vwin;
     player = new Player(this, Coordinate(-1, -1), "Link");
+    player->getArmorMemory()->equipAction();
+    player->getBootsMemory()->unequipAction();
 
     overworldMusic = Mp3File("OverworldTheme");
 

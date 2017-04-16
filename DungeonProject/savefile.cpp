@@ -9,7 +9,8 @@
 #include "room.h"
 #include "item.h"
 #include "savefile.h"
-
+#include "equipment.h"
+#include "utilities.h"
 void xorFile()
 {
     
@@ -46,7 +47,9 @@ void saveGame(Player* player, Game* game)
         << player->getPlayersExpToLevel() << std::endl
         << static_cast<int>(player->getClass()) << std::endl
         << getPrimarySaveText(*player->getPrimaryMemory()) << std::endl
-        << getSecondarySaveText(*player->getSecondaryMemory()) << std::endl;
+        << getSecondarySaveText(*player->getSecondaryMemory()) << std::endl
+        << getInventoryItemText(*player->getArmorMemory()) << std::endl
+        << getInventoryItemText(*player->getBootsMemory()) << std::endl;
 
     for (auto& i : player->getInventoryNotConst())
     {
@@ -196,6 +199,26 @@ bool loadGame(Game* game)
     delete p->getSecondaryMemory();
     p->setSecondary(getSecondaryFromSaveString(s, game));
 
+    std::getline(file, s);
+    delete p->getPrimaryMemory();
+    p->setPrimary(getPrimaryFromSaveString(s, game));
+
+    std::getline(file, s);
+    delete p->getSecondaryMemory();
+    p->setSecondary(getSecondaryFromSaveString(s, game));
+
+    std::getline(file, s);
+    p->getArmorMemory()->unequipAction();
+    delete p->getArmorMemory();
+    p->setArmor(dynamic_cast<Equipment*>(getItemFromId(static_cast<dngutil::TID>(stoi(s)), game)));
+    p->getArmorMemory()->unequipAction();
+
+    std::getline(file, s);
+    p->getBootsMemory()->unequipAction();
+    delete p->getBootsMemory();
+    p->setBoots(dynamic_cast<Equipment*>(getItemFromId(static_cast<dngutil::TID>(stoi(s)), game)));
+    p->getBootsMemory()->equipAction();
+
     for (auto& i : p->getInventoryNotConst())
     {
         delete i;
@@ -304,6 +327,10 @@ Item* getItemFromId(dngutil::TID tid, Game* game)
     case dngutil::TID::Key: return new Key(game, Coordinate(-1, -1));
     case dngutil::TID::MagicalPotion: return new MagicalPotion(game, Coordinate(-1, -1));
     case dngutil::TID::Potion: return new Potion(game, Coordinate(-1, -1), dngutil::POTION_HEAL);
+    case dngutil::TID::Waterboots: return new Waterboots(game, Coordinate(-1, -1));
+    case dngutil::TID::Speedboots: return new Speedboots(game, Coordinate(-1, -1));
+    case dngutil::TID::BlueTunic: return new BlueTunic(game, Coordinate(-1, -1));
+    case dngutil::TID::StandardBoots: return new StandardBoots(game, Coordinate(-1, -1));
     }
     errorMessage("invalid tid passed to getItemFromId()", __LINE__, __FILE__);
 

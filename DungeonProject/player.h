@@ -6,7 +6,7 @@
 #include "utilities.h"
 #include "coordinate.h"
 #include "item.h"
-
+#include "equipment.h"
 #include <vector>
 
 class Game;
@@ -57,6 +57,8 @@ public:
 
     bool swapPrimary(Item*& itemToSwap);
     bool swapSecondary(Item*& itemToSwap);
+    bool swapArmor(Item*& itemToSwap);
+    bool swapBoots(Item*& itemToSwap);
 
     ColorString getStepString();
     void resetSteps();
@@ -78,6 +80,12 @@ public:
     void setDungeonStart();
     Coordinate getStartingDungeonMapCoord() const;
     Coordinate getStartingDungeonRoomCoord() const;
+
+    Equipment*& getBootsMemory();
+    Equipment*& getArmorMemory();
+
+    void setArmor(Equipment* equip);
+    void setBoots(Equipment* equip);
 private:
 
     Coordinate startingDungeonMapCoord;
@@ -101,6 +109,9 @@ private:
     int steps;
 
     std::string name;
+
+    Equipment* armor;
+    Equipment* boots;
 };
 
 #endif
