@@ -203,7 +203,7 @@ bool loadGame(Game* game)
     p->getArmorMemory()->unequipAction();
     delete p->getArmorMemory();
     p->setArmor(dynamic_cast<Equipment*>(getItemFromId(static_cast<dngutil::TID>(stoi(s)), game)));
-    p->getArmorMemory()->unequipAction();
+    p->getArmorMemory()->equipAction();
 
     std::getline(file, s);
     p->getBootsMemory()->unequipAction();
