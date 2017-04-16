@@ -20,7 +20,7 @@ Player::Player(
 )
     :Creature(
         pgame,
-        ColorChar('A', dngutil::YELLOW),
+        ColorChar('A', dngutil::noArmorPlayerColor),
         coord,
         name,
         true,

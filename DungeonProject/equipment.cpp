@@ -72,5 +72,5 @@ void BlueTunic::equipAction()
 
 void BlueTunic::unequipAction()
 {
-    getPGame()->getPlayer()->changeMapChar(ColorChar('A', dngutil::YELLOW));
+    getPGame()->getPlayer()->changeMapChar(ColorChar('A', dngutil::noArmorPlayerColor));
 }

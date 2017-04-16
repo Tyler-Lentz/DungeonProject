@@ -165,6 +165,8 @@ namespace dngutil
         P_WALL
     };
 
+    const char noArmorPlayerColor = dngutil::WHITE;
+
     const int CONSOLEX = 80;
     const int CONSOLEY = 45;
 
