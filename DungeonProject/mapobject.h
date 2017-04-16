@@ -112,7 +112,7 @@ public:
     WallObject(Game* game, Coordinate coord) :
         MapObject(
             game,
-            ColorChar('#', dngutil::BLACK),
+            ColorChar(178, dngutil::BLACK),
             coord,
             "WALL",
             false,
