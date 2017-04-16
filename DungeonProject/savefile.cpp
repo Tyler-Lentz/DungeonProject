@@ -200,14 +200,6 @@ bool loadGame(Game* game)
     p->setSecondary(getSecondaryFromSaveString(s, game));
 
     std::getline(file, s);
-    delete p->getPrimaryMemory();
-    p->setPrimary(getPrimaryFromSaveString(s, game));
-
-    std::getline(file, s);
-    delete p->getSecondaryMemory();
-    p->setSecondary(getSecondaryFromSaveString(s, game));
-
-    std::getline(file, s);
     p->getArmorMemory()->unequipAction();
     delete p->getArmorMemory();
     p->setArmor(dynamic_cast<Equipment*>(getItemFromId(static_cast<dngutil::TID>(stoi(s)), game)));

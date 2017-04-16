@@ -53,7 +53,7 @@ public:
         false,
         "A standard, blue tunic",
         EquipSlotId::BOOTS,
-        dngutil::TID::Waterboots
+        dngutil::TID::BlueTunic
     )
     {
 
@@ -78,7 +78,7 @@ public:
         false,
         "Regular old boots",
         EquipSlotId::BOOTS,
-        dngutil::TID::Waterboots
+        dngutil::TID::StandardBoots
     )
     {
 
