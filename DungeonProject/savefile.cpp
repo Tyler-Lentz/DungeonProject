@@ -22,6 +22,9 @@ void saveGame(Player* player, Game* game)
 
     Coordinate mapCoord(game->getActiveRoom()->getRoomInfo().mapCoord);
 
+    player->getArmorMemory()->unequipAction();
+    player->getBootsMemory()->unequipAction();
+
     file << player->getName() << std::endl
         << game->getRawFloor() << std::endl
         << player->getStartingDungeonRoomCoord().x << std::endl
@@ -57,6 +60,9 @@ void saveGame(Player* player, Game* game)
     }
 
     file << "DONE";
+
+    player->getArmorMemory()->equipAction();
+    player->getBootsMemory()->equipAction();
 
     file.close();
     // obfusicate
