@@ -85,7 +85,8 @@ namespace dngutil
         EvilBeastPhase4,
         GhostHorse,
         Tree,
-        DungeonCheck
+        DungeonCheck,
+        Waterboots
     };
 
     enum class BTID

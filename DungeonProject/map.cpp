@@ -496,7 +496,7 @@ void Map::makeForestTemple(std::mutex& mut)
         std::vector<std::string> roomTemplate;
         roomTemplate.push_back("############-###########");
         roomTemplate.push_back("##                    ##");
-        roomTemplate.push_back("##   #  #  # #  #  #  ##");
+        roomTemplate.push_back("##   # o#  # #  #  #  ##");
         roomTemplate.push_back("##                    ##");
         roomTemplate.push_back("##   #  #  # #  #  #  ##");
         roomTemplate.push_back("##                    ##");
@@ -509,6 +509,7 @@ void Map::makeForestTemple(std::mutex& mut)
         roomTemplate.push_back("########################");
 
         std::map<Coordinate, MapObject*> specificObjects;
+        specificObjects.emplace(Coordinate(7, 2), new Potion(pgame, Coordinate(7, 2), dngutil::POTION_HEAL));
 
         std::vector<dngutil::TID> possibleCreatures;
         possibleCreatures.push_back(dngutil::TID::Bowman);
@@ -573,6 +574,35 @@ void Map::makeForestTemple(std::mutex& mut)
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
         mut.lock();
         gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction), Mp3File("DungeonTheme")));
+        mut.unlock();
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("##        ####        ##");
+        roomTemplate.push_back("##        ####        ##");
+        roomTemplate.push_back("          ####          ");
+        roomTemplate.push_back("##        ####        ##");
+        roomTemplate.push_back("##        ####        ##");
+        roomTemplate.push_back("##        ####        ##");
+        roomTemplate.push_back("##        ####        ##");
+        roomTemplate.push_back("##        ####        ##");
+        roomTemplate.push_back("##        wwww        ##");
+        roomTemplate.push_back("##        wwww        ##");
+        roomTemplate.push_back("##        wwww        ##");
+        roomTemplate.push_back("########################");
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Bowman);
+
+        int difficulty = -1;
+        int backColor = dngutil::BROWN;
+        std::string name = "The Forest Temple";
+        Coordinate mapCoord(2, 2);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("DungeonTheme")));
         mut.unlock();
     }
     {
@@ -680,7 +710,6 @@ void Map::makeForestTemple(std::mutex& mut)
         gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("DungeonTheme")));
         mut.unlock();
     }
-    
     {
         std::vector<std::string> roomTemplate;
         roomTemplate.push_back("########################");
