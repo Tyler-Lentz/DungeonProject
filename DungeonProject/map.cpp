@@ -599,7 +599,7 @@ void Map::makeForestTemple(std::mutex& mut)
         int difficulty = -1;
         int backColor = dngutil::BROWN;
         std::string name = "The Forest Temple";
-        Coordinate mapCoord(2, 2);
+        Coordinate mapCoord(1, 2);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
         mut.lock();
         gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("DungeonTheme")));
