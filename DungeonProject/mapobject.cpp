@@ -295,7 +295,7 @@ Collision HoleObject::mapAction(MapObject* collider, std::list<MapObject*>::iter
 
 //---------------------------------------------------------------
 // Outside Object Functions
-Water::Water(Game* game, Coordinate coord) :
+Water::Water(Game* game, Coordinate coord, bool deep) :
     MapObject(
         game,
         ColorChar(' ', getColor(dngutil::BLUE, dngutil::BLUE)),
@@ -308,7 +308,25 @@ Water::Water(Game* game, Coordinate coord) :
         dngutil::P_EMPTY,
         dngutil::BTID::None,
         true
-    ) {}
+    ) 
+{
+    this->deep = deep;
+}
+
+Collision Water::mapAction(MapObject* collider, std::list<MapObject*>::iterator& it)
+{
+    Player* p = getPGame()->getPlayer();
+    // dont use the it passed through in this function
+    if (collider == p)
+    {
+        if (p->getBootsMemory()->getTypeId() == dngutil::TID::Waterboots && !deep)
+        {
+            return Collision(true, false, true);
+        }
+    }
+    return Collision(false, true, false);
+}
+
 //---------------------------------------------------------------
 
 //---------------------------------------------------------------

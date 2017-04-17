@@ -168,7 +168,10 @@ public:
 class Water : public MapObject
 {
 public:
-    Water(Game* game, Coordinate coord);
+    Water(Game* game, Coordinate coord, bool deep);
+    Collision mapAction(MapObject* collider, std::list<MapObject*>::iterator& it) override;
+private:
+    bool deep;
 };
 
 class TreeObject : public MapObject
