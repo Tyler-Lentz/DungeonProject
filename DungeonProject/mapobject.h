@@ -125,6 +125,7 @@ public:
         ) {}
 };
 
+
 class ExitObject : public MapObject
 {
 public:
@@ -203,6 +204,18 @@ public:
     AltarObject(Game* game, Coordinate coord);
     Collision mapAction(MapObject* collider, std::list<MapObject*>::iterator& it) override;
 };
+
+class HouseDoorObject : public MapObject
+{
+public:
+    HouseDoorObject(Game* game, Coordinate coord, Coordinate newMapCoord, Coordinate newRoomCoord);
+    Collision mapAction(MapObject* collider, std::list<MapObject*>::iterator& it) override;
+
+private:
+    Coordinate newMapCoord;
+    Coordinate newRoomCoord;
+};
+
 
 class HarpPiece : public MapObject
 {

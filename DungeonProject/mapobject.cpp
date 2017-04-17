@@ -620,6 +620,40 @@ Collision HarpPiece::mapAction(MapObject* collider, std::list<MapObject*>::itera
 //---------------------------------------------------------------
 
 //---------------------------------------------------------------
+// house door functions
+
+HouseDoorObject::HouseDoorObject(Game* game, Coordinate coord, Coordinate mapc, Coordinate roomc)
+    :MapObject(
+        game,
+        ColorChar(' ', getColor(dngutil::YELLOW, dngutil::YELLOW)),
+        coord,
+        "HOUSEDOOR",
+        true,
+        true,
+        false,
+        dngutil::TID::HarpPiece,
+        dngutil::P_ITEM,
+        dngutil::BTID::None,
+        false
+    )
+{
+    newRoomCoord = roomc;
+    newMapCoord = mapc;
+}
+
+Collision HouseDoorObject::mapAction(MapObject* collider, std::list<MapObject*>::iterator& it)
+{
+    if (collider == getPGame()->getPlayer())
+    {
+        VirtualWindow* t = getPGame()->getVWin();
+        TextMacros& txt = t->txtmacs;
+
+    }
+    return Collision(false, true);
+}
+//---------------------------------------------------------------
+
+//---------------------------------------------------------------
 // Segboss trigger
 SegbossTrigger::SegbossTrigger(Game* game, Coordinate coord, Segboss* segboss, ColorChar colchar)
     :MapObject(

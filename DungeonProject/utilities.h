@@ -91,7 +91,8 @@ namespace dngutil
         BlueTunic,
         StandardBoots,
         ForestDragonPhase2,
-        HarpPiece
+        HarpPiece,
+        Floor
     };
 
     enum class BTID

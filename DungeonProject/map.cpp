@@ -226,6 +226,38 @@ void Map::makeOverworld(std::mutex& mut)
         mut.unlock();
     }
     
+    // Lullin Village
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("wwwwww   wwwwwwwwwwwwwww");
+        roomTemplate.push_back("wwwwww   wwwwwwwwwwwwwww");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("   #######      ####### ");
+        roomTemplate.push_back("   #######      ####### ");
+        roomTemplate.push_back("   #######      ####### ");
+        roomTemplate.push_back("   #######      ####### ");
+        roomTemplate.push_back("   ### ###      ### ### ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("#################      #");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+
+        int difficulty = 0;
+        int backColor = dngutil::GREEN;
+        std::string name = "Lullin Village";
+        Coordinate mapCoord(0, -2);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("VillageTheme")));
+        mut.unlock();
+
+    }
 
     // Korloma Forest
     {
