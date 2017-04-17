@@ -66,10 +66,103 @@ void Map::makeOverworld(std::mutex& mut)
         Coordinate mapCoord(0, 0);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
 
+        mut.lock();
         gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("OverworldTheme")));
+        mut.unlock();
+
+        pgame->setActiveRoom(gamespace[tfloor][mapCoord]); // sets starting active room
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("#################      #");
+        roomTemplate.push_back("  ###############      #");
+        roomTemplate.push_back("    #############      #");
+        roomTemplate.push_back("           ######      #");
+        roomTemplate.push_back("  0           ###      #");
+        roomTemplate.push_back("                       #");
+        roomTemplate.push_back("                       #");
+        roomTemplate.push_back("  e                    #");
+        roomTemplate.push_back("             ####      #");
+        roomTemplate.push_back("            #####      #");
+        roomTemplate.push_back("   0      #######      #");
+        roomTemplate.push_back("        #########      #");
+        roomTemplate.push_back("#################      #");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Bowman);
+
+        int difficulty = 0;
+        int backColor = dngutil::GREEN;
+        std::string name = "";
+        Coordinate mapCoord(0, -1);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
 
         mut.lock();
-        pgame->setActiveRoom(gamespace[tfloor][mapCoord]); // sets starting active room
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("OverworldTheme")));
+        mut.unlock();
+
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("####           ####  ###");
+        roomTemplate.push_back("               ####     ");
+        roomTemplate.push_back("  #####    e   ####     ");
+        roomTemplate.push_back("  #####                 ");
+        roomTemplate.push_back("  #####                 ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("             ####       ");
+        roomTemplate.push_back("             ####       ");
+        roomTemplate.push_back("  ##### e    ####       ");
+        roomTemplate.push_back("  #####                 ");
+        roomTemplate.push_back("  #####           ####  ");
+        roomTemplate.push_back("                  ####  ");
+        roomTemplate.push_back("##   ###################");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Bowman);
+
+        int difficulty = 0;
+        int backColor = dngutil::GREEN;
+        std::string name = "";
+        Coordinate mapCoord(-1, -1);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("OverworldTheme")));
+        mut.unlock();
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("##   ###################");
+        roomTemplate.push_back("#       e              #");
+        roomTemplate.push_back("#            #  #      #");
+        roomTemplate.push_back("#            #  #      #");
+        roomTemplate.push_back("#            #  #      #");
+        roomTemplate.push_back("#                      #");
+        roomTemplate.push_back("             e          ");
+        roomTemplate.push_back("             ####       ");
+        roomTemplate.push_back("#    #####     ###     #");
+        roomTemplate.push_back("#    #####       #######");
+        roomTemplate.push_back("                 #######");
+        roomTemplate.push_back("   e            ########");
+        roomTemplate.push_back("###########   ##########");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Skeleton);
+
+        int difficulty = 0;
+        int backColor = dngutil::GREEN;
+        std::string name = "";
+        Coordinate mapCoord(-1, 0);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("OverworldTheme")));
         mut.unlock();
     }
     {
