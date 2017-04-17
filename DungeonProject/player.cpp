@@ -376,11 +376,11 @@ void Player::printStats(int startingXCoord, int startingCursorY)
     vcursor.y++; vcursor.x = 0;
 
     getPGame()->getVWin()->putcen(ColorString(
-        " Primary: " + getPrimary().getName() +
-        " Secondary: " + getSecondary().getName() +
-        " Armor: " + getArmorMemory()->getName() +
-        " Boots: " + getBootsMemory()->getName() +
-        " ", dngutil::WHITE), vcursor.y);
+        getPrimary().getName() +
+        " - " + getSecondary().getName() +
+        " - " + getArmorMemory()->getName() +
+        " - " + getBootsMemory()->getName()
+        , dngutil::WHITE), vcursor.y);
 }
 
 ColorString Player::getExperienceBar()

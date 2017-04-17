@@ -445,6 +445,7 @@ void Map::makeForestTemple(std::mutex& mut)
         };
 
         std::map<Coordinate, MapObject*> specificObjects;
+        specificObjects.emplace(Coordinate(1, 1), new Waterboots(pgame, Coordinate(1, 1)));
 
         std::vector<dngutil::TID> possibleCreatures;
         possibleCreatures.push_back(dngutil::TID::Bowman);
