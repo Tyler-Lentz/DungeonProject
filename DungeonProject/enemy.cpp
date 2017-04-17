@@ -531,7 +531,7 @@ SkeletonKing::SkeletonKing(
     unsigned int lvl
 ) : BEnemy(
     pgame,
-    ColorChar('T', dngutil::DARKGRAY),
+    ColorChar('T', dngutil::BLACK),
     coord,
     "Skeleton King",
     false,
