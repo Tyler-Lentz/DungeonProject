@@ -36,7 +36,7 @@ Map::Map(Game* game)
 
 void Map::makeOverworld(std::mutex& mut)
 {
-    unsigned int tfloor = 2;
+    unsigned int tfloor = 2; // if overworld floor changes need to change dungeon checks assuming overworld is floor 2 also
     pgame->setActiveFloor(tfloor); // sets starting floor
 
     // Connecting areas
@@ -644,7 +644,7 @@ void Map::makeForestTemple(std::mutex& mut)
         std::vector<dngutil::TID> possibleCreatures;
         possibleCreatures.push_back(dngutil::TID::Bowman);
 
-        int difficulty = -1;
+        int difficulty = -2;
         int backColor = dngutil::BROWN;
         std::string name = "The Forest Temple";
         Coordinate mapCoord(2, 1);
@@ -656,7 +656,7 @@ void Map::makeForestTemple(std::mutex& mut)
     {
         std::vector<std::string> roomTemplate;
         roomTemplate.push_back("########################");
-        roomTemplate.push_back("##        ####        ##");
+        roomTemplate.push_back("##o       ####        ##");
         roomTemplate.push_back("##        ####        ##");
         roomTemplate.push_back("          ####          ");
         roomTemplate.push_back("##        ####        ##");
@@ -669,6 +669,7 @@ void Map::makeForestTemple(std::mutex& mut)
         roomTemplate.push_back("##        wwww        ##");
         roomTemplate.push_back("########################");
         std::map<Coordinate, MapObject*> specificObjects;
+        specificObjects.emplace(Coordinate(2, 1), new MagicalPotion(pgame, Coordinate(2, 1)));
 
         std::vector<dngutil::TID> possibleCreatures;
         possibleCreatures.push_back(dngutil::TID::Bowman);
@@ -687,7 +688,7 @@ void Map::makeForestTemple(std::mutex& mut)
         roomTemplate.push_back("########################");
         roomTemplate.push_back("##                    ##");
         roomTemplate.push_back("##                    ##");
-        roomTemplate.push_back("##    e                 ");
+        roomTemplate.push_back("##    o                 ");
         roomTemplate.push_back("##                    ##");
         roomTemplate.push_back("##                    ##");
         roomTemplate.push_back("########################");
@@ -700,33 +701,39 @@ void Map::makeForestTemple(std::mutex& mut)
 
         auto puzzleSolved = [](const std::list<Creature*>& creatureList, const GAMEMAP& gameMap) -> bool
         {
-            for (auto it = creatureList.begin(); it != creatureList.end(); it++)
+            if (gameMap[3][6].size() == 1)
             {
-                if ((*it)->getTypeId() != dngutil::TID::Player)
-                {
-                    return false;
-                }
+                return true;
             }
-            return true;
+            return false;
         };
 
         auto puzzleAction = [this](std::list<Creature*> creatureList, GAMEMAP& gameMap) -> void
         {
-            //gameMap[3][3].push_back
+            gameMap[3][3].push_back(new HarpPiece(pgame, Coordinate(3, 3), 1));
         };
 
+        std::vector<SegEnemy*> bossparts;
+        bossparts.push_back(dynamic_cast<SegEnemy*>(pgame->generateCreature(1, dngutil::TID::ForestDragonPhase1)));
+        bossparts[0]->setFirst();
+        bossparts.push_back(dynamic_cast<SegEnemy*>(pgame->generateCreature(1, dngutil::TID::ForestDragonPhase2)));
+
         std::map<Coordinate, MapObject*> specificObjects;
+        specificObjects.emplace(Coordinate(6, 3), new SegbossTrigger(
+            pgame, Coordinate(6, 3),
+            new Segboss(bossparts, pgame),
+            ColorChar('S', dngutil::GREEN)
+        ));
 
         std::vector<dngutil::TID> possibleCreatures;
-        possibleCreatures.push_back(dngutil::TID::ForestDragon);
 
-        int difficulty = -1;
+        int difficulty = -4;
         int backColor = dngutil::BLACK;
         std::string name = "The Forest Temple - Boss's Lair";
         Coordinate mapCoord(0, 2);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
         mut.lock();
-        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("DungeonTheme")));
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction), Mp3File("BossRoomTheme")));
         mut.unlock();
     }
     {

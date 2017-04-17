@@ -509,8 +509,6 @@ Collision AltarObject::mapAction(MapObject* collider, std::list<MapObject*>::ite
         }
 
         stopSound(SoundType::MP3);
-        
-        getPGame()->getPlayer()->resetSteps();
 
         vcursor.y = t.BOTTOM_DIVIDER_TEXT_LINE;
         saveGame(getPGame()->getPlayer(), getPGame());
@@ -521,6 +519,99 @@ Collision AltarObject::mapAction(MapObject* collider, std::list<MapObject*>::ite
         t.displayGame(getPGame());
 
         getPGame()->getOverworldMusic().play();
+
+    }
+    return Collision(false, true);
+}
+
+//---------------------------------------------------------------
+
+//---------------------------------------------------------------
+// harp piece functions
+
+HarpPiece::HarpPiece(Game* game, Coordinate coord, int pieceNumber)
+    :MapObject(
+        game,
+        ColorChar('O', dngutil::YELLOW),
+        coord,
+        "HARPPIECE",
+        true,
+        false,
+        false,
+        dngutil::TID::HarpPiece,
+        dngutil::P_ITEM,
+        dngutil::BTID::None,
+        false
+    )
+{
+    this->pieceNumber = pieceNumber;
+}
+
+Collision HarpPiece::mapAction(MapObject* collider, std::list<MapObject*>::iterator& it)
+{
+    if (collider == getPGame()->getPlayer())
+    {
+        stopSound(SoundType::MP3);
+        VirtualWindow* t = getPGame()->getVWin();
+        TextMacros& txt = t->txtmacs;
+
+        txt.clearMapArea(true, 10);
+        txt.clearDivider("bottom");
+        int background = dngutil::DARKGRAY;
+        int cross = dngutil::WHITE;
+
+        Coordinate vcursor(15, txt.DIVIDER_LINES[1] + 4);
+        
+        if (pieceNumber == 1)
+        {
+            t->putcen(ColorString(R"(         ____                   )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+            t->putcen(ColorString(R"(         SSSS____.              )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+            t->putcen(ColorString(R"(         (WW);;;;;\             )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+            t->putcen(ColorString(R"(         `WW'____ |     ,_____  )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+            t->putcen(ColorString(R"(          UU ||||\ \___/,---. ) )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+        }
+        else if (pieceNumber == 2)
+        {
+            t->putcen(ColorString(R"(          UU |||||\____/||| //  )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+            t->putcen(ColorString(R"(          UU ||||||||||||" //   )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+            t->putcen(ColorString(R"(          UU |||||||||||' //    )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+            t->putcen(ColorString(R"(          UU |||||||||"  //     )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+        }
+        else if (pieceNumber == 3)
+        {
+            t->putcen(ColorString(R"(          UU ||||||||'  //      )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+            t->putcen(ColorString(R"(          UU |||||||"  //       )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+            t->putcen(ColorString(R"(          UU ||||||'  //        )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+            t->putcen(ColorString(R"(          UU ||||"   //         )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+            t->putcen(ColorString(R"(          UU |||"   //          )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+        }
+        else if (pieceNumber == 4)
+        {
+            t->putcen(ColorString(R"(          UU ||'   //           )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+            t->putcen(ColorString(R"(          UU |"   //            )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+            t->putcen(ColorString(R"(         ,UU,'   ||             )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+            t->putcen(ColorString(R"(       (~~~~~~~~~~~~]""'        )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+            t->putcen(ColorString(R"(~~~~~~~~~~~~~~~~~~~~~~~~~~~     )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+        }
+
+        playSound(WavFile("GetHarpPiece", false, false));
+
+        stopSound(SoundType::MP3);
+
+        getPGame()->getPlayer()->setHarp(pieceNumber, true);
+
+        vcursor.y = txt.BOTTOM_DIVIDER_TEXT_LINE;
+        t->putcen(ColorString("You found a piece of the harp!", dngutil::WHITE), vcursor.y++);
+        pressEnter(vcursor, t);
+
+        t->clearScreen();
+        playSound(WavFile("WarpToDungeonStart", false, false));
+
+        getPGame()->getPlayer()->gotoDungeonStart();
+        txt.displayGame(getPGame());
+
+        getPGame()->getOverworldMusic().play();
+        return Collision(true, true, true);
 
     }
     return Collision(false, true);
@@ -560,7 +651,14 @@ Collision SegbossTrigger::mapAction(MapObject* collider, std::list<MapObject*>::
         stopSound(SoundType::MP3);
         playSound(WavFile("EnterBattle", false, true));
         getPGame()->getVWin()->txtmacs.clearMapArea(true, 35);
-        segboss->segmentedBattle(getPGame()->getPlayer());
+        if (segboss->segmentedBattle(getPGame()->getPlayer()))
+        {
+            getPGame()->getVWin()->txtmacs.displayOverworldInfo(getPGame());
+            it++;
+            getPGame()->getActiveRoom()->getObjects(getCoord()).remove(this);
+            removeFromMap(true);
+            return Collision(false, false);
+        }
         return Collision(true, true, true);
     }
     return Collision(false, true);

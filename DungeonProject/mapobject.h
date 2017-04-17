@@ -204,6 +204,16 @@ public:
     Collision mapAction(MapObject* collider, std::list<MapObject*>::iterator& it) override;
 };
 
+class HarpPiece : public MapObject
+{
+public:
+    HarpPiece(Game* game, Coordinate coord, int pieceNumber);
+    Collision mapAction(MapObject* collider, std::list<MapObject*>::iterator& it) override;
+
+private:
+    int pieceNumber;
+};
+
 class Segboss;
 class SegbossTrigger : public MapObject
 {

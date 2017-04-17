@@ -90,7 +90,8 @@ namespace dngutil
         Speedboots,
         BlueTunic,
         StandardBoots,
-        ForestDragonPhase2
+        ForestDragonPhase2,
+        HarpPiece
     };
 
     enum class BTID

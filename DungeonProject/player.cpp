@@ -98,10 +98,11 @@ void Player::setBoots(Equipment* equip)
 
 void Player::gotoDungeonStart()
 {
-    getPGame()->setActiveRoom(startingDungeonRoomCoord);
-    setPosition(startingDungeonMapCoord);
+    getPGame()->setActiveRoom(startingDungeonMapCoord, 2);
+    setPosition(startingDungeonRoomCoord);
     startingDungeonMapCoord = Coordinate(0, 0);
     startingDungeonRoomCoord = Coordinate(0, 0);
+    getPGame()->setOverworldMusic(getPGame()->getActiveRoom()->getMusic());
 }
 
 void Player::setDungeonStart(Coordinate room, Coordinate map)

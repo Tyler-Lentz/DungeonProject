@@ -1630,16 +1630,16 @@ ForestDragonPhase1::ForestDragonPhase1(
     lvl,
     new Primary(
         pgame,
-        ColorChar('o', dngutil::LIGHTRED),
+        ColorChar('*', dngutil::LIGHTGREEN),
         coord,
-        "Fireball",
+        "Leaf Storm",
         false,
-        1.895,
-        4,
+        1.3,
+        3,
         80,
         false,
         "You cant get this so this doesnt matter",
-        WavFile("FireAttack1", false, false),
+        WavFile("BowAttack1", false, false),
         dngutil::ClassType::KNIGHT
     ),
     new Secondary(
@@ -1720,7 +1720,7 @@ ForestDragonPhase2::ForestDragonPhase2(
     pgame,
     ColorChar('S', dngutil::RED),
     coord,
-    "Enraged Forest Dragon",
+    "Forest Dragon",
     false,
     dngutil::TID::ForestDragonPhase2,
     hp,
@@ -1731,16 +1731,16 @@ ForestDragonPhase2::ForestDragonPhase2(
     lvl,
     new Primary(
         pgame,
-        ColorChar('*', dngutil::LIGHTGREEN),
+        ColorChar('o', dngutil::LIGHTRED),
         coord,
-        "Leaf Storm",
+        "Fireball",
         false,
-        1.3,
-        3,
+        1.45,
+        4,
         80,
         false,
         "You cant get this so this doesnt matter",
-        WavFile("BowAttack1", false, false),
+        WavFile("FireAttack1", false, false),
         dngutil::ClassType::KNIGHT
     ),
     new Secondary(
@@ -1756,7 +1756,7 @@ ForestDragonPhase2::ForestDragonPhase2(
     ),
     Mp3File("DungeonBoss"),
     80,
-    WavFile("FinalDeath", false, false),
+    WavFile("FinalDeath", false, true),
     dngutil::EvType::DEFENSE,
     dngutil::ClassType::KNIGHT
 )
@@ -2372,7 +2372,6 @@ void SegEnemy::deathSequence()
 {
     getPGame()->getVWin()->txtmacs.clearMapArea(true, 10);
     getPGame()->getVWin()->txtmacs.clearDivider("bottom");
-    getPGame()->getVWin()->txtmacs.clearDivider("top");
     playSound(Mp3File("Win"));
     Sleep(5000);
     stopSound(SoundType::MP3);
@@ -2471,11 +2470,11 @@ bool SegEnemy::battle(MapObject* t_enemy)
 
                 if (enemy->isDead())
                 {
+                    getPGame()->getVWin()->txtmacs.clearDivider("bottom");
 
                     enemy->getDeathSound().play();
 
                     getPGame()->getVWin()->txtmacs.clearMapArea(false, NULL);
-                    getPGame()->getVWin()->txtmacs.clearDivider("bottom");
 
                     return true;
                 }
@@ -2916,8 +2915,10 @@ bool Segboss::segmentedBattle(Player* player)
     }
     stopSound(SoundType::MP3);
     // If you are here you won
+    Sleep(3500);
 
     segments.back()->deathSequence();
+    playSound(WavFile("ExitToMap", false, true));
     return true;
 }
 //----------------------------------------------------------------

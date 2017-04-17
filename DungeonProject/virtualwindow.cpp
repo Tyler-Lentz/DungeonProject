@@ -289,7 +289,7 @@ dngutil::ReturnVal TextMacros::deathScreen(Game* game)
     int startingLine = static_cast<int>(dngutil::CONSOLEY / 2.0) + 1;
     int textcolor = getColor(dngutil::WHITE, dngutil::RED);
     vwin->putcen(ColorString("Oh dear, you have died...", textcolor), startingLine++);
-    vwin->putcen(ColorString("Your score was: ", textcolor) + ColorString(std::to_string(game->getScore()), textcolor), startingLine++);
+    startingLine++;
     vwin->putcen(ColorString("Press enter to continue", textcolor), startingLine);
     while (!keyrelease(VK_RETURN));
 

@@ -135,9 +135,10 @@ void Game::setActiveRoom(Room* room)
     room->getCreatureList().push_back(player);
 }
 
-void Game::setActiveRoom(Coordinate roomCoord)
+void Game::setActiveRoom(Coordinate roomCoord, int floor)
 {
     activeRoom->getCreatureList().remove(player);
+    setActiveFloor(floor);
     activeRoom = getActiveFloor()[roomCoord];
     activeRoom->getCreatureList().push_back(player);
 }
@@ -259,8 +260,12 @@ Creature* Game::generateCreature(int difficulty, dngutil::TID tid)
         enemy = new GhostHorse(this, Coordinate(-1, -1), health, attack, defense, luck, speed, level);
         break;
 
-    case dngutil::TID::ForestDragon:
-        enemy = new ForestDragon(this, Coordinate(-1, -1), health, attack, defense, luck, speed, level);
+    case dngutil::TID::ForestDragonPhase1:
+        enemy = new ForestDragonPhase1(this, Coordinate(-1, -1), health, attack, defense, luck, speed, level);
+        break;
+
+    case dngutil::TID::ForestDragonPhase2:
+        enemy = new ForestDragonPhase2(this, Coordinate(-1, -1), health, attack, defense, luck, speed, level);
         break;
 
     case dngutil::TID::WaterHorse:
