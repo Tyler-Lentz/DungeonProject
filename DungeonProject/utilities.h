@@ -74,7 +74,7 @@ namespace dngutil
         MaskPhase1,
         MaskPhase2,
         MaskPhase3,
-        ForestDragon,
+        ForestDragonPhase1,
         WaterHorse,
         BloodJawPhase1,
         BloodJawPhase2,
@@ -89,7 +89,8 @@ namespace dngutil
         Waterboots,
         Speedboots,
         BlueTunic,
-        StandardBoots
+        StandardBoots,
+        ForestDragonPhase2
     };
 
     enum class BTID
@@ -175,9 +176,9 @@ namespace dngutil
     const int STARTING_PLAYER_HP = 50;
     const int STARTING_ENEMY_HP = 20;
 
-    const int MAX_HP = 200;
-    const unsigned int MAX_ATT = 75;
-    const unsigned int MAX_DEF = 60;
+    const int MAX_HP = 1000;
+    const unsigned int MAX_ATT = 255;
+    const unsigned int MAX_DEF = 200;
     const unsigned int MAX_LCK = 100;
     const unsigned int MAX_SPD = 220;
 

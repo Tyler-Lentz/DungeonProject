@@ -1187,12 +1187,6 @@ BloodjawPhase3::BloodjawPhase3(
     increaseDef(static_cast<int>(getDef() * 1.1));
 }
 
-void BloodjawPhase3::deathSequence()
-{
-    getPGame()->getPlayer()->setHarp(4, true);
-    getPGame()->getPlayer()->gotoDungeonStart();
-}
-
 void BloodjawPhase3::printSelf()
 {
     Coordinate vcursor(0, getPGame()->getVWin()->txtmacs.DIVIDER_LINES[1] + 1);
@@ -1570,8 +1564,7 @@ EvilBeastPhase4::EvilBeastPhase4(
 
 void EvilBeastPhase4::deathSequence()
 {
-    getPGame()->adjustScore(dngutil::BASE_SCORE_BOSS_BOOST * 4);
-    credits(dngutil::CreditType::SECRET_VICTORY, getPGame(), dngutil::DungeonType::UNDERWATER_DUNGEON);
+    //call credits
 }
 
 void EvilBeastPhase4::printSelf()
@@ -1613,7 +1606,7 @@ void EvilBeastPhase4::printSelf()
 //----------------------------------------------------------------
 // Pit Dragon Functions
 
-ForestDragon::ForestDragon(
+ForestDragonPhase1::ForestDragonPhase1(
     Game* pgame,
     Coordinate coord,
     int hp,
@@ -1622,13 +1615,13 @@ ForestDragon::ForestDragon(
     unsigned int lck,
     unsigned int spd,
     unsigned int lvl
-) : BEnemy(
+) : SegEnemy(
     pgame,
     ColorChar('S', dngutil::GREEN),
     coord,
     "Forest Dragon",
     false,
-    dngutil::TID::ForestDragon,
+    dngutil::TID::ForestDragonPhase1,
     hp,
     att,
     def,
@@ -1662,16 +1655,15 @@ ForestDragon::ForestDragon(
     ),
     Mp3File("DungeonBoss"),
     80,
-    WavFile("Screech", false, false),
+    WavFile("SegDeath", false, false),
     dngutil::EvType::DEFENSE,
     dngutil::ClassType::KNIGHT
 )
 {
-    setMaxhp(dngutil::MAX_HP);
-    setHp(getMaxhp());
+     
 }
 
-void ForestDragon::printSelf()
+void ForestDragonPhase1::printSelf()
 {
     Coordinate vcursor(0, getPGame()->getVWin()->txtmacs.DIVIDER_LINES[1] + 1);
     VirtualWindow* t = getPGame()->getVWin();
@@ -1709,16 +1701,105 @@ void ForestDragon::printSelf()
     printStats(LONGEST_LINE_LENGTH, TOP_CURSOR_Y);
 }
 
-ColorString ForestDragon::getBattleInfo() const
+ColorString ForestDragonPhase1::getBattleInfo() const
 {
-    return ColorString("The dragon of the forest appears", dngutil::WHITE);
+    return ColorString("A terrible, mean face looks down at you", dngutil::WHITE);
 }
 
 
-void ForestDragon::deathSequence()
+ForestDragonPhase2::ForestDragonPhase2(
+    Game* pgame,
+    Coordinate coord,
+    int hp,
+    unsigned int att,
+    unsigned int def,
+    unsigned int lck,
+    unsigned int spd,
+    unsigned int lvl
+) : SegEnemy(
+    pgame,
+    ColorChar('S', dngutil::RED),
+    coord,
+    "Enraged Forest Dragon",
+    false,
+    dngutil::TID::ForestDragonPhase2,
+    hp,
+    att,
+    def,
+    lck,
+    spd,
+    lvl,
+    new Primary(
+        pgame,
+        ColorChar('*', dngutil::LIGHTGREEN),
+        coord,
+        "Leaf Storm",
+        false,
+        1.3,
+        3,
+        80,
+        false,
+        "You cant get this so this doesnt matter",
+        WavFile("BowAttack1", false, false),
+        dngutil::ClassType::KNIGHT
+    ),
+    new Secondary(
+        pgame,
+        ColorChar('*', dngutil::LIGHTRED),
+        coord,
+        "Scale Armor",
+        false,
+        dngutil::TID::Secondary,
+        0,
+        1.2,
+        "You cant get this so this doesnt matter"
+    ),
+    Mp3File("DungeonBoss"),
+    80,
+    WavFile("FinalDeath", false, false),
+    dngutil::EvType::DEFENSE,
+    dngutil::ClassType::KNIGHT
+)
 {
-    getPGame()->getPlayer()->setHarp(1, true);
-    getPGame()->getPlayer()->gotoDungeonStart();
+    
+}
+
+void ForestDragonPhase2::printSelf()
+{
+    Coordinate vcursor(0, getPGame()->getVWin()->txtmacs.DIVIDER_LINES[1] + 1);
+    VirtualWindow* t = getPGame()->getVWin();
+    int color = dngutil::LIGHTRED;
+    t->put(ColorString(R"(             __                  __)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(            ( _)                ( _))", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(           / / \\              / /\_\_)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(          / /   \\            / / | \ \)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(         / /     \\          / /  |\ \ \)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(        /  /   ,  \ ,       / /   /|  \ \)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(       /  /    |\_ /|      / /   / \   \_\)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(      /  /  |\/ _ '_| \   / /   /   \    \\)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(     |  /   |/  0 \0\    / |    |    \    \\)", color), vcursor); vcursor.y++;
+    const int TOP_CURSOR_Y = vcursor.y;
+    t->put(ColorString(R"(     |    |\|      \_\_ /  /    |     \    \\)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(     |  | |/    \.\ o\o)  /      \     |    \\)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(     \    |     /\\`v-v  /        |    |     \\)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(      | \/    /_| \\_|  /         |    | \    \\)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(      | |    /__/_ `-` /   _____  |    |  \    \\)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(      \|    [__]  \_/  |_________  \   |   \    ())", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(       /    [___] (    \         \  |\ |   |   //)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(      |    [___]                  |\| \|   /  |/)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(     /|    [____]                  \  |/\ / / ||)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(    (  \   [____ /     ) _\      \  \    \| | ||)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(     \  \  [_____|    / /     __/    \   / / //)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(     |   \ [_____/   / /        \    |   \/ //)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(     |   /  '----|   /=\____   _/    |   / //)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(  __ /  /        |  /   ___/  _/\    \  | ||)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"( (/-(/-\)       /   \  (/\/\)/  |    /  | /)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(               (/\/\)           /   /   //)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                      _________/   /    /)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                     \____________/    ()", color), vcursor); vcursor.y++;
+    const int LONGEST_LINE_LENGTH = 59;
+
+    printStats(LONGEST_LINE_LENGTH, TOP_CURSOR_Y);
 }
 
 //----------------------------------------------------------------
@@ -1911,13 +1992,6 @@ void MegaBeastPhase2::printSelf()
 
     printStats(LONGEST_LINE_LENGTH, TOP_CURSOR_Y);
 }
-
-void MegaBeastPhase2::deathSequence()
-{
-    getPGame()->getPlayer()->setHarp(2, true);
-    getPGame()->getPlayer()->gotoDungeonStart();
-}
-
 //----------------------------------------------------------------
 
 
@@ -2296,8 +2370,13 @@ void Bowman::printSelf()
 
 void SegEnemy::deathSequence()
 {
-    int levelDif = getLvl() - getPGame()->getPlayer()->getLvl();
-    getPGame()->adjustScore(dngutil::BASE_SCORE_INCREASE_BATTLE + levelDif);
+    getPGame()->getVWin()->txtmacs.clearMapArea(true, 10);
+    getPGame()->getVWin()->txtmacs.clearDivider("bottom");
+    getPGame()->getVWin()->txtmacs.clearDivider("top");
+    playSound(Mp3File("Win"));
+    Sleep(5000);
+    stopSound(SoundType::MP3);
+    Enemy::deathSequence();
 }
 
 bool SegEnemy::battle(MapObject* t_enemy)
@@ -2786,12 +2865,6 @@ void DragonHead::printSelf()
     const int LONGEST_LINE_LENGTH = 65;
 
     printStats(LONGEST_LINE_LENGTH, TOP_CURSOR_Y);
-}
-
-void DragonHead::deathSequence()
-{
-    getPGame()->getPlayer()->setHarp(3, true);
-    getPGame()->getPlayer()->gotoDungeonStart();
 }
 
 //----------------------------------------------------------------

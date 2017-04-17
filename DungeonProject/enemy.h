@@ -325,24 +325,6 @@ public:
     ColorString getBattleInfo() const override;
 };
 
-class ForestDragon : public BEnemy
-{
-public:
-    ForestDragon(
-        Game* pgame,
-        Coordinate coord,
-        int hp,
-        unsigned int att,
-        unsigned int def,
-        unsigned int lck,
-        unsigned int spd,
-        unsigned int lvl
-    );
-    ColorString getBattleInfo() const;
-    void printSelf() override;
-    void deathSequence() override;
-};
-
 class SegEnemy : public BEnemy
 {
 public:
@@ -423,7 +405,6 @@ public:
     );
 
     void printSelf() override;
-    void deathSequence() override;
 };
 
 class DragonTail : public SegEnemy
@@ -476,7 +457,39 @@ public:
         unsigned int lvl
     );
     void printSelf() override;
-    void deathSequence() override;
+};
+
+class ForestDragonPhase1 : public SegEnemy
+{
+public:
+    ForestDragonPhase1(
+        Game* pgame,
+        Coordinate coord,
+        int hp,
+        unsigned int att,
+        unsigned int def,
+        unsigned int lck,
+        unsigned int spd,
+        unsigned int lvl
+    );
+    ColorString getBattleInfo() const;
+    void printSelf() override;
+};
+
+class ForestDragonPhase2 : public SegEnemy
+{
+public:
+    ForestDragonPhase2(
+        Game* pgame,
+        Coordinate coord,
+        int hp,
+        unsigned int att,
+        unsigned int def,
+        unsigned int lck,
+        unsigned int spd,
+        unsigned int lvl
+    );
+    void printSelf() override;
 };
 
 
@@ -532,8 +545,6 @@ public:
     );
 
     void printSelf() override;
-
-    void deathSequence() override;
 };
 
 class EvilBeastPhase1 : public SegEnemy
