@@ -650,7 +650,8 @@ bool Creature::adjustPosition(dngutil::Movement movement)
 
         if (getPGame()->getActiveFloor().count(newMapCoord) != 1)
         {
-            errorMessage("There is not a floor where you are trying to go.", __LINE__, __FILE__);
+            //errorMessage("There is not a floor where you are trying to go.", __LINE__, __FILE__);
+            return true; // tells it to back the fuck out
         }
 
         Coordinate* coordToTest = nullptr;

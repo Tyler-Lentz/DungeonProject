@@ -141,6 +141,7 @@ void Game::setActiveRoom(Coordinate roomCoord, int floor)
     setActiveFloor(floor);
     activeRoom = getActiveFloor()[roomCoord];
     activeRoom->getCreatureList().push_back(player);
+    activeRoom->setAll();
 }
 
 void Game::setActiveRoomFromLoadSave(Coordinate roomCoord)
@@ -520,7 +521,7 @@ void Game::backgroundStory()
     tm->clearLine(topOfText);
 
     t->putcen(ColorString("Legends say it could grant what the user wanted the most by playing it", dngutil::WHITE), topOfText, true);
-    Sleep(onelineTime * 1.5);
+    Sleep(static_cast<DWORD>(onelineTime * 1.5));
     tm->clearLine(topOfText);
 
     t->clearScreen();
@@ -649,7 +650,7 @@ void Game::backgroundStory()
 
     t->putcen(ColorString("Oh, " + player->getName() + ", descendant of the brave hero,", color), topOfText, true);
     t->putcen(ColorString("can you unite the Harp and destroy Zorlock for good before it's too late?", color), topOfText + 1, true);
-    Sleep(onelineTime * 2.2);
+    Sleep(static_cast<DWORD>(onelineTime * 2.2));
     tm->clearLine(topOfText);
     tm->clearLine(topOfText + 1);
 

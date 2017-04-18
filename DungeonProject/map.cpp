@@ -28,6 +28,7 @@ Map::Map(Game* game)
     std::vector<std::thread> functions;
     functions.emplace_back([&]() {makeOverworld(mut); });
     functions.emplace_back([&]() {makeForestTemple(mut); });
+    functions.emplace_back([&]() {makeHouses(mut); });
     for (auto& i : functions)
     {
         i.join();
@@ -238,12 +239,15 @@ void Map::makeOverworld(std::mutex& mut)
         roomTemplate.push_back("   #######      ####### ");
         roomTemplate.push_back("   #######      ####### ");
         roomTemplate.push_back("   #######      ####### ");
-        roomTemplate.push_back("   ### ###      ### ### ");
+        roomTemplate.push_back("   ###o###      ### ### ");
         roomTemplate.push_back("                        ");
         roomTemplate.push_back("                        ");
         roomTemplate.push_back("#################      #");
 
         std::map<Coordinate, MapObject*> specificObjects;
+        // ID: 0XAA
+        specificObjects.emplace(Coordinate(6, 9), new HouseDoorObject(pgame, Coordinate(6, 9), Coordinate(-100, -100), Coordinate(3, 4), dngutil::HOUSE_FLOOR));
+
 
         std::vector<dngutil::TID> possibleCreatures;
 
@@ -531,6 +535,34 @@ mut.unlock();
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
         mut.lock();
         gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("CaveTheme")));
+        mut.unlock();
+    }
+}
+
+void Map::makeHouses(std::mutex& mut)
+{
+    unsigned int tfloor = dngutil::HOUSE_FLOOR;
+    {
+        // ID: 0XAA
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("#######");
+        roomTemplate.push_back("#     #");
+        roomTemplate.push_back("#     #");
+        roomTemplate.push_back("#     #");
+        roomTemplate.push_back("###o###");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+        specificObjects.emplace(Coordinate(3, 4), new HouseDoorObject(pgame, Coordinate(3, 4), Coordinate(0, -2), Coordinate(6, 9), 2));
+
+        std::vector<dngutil::TID> possibleCreatures;
+
+        int difficulty = 0;
+        int backColor = dngutil::BROWN;
+        std::string name = "House";
+        Coordinate mapCoord(-100, -100);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("VillageTheme")));
         mut.unlock();
     }
 }

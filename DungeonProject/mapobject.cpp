@@ -622,7 +622,7 @@ Collision HarpPiece::mapAction(MapObject* collider, std::list<MapObject*>::itera
 //---------------------------------------------------------------
 // house door functions
 
-HouseDoorObject::HouseDoorObject(Game* game, Coordinate coord, Coordinate mapc, Coordinate roomc)
+HouseDoorObject::HouseDoorObject(Game* game, Coordinate coord, Coordinate mapc, Coordinate roomc, int floor)
     :MapObject(
         game,
         ColorChar(' ', getColor(dngutil::YELLOW, dngutil::YELLOW)),
@@ -632,13 +632,14 @@ HouseDoorObject::HouseDoorObject(Game* game, Coordinate coord, Coordinate mapc, 
         true,
         false,
         dngutil::TID::HarpPiece,
-        dngutil::P_ITEM,
+        dngutil::P_WALL,
         dngutil::BTID::None,
         false
     )
 {
     newRoomCoord = roomc;
     newMapCoord = mapc;
+    this->floor = floor;
 }
 
 Collision HouseDoorObject::mapAction(MapObject* collider, std::list<MapObject*>::iterator& it)
@@ -648,6 +649,14 @@ Collision HouseDoorObject::mapAction(MapObject* collider, std::list<MapObject*>:
         VirtualWindow* t = getPGame()->getVWin();
         TextMacros& txt = t->txtmacs;
 
+        getPGame()->getActiveRoom()->setAll();
+        getPGame()->getActiveRoom()->drawRoom();
+        getPGame()->getActiveRoom()->getObjects(getPGame()->getPlayer()->getCoord()).remove(getPGame()->getPlayer());
+
+        getPGame()->setActiveRoom(newMapCoord, floor);
+        getPGame()->getPlayer()->setPosition(newRoomCoord);
+        playSound(WavFile("UnlockDoor", false, false));
+        return Collision(true, true, true);
     }
     return Collision(false, true);
 }

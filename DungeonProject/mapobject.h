@@ -208,12 +208,13 @@ public:
 class HouseDoorObject : public MapObject
 {
 public:
-    HouseDoorObject(Game* game, Coordinate coord, Coordinate newMapCoord, Coordinate newRoomCoord);
+    HouseDoorObject(Game* game, Coordinate coord, Coordinate newMapCoord, Coordinate newRoomCoord, int floor);
     Collision mapAction(MapObject* collider, std::list<MapObject*>::iterator& it) override;
 
 private:
     Coordinate newMapCoord;
     Coordinate newRoomCoord;
+    int floor;
 };
 
 
