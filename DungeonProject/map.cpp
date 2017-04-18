@@ -578,9 +578,6 @@ void Map::makeHouses(std::mutex& mut)
 
         std::map<Coordinate, MapObject*> specificObjects;
         specificObjects.emplace(Coordinate(3, 4), new HouseDoorObject(pgame, Coordinate(3, 4), Coordinate(0, -2), Coordinate(19, 9), 2));
-
-        std::vector<ColorString> possibleDialogue;
-        possibleDialogue.push_back(ColorString("Strange purple men in armor have begun gathering around the Tower of the Gods", dngutil::WHITE));
         specificObjects.emplace(
             Coordinate(1, 1),
             new Npc(
@@ -588,7 +585,7 @@ void Map::makeHouses(std::mutex& mut)
                 ColorChar('A', dngutil::WHITE),
                 Coordinate(1, 1),
                 "Thomas Westenhoffer",
-                possibleDialogue
+                ColorString("Strange purple men in armor have begun gathering around the Tower of the Gods", dngutil::WHITE)
             ));
 
         std::vector<dngutil::TID> possibleCreatures;
