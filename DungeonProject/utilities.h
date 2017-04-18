@@ -193,6 +193,8 @@ namespace dngutil
 
     const int MENU_DELAY = 100;
 
+    const int TEXT_HIGHLIGHT_COLOR = YELLOW;
+
     const int BASE_SCORE_INCREASE_BATTLE = 10;
     const int BASE_SCORE_INCREASE_LEVEL = 5;
     const int BASE_SCORE_VICTORY = 250;

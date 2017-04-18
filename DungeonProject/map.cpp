@@ -264,6 +264,63 @@ void Map::makeOverworld(std::mutex& mut)
         mut.unlock();
 
     }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########                ");
+        roomTemplate.push_back("######wwwwwwwwwwwwwwwwww");
+        roomTemplate.push_back("#####wwwwwwwwwwwwwwwwwww");
+        roomTemplate.push_back("####                    ");
+        roomTemplate.push_back("                  E     ");
+        roomTemplate.push_back("   www          www     ");
+        roomTemplate.push_back("  ww#wwE  w w  ww#ww    ");
+        roomTemplate.push_back("  w###w    +   w###w    ");
+        roomTemplate.push_back("  ww#ww   w w  ww#ww    ");
+        roomTemplate.push_back("   www          www     ");
+        roomTemplate.push_back("                 E      ");
+        roomTemplate.push_back("                        "); 
+        roomTemplate.push_back("####           ####  ###");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+        specificObjects.emplace(Coordinate(7, 6), new Npc(
+            pgame,
+            ColorChar('A', dngutil::WHITE),
+            Coordinate(7, 6),
+            "John Baker",
+            ColorString("This is really wonderful weather we are having!", dngutil::WHITE)
+        ));
+
+        specificObjects.emplace(Coordinate(17, 10), new Npc(
+            pgame,
+            ColorChar('A', dngutil::WHITE),
+            Coordinate(17, 10),
+            "Josh Chan",
+            ColorString("This altar used to be the site of many important rituals.", dngutil::WHITE)
+        ));
+
+        std::vector<ColorString> dialogue;
+        dialogue.push_back(ColorString("There used to be a ", dngutil::WHITE) + ColorString("temple", dngutil::TEXT_HIGHLIGHT_COLOR) + ColorString(" in the woods to the south,", dngutil::WHITE));
+        dialogue.push_back(ColorString("but it got overrun when Zorlock attacked.", dngutil::WHITE));
+        specificObjects.emplace(Coordinate(18, 4), new Npc(
+            pgame,
+            ColorChar('A', dngutil::WHITE),
+            Coordinate(18, 4),
+            "Harold Schmitt",
+            dialogue
+        ));
+
+        std::vector<dngutil::TID> possibleCreatures;
+
+        int difficulty = 0;
+        int backColor = dngutil::GREEN;
+        std::string name = "Lullin Village";
+        Coordinate mapCoord(-1, -2);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("VillageTheme")));
+        mut.unlock();
+
+    }
 
     // Korloma Forest
     {

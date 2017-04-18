@@ -56,7 +56,7 @@ bool Npc::movement()
 {
     if (!((getLastMoveTime() + 3500) > GetTickCount()))
     {
-        switch (random(dngutil::MOVEMENT_RANDOM_CHANCE))
+        switch (random(dngutil::MOVEMENT_RANDOM_CHANCE * 10))
         {
         case 0:
             return adjustPosition(dngutil::Movement::UP);
@@ -85,24 +85,18 @@ Collision Npc::mapAction(MapObject* collider, std::list<MapObject*>::iterator& i
         TextMacros& txt = t->txtmacs;
 
         txt.clearDivider("bottom");
-        t->putcen(getRandomDialogue(), txt.BOTTOM_DIVIDER_TEXT_LINE, true);
-        pressEnter(Coordinate(0, txt.BOTTOM_DIVIDER_TEXT_LINE + 1), t);
+
+        unsigned int i = 0;
+        for (; i < dialogue.size(); i++)
+        {
+            t->putcen(dialogue[i], txt.BOTTOM_DIVIDER_TEXT_LINE + i, true);
+        }
+        pressEnter(Coordinate(0, txt.BOTTOM_DIVIDER_TEXT_LINE + i), t);
+
         txt.clearDivider("bottom");
         txt.displayOverworldInfo(getPGame());
 
         increaseLastMoveTime(GetTickCount() - startTime);
     }
     return Collision(false, true, false);
-}
-
-ColorString Npc::getRandomDialogue()
-{
-    if (!dialogue.empty())
-    {
-        return dialogue[random(0, dialogue.size() - 1)];
-    }
-    else
-    {
-        return ColorString("", dngutil::WHITE);
-    }
 }
