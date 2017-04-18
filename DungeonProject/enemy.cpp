@@ -215,6 +215,7 @@ setPrimary(nullptr);
 bool REnemy::movement()
 {
     // smart enemies movement may change with this one
+    // same as npc
     if (!(getLastMoveTime() + ((dngutil::MAX_SPD * 3) - getSpd()) > GetTickCount()))
     {
         switch (random(dngutil::MOVEMENT_RANDOM_CHANCE))

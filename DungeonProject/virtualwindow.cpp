@@ -420,6 +420,11 @@ void VirtualWindow::put(ColorChar colchar, Coordinate coord)
 
 void VirtualWindow::put(ColorString colstr, Coordinate coord, bool scrolling)
 {
+    if (scrolling)
+    {
+        playSound(WavFile("LetterSound", true, true));
+    }
+
     for (auto i : colstr)
     {
         put(i, coord);
@@ -435,6 +440,11 @@ void VirtualWindow::put(ColorString colstr, Coordinate coord, bool scrolling)
             coord.y++;
         }
     }
+
+    if (scrolling)
+    {
+        stopSound(SoundType::WAV);
+    }
 }
 
 void VirtualWindow::putcen(ColorChar colchar, unsigned int line)
@@ -445,6 +455,12 @@ void VirtualWindow::putcen(ColorChar colchar, unsigned int line)
 void VirtualWindow::putcen(ColorString colstr, unsigned int line, bool scrolling)
 {
     Coordinate coord(static_cast<int>((width - colstr.size()) / 2), line);
+
+    if (scrolling)
+    {
+        playSound(WavFile("LetterSound", true, true));
+    }
+
     for (auto i : colstr)
     {
         put(i, coord);
@@ -458,6 +474,11 @@ void VirtualWindow::putcen(ColorString colstr, unsigned int line, bool scrolling
             coord.x = 0;
             coord.y++;
         }
+    }
+
+    if (scrolling)
+    {
+        stopSound(SoundType::WAV);
     }
 }
 

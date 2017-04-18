@@ -92,7 +92,8 @@ namespace dngutil
         StandardBoots,
         ForestDragonPhase2,
         HarpPiece,
-        Floor
+        Floor,
+        Npc
     };
 
     enum class BTID

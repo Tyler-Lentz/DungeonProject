@@ -33,7 +33,8 @@ Creature::Creature(
     Primary* primary,
     Secondary* secondary,
     int priority,
-    dngutil::ClassType classType
+    dngutil::ClassType classType,
+    bool premCheck
 )
     :MapObject(
         pgame,
@@ -46,7 +47,7 @@ Creature::Creature(
         typeId,
         priority,
         dngutil::BTID::Creature,
-        false
+        premCheck
     )
 {
     this->hp = hp;
@@ -138,6 +139,11 @@ const unsigned long& Creature::getLastMoveTime() const
 Primary*& Creature::getPrimaryMemory()
 {
     return primary;
+}
+
+void Creature::increaseLastMoveTime(unsigned long amount)
+{
+    lastMoveTime += amount;
 }
 
 void Creature::setPrimary(Primary* primary)

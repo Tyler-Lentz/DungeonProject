@@ -7,6 +7,7 @@
 #include "player.h"
 #include "virtualwindow.h"
 #include "soundfile.h"
+#include "npc.h"
 
 #include <array>
 #include <list>
@@ -78,6 +79,29 @@ Room::Room(Game* t_game_pointer, RoomInfo roomToGenerate, Puzzle* puzzle, Mp3Fil
                 dngutil::TID tid;
                 tid = roomInfo.possibleCreatures[random(roomInfo.possibleCreatures.size() - 1)];
                 creature = game_pointer->generateCreature(roomInfo.difficulty, tid);
+                gameMap[i][j].push_back(creature);
+                addCreature(creature, Coordinate(j, i));
+                break;
+
+            case 'E':
+                if (roomInfo.specificObjects.count(Coordinate(j, i)) != 1)
+                {
+                    errorMessage(
+                        "ERROR: on floor " + std::to_string(roomInfo.floor) + " " + roomInfo.name + ", npc not set correctly",
+                        __LINE__, __FILE__);
+                }
+                creature = dynamic_cast<Creature*>(roomInfo.specificObjects[Coordinate(j, i)]);
+                if (creature == nullptr)
+                {
+                    errorMessage("Non creature put where an npc should go", __LINE__, __FILE__);
+                }
+                if (roomInfo.specificObjects[Coordinate(j, i)]->getCoord() != Coordinate(j, i))
+                {
+                    errorMessage(
+                        "ERROR: on floor " + std::to_string(roomInfo.floor) + " " + roomInfo.name + ", npc coord not set correctly",
+                        __LINE__, __FILE__);
+                }
+                roomInfo.specificObjects.erase(Coordinate(j, i));
                 gameMap[i][j].push_back(creature);
                 addCreature(creature, Coordinate(j, i));
                 break;

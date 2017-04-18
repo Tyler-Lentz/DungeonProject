@@ -46,7 +46,8 @@ public:
         Primary* primary,
         Secondary* secondary,
         int priority,
-        dngutil::ClassType classType
+        dngutil::ClassType classType,
+        bool prematurecheck = false
     );
 
     // Deletes primary and secondary
@@ -89,6 +90,8 @@ public:
 
     unsigned int increaseHealth(unsigned int amount);
     unsigned int decreaseHealth(unsigned int amount);
+
+    void increaseLastMoveTime(unsigned long amount);
 
     const Primary& getPrimary() const;
     void setPrimary(Primary* primary);

@@ -6,6 +6,7 @@
 #include <cmath>
 #include <functional>
 
+#include "npc.h"
 #include "game.h"
 #include "map.h"
 #include "utilities.h"
@@ -570,13 +571,25 @@ void Map::makeHouses(std::mutex& mut)
         // ID: 0XAA
         std::vector<std::string> roomTemplate;
         roomTemplate.push_back("#######");
-        roomTemplate.push_back("#     #");
+        roomTemplate.push_back("#E    #");
         roomTemplate.push_back("#     #");
         roomTemplate.push_back("#     #");
         roomTemplate.push_back("###o###");
 
         std::map<Coordinate, MapObject*> specificObjects;
         specificObjects.emplace(Coordinate(3, 4), new HouseDoorObject(pgame, Coordinate(3, 4), Coordinate(0, -2), Coordinate(19, 9), 2));
+
+        std::vector<ColorString> possibleDialogue;
+        possibleDialogue.push_back(ColorString("Strange purple men in armor have begun gathering around the Tower of the Gods", dngutil::WHITE));
+        specificObjects.emplace(
+            Coordinate(1, 1),
+            new Npc(
+                pgame,
+                ColorChar('A', dngutil::WHITE),
+                Coordinate(1, 1),
+                "Thomas Westenhoffer",
+                possibleDialogue
+            ));
 
         std::vector<dngutil::TID> possibleCreatures;
 
