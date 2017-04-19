@@ -266,6 +266,46 @@ void Map::makeOverworld(std::mutex& mut)
     }
     {
         std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("  #############         ");
+        roomTemplate.push_back("  #############  0      ");
+        roomTemplate.push_back("  #############         ");
+        roomTemplate.push_back("  #############    E    ");
+        roomTemplate.push_back("  #############         ");
+        roomTemplate.push_back("  ###o#########         ");
+        roomTemplate.push_back("                    0   ");
+        roomTemplate.push_back("          0             ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("  0             0       ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+        // ID: 0XAC
+        specificObjects.emplace(Coordinate(5, 6), new HouseDoorObject(pgame, Coordinate(5, 6), Coordinate(-98, -98), Coordinate(3, 5), dngutil::HOUSE_FLOOR));
+        specificObjects.emplace(Coordinate(19, 4), new Npc(
+            pgame,
+            ColorChar('A', dngutil::WHITE),
+            Coordinate(19, 4),
+            "Collin Werth",
+            ColorString("... I don't want to talk to anyone", dngutil::WHITE)
+        ));
+
+        std::vector<dngutil::TID> possibleCreatures;
+
+        int difficulty = 0;
+        int backColor = dngutil::GREEN;
+        std::string name = "Lullin Village";
+        Coordinate mapCoord(0, -3);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("VillageTheme")));
+        mut.unlock();
+
+    }
+    {
+        std::vector<std::string> roomTemplate;
         roomTemplate.push_back("########                ");
         roomTemplate.push_back("######wwwwwwwwwwwwwwwwww");
         roomTemplate.push_back("#####wwwwwwwwwwwwwwwwwww");
@@ -314,6 +354,118 @@ void Map::makeOverworld(std::mutex& mut)
         int backColor = dngutil::GREEN;
         std::string name = "Lullin Village";
         Coordinate mapCoord(-1, -2);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("VillageTheme")));
+        mut.unlock();
+
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("#####################   ");
+        roomTemplate.push_back("#####################   ");
+        roomTemplate.push_back("####################    ");
+        roomTemplate.push_back("###################     ");
+        roomTemplate.push_back("#################    0  ");
+        roomTemplate.push_back("###############         ");
+        roomTemplate.push_back("###############         ");
+        roomTemplate.push_back("#############     0   0 ");
+        roomTemplate.push_back("###########    0        ");
+        roomTemplate.push_back("###########             ");
+        roomTemplate.push_back("##########    0     0   ");
+        roomTemplate.push_back("########   0            ");
+        roomTemplate.push_back("########                ");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+
+        std::vector<ColorString> dialogue;
+
+        std::vector<dngutil::TID> possibleCreatures;
+
+        int difficulty = 0;
+        int backColor = dngutil::GREEN;
+        std::string name = "Lullin Village";
+        Coordinate mapCoord(-1, -3);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("VillageTheme")));
+        mut.unlock();
+
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("####################### ");
+        roomTemplate.push_back("######################  ");
+        roomTemplate.push_back("######################  ");
+        roomTemplate.push_back("######################  ");
+        roomTemplate.push_back("#####################   ");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+
+        std::vector<ColorString> dialogue;
+
+        std::vector<dngutil::TID> possibleCreatures;
+
+        int difficulty = 0;
+        int backColor = dngutil::GREEN;
+        std::string name = "Lullin Village";
+        Coordinate mapCoord(-1, -4);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("VillageTheme")));
+        mut.unlock();
+
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########v##########www##");
+        roomTemplate.push_back("#######   wwwwwwwwwww   ");
+        roomTemplate.push_back("#######wwwwwwwwwww      ");
+        roomTemplate.push_back("#####wwwwwwwww          ");
+        roomTemplate.push_back("####wwwwwww    0   E    ");
+        roomTemplate.push_back("####www                 ");
+        roomTemplate.push_back("#####      ########     ");
+        roomTemplate.push_back("        0  ########     ");
+        roomTemplate.push_back(" ######    ########     ");
+        roomTemplate.push_back(" #####o    #o######     ");
+        roomTemplate.push_back(" ######              0  ");
+        roomTemplate.push_back("                        ");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+        specificObjects.emplace(Coordinate(19, 5), new Npc(
+            pgame,
+            ColorChar('A', dngutil::WHITE),
+            Coordinate(19, 5),
+            "Terry Hints",
+            ColorString("There is a ", dngutil::WHITE) + ColorString("cave", dngutil::TEXT_HIGHLIGHT_COLOR) + ColorString(" across the water, I wonder what's in it?", dngutil::WHITE)
+        ));
+        // ID: 0XAD
+        specificObjects.emplace(Coordinate(6, 10), new HouseDoorObject(pgame, Coordinate(6, 10), Coordinate(-97, -97), Coordinate(5, 1), dngutil::HOUSE_FLOOR));
+        // ID: 0XAE
+        specificObjects.emplace(Coordinate(12, 10), new HouseDoorObject(pgame, Coordinate(12, 10), Coordinate(-96, -96), Coordinate(1, 3), dngutil::HOUSE_FLOOR));
+
+        std::vector<ColorString> dialogue;
+
+        std::vector<dngutil::TID> possibleCreatures;
+
+        int difficulty = 0;
+        int backColor = dngutil::GREEN;
+        std::string name = "Lullin Village";
+        Coordinate mapCoord(0, -4);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
 
         mut.lock();
@@ -651,6 +803,82 @@ void Map::makeHouses(std::mutex& mut)
         int backColor = dngutil::BROWN;
         std::string name = "House";
         Coordinate mapCoord(-99, -99);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("VillageTheme")));
+        mut.unlock();
+    }
+    {
+        // ID: 0XAC
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("#############");
+        roomTemplate.push_back("#           #");
+        roomTemplate.push_back("#       E   #");
+        roomTemplate.push_back("#           #");
+        roomTemplate.push_back("#           #");
+        roomTemplate.push_back("###o#########");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+        specificObjects.emplace(Coordinate(3, 5), new HouseDoorObject(pgame, Coordinate(3, 5), Coordinate(0, -3), Coordinate(5, 6), 2));
+        specificObjects.emplace(
+            Coordinate(8, 2),
+            new Npc(
+                pgame,
+                ColorChar('A', dngutil::WHITE),
+                Coordinate(8, 2),
+                "Charlynne Werth",
+                ColorString("My husband hasn't been the same ever since he was attacked on the road...", dngutil::WHITE)
+            ));
+
+        std::vector<dngutil::TID> possibleCreatures;
+
+        int difficulty = 0;
+        int backColor = dngutil::BROWN;
+        std::string name = "House";
+        Coordinate mapCoord(-98, -98);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("VillageTheme")));
+        mut.unlock();
+    }
+    {
+        // ID: 0XAD
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("######");
+        roomTemplate.push_back("#    o");
+        roomTemplate.push_back("######");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+        specificObjects.emplace(Coordinate(5, 1), new HouseDoorObject(pgame, Coordinate(5, 1), Coordinate(0, -4), Coordinate(6, 10), 2));
+
+        std::vector<dngutil::TID> possibleCreatures;
+
+        int difficulty = 0;
+        int backColor = dngutil::BROWN;
+        std::string name = "House";
+        Coordinate mapCoord(-97, -97);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("VillageTheme")));
+        mut.unlock();
+    }
+    {
+        // ID: 0XAE
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########");
+        roomTemplate.push_back("#      #");
+        roomTemplate.push_back("#      #");
+        roomTemplate.push_back("#o######");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+        specificObjects.emplace(Coordinate(1, 3), new HouseDoorObject(pgame, Coordinate(1, 3), Coordinate(0, -4), Coordinate(12, 10), 2));
+
+        std::vector<dngutil::TID> possibleCreatures;
+
+        int difficulty = 0;
+        int backColor = dngutil::BROWN;
+        std::string name = "House";
+        Coordinate mapCoord(-96, -96);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
         mut.lock();
         gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("VillageTheme")));
