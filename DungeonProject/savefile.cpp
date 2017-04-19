@@ -329,6 +329,7 @@ Item* getItemFromId(dngutil::TID tid, Game* game)
     case dngutil::TID::Speedboots: return new Speedboots(game, Coordinate(-1, -1));
     case dngutil::TID::BlueTunic: return new BlueTunic(game, Coordinate(-1, -1));
     case dngutil::TID::StandardBoots: return new StandardBoots(game, Coordinate(-1, -1));
+    case dngutil::TID::HerosTunic: return new HerosTunic(game, Coordinate(-1, -1));
     }
     errorMessage("invalid tid passed to getItemFromId()", __LINE__, __FILE__);
 
