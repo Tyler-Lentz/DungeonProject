@@ -266,6 +266,72 @@ void Map::makeOverworld(std::mutex& mut)
     }
     {
         std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("          www         ##");
+        roomTemplate.push_back("wwwwwwwwwwwww         ##");
+        roomTemplate.push_back("wwwwwwwwwwww          ##");
+        roomTemplate.push_back("                      ##");
+        roomTemplate.push_back("    ########          ##");
+        roomTemplate.push_back("    ########          ##");
+        roomTemplate.push_back("    ########          ##");
+        roomTemplate.push_back("    ###o####        ####");
+        roomTemplate.push_back("                   #####");
+        roomTemplate.push_back("                ########");
+        roomTemplate.push_back("            ############");
+        roomTemplate.push_back("          ##############");
+        roomTemplate.push_back("########################");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+        // ID: 0XAF
+        specificObjects.emplace(Coordinate(7,7), new HouseDoorObject(pgame, Coordinate(7, 7), Coordinate(-95, -95), Coordinate(2, 3), dngutil::HOUSE_FLOOR));
+        
+        std::vector<dngutil::TID> possibleCreatures;
+
+        int difficulty = 0;
+        int backColor = dngutil::GREEN;
+        std::string name = "Lullin Village";
+        Coordinate mapCoord(1, -2);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("VillageTheme")));
+        mut.unlock();
+
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("          www         ##");
+        roomTemplate.push_back("          www  0      ##");
+        roomTemplate.push_back(" 0        www         ##");
+        roomTemplate.push_back("     0    www     0  ###");
+        roomTemplate.push_back("          www       ####");
+        roomTemplate.push_back("  0    0  www  0   #####");
+        roomTemplate.push_back("          www        v##");
+        roomTemplate.push_back("          www      #####");
+        roomTemplate.push_back("    0     www       ####");
+        roomTemplate.push_back("          www        ###");
+        roomTemplate.push_back("       0  www   0     ##");
+        roomTemplate.push_back("  0       www         ##");
+        roomTemplate.push_back("          www         ##");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+        // ID: 0XAF
+        specificObjects.emplace(Coordinate(7, 7), new HouseDoorObject(pgame, Coordinate(7, 7), Coordinate(-95, -95), Coordinate(2, 3), dngutil::HOUSE_FLOOR));
+
+        std::vector<dngutil::TID> possibleCreatures;
+
+        int difficulty = 0;
+        int backColor = dngutil::GREEN;
+        std::string name = "Lullin Village";
+        Coordinate mapCoord(1, -3);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("VillageTheme")));
+        mut.unlock();
+
+    }
+    {
+        std::vector<std::string> roomTemplate;
         roomTemplate.push_back("                        ");
         roomTemplate.push_back("  #############         ");
         roomTemplate.push_back("  #############  0      ");
@@ -470,6 +536,672 @@ void Map::makeOverworld(std::mutex& mut)
 
         mut.lock();
         gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("VillageTheme")));
+        mut.unlock();
+
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("       #################");
+        roomTemplate.push_back("          ##############");
+        roomTemplate.push_back("  0       www    #######");
+        roomTemplate.push_back("          www 0    #####");
+        roomTemplate.push_back("      0   www       ####");
+        roomTemplate.push_back(" 0        www    0   ###");
+        roomTemplate.push_back("          www        ###");
+        roomTemplate.push_back("   0      www 0    0 ###");
+        roomTemplate.push_back("          www         ##");
+        roomTemplate.push_back("       0  www    0    ##");
+        roomTemplate.push_back("          www         ##");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+        std::vector<ColorString> dialogue;
+
+        std::vector<dngutil::TID> possibleCreatures;
+
+        int difficulty = 0;
+        int backColor = dngutil::GREEN;
+        std::string name = "Lullin Village";
+        Coordinate mapCoord(1, -4);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("VillageTheme")));
+        mut.unlock();
+
+    }
+
+    tfloor = 1;
+    // Lullin Tunnel
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########      ##########");
+        roomTemplate.push_back("#######  www   #########");
+        roomTemplate.push_back("######  wwwwww  ####   #");
+        roomTemplate.push_back("#####  www+          ^  ");
+        roomTemplate.push_back("######  wwwwww  ####   #");
+        roomTemplate.push_back("#######  www   #########");
+        roomTemplate.push_back("########      ##########");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+        std::vector<dngutil::TID> possibleCreatures;
+
+        int difficulty = 0;
+        int backColor = dngutil::LIGHTGRAY;
+        std::string name = "Lullin Tunnel";
+        Coordinate mapCoord(1, -3);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("CaveTheme")));
+        mut.unlock();
+
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("######wwwwwwwwwww#######");
+        roomTemplate.push_back("####wwwwwwwwwwwwww######");
+        roomTemplate.push_back("#####wwwwwwwwwwwwwww####");
+        roomTemplate.push_back("#####wwwwwwwwwwwwww#####");
+        roomTemplate.push_back("####wwwwwwwwwwwwwwww####");
+        roomTemplate.push_back("###                  ###");
+        roomTemplate.push_back("            e           ");
+        roomTemplate.push_back("###                  ###");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Skeleton);
+
+        int difficulty = 3;
+        int backColor = dngutil::LIGHTGRAY;
+        std::string name = "Lullin Tunnel - Underground Lake";
+        Coordinate mapCoord(2, -3);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("CaveTheme")));
+        mut.unlock();
+
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("           ######   e   ");
+        roomTemplate.push_back("####    e            ###");
+        roomTemplate.push_back("##########       #######");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Skeleton);
+
+        int difficulty = 3;
+        int backColor = dngutil::LIGHTGRAY;
+        std::string name = "Lullin Tunnel";
+        Coordinate mapCoord(3, -3);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("CaveTheme")));
+        mut.unlock();
+
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("     ^##################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Skeleton);
+
+        int difficulty = 3;
+        int backColor = dngutil::LIGHTGRAY;
+        std::string name = "Lullin Tunnel";
+        Coordinate mapCoord(4, -3);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("CaveTheme")));
+        mut.unlock();
+
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("######wwwwwwwwwww#######");
+        roomTemplate.push_back("####wwwwwwwwwwwwwwww####");
+        roomTemplate.push_back("##wwwwwwwww   wwwwwww###");
+        roomTemplate.push_back("##wwwwwwww  o  wwwwwww##");
+        roomTemplate.push_back("###wwwwwwww   wwwwwwwww#");
+        roomTemplate.push_back("###wwwwwwwwwwwwwwwwwww##");
+        roomTemplate.push_back("####wwwwwwwwwwwwwwww####");
+        roomTemplate.push_back("####wwwwwwwwwwwwwww#####");
+        roomTemplate.push_back("#####wwwwwwwwwwwwww#####");
+        roomTemplate.push_back("#####wwwwwwwwwwwww######");
+        roomTemplate.push_back("######wwwwwwwwwww#######");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+        specificObjects.emplace(Coordinate(12, 5), new HeroSpirit(pgame, Coordinate(12, 5)));
+
+        std::vector<dngutil::TID> possibleCreatures;
+
+        int difficulty = 8;
+        int backColor = dngutil::LIGHTGRAY;
+        std::string name = "Lullin Tunnel - Hero's Cove";
+        Coordinate mapCoord(2, -4);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("SpiritTheme")));
+        mut.unlock();
+
+    }
+
+    tfloor = 2;
+    // The Boranian Valley
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("####  e               @@");
+        roomTemplate.push_back("####                  @@");
+        roomTemplate.push_back("####                  @@");
+        roomTemplate.push_back("####     e       e    @@");
+        roomTemplate.push_back("#####                 @@");
+        roomTemplate.push_back("######                @@");
+        roomTemplate.push_back("####v                 @@");
+        roomTemplate.push_back("######        e       @@");
+        roomTemplate.push_back("#####                 @@");
+        roomTemplate.push_back("####                  @@");
+        roomTemplate.push_back("####              e   @@");
+        roomTemplate.push_back("####     e            @@");
+        roomTemplate.push_back("####                  @@");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::SSKnight);
+        possibleCreatures.push_back(dngutil::TID::LSKnight);
+
+        int difficulty = 12;
+        int backColor = dngutil::BROWN;
+        std::string name = "The Boranian Valley - Outside the Tower of the Gods";
+        Coordinate mapCoord(4, -3);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("DangerTheme")));
+        mut.unlock();
+
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("##################      ");
+        roomTemplate.push_back("###############         ");
+        roomTemplate.push_back("###########      e      ");
+        roomTemplate.push_back("########                ");
+        roomTemplate.push_back("######                  ");
+        roomTemplate.push_back("####         e      e   ");
+        roomTemplate.push_back("####    e               ");
+        roomTemplate.push_back("####                    ");
+        roomTemplate.push_back("####                    ");
+        roomTemplate.push_back("####      e       e   @@");
+        roomTemplate.push_back("####                  @@");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::SSKnight);
+        possibleCreatures.push_back(dngutil::TID::LSKnight);
+
+        int difficulty = 12;
+        int backColor = dngutil::BROWN;
+        std::string name = "The Boranian Valley - Outside the Tower of the Gods";
+        Coordinate mapCoord(4, -4);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("DangerTheme")));
+        mut.unlock();
+
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("    e        e   e      ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("    e                   ");
+        roomTemplate.push_back("          e        e    ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("  e   e             e   ");
+        roomTemplate.push_back("               e        ");
+        roomTemplate.push_back("@@@@@@@@@@@@@@@@@@@@@@@@");
+        roomTemplate.push_back("@@@@@@@@@@@@@@@@@@@@@@@@");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::SSKnight);
+        possibleCreatures.push_back(dngutil::TID::LSKnight);
+
+        int difficulty = 12;
+        int backColor = dngutil::BROWN;
+        std::string name = "The Boranian Valley - Outside the Tower of the Gods";
+        Coordinate mapCoord(5, -4);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("DangerTheme")));
+        mut.unlock();
+
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("      ##################");
+        roomTemplate.push_back("        ################");
+        roomTemplate.push_back("               #########");
+        roomTemplate.push_back("  e       e        #####");
+        roomTemplate.push_back("                     ###");
+        roomTemplate.push_back("                      ##");
+        roomTemplate.push_back("      e           e   ##");
+        roomTemplate.push_back("             e        ##");
+        roomTemplate.push_back("                      ##");
+        roomTemplate.push_back("@@                    ##");
+        roomTemplate.push_back("@@             e      ##");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::SSKnight);
+        possibleCreatures.push_back(dngutil::TID::LSKnight);
+
+        int difficulty = 12;
+        int backColor = dngutil::BROWN;
+        std::string name = "The Boranian Valley - Outside the Tower of the Gods";
+        Coordinate mapCoord(6, -4);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("DangerTheme")));
+        mut.unlock();
+
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("@@                    ##");
+        roomTemplate.push_back("@@         e          ##");
+        roomTemplate.push_back("@@@               e   ##");
+        roomTemplate.push_back("@@@@ e                ##");
+        roomTemplate.push_back("@@@@@       ww ww     ##");
+        roomTemplate.push_back("@@@@@@e     w# #w     ##");
+        roomTemplate.push_back("    5         +       ##");
+        roomTemplate.push_back("@@@@@@e     w# #w     ##");
+        roomTemplate.push_back("@@@@@       ww ww     ##");
+        roomTemplate.push_back("@@@@                  ##");
+        roomTemplate.push_back("@@@                   ##");
+        roomTemplate.push_back("@@                    ##");
+        roomTemplate.push_back("@@             e      ##");
+
+        auto puzzleSolved = [](const std::list<Creature*>& creatureList, const GAMEMAP& gameMap) -> bool
+        {
+            if (gameMap[6][2].size() > 1)
+            {
+                return true;
+            }
+            return false;
+        };
+
+        auto puzzleAction = [this](std::list<Creature*> creatureList, GAMEMAP& gameMap) -> void
+        {
+            gameMap[6][3].push_back(new EvilWallObject(pgame, Coordinate(3, 6)));
+        };
+
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::SSKnight);
+        possibleCreatures.push_back(dngutil::TID::LSKnight);
+
+        int difficulty = 12;
+        int backColor = dngutil::BROWN;
+        std::string name = "The Boranian Valley - Outside the Tower of the Gods";
+        Coordinate mapCoord(6, -3);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction), Mp3File("DangerTheme")));
+        mut.unlock();
+
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("@@                    ##");
+        roomTemplate.push_back("@@         e          ##");
+        roomTemplate.push_back("                  e   ##");
+        roomTemplate.push_back("     e                ##");
+        roomTemplate.push_back("                      ##");
+        roomTemplate.push_back("  e       e       e   ##");
+        roomTemplate.push_back("                      ##");
+        roomTemplate.push_back("                      ##");
+        roomTemplate.push_back("      e           e   ##");
+        roomTemplate.push_back("             e        ##");
+        roomTemplate.push_back("                      ##");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::SSKnight);
+        possibleCreatures.push_back(dngutil::TID::LSKnight);
+
+        int difficulty = 12;
+        int backColor = dngutil::BROWN;
+        std::string name = "The Boranian Valley - Outside the Tower of the Gods";
+        Coordinate mapCoord(6, -2);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("DangerTheme")));
+        mut.unlock();
+
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("@@@@@@@@@@@@@@@@@@@@@@@@");
+        roomTemplate.push_back("@@@@@@@@@@@@@@@@@@@@@@@@");
+        roomTemplate.push_back("  e           e         ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("          e       e     ");
+        roomTemplate.push_back("    e                   ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                    e   ");
+        roomTemplate.push_back("     e       e          ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::SSKnight);
+        possibleCreatures.push_back(dngutil::TID::LSKnight);
+
+        int difficulty = 12;
+        int backColor = dngutil::BROWN;
+        std::string name = "The Boranian Valley - Outside the Tower of the Gods";
+        Coordinate mapCoord(5, -2);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("DangerTheme")));
+        mut.unlock();
+
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("##                    @@");
+        roomTemplate.push_back("##    e   e e    e    @@");
+        roomTemplate.push_back("##                      ");
+        roomTemplate.push_back("##        e       e     ");
+        roomTemplate.push_back("#####                   ");
+        roomTemplate.push_back("########                ");
+        roomTemplate.push_back("#########   e   e     e ");
+        roomTemplate.push_back("###########             ");
+        roomTemplate.push_back("#############           ");
+        roomTemplate.push_back("###############   e     ");
+        roomTemplate.push_back("#################       ");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::SSKnight);
+        possibleCreatures.push_back(dngutil::TID::LSKnight);
+
+        int difficulty = 12;
+        int backColor = dngutil::BROWN;
+        std::string name = "The Boranian Valley - Outside the Tower of the Gods";
+        Coordinate mapCoord(4, -2);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("DangerTheme")));
+        mut.unlock();
+
+    }
+
+    // Above Lullin Tunnel (Lullin Mountain)
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+        std::vector<ColorString> dialogue;
+
+        std::vector<dngutil::TID> possibleCreatures;
+
+        int difficulty = 0;
+        int backColor = dngutil::GREEN;
+        std::string name = "Lullin Mountain";
+        Coordinate mapCoord(2, -4);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("OverworldTheme")));
+        mut.unlock();
+
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+        std::vector<ColorString> dialogue;
+
+        std::vector<dngutil::TID> possibleCreatures;
+
+        int difficulty = 0;
+        int backColor = dngutil::GREEN;
+        std::string name = "Lullin Mountain";
+        Coordinate mapCoord(3, -4);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("OverworldTheme")));
+        mut.unlock();
+
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+        std::vector<ColorString> dialogue;
+
+        std::vector<dngutil::TID> possibleCreatures;
+
+        int difficulty = 0;
+        int backColor = dngutil::GREEN;
+        std::string name = "Lullin Mountain";
+        Coordinate mapCoord(2, -3);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("OverworldTheme")));
+        mut.unlock();
+
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+        std::vector<ColorString> dialogue;
+
+        std::vector<dngutil::TID> possibleCreatures;
+
+        int difficulty = 0;
+        int backColor = dngutil::GREEN;
+        std::string name = "Lullin Mountain";
+        Coordinate mapCoord(3, -3);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("OverworldTheme")));
+        mut.unlock();
+
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+        std::vector<ColorString> dialogue;
+
+        std::vector<dngutil::TID> possibleCreatures;
+
+        int difficulty = 0;
+        int backColor = dngutil::GREEN;
+        std::string name = "Lullin Mountain";
+        Coordinate mapCoord(2, -2);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("OverworldTheme")));
+        mut.unlock();
+
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+        std::vector<ColorString> dialogue;
+
+        std::vector<dngutil::TID> possibleCreatures;
+
+        int difficulty = 0;
+        int backColor = dngutil::GREEN;
+        std::string name = "Lullin Mountain";
+        Coordinate mapCoord(3, -2);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("OverworldTheme")));
         mut.unlock();
 
     }
@@ -884,6 +1616,37 @@ void Map::makeHouses(std::mutex& mut)
         gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("VillageTheme")));
         mut.unlock();
     }
+
+    {
+        // ID: 0XAF
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########");
+        roomTemplate.push_back("#    E #");
+        roomTemplate.push_back("#      #");
+        roomTemplate.push_back("##o#####");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+        specificObjects.emplace(Coordinate(2, 3), new HouseDoorObject(pgame, Coordinate(2, 3), Coordinate(1, -2), Coordinate(7, 7), 2));
+        specificObjects.emplace(
+            Coordinate(5, 1),
+            new Npc(
+                pgame,
+                ColorChar('A', dngutil::WHITE),
+                Coordinate(5, 1),
+                "Al Sanchez",
+                ColorString("The Lullin Tunnel spits you right out at the Tower of the Gods", dngutil::WHITE)
+            ));
+        std::vector<dngutil::TID> possibleCreatures;
+
+        int difficulty = 0;
+        int backColor = dngutil::BROWN;
+        std::string name = "House";
+        Coordinate mapCoord(-95, -95);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("VillageTheme")));
+        mut.unlock();
+    }
 }
 
 void Map::makeForestTemple(std::mutex& mut)
@@ -1209,7 +1972,7 @@ void Map::makeForestTemple(std::mutex& mut)
         Coordinate mapCoord(0, 2);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
         mut.lock();
-        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction), Mp3File("BossRoomTheme")));
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction), Mp3File("DangerTheme")));
         mut.unlock();
     }
     {

@@ -125,6 +125,25 @@ public:
         ) {}
 };
 
+class EvilWallObject : public MapObject
+{
+public:
+    EvilWallObject(Game* game, Coordinate coord) :
+        MapObject(
+            game,
+            ColorChar(static_cast<unsigned char>(178), getColor(dngutil::MAGENTA, dngutil::LIGHTMAGENTA)),
+            coord,
+            "WALL",
+            false,
+            true,
+            false,
+            dngutil::TID::Wall,
+            dngutil::P_WALL,
+            dngutil::BTID::None,
+            false
+        ) {}
+};
+
 
 class ExitObject : public MapObject
 {
@@ -202,6 +221,13 @@ class AltarObject : public MapObject
 {
 public:
     AltarObject(Game* game, Coordinate coord);
+    Collision mapAction(MapObject* collider, std::list<MapObject*>::iterator& it) override;
+};
+
+class HeroSpirit : public MapObject
+{
+public:
+    HeroSpirit(Game* game, Coordinate coord);
     Collision mapAction(MapObject* collider, std::list<MapObject*>::iterator& it) override;
 };
 

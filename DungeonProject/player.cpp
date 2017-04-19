@@ -126,6 +126,27 @@ Coordinate Player::getStartingDungeonRoomCoord() const
     return startingDungeonRoomCoord;
 }
 
+bool Player::hasItem(dngutil::TID tid)
+{
+    for (auto& i : inventory)
+    {
+        if (i->getTypeId() == tid)
+        {
+            return true;
+        }
+    }
+
+    if (getPrimary().getTypeId() == tid || getSecondary().getTypeId() == tid)
+    {
+        return true;
+    }
+    if (getArmorMemory()->getTypeId() == tid || getBootsMemory()->getTypeId() == tid)
+    {
+        return true;
+    }
+    return false;
+}
+
 void Player::setHarp(int number, bool value)
 {
     switch (number)

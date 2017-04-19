@@ -74,3 +74,17 @@ void BlueTunic::unequipAction()
 {
     getPGame()->getPlayer()->changeMapChar(ColorChar('A', dngutil::noArmorPlayerColor));
 }
+
+void HerosTunic::equipAction()
+{
+    getPGame()->getPlayer()->changeMapChar(ColorChar('A', dngutil::YELLOW));
+    getPGame()->getPlayer()->increaseDef(3);
+    getPGame()->getPlayer()->increaseMaxhp(10);
+}
+
+void HerosTunic::unequipAction()
+{
+    getPGame()->getPlayer()->changeMapChar(ColorChar('A', dngutil::noArmorPlayerColor));
+    getPGame()->getPlayer()->setDef(getPGame()->getPlayer()->getDef() - 3);
+    getPGame()->getPlayer()->setMaxhp(getPGame()->getPlayer()->getMaxhp() - 10);
+}

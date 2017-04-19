@@ -426,6 +426,18 @@ Collision DungeonCheck::mapAction(MapObject* collider, std::list<MapObject*>::it
                 getPGame()->setDungeonLevel(getPGame()->getPlayer()->getLvl());
                 return Collision(true, false, true);
             }
+            else
+            {
+                getPGame()->getVWin()->txtmacs.clearDivider("bottom");
+                getPGame()->getVWin()->putcen(
+                    ColorString("You cannot enter without the full power of the Harp", dngutil::MAGENTA),
+                    getPGame()->getVWin()->txtmacs.BOTTOM_DIVIDER_TEXT_LINE,
+                    true
+                );
+                pressEnter(Coordinate(0, getPGame()->getVWin()->txtmacs.BOTTOM_DIVIDER_TEXT_LINE + 1), getPGame()->getVWin());
+                getPGame()->getVWin()->txtmacs.clearDivider("bottom");
+                getPGame()->getVWin()->txtmacs.displayOverworldInfo(getPGame());
+            }
         }
         else if (!getPGame()->getPlayer()->hasHarpPiece(harpNumber))
         {
@@ -525,6 +537,111 @@ Collision AltarObject::mapAction(MapObject* collider, std::list<MapObject*>::ite
 }
 
 //---------------------------------------------------------------
+
+//---------------------------------------------------------------
+// Hero Spirit functions
+
+HeroSpirit::HeroSpirit(Game* game, Coordinate coord)
+    :MapObject(
+        game,
+        ColorChar('A', dngutil::DARKGRAY),
+        coord,
+        "Hero's Spirit",
+        true,
+        false,
+        false,
+        dngutil::TID::HeroSpirit,
+        dngutil::P_WALL,
+        dngutil::BTID::None,
+        false
+    )
+{
+
+}
+
+Collision HeroSpirit::mapAction(MapObject* collider, std::list<MapObject*>::iterator& it)
+{
+    if (collider == getPGame()->getPlayer() && !getPGame()->getPlayer()->hasItem(dngutil::TID::HerosTunic))
+    {
+        stopSound(SoundType::MP3);
+        VirtualWindow* v = getPGame()->getVWin();
+        TextMacros& t = v->txtmacs;
+        Coordinate vcursor(15, t.DIVIDER_LINES[1] + 1);
+
+        t.clearMapArea(true, 10);
+        t.clearDivider("bottom");
+
+        v->putcen(ColorString(R"(                         /\     /\)", dngutil::DARKGRAY), vcursor.y++);
+        v->putcen(ColorString(R"(                        (_ \   (  \)", dngutil::DARKGRAY), vcursor.y++);
+        v->putcen(ColorString(R"(                        (_ `\iRBNMMbn.)", dngutil::DARKGRAY), vcursor.y++);
+        v->putcen(ColorString(R"(                         \_  \VAPRBNMMb)", dngutil::DARKGRAY), vcursor.y++);
+        v->putcen(ColorString(R"(                           \o_)lI<= (=\)", dngutil::DARKGRAY), vcursor.y++);
+        v->putcen(ColorString(R"(                          / `   ) , _\ ))", dngutil::DARKGRAY), vcursor.y++);
+        v->putcen(ColorString(R"(                          )    /   (_(/)", dngutil::DARKGRAY), vcursor.y++);
+        v->putcen(ColorString(R"(                         /_ __( \ __ _|)", dngutil::DARKGRAY), vcursor.y++);
+        v->putcen(ColorString(R"(                            _|     |_)", dngutil::DARKGRAY), vcursor.y++);
+        v->putcen(ColorString(R"(                   ,edMMNBRB)\ \_  /(PRBNMMbn.)", dngutil::DARKGRAY), vcursor.y++);
+        v->putcen(ColorString(R"(                  dMMNBRPAV/o(_____)o\VAPRBNMMb)", dngutil::DARKGRAY), vcursor.y++);
+        v->putcen(ColorString(R"(                 fMMWBRYIli\ o  o  o /rlIPRBWMMj)", dngutil::DARKGRAY), vcursor.y++);
+        v->putcen(ColorString(R"(                 MMBRRSZIlti+._.-._.+ilIZSRRBMMM)", dngutil::DARKGRAY), vcursor.y++);
+        v->putcen(ColorString(R"(                 /_o__o_/KZYI0lLRBNWMMMN\_o___o_\)", dngutil::DARKGRAY), vcursor.y++);
+        v->putcen(ColorString(R"(                /_____/flZJlDYTPRKBBNWMM \ ___( \)", dngutil::DARKGRAY), vcursor.y++);
+        v->putcen(ColorString(R"(          NNBR0PRRBNMMMMMMMlIPZSKRNWMMMV  \__._\ \)", dngutil::DARKGRAY), vcursor.y++);
+        v->putcen(ColorString(R"(          NMBRR00PRBNNMMMMM_o___o___o__/   )_ __)o))", dngutil::DARKGRAY), vcursor.y++);
+        v->putcen(ColorString(R"(          NMMBRR00PRRBNNMMM___o___o___/    /___/ /)", dngutil::DARKGRAY), vcursor.y++);
+        v->putcen(ColorString(R"(          NMMBBRR00PRRBNNMM_/\_/\_/\_(  __/___x)/)", dngutil::DARKGRAY), vcursor.y++);
+        v->putcen(ColorString(R"(          NMMBBRR00PRRBNNMM \/ \/ \/ __ )    /(`)", dngutil::DARKGRAY), vcursor.y++);
+        v->putcen(ColorString(R"(        __NMMBBRR00PRRBNNMM_________|_ /   _'))", dngutil::DARKGRAY), vcursor.y++);
+        v->putcen(ColorString(R"(       /__        ________        ___)(<  (====.)", dngutil::DARKGRAY), vcursor.y++);
+        v->putcen(ColorString(R"(       \_____________________________)_\ __\---')", dngutil::DARKGRAY), vcursor.y++);
+        v->putcen(ColorString(R"(            VMBBR00RBNMNV           |__|\/)", dngutil::DARKGRAY), vcursor.y++);
+        v->putcen(ColorString(R"(             lMBRR00RNMV  )", dngutil::DARKGRAY), vcursor.y++);
+        v->putcen(ColorString(R"(              VMB00BMNV   )", dngutil::DARKGRAY), vcursor.y++);
+        v->putcen(ColorString(R"(               VMB0BMV   )", dngutil::DARKGRAY), vcursor.y++);
+        v->putcen(ColorString(R"(                b'ger  )", dngutil::DARKGRAY), vcursor.y++);
+        v->putcen(ColorString(R"(                 VMV     )", dngutil::DARKGRAY), vcursor.y++);
+        v->putcen(ColorString(R"(                  V     )", dngutil::DARKGRAY), vcursor.y++);
+
+        int l = t.BOTTOM_DIVIDER_TEXT_LINE;
+        v->putcen(ColorString(getPGame()->getPlayer()->getName() + ", you have done well to find me.", dngutil::WHITE), l, true);
+        pressEnter(Coordinate(0, l + 1), v);
+        t.clearLine(l);
+        t.clearLine(l + 1);
+
+        v->putcen(ColorString("After I fell to Zorlock I came here to wait for the one who would avenge me.", dngutil::WHITE), l, true);
+        pressEnter(Coordinate(0, l + 1), v);
+        t.clearLine(l);
+        t.clearLine(l + 1);
+
+        v->putcen(ColorString("My power is weakening - when I depart my spell on Zorlock will too.", dngutil::WHITE), l, true);
+        pressEnter(Coordinate(0, l + 1), v);
+        t.clearLine(l);
+        t.clearLine(l + 1);
+
+        v->putcen(ColorString("To aid you on your quest I give you - My tunic.", dngutil::WHITE), l, true);
+        pressEnter(Coordinate(0, l + 1), v);
+        t.clearLine(l);
+        t.clearLine(l + 1);
+
+        getPGame()->getPlayer()->addToInventory(new HerosTunic(getPGame(), Coordinate(-1, -1)));
+
+        v->putcen(ColorString(getPGame()->getPlayer()->getName() + ", please avenge me...", dngutil::WHITE), l, true);
+        pressEnter(Coordinate(0, l + 1), v);
+        t.clearLine(l);
+        t.clearLine(l + 1);
+
+        t.clearDivider("bottom");
+        t.clearMapArea(false, NULL);
+        t.displayGame(getPGame());
+
+        getPGame()->getOverworldMusic().play();
+
+    }
+    return Collision(false, true);
+}
+
+//---------------------------------------------------------------
+
 
 //---------------------------------------------------------------
 // harp piece functions

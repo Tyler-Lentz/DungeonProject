@@ -55,6 +55,10 @@ Room::Room(Game* t_game_pointer, RoomInfo roomToGenerate, Puzzle* puzzle, Mp3Fil
                 gameMap[i][j].push_back(new WallObject(game_pointer, Coordinate(j, i)));
                 break;
 
+            case '@':
+                gameMap[i][j].push_back(new EvilWallObject(game_pointer, Coordinate(j, i)));
+                break;
+
             case 'w':
                 gameMap[i][j].push_back(new Water(game_pointer, Coordinate(j, i), false));
                 break;

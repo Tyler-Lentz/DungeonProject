@@ -93,7 +93,9 @@ namespace dngutil
         ForestDragonPhase2,
         HarpPiece,
         Floor,
-        Npc
+        Npc,
+        HeroSpirit,
+        HerosTunic
     };
 
     enum class BTID

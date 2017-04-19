@@ -86,6 +86,8 @@ public:
 
     void setArmor(Equipment* equip);
     void setBoots(Equipment* equip);
+
+    bool hasItem(dngutil::TID tid);
 private:
 
     Coordinate startingDungeonMapCoord;

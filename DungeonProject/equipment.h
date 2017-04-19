@@ -52,7 +52,7 @@ public:
         "Blue Tunic",
         false,
         "A standard, blue tunic",
-        EquipSlotId::BOOTS,
+        EquipSlotId::ARMOR,
         dngutil::TID::BlueTunic
     )
     {
@@ -131,4 +131,28 @@ private:
     void unequipAction() override;
 };
 
+class HerosTunic : public Equipment
+{
+public:
+    HerosTunic(
+        Game* pgame,
+        Coordinate coord
+    ) :Equipment(
+        pgame,
+        ColorChar('*', dngutil::YELLOW),
+        coord,
+        "Hero's Tunic",
+        false,
+        "Tunic passed down from the hero himself - grants 10 more hp and 3 more defense",
+        EquipSlotId::ARMOR,
+        dngutil::TID::HerosTunic
+    )
+    {
+
+    }
+
+private:
+    void equipAction() override;
+    void unequipAction() override;
+};
 #endif
