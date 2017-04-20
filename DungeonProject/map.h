@@ -36,6 +36,7 @@ private:
     void makeOverworld(std::mutex& mut);
     void makeForestTemple(std::mutex& mut);
     void makeHouses(std::mutex& mut);
+    void makeSpiritTemple(std::mutex& mut);
 };
 
 #endif

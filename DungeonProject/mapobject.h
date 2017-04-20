@@ -125,6 +125,25 @@ public:
         ) {}
 };
 
+class GravestoneObject : public MapObject
+{
+public:
+    GravestoneObject(Game* game, Coordinate coord) :
+        MapObject(
+            game,
+            ColorChar(static_cast<unsigned char>(219), dngutil::WHITE),
+            coord,
+            "GRAVE",
+            false,
+            false,
+            false,
+            dngutil::TID::Wall,
+            dngutil::P_WALL,
+            dngutil::BTID::None,
+            false
+        ) {}
+};
+
 class EvilWallObject : public MapObject
 {
 public:
