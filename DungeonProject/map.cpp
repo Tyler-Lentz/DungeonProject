@@ -227,6 +227,81 @@ void Map::makeOverworld(std::mutex& mut)
         gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("OverworldTheme")));
         mut.unlock();
     }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########          ######");
+        roomTemplate.push_back("#####               ####");
+        roomTemplate.push_back("###         e        ###");
+        roomTemplate.push_back("##                    ##");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("           ####         ");
+        roomTemplate.push_back("         #######        ");
+        roomTemplate.push_back("       ##########       ");
+        roomTemplate.push_back("  e   ############      ");
+        roomTemplate.push_back("        #######         ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("####        ####     ###");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Bowman);
+
+        int difficulty = 0;
+        int backColor = dngutil::GREEN;
+        std::string name = "";
+        Coordinate mapCoord(-2, -2);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("OverworldTheme")));
+        mut.unlock();
+
+    }
+
+    // Arkala Pass
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########wwwwwwwwwww#####");
+        roomTemplate.push_back("########wwwwwwwwwwww####");
+        roomTemplate.push_back("########wwwwwwwwwww#####");
+        roomTemplate.push_back("#######wwwwwwwwwww######");
+        roomTemplate.push_back("######wwwwwwwwwww#######");
+        roomTemplate.push_back("####wwwwwwwwwwwww#######");
+        roomTemplate.push_back("#####wwwwwwwwww ########");
+        roomTemplate.push_back("#####wwwwwww     #######");
+        roomTemplate.push_back("######wwww    E  #######");
+        roomTemplate.push_back("########          ######");
+        roomTemplate.push_back("#######            #####");
+        roomTemplate.push_back("######            ######");
+        roomTemplate.push_back("#######           ######");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+        std::vector<ColorString> dialogue;
+        dialogue.push_back(ColorString("If you kept going north you'd eventually reach Arkala Village", dngutil::WHITE));
+        dialogue.push_back(ColorString("but as you can see, its flooded at the moment. ", dngutil::WHITE));
+        specificObjects.emplace(Coordinate(14, 8), new Npc(
+            pgame,
+            ColorChar('A', dngutil::WHITE),
+            Coordinate(14, 8),
+            "Glorian Hall",
+            dialogue
+        ));
+
+        std::vector<dngutil::TID> possibleCreatures;
+
+        int difficulty = 0;
+        int backColor = dngutil::GREEN;
+        std::string name = "Arkala Pass";
+        Coordinate mapCoord(-2, -3);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("OverworldTheme")));
+        mut.unlock();
+
+    }
     
     // Lullin Village
     {

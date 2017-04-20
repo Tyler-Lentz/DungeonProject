@@ -143,7 +143,7 @@ public:
         coord,
         "Hero's Tunic",
         false,
-        "Tunic passed down from the hero himself - grants 10 more hp and 3 more defense",
+        "Tunic passed down from the hero himself",
         EquipSlotId::ARMOR,
         dngutil::TID::HerosTunic
     )
