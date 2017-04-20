@@ -1964,11 +1964,11 @@ void Map::makeSpiritTemple(std::mutex& mut)
         std::vector<std::string> roomTemplate;
         roomTemplate.push_back("########################");
         roomTemplate.push_back("#                     ##");
-        roomTemplate.push_back("#    #  #  # #  #  #  ##");
-        roomTemplate.push_back("#    #                ##");
-        roomTemplate.push_back("#    #  #  # #  #  #  ##");
-        roomTemplate.push_back("#    #                ##");
-        roomTemplate.push_back("######  #  # #  #  #    ");
+        roomTemplate.push_back("# #  #  #  # #  #  #  ##");
+        roomTemplate.push_back("# #                   ##");
+        roomTemplate.push_back("###  #  #  # #  #  #  ##");
+        roomTemplate.push_back("##                    ##");
+        roomTemplate.push_back("     #  #  # #  #  #    ");
         roomTemplate.push_back("##                    ##");
         roomTemplate.push_back("##   #  #  # #  #  #  ##");
         roomTemplate.push_back("##                    ##");
