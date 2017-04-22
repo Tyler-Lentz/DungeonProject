@@ -217,6 +217,12 @@ int Room::getRoomY() const
     return roomY;
 }
 
+void Room::setBackgroundColor(int color)
+{
+    roomInfo.backColor = color;
+    setAll();
+}
+
 dngutil::MovementTypes Room::checkMovement(Coordinate coord, Creature* creature) const
 {
     bool onMap = ((coord.x >= 0 && coord.x <= roomX - 1) && (coord.y >= 0 && coord.y <= roomY - 1));

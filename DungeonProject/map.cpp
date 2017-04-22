@@ -1970,6 +1970,66 @@ void Map::makeSpiritTemple(std::mutex& mut)
     }
     {
         std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("############ ###########");
+        roomTemplate.push_back("##         #          ##");
+        roomTemplate.push_back("##  ###### # ######   ##");
+        roomTemplate.push_back("##   #            #   ##");
+        roomTemplate.push_back("##   #  #  #  e   #   ##");
+        roomTemplate.push_back("##   #  #  #      #o  ##");
+        roomTemplate.push_back("##   #  #  #############");
+        roomTemplate.push_back("##   #  #        e    ##");
+        roomTemplate.push_back("##         ##         ##");
+        roomTemplate.push_back("###################   ##");
+        roomTemplate.push_back("##     #        #     ##");
+        roomTemplate.push_back("## o       ##         ##");
+        roomTemplate.push_back("########################");
+        // 7, 11
+        auto puzzleSolved = [](const std::list<Creature*>& creatureList, const GAMEMAP& gameMap) -> bool
+        {
+            static int timer = 0;
+            timer++;
+            if (timer % 7500 == 0)
+            {
+                if (creatureList.front()->getPGame()->getActiveRoom()->getRoomInfo().backColor == dngutil::DARKGRAY)
+                {
+                    creatureList.front()->getPGame()->getActiveRoom()->setBackgroundColor(dngutil::BLACK);
+                }
+                else
+                {
+                    creatureList.front()->getPGame()->getActiveRoom()->setBackgroundColor(dngutil::DARKGRAY);
+                }
+            }
+
+            if (gameMap[11][7].size() > 1)
+            {
+                return true;
+            }
+            return false;
+        };
+
+        auto puzzleAction = [this](std::list<Creature*> creatureList, GAMEMAP& gameMap) -> void
+        {
+            creatureList.front()->getPGame()->getActiveRoom()->setBackgroundColor(dngutil::LIGHTGRAY);
+        };
+
+        std::map<Coordinate, MapObject*> specificObjects;
+        specificObjects.emplace(Coordinate(19, 5), new Potion(pgame, Coordinate(19, 5), dngutil::POTION_HEAL));
+        specificObjects.emplace(Coordinate(3, 11), new MagicalPotion(pgame, Coordinate(3, 11)));
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::SSKnight);
+
+        int difficulty = -1;
+        int backColor = dngutil::DARKGRAY;
+        std::string name = "The Spirit Temple";
+        Coordinate mapCoord(200, 201);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction), Mp3File("DungeonTheme")));
+        mut.unlock();
+    }
+    {
+        std::vector<std::string> roomTemplate;
         roomTemplate.push_back("###########  ###########");
         roomTemplate.push_back("#########ww  ww#########");
         roomTemplate.push_back("#########ww  ww#########");
@@ -2027,7 +2087,7 @@ void Map::makeSpiritTemple(std::mutex& mut)
             std::vector<Coordinate> deletionList;
             for (int x = 13; x <= 23; x++)
             {
-                deletionList.push_back(Coordinate(x, 6));
+                deletionList.push_back(Coordinate(x, 5));
             }
             playSound(WavFile("UnlockDoor", true, true));
             for (auto i : deletionList)

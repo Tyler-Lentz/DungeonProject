@@ -140,6 +140,9 @@ public:
     bool hasPuzzle();
 
     Mp3File getMusic() const;
+
+    // Sets background color of the map
+    void setBackgroundColor(int color);
 private:
     GAMEMAP gameMap;
 
