@@ -95,7 +95,8 @@ namespace dngutil
         Floor,
         Npc,
         HeroSpirit,
-        HerosTunic
+        HerosTunic,
+        MovementObject
     };
 
     enum class BTID

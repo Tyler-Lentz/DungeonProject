@@ -517,7 +517,7 @@ Collision AltarObject::mapAction(MapObject* collider, std::list<MapObject*>::ite
         v->putcen(ColorString(R"(------------------------------------------------------------)", background), vcursor.y++);
 
         playSound(Mp3File("AltarSong"));
-        
+
         for (int i = 0; i < 800; i++)
         {
             Sleep(10);
@@ -544,6 +544,7 @@ Collision AltarObject::mapAction(MapObject* collider, std::list<MapObject*>::ite
 }
 
 //---------------------------------------------------------------
+
 
 //---------------------------------------------------------------
 // Hero Spirit functions

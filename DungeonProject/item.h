@@ -195,7 +195,7 @@ private:
     std::vector<Coordinate> usedRooms;
     bool isUsed(Coordinate coord);
 
-    const int HEALTH_DECREASE = 15;
+    const int HEALTH_DECREASE = 30;
 };
 
 //-------------------------------------------------------------
