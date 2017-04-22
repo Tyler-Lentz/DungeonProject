@@ -733,7 +733,7 @@ Collision HarpPiece::mapAction(MapObject* collider, std::list<MapObject*>::itera
         t->clearScreen();
         playSound(WavFile("WarpToDungeonStart", false, false));
 
-        getPGame()->getPlayer()->gotoDungeonStart();
+        getPGame()->getPlayer()->gotoDungeonStart(pieceNumber);
         txt.displayGame(getPGame());
 
         getPGame()->getOverworldMusic().play();

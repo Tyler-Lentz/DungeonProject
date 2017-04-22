@@ -1837,7 +1837,7 @@ MegaBeastPhase1::MegaBeastPhase1(
         coord,
         "Spirit's Breath",
         false,
-        0.5,
+        1,
         5,
         100,
         false,
@@ -1863,9 +1863,9 @@ MegaBeastPhase1::MegaBeastPhase1(
     dngutil::ClassType::ADVENTURER
 )
 {
-    setMaxhp(dngutil::MAX_HP);
+    increaseDef(static_cast<unsigned int>(getDef() * 0.5));
+    setMaxhp(getMaxhp() * 1.5);
     setHp(getMaxhp());
-    increaseDef(static_cast<unsigned int>(getDef() * 0.4));
 }
 
 ColorString MegaBeastPhase1::getBattleInfo() const
@@ -1902,7 +1902,7 @@ void MegaBeastPhase1::printSelf()
 
 void MegaBeastPhase1::deathSequence()
 {
-    getPGame()->adjustScore(dngutil::BASE_SCORE_BOSS_BOOST);
+
 }
 
 MegaBeastPhase2::MegaBeastPhase2(
@@ -1918,7 +1918,7 @@ MegaBeastPhase2::MegaBeastPhase2(
     pgame,
     ColorChar('S', dngutil::LIGHTMAGENTA),
     coord,
-    "Evil Spirit",
+    "Mega Beast",
     false,
     dngutil::TID::MegaBeastPhase2,
     hp,
@@ -1959,7 +1959,7 @@ MegaBeastPhase2::MegaBeastPhase2(
     dngutil::ClassType::WIZARD
 )
 {
-    setMaxhp(dngutil::MAX_HP);
+    setMaxhp(getMaxhp() * 1.25);
     setHp(getMaxhp());
 }
 

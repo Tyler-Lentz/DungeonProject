@@ -43,7 +43,7 @@ Player::Player(
             3,
             80,
             false,
-            "A rusty old sword - but it gets the job done",
+            "A rusty old sword",
             WavFile("Attack1", false, false),
             dngutil::ClassType::ADVENTURER
         ),
@@ -75,7 +75,7 @@ Player::Player(
     inventory.push_back(new Potion(getPGame(), Coordinate(-1, -1), dngutil::POTION_HEAL));
 
     armor = new BlueTunic(getPGame(), Coordinate(-1, -1));
-    boots = new Waterboots(getPGame(), Coordinate(-1, -1));
+    boots = new StandardBoots(getPGame(), Coordinate(-1, -1));
 
     hpEv = 0;
     attEv = 0;
@@ -96,9 +96,14 @@ void Player::setBoots(Equipment* equip)
     boots = equip;
 }
 
-void Player::gotoDungeonStart()
+void Player::gotoDungeonStart(int harpPiece)
 {
-    getPGame()->setActiveRoom(startingDungeonMapCoord, 2);
+    int floorToGoTo = 2;
+    if (harpPiece == 4)
+    {
+        floorToGoTo = dngutil::HOUSE_FLOOR;
+    }
+    getPGame()->setActiveRoom(startingDungeonMapCoord, floorToGoTo);
     setPosition(startingDungeonRoomCoord);
     startingDungeonMapCoord = Coordinate(0, 0);
     startingDungeonRoomCoord = Coordinate(0, 0);

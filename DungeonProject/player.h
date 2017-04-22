@@ -75,7 +75,7 @@ public:
 
     void setExp(int value);
     void setExpToLevel(int value);
-    void gotoDungeonStart();
+    void gotoDungeonStart(int harpPiece);
     void setDungeonStart(Coordinate room, Coordinate map);
     void setDungeonStart();
     Coordinate getStartingDungeonMapCoord() const;
