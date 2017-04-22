@@ -1901,14 +1901,14 @@ void Map::makeHouses(std::mutex& mut)
         // ID: 0XAG
         std::vector<std::string> roomTemplate;
         roomTemplate.push_back("#########");
-        roomTemplate.push_back("#       #");
-        roomTemplate.push_back("#  # #  #");
-        roomTemplate.push_back("#X #4#  #");
+        roomTemplate.push_back("#    ####");
+        roomTemplate.push_back("#  #4####");
+        roomTemplate.push_back("#X # ####");
         roomTemplate.push_back("####o####");
 
         auto puzzleSolved = [](const std::list<Creature*>& creatureList, const GAMEMAP& gameMap) -> bool
         {
-            if (gameMap[1][4].size() > 1)
+            if (gameMap[1][3].size() > 1)
             {
                 return true;
             }
@@ -1917,7 +1917,7 @@ void Map::makeHouses(std::mutex& mut)
 
         auto puzzleAction = [this](std::list<Creature*> creatureList, GAMEMAP& gameMap) -> void
         {
-            gameMap[2][4].push_back(new WallObject(pgame, Coordinate(14, 11)));
+            gameMap[1][4].push_back(new WallObject(pgame, Coordinate(14, 11)));
         };
 
         std::map<Coordinate, MapObject*> specificObjects;
@@ -2304,7 +2304,7 @@ void Map::makeSpiritTemple(std::mutex& mut)
         roomTemplate.push_back("####                ####");
         roomTemplate.push_back("###                  ###");
         roomTemplate.push_back("##                    ##");
-        roomTemplate.push_back("            +         ||");
+        roomTemplate.push_back("                      ||");
         roomTemplate.push_back("##                    ##");
         roomTemplate.push_back("###                  ###");
         roomTemplate.push_back("####                ####");
