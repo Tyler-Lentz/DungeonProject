@@ -436,6 +436,52 @@ void Map::makeOverworld(std::mutex& mut)
     // Arkala Village
     {
         std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("     0          ######  ");
+        roomTemplate.push_back("                ######  ");
+        roomTemplate.push_back("     0           #####  ");
+        roomTemplate.push_back("       E        ######  ");
+        roomTemplate.push_back("     0          ######  ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("  ######          0     ");
+        roomTemplate.push_back("  ######                ");
+        roomTemplate.push_back("  #####o          0     ");
+        roomTemplate.push_back("  ######                ");
+        roomTemplate.push_back("  ######          0     ");
+        roomTemplate.push_back("                        ");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+        std::vector<ColorString> dialogue;
+        dialogue.push_back(ColorString("I'm lost... Have you seen my son - Rylan?", dngutil::WHITE));
+        dialogue.push_back(ColorString("No? I guess I'll keep looking...", dngutil::WHITE));
+        specificObjects.emplace(
+            Coordinate(7, 4),
+            new Npc(
+                pgame,
+                ColorChar('A', dngutil::WHITE),
+                Coordinate(7, 4),
+                "Tanner Santogrossi",
+                dialogue
+            ));
+        // ID: 0XAH
+        specificObjects.emplace(Coordinate(7, 9), new HouseDoorObject(pgame, Coordinate(7, 9), Coordinate(120, 120), Coordinate(5, 2), dngutil::HOUSE_FLOOR));
+
+
+        std::vector<dngutil::TID> possibleCreatures;
+
+        int difficulty = 6;
+        int backColor = dngutil::GREEN;
+        std::string name = "Arkala Village";
+        Coordinate mapCoord(-2, -7);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("VillageTheme")));
+        mut.unlock();
+
+    }
+    {
+        std::vector<std::string> roomTemplate;
         roomTemplate.push_back("                 #######");
         roomTemplate.push_back("                   #####");
         roomTemplate.push_back("                      ##");
@@ -1932,6 +1978,40 @@ void Map::makeHouses(std::mutex& mut)
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
         mut.lock();
         gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction), Mp3File("SpiritTheme")));
+        mut.unlock();
+    }
+
+    {
+        // ID: 0XAH
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("######");
+        roomTemplate.push_back("#E   #");
+        roomTemplate.push_back("#    o");
+        roomTemplate.push_back("#    #");
+        roomTemplate.push_back("######");
+
+
+        std::map<Coordinate, MapObject*> specificObjects;
+        specificObjects.emplace(Coordinate(5, 2), new HouseDoorObject(pgame, Coordinate(5, 2), Coordinate(-2, -7), Coordinate(7, 9), 2));
+        specificObjects.emplace(
+            Coordinate(1, 1),
+            new Npc(
+                pgame,
+                ColorChar('A', dngutil::WHITE),
+                Coordinate(1, 1),
+                "Ghol Smchit",
+                ColorString("Get out of my house you did not knock.", dngutil::WHITE)
+            ));
+
+        std::vector<dngutil::TID> possibleCreatures;
+
+        int difficulty = 0;
+        int backColor = dngutil::BROWN;
+        std::string name = "House";
+        Coordinate mapCoord(120, 120);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("SpiritTheme")));
         mut.unlock();
     }
 }
