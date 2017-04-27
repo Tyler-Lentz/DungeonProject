@@ -702,11 +702,11 @@ void Map::makeOverworld(std::mutex& mut)
     }
     {
         std::vector<std::string> roomTemplate;
-        roomTemplate.push_back("                        ");
-        roomTemplate.push_back("                        ");
         roomTemplate.push_back("#                       ");
-        roomTemplate.push_back("##                    ##");
-        roomTemplate.push_back("####                ####");
+        roomTemplate.push_back("###                     ");
+        roomTemplate.push_back("###                     ");
+        roomTemplate.push_back("####                  ##");
+        roomTemplate.push_back("#####               ####");
         roomTemplate.push_back("########           #####");
         roomTemplate.push_back("########wwwwwwww   #####");
         roomTemplate.push_back("##########wwwwwwwww#####");
@@ -782,7 +782,7 @@ void Map::makeOverworld(std::mutex& mut)
         roomTemplate.push_back("  #####o          0     ");
         roomTemplate.push_back("  ######                ");
         roomTemplate.push_back("  ######          0     ");
-        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("#                       ");
 
         std::map<Coordinate, MapObject*> specificObjects;
         std::vector<ColorString> dialogue;
@@ -814,6 +814,60 @@ void Map::makeOverworld(std::mutex& mut)
         mut.unlock();
 
     }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("        0   0   0       ");
+        roomTemplate.push_back("    0  E           0    ");
+        roomTemplate.push_back("          wwwww         ");
+        roomTemplate.push_back("    0     wwwww    0    ");
+        roomTemplate.push_back("          wwwww         ");
+        roomTemplate.push_back("    0           E  0    ");
+        roomTemplate.push_back("        0   0    0      ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("########################");
+        // 7,4
+        // 15,8
+        std::map<Coordinate, MapObject*> specificObjects;
+        std::vector<ColorString> dialogue;
+        dialogue.push_back(ColorString("This fountain is so beautiful...", dngutil::WHITE));
+        dialogue.push_back(ColorString("I could watch it all day.", dngutil::WHITE));
+        specificObjects.emplace(
+            Coordinate(7, 4),
+            new Npc(
+                pgame,
+                ColorChar('A', dngutil::WHITE),
+                Coordinate(7, 4),
+                "Tricia Hall",
+                dialogue
+            ));
+        specificObjects.emplace(
+            Coordinate(15, 8),
+            new Npc(
+                pgame,
+                ColorChar('A', dngutil::WHITE),
+                Coordinate(15, 8),
+                "Holly Hall",
+                ColorString("We haven't been able to leave ever since the pass flooded...", dngutil::WHITE)
+            ));
+
+        std::vector<dngutil::TID> possibleCreatures;
+
+        int difficulty = 6;
+        int backColor = dngutil::GREEN;
+        std::string name = "Arkala Village";
+        Coordinate mapCoord(-3, -7);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("VillageTheme")));
+        mut.unlock();
+
+    }
+
     {
         std::vector<std::string> roomTemplate;
         roomTemplate.push_back("                 #######");
