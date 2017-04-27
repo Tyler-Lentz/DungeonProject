@@ -293,6 +293,14 @@ void Room::drawRoom()
             cchar.color = getColor(cchar.color, roomInfo.backColor);
         }
 
+        if (getObjects(coord).back()->getTypeId() == dngutil::TID::Player)
+        {
+            if (roomInfo.backColor == game_pointer->getPlayer()->getMapRep().color)
+            {
+                cchar.color = getColor(dngutil::BLACK, roomInfo.backColor);
+            }
+        }
+
         int creatureNum = 0;
         for (auto i : getObjects(coord))
         {

@@ -261,6 +261,111 @@ void Map::makeOverworld(std::mutex& mut)
 
     }
 
+    // Glorian Plains
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("         ###############");
+        roomTemplate.push_back("            ############");
+        roomTemplate.push_back("         E  ############");
+        roomTemplate.push_back("            ############");
+        roomTemplate.push_back("             ###########");
+        roomTemplate.push_back("            ############");
+        roomTemplate.push_back("           #############");
+        roomTemplate.push_back("           #############");
+        roomTemplate.push_back("           #############");
+        roomTemplate.push_back("  e        #############");
+        roomTemplate.push_back("           #############");
+        roomTemplate.push_back("            ############");
+        roomTemplate.push_back("           #############");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+        std::vector<ColorString> dialogue;
+        dialogue.push_back(ColorString("I was traveling with my dad when we got separated.", dngutil::WHITE));
+        dialogue.push_back(ColorString("Have you seen him? No? Thats a shame...", dngutil::WHITE));
+        specificObjects.emplace(
+            Coordinate(9, 2),
+            new Npc(
+                pgame,
+                ColorChar('A', dngutil::WHITE),
+                Coordinate(9, 2),
+                "Rylan Wadkins",
+                dialogue
+            ));
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Bowman);
+
+        int difficulty = 0;
+        int backColor = dngutil::GREEN;
+        std::string name = "Glorian Plains";
+        Coordinate mapCoord(-1, 2);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("OverworldTheme")));
+        mut.unlock();
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("           #############");
+        roomTemplate.push_back("            ############");
+        roomTemplate.push_back("            ############");
+        roomTemplate.push_back("           #############");
+        roomTemplate.push_back("             ###########");
+        roomTemplate.push_back("            ############");
+        roomTemplate.push_back("           #############");
+        roomTemplate.push_back("          ##############");
+        roomTemplate.push_back("          ##############");
+        roomTemplate.push_back("        ################");
+        roomTemplate.push_back("        ################");
+        roomTemplate.push_back("       #################");
+        roomTemplate.push_back("      ##################");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Bowman);
+
+        int difficulty = 0;
+        int backColor = dngutil::GREEN;
+        std::string name = "Glorian Plains";
+        Coordinate mapCoord(-1, 3);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("OverworldTheme")));
+        mut.unlock();
+    }
+
+    // Glorian Beach
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("      ##################");
+        roomTemplate.push_back("      ##################");
+        roomTemplate.push_back("       #################");
+        roomTemplate.push_back("       #################");
+        roomTemplate.push_back("        ################");
+        roomTemplate.push_back("       #################");
+        roomTemplate.push_back("wwwwww##################");
+        roomTemplate.push_back("wwwwww##################");
+        roomTemplate.push_back("wwwwww##################");
+        roomTemplate.push_back("WWWWWWW#################");
+        roomTemplate.push_back("WWWWWWW#################");
+        roomTemplate.push_back("WWWWWWW#################");
+        roomTemplate.push_back("WWWWWW##################");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+
+        int difficulty = 0;
+        int backColor = dngutil::YELLOW;
+        std::string name = "Glorian Beach";
+        Coordinate mapCoord(-1, 4);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("OverworldTheme")));
+        mut.unlock();
+    }
+
     // Arkala Pass
     {
         std::vector<std::string> roomTemplate;
