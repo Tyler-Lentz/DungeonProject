@@ -139,7 +139,7 @@ public:
         Coordinate coord
     ) :Equipment(
         pgame,
-        ColorChar('*', dngutil::YELLOW),
+        ColorChar('0', dngutil::YELLOW),
         coord,
         "Hero's Tunic",
         false,
