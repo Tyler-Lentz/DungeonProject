@@ -2223,7 +2223,7 @@ Mage::Mage(
         false,
         dngutil::TID::Secondary,
         10,
-        1.35,
+        1.12,
         "A protecting aura from a mage"
     ),
     Mp3File("BattleTheme", "BattleThemeAlt"),

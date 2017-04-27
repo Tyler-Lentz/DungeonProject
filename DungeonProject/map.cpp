@@ -829,8 +829,6 @@ void Map::makeOverworld(std::mutex& mut)
         roomTemplate.push_back("                        ");
         roomTemplate.push_back("                        ");
         roomTemplate.push_back("########################");
-        // 7,4
-        // 15,8
         std::map<Coordinate, MapObject*> specificObjects;
         std::vector<ColorString> dialogue;
         dialogue.push_back(ColorString("This fountain is so beautiful...", dngutil::WHITE));
@@ -845,11 +843,11 @@ void Map::makeOverworld(std::mutex& mut)
                 dialogue
             ));
         specificObjects.emplace(
-            Coordinate(15, 8),
+            Coordinate(16, 8),
             new Npc(
                 pgame,
                 ColorChar('A', dngutil::WHITE),
-                Coordinate(15, 8),
+                Coordinate(16, 8),
                 "Holly Hall",
                 ColorString("We haven't been able to leave ever since the pass flooded...", dngutil::WHITE)
             ));
@@ -2542,7 +2540,7 @@ void Map::makeWaterTemple(std::mutex& mut)
         roomTemplate.push_back("############ ###########");
         roomTemplate.push_back("############ ###########");
         roomTemplate.push_back("############ ###########");
-        roomTemplate.push_back("########         #######");
+        roomTemplate.push_back("########o        #######");
         roomTemplate.push_back("########         #######");
         roomTemplate.push_back("########         #######");
         roomTemplate.push_back("########         #######");
@@ -2584,6 +2582,7 @@ void Map::makeWaterTemple(std::mutex& mut)
         };
 
         std::map<Coordinate, MapObject*> specificObjects;
+        specificObjects.emplace(Coordinate(8, 3), new Potion(pgame, Coordinate(8, 3), dngutil::POTION_HEAL));
 
         std::vector<dngutil::TID> possibleCreatures;
         possibleCreatures.push_back(dngutil::TID::Mage);
