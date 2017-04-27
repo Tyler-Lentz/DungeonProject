@@ -225,6 +225,10 @@ Creature* Game::generateCreature(int difficulty, dngutil::TID tid)
         enemy = new SSKnight(this, Coordinate(-1, -1), health, attack, defense, luck, speed, level);
         break;
 
+    case dngutil::TID::Robber:
+        enemy = new Robber(this, Coordinate(-1, -1), health, attack, defense, luck, speed, level);
+        break;
+
     case dngutil::TID::Mage:
         enemy = new Mage(this, Coordinate(-1, -1), health, attack, defense, luck, speed, level);
         break;

@@ -94,7 +94,7 @@ void Map::makeOverworld(std::mutex& mut)
         std::map<Coordinate, MapObject*> specificObjects;
 
         std::vector<dngutil::TID> possibleCreatures;
-        possibleCreatures.push_back(dngutil::TID::Bowman);
+        possibleCreatures.push_back(dngutil::TID::Robber);
 
         int difficulty = 0;
         int backColor = dngutil::GREEN;
@@ -127,6 +127,7 @@ void Map::makeOverworld(std::mutex& mut)
 
         std::vector<dngutil::TID> possibleCreatures;
         possibleCreatures.push_back(dngutil::TID::Bowman);
+        possibleCreatures.push_back(dngutil::TID::Robber);
 
         int difficulty = 0;
         int backColor = dngutil::GREEN;
@@ -157,7 +158,7 @@ void Map::makeOverworld(std::mutex& mut)
         std::map<Coordinate, MapObject*> specificObjects;
 
         std::vector<dngutil::TID> possibleCreatures;
-        possibleCreatures.push_back(dngutil::TID::Skeleton);
+        possibleCreatures.push_back(dngutil::TID::Robber);
 
         int difficulty = 0;
         int backColor = dngutil::GREEN;
@@ -187,7 +188,8 @@ void Map::makeOverworld(std::mutex& mut)
         std::map<Coordinate, MapObject*> specificObjects;
 
         std::vector<dngutil::TID> possibleCreatures;
-        possibleCreatures.push_back(dngutil::TID::Skeleton);
+        possibleCreatures.push_back(dngutil::TID::Bowman);
+        possibleCreatures.push_back(dngutil::TID::Robber);
 
         int difficulty = 0;
         int backColor = dngutil::GREEN;
@@ -205,19 +207,19 @@ void Map::makeOverworld(std::mutex& mut)
         roomTemplate.push_back("##########       #######");
         roomTemplate.push_back("#########           ####");
         roomTemplate.push_back("#####          e      ##");
-        roomTemplate.push_back("##                      ");
-        roomTemplate.push_back("#                       ");
-        roomTemplate.push_back("#       e            ###");
-        roomTemplate.push_back("                   #####");
-        roomTemplate.push_back("                ########");
-        roomTemplate.push_back("               #########");
-        roomTemplate.push_back("            ############");
-        roomTemplate.push_back("         ###############");
+        roomTemplate.push_back("####                    ");
+        roomTemplate.push_back("###                     ");
+        roomTemplate.push_back("##      e            ###");
+        roomTemplate.push_back("##                 #####");
+        roomTemplate.push_back("##              ########");
+        roomTemplate.push_back("##             #########");
+        roomTemplate.push_back("#           ############");
+        roomTemplate.push_back("#        ###############");
 
         std::map<Coordinate, MapObject*> specificObjects;
 
         std::vector<dngutil::TID> possibleCreatures;
-        possibleCreatures.push_back(dngutil::TID::Bowman);
+        possibleCreatures.push_back(dngutil::TID::Robber);
 
         int difficulty = 0;
         int backColor = dngutil::GREEN;
@@ -264,8 +266,8 @@ void Map::makeOverworld(std::mutex& mut)
     // Glorian Plains
     {
         std::vector<std::string> roomTemplate;
-        roomTemplate.push_back("         ###############");
-        roomTemplate.push_back("            ############");
+        roomTemplate.push_back("##       ###############");
+        roomTemplate.push_back("#           ############");
         roomTemplate.push_back("         E  ############");
         roomTemplate.push_back("            ############");
         roomTemplate.push_back("             ###########");
@@ -304,6 +306,99 @@ void Map::makeOverworld(std::mutex& mut)
         gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("OverworldTheme")));
         mut.unlock();
     }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                  e     ");
+        roomTemplate.push_back("          ##            ");
+        roomTemplate.push_back("  e      ####           ");
+        roomTemplate.push_back("           ###          ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Robber);
+
+        int difficulty = 0;
+        int backColor = dngutil::GREEN;
+        std::string name = "Glorian Plains";
+        Coordinate mapCoord(-2, 2);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("OverworldTheme")));
+        mut.unlock();
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("      #########         ");
+        roomTemplate.push_back("        #v####          ");
+        roomTemplate.push_back("          ####          ");
+        roomTemplate.push_back("           ##           ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("    e                   ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Robber);
+
+        int difficulty = 0;
+        int backColor = dngutil::GREEN;
+        std::string name = "Glorian Plains";
+        Coordinate mapCoord(-3, 2);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("OverworldTheme")));
+        mut.unlock();
+    }
+    tfloor = 1;
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("#####  ########  #######");
+        roomTemplate.push_back("###   #########        #");
+        roomTemplate.push_back("##      #^####    +    #");
+        roomTemplate.push_back("#         ####         #");
+        roomTemplate.push_back("##         ##          #");
+        roomTemplate.push_back("##wwwwwwwwwwwwwwwwwwwww#");
+        roomTemplate.push_back("##wwwwwwwwwwwwwwwwwwwww#");
+        roomTemplate.push_back("#wwwwwwwwwwwwwwwwwwwwww#");
+        roomTemplate.push_back("#wwwwwwwwwwwwwwwwwwwww##");
+        roomTemplate.push_back("#####wwwwwwwwwwwwwwwww##");
+        roomTemplate.push_back("#######wwwwwwwwwwwww####");
+        roomTemplate.push_back("########################");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+
+        int difficulty = 0;
+        int backColor = dngutil::LIGHTGRAY;
+        std::string name = "Underground Lake";
+        Coordinate mapCoord(-3, 2);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("CaveTheme")));
+        mut.unlock();
+    }
+    tfloor = 2;
+
+
     {
         std::vector<std::string> roomTemplate;
         roomTemplate.push_back("           #############");

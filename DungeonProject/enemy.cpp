@@ -1864,7 +1864,7 @@ MegaBeastPhase1::MegaBeastPhase1(
 )
 {
     increaseDef(static_cast<unsigned int>(getDef() * 0.5));
-    setMaxhp(getMaxhp() * 1.5);
+    setMaxhp(static_cast<unsigned int>(getMaxhp() * 1.5));
     setHp(getMaxhp());
 }
 
@@ -1959,7 +1959,7 @@ MegaBeastPhase2::MegaBeastPhase2(
     dngutil::ClassType::WIZARD
 )
 {
-    setMaxhp(getMaxhp() * 1.25);
+    setMaxhp(static_cast<unsigned int>(getMaxhp() * 1.25));
     setHp(getMaxhp());
 }
 
@@ -2365,6 +2365,100 @@ void Bowman::printSelf()
     printStats(LONGEST_LINE_LENGTH, TOP_CURSOR_Y);
 }
 //----------------------------------------------------------------
+
+//----------------------------------------------------------------
+// Robber
+Robber::Robber(
+    Game* pgame,
+    Coordinate coord,
+    int hp,
+    unsigned int att,
+    unsigned int def,
+    unsigned int lck,
+    unsigned int spd,
+    unsigned int lvl
+) : SmartEnemy(
+    pgame,
+    ColorChar('A', dngutil::DARKGRAY),
+    coord,
+    "Robber",
+    false,
+    dngutil::TID::Robber,
+    hp, att, def, lck, spd, lvl,
+    new Primary(
+        pgame,
+        ColorChar('|', dngutil::WHITE),
+        coord,
+        "Dagger",
+        false,
+        1.2,
+        2,
+        90,
+        false,
+        "A very light dagger.",
+        WavFile("Attack1", false, false),
+        dngutil::ClassType::ADVENTURER
+    ),
+    new Secondary(
+        pgame,
+        ColorChar('*', dngutil::DARKGRAY),
+        coord,
+        "Robber's Charm",
+        false,
+        dngutil::TID::Secondary,
+        50,
+        1.15,
+        "A charm from a robber."
+    ),
+    Mp3File("BattleTheme", "BattleThemeAlt"),
+    random(35, 47),
+    WavFile("EnemyDeath", false, false),
+    dngutil::EvType::SPEED,
+    dngutil::ClassType::ADVENTURER
+)
+{
+
+}
+
+void Robber::printSelf()
+{
+    Coordinate vcursor(0, getPGame()->getVWin()->txtmacs.DIVIDER_LINES[1] + 1);
+    VirtualWindow* t = getPGame()->getVWin();
+    int color = dngutil::DARKGRAY;
+    t->put(ColorString(R"(                       __.------.                          )", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                      (__  ___   )                         )", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                        .)e  )\ /                          )", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                       /_.------                           )", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                       _/_    _/                           )", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                   __.'  / '   `-.__                       )", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                  / <.--'           `\                     )", color), vcursor); vcursor.y++;
+    const int TOP_CURSOR_Y = vcursor.y;
+    t->put(ColorString(R"(                 /   \   \c           |                    )", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                /    /    )  GoT  x    \                   )", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                |   /\    |c     / \.-  \                  )", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                \__/  )  /(     (   \   <>'\               )", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                     / _/ _\-    `-. \/_|_ /<>             )", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                    / /--/,-\     _ \     <>.`.            )", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                    \/`--\_._) - /   `-/\    `.\           )", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                     /        `.     /   )     `\          )", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                     \      \   \___/----'                 )", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                     |      /    `(                        )", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                     \    ./\_   _ \                       )", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                     /     |  )    '|                      )", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                    |     /   \     \                      )", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                   /     |     |____.)                     )", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                  /      \      \___/                      )", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                 \_      :)                                )", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                /` `-----'                                 )", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                \____|                                     )", color), vcursor); vcursor.y++;
+    const int LONGEST_LINE_LENGTH =55;
+
+    printStats(LONGEST_LINE_LENGTH, TOP_CURSOR_Y);
+}
+//----------------------------------------------------------------
+
+
+
 
 //----------------------------------------------------------------
 // Seg Enemy
