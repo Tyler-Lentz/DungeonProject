@@ -398,8 +398,6 @@ void Map::makeOverworld(std::mutex& mut)
         mut.unlock();
     }
     tfloor = 2;
-
-
     {
         std::vector<std::string> roomTemplate;
         roomTemplate.push_back("           #############");
@@ -473,8 +471,8 @@ void Map::makeOverworld(std::mutex& mut)
         roomTemplate.push_back("                        ");
         roomTemplate.push_back("     e                  ");
         roomTemplate.push_back("                        ");
-        roomTemplate.push_back("                        ");
-        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("##                      ");
+        roomTemplate.push_back("##                      ");
 
         std::map<Coordinate, MapObject*> specificObjects;
 
@@ -554,14 +552,14 @@ void Map::makeOverworld(std::mutex& mut)
     }
     {
         std::vector<std::string> roomTemplate;
-        roomTemplate.push_back("                        ");
-        roomTemplate.push_back("                        ");
-        roomTemplate.push_back("                        ");
-        roomTemplate.push_back("                        ");
-        roomTemplate.push_back("    E                   ");
-        roomTemplate.push_back("                        ");
-        roomTemplate.push_back("wwwwwwwwwwwwwwwwwwwwwwww");
-        roomTemplate.push_back("wwwwwwwwwwwwwwwwwwwwwwww");
+        roomTemplate.push_back("##                      ");
+        roomTemplate.push_back("##                      ");
+        roomTemplate.push_back("##                      ");
+        roomTemplate.push_back("##                      ");
+        roomTemplate.push_back("##  E                   ");
+        roomTemplate.push_back("###                     ");
+        roomTemplate.push_back("##wwwwwwwwwwwwwwwwwwwwww");
+        roomTemplate.push_back("#wwwwwwwwwwwwwwwwwwwwwww");
         roomTemplate.push_back("wwwwwwwwwwwwwwwwwwwwwwww");
         roomTemplate.push_back("WWWWWwwwwwwwwwwwwwwwWWWW");
         roomTemplate.push_back("WWWWWWwwwwwwwwwwwwwWWWWW");
@@ -592,6 +590,250 @@ void Map::makeOverworld(std::mutex& mut)
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
         mut.lock();
         gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("OverworldTheme")));
+        mut.unlock();
+    }
+
+    // Castle Town Ruins
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                & &&    ");
+        roomTemplate.push_back("                &e &    ");
+        roomTemplate.push_back("                &  &    ");
+        roomTemplate.push_back("   &&&     &    &&&&    ");
+        roomTemplate.push_back("  &                     ");
+        roomTemplate.push_back("  &   &     &           ");
+        roomTemplate.push_back("  &&  &          &      ");
+        roomTemplate.push_back("              &&&   &   ");
+        roomTemplate.push_back("       e      &   &&    ");
+        roomTemplate.push_back("              &         ");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Robber);
+
+        int difficulty = 3;
+        int backColor = dngutil::GREEN;
+        std::string name = "Castle Town Ruins";
+        Coordinate mapCoord(-4, 3);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("SpiritTheme")));
+        mut.unlock();
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("    &&&&&               ");
+        roomTemplate.push_back("         &              ");
+        roomTemplate.push_back("    &                   ");
+        roomTemplate.push_back("       &&               ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("          &   & &       ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("         &  e    &      ");
+        roomTemplate.push_back("            &&&&&&      ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Robber);
+
+        int difficulty = 3;
+        int backColor = dngutil::GREEN;
+        std::string name = "Castle Town Ruins";
+        Coordinate mapCoord(-5, 3);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("SpiritTheme")));
+        mut.unlock();
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("  & &&&                 ");
+        roomTemplate.push_back("  &   &         e       ");
+        roomTemplate.push_back("     &                  ");
+        roomTemplate.push_back("  && &&                 ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("            w ww        ");
+        roomTemplate.push_back("    &      w& &w        ");
+        roomTemplate.push_back("  &   &      +          ");
+        roomTemplate.push_back("  & e &     &&&w        ");
+        roomTemplate.push_back("   &       ww ww        ");
+        roomTemplate.push_back("     &                  ");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Robber);
+
+        int difficulty = 3;
+        int backColor = dngutil::GREEN;
+        std::string name = "Castle Town Ruins";
+        Coordinate mapCoord(-4, 2);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("SpiritTheme")));
+        mut.unlock();
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back(" &&          &&&        ");
+        roomTemplate.push_back("                   &    ");
+        roomTemplate.push_back(" &&&       &&      &    ");
+        roomTemplate.push_back("              &&        ");
+        roomTemplate.push_back("    &&                  ");
+        roomTemplate.push_back("       &           &    ");
+        roomTemplate.push_back("  &  e       &&&   &    ");
+        roomTemplate.push_back("      &           &&    ");
+        roomTemplate.push_back("   &                    ");
+        roomTemplate.push_back("                        ");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Robber);
+
+        int difficulty = 3;
+        int backColor = dngutil::GREEN;
+        std::string name = "Castle Town Ruins";
+        Coordinate mapCoord(-5, 2);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("SpiritTheme")));
+        mut.unlock();
+    }
+    
+    // Castle Ruins
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back(" 0  0  0   0   0   0    ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("wwwwwwwwwwwwwwwww  0    ");
+        roomTemplate.push_back("wwwwwwwwwwwwwwwww       ");
+        roomTemplate.push_back("     &         ww  0    ");
+        roomTemplate.push_back("&&      &      ww       ");
+        roomTemplate.push_back("  &    &       ww  0    ");
+        roomTemplate.push_back("     &    &    ww       ");
+        roomTemplate.push_back("  &            ww  0    ");
+        roomTemplate.push_back("    &    &  &  ww       ");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Robber);
+
+        int difficulty = 3;
+        int backColor = dngutil::GREEN;
+        std::string name = "Castle Ruins";
+        Coordinate mapCoord(-6, 2);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("SpiritTheme")));
+        mut.unlock();
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("##                      ");
+        roomTemplate.push_back("##  0  0  0  0  0  0  0 ");
+        roomTemplate.push_back("##                      ");
+        roomTemplate.push_back("##  0 wwwwwwwwwwwwwwwwww");
+        roomTemplate.push_back("##    wwwwwwwwwwwwwwwwww");
+        roomTemplate.push_back("##  0 ww                ");
+        roomTemplate.push_back("##    ww   &&&  &   &&  ");
+        roomTemplate.push_back("##  0 ww   &e           ");
+        roomTemplate.push_back("##    ww     &   & &  & ");
+        roomTemplate.push_back("##  0 ww    &       &   ");
+        roomTemplate.push_back("##    ww   &&&      &&  ");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Robber);
+
+        int difficulty = 5;
+        int backColor = dngutil::GREEN;
+        std::string name = "Castle Ruins";
+        Coordinate mapCoord(-7, 2);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("SpiritTheme")));
+        mut.unlock();
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("##    ww   &&&    &     ");
+        roomTemplate.push_back("##  0 ww    &         & ");
+        roomTemplate.push_back("##    ww      &    &&   ");
+        roomTemplate.push_back("##  0 ww   &&   &&      ");
+        roomTemplate.push_back("##    ww     &&         ");
+        roomTemplate.push_back("##  0 wwwwwwwwwwwwwwww  ");
+        roomTemplate.push_back("##    wwwwwwwwwwwwwwww  ");
+        roomTemplate.push_back("##  0                   ");
+        roomTemplate.push_back("##                      ");
+        roomTemplate.push_back("##  0  0  0  0  0   0   ");
+        roomTemplate.push_back("##                      ");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Robber);
+
+        int difficulty = 5;
+        int backColor = dngutil::GREEN;
+        std::string name = "Castle Ruins";
+        Coordinate mapCoord(-7, 3);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("SpiritTheme")));
+        mut.unlock();
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("     && &      ww       ");
+        roomTemplate.push_back("   &           ww  0    ");
+        roomTemplate.push_back("      e   &    ww       ");
+        roomTemplate.push_back("  &   &   &&&  ww       ");
+        roomTemplate.push_back("        &      ww  0    ");
+        roomTemplate.push_back("  wwwwwwwwwwwwwww       ");
+        roomTemplate.push_back("  wwwwwwwwwwwwwww       ");
+        roomTemplate.push_back("                   0    ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("    0  0  0  0  0  0    ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Robber);
+
+        int difficulty = 3;
+        int backColor = dngutil::GREEN;
+        std::string name = "Castle Ruins";
+        Coordinate mapCoord(-6, 3);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("SpiritTheme")));
         mut.unlock();
     }
 

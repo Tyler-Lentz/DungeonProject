@@ -69,6 +69,10 @@ Room::Room(Game* t_game_pointer, RoomInfo roomToGenerate, Puzzle* puzzle, Mp3Fil
                     dngutil::TID::Bubblecharm, true));
                 break;
 
+            case '&':
+                gameMap[i][j].push_back(new CastleWallObject(game_pointer, Coordinate(j, i)));
+                break;
+                
             case '@':
                 gameMap[i][j].push_back(new EvilWallObject(game_pointer, Coordinate(j, i)));
                 break;

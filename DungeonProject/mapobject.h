@@ -163,6 +163,25 @@ public:
         ) {}
 };
 
+class CastleWallObject : public MapObject
+{
+public:
+    CastleWallObject(Game* game, Coordinate coord) :
+        MapObject(
+            game,
+            ColorChar(static_cast<unsigned char>(178), getColor(dngutil::DARKGRAY, dngutil::LIGHTGRAY)),
+            coord,
+            "WALL",
+            false,
+            true,
+            false,
+            dngutil::TID::Wall,
+            dngutil::P_WALL,
+            dngutil::BTID::None,
+            false
+        ) {}
+};
+
 
 class ExitObject : public MapObject
 {
