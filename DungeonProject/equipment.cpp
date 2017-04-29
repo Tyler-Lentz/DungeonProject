@@ -95,7 +95,7 @@ void HerosTunic::unequipAction()
 
 void Bubblecharm::equipAction()
 {
-    getPGame()->getPlayer()->changeMapChar(ColorChar('A', dngutil::LIGHTBLUE));
+    getPGame()->getPlayer()->changeMapChar(ColorChar('A', dngutil::LIGHTGREEN));
 }
 
 void Bubblecharm::unequipAction()

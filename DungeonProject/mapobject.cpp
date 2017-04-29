@@ -142,7 +142,7 @@ Collision ExitObject::mapAction(MapObject* collider, std::list<MapObject*>::iter
         }
         else
         {
-            if (!getPGame()->getPlayer()->hasItem(itemNeeded))
+            if (!getPGame()->getPlayer()->hasItem(itemNeeded, true))
             {
                 return Collision(false, true);
             }

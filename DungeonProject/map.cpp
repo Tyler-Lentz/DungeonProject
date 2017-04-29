@@ -2639,7 +2639,7 @@ void Map::makeWaterTemple(std::mutex& mut)
         roomTemplate.push_back("##                    ##");
         roomTemplate.push_back("##                    ##");
         roomTemplate.push_back("##                    ##");
-        roomTemplate.push_back("############-###########");
+        roomTemplate.push_back("############ ###########");
 
         std::map<Coordinate, MapObject*> specificObjects;
         specificObjects.emplace(Coordinate(15, 4), new Bubblecharm(pgame, Coordinate(15, 4)));

@@ -164,9 +164,9 @@ public:
         Coordinate coord
     ) :Equipment(
         pgame,
-        ColorChar('o', dngutil::LIGHTCYAN),
+        ColorChar('o', dngutil::LIGHTGREEN),
         coord,
-        "Bubble Charm",
+        "Fish Tunic",
         false,
         "Allows the user to dive in certain water",
         EquipSlotId::ARMOR,

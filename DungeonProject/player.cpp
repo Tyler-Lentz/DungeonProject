@@ -131,13 +131,16 @@ Coordinate Player::getStartingDungeonRoomCoord() const
     return startingDungeonRoomCoord;
 }
 
-bool Player::hasItem(dngutil::TID tid)
+bool Player::hasItem(dngutil::TID tid, bool onlyCountHolding)
 {
-    for (auto& i : inventory)
+    if (!onlyCountHolding)
     {
-        if (i->getTypeId() == tid)
+        for (auto& i : inventory)
         {
-            return true;
+            if (i->getTypeId() == tid)
+            {
+                return true;
+            }
         }
     }
 
