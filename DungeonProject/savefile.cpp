@@ -3,6 +3,7 @@
 #include <sstream>
 #include <vector>
 #include <iostream>
+#include <iterator>
 
 #include "game.h"
 #include "player.h"
@@ -13,12 +14,30 @@
 #include "utilities.h"
 void xorFile()
 {
-    
+    std::fstream file("save.txt", std::ios::in);
+
+    std::string str;
+    std::getline(file, str, std::string::traits_type::to_char_type(
+        std::string::traits_type::eof()));
+
+    file.close();
+
+    int key = 30;
+    for (auto& i : str)
+    {
+        i ^= key;
+    }
+
+    file.open("save.txt", std::ios::out | std::ios::trunc);
+
+    file << str;
+
+    file.close();
 }
 
 void saveGame(Player* player, Game* game)
 {
-    std::ofstream file("save.dat", std::ios::trunc);
+    std::ofstream file("save.txt", std::ios::trunc);
 
     Coordinate mapCoord(game->getActiveRoom()->getRoomInfo().mapCoord);
 
@@ -65,7 +84,7 @@ void saveGame(Player* player, Game* game)
     player->getBootsMemory()->equipAction();
 
     file.close();
-    // obfusicate
+    xorFile();
 }
 
 std::string getInventoryItemText(Item& i)
@@ -116,8 +135,9 @@ std::string getSecondarySaveText(Secondary& s)
 
 bool loadGame(Game* game)
 {
+    xorFile();
     Player* p = game->getPlayer();
-    std::ifstream file("save.dat");
+    std::ifstream file("save.txt");
     std::string s;
 
     if (file.peek() == std::ifstream::traits_type::eof())
@@ -247,6 +267,7 @@ bool loadGame(Game* game)
     }
 
     file.close();
+    xorFile();
     return true;
 }
 
