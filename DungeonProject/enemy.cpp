@@ -2207,7 +2207,7 @@ Mage::Mage(
         coord,
         "Staff",
         false,
-        2,
+        1.5,
         4,
         85,
         false,

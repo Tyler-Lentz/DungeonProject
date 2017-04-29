@@ -47,7 +47,7 @@ public:
         Coordinate coord
     ) :Equipment(
         pgame,
-        ColorChar('0', dngutil::BLUE),
+        ColorChar('0', dngutil::LIGHTCYAN),
         coord,
         "Blue Tunic",
         false,
@@ -146,6 +146,31 @@ public:
         "Tunic passed down from the hero himself",
         EquipSlotId::ARMOR,
         dngutil::TID::HerosTunic
+    )
+    {
+
+    }
+
+private:
+    void equipAction() override;
+    void unequipAction() override;
+};
+
+class Bubblecharm : public Equipment
+{
+public:
+    Bubblecharm(
+        Game* pgame,
+        Coordinate coord
+    ) :Equipment(
+        pgame,
+        ColorChar('o', dngutil::LIGHTCYAN),
+        coord,
+        "Bubble Charm",
+        false,
+        "Allows the user to dive in certain water",
+        EquipSlotId::ARMOR,
+        dngutil::TID::Bubblecharm
     )
     {
 

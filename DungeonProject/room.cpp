@@ -55,6 +55,20 @@ Room::Room(Game* t_game_pointer, RoomInfo roomToGenerate, Puzzle* puzzle, Mp3Fil
                 gameMap[i][j].push_back(new WallObject(game_pointer, Coordinate(j, i)));
                 break;
 
+            case 'I':
+                gameMap[i][j].push_back(new ExitObject(
+                    game_pointer, Coordinate(j, i), true,
+                    ColorChar(' ', getColor(dngutil::LIGHTBLUE, dngutil::LIGHTBLUE)),
+                    dngutil::TID::Bubblecharm, true));
+                break;
+
+            case 'i':
+                gameMap[i][j].push_back(new ExitObject(
+                    game_pointer, Coordinate(j, i), false,
+                    ColorChar(' ', getColor(dngutil::LIGHTBLUE, dngutil::LIGHTBLUE)),
+                    dngutil::TID::Bubblecharm, true));
+                break;
+
             case '@':
                 gameMap[i][j].push_back(new EvilWallObject(game_pointer, Coordinate(j, i)));
                 break;

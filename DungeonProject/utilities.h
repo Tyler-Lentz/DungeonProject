@@ -97,7 +97,8 @@ namespace dngutil
         HeroSpirit,
         HerosTunic,
         MovementObject,
-        Robber
+        Robber,
+        Bubblecharm
     };
 
     enum class BTID

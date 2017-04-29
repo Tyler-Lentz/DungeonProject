@@ -129,14 +129,33 @@ Collision ExitObject::mapAction(MapObject* collider, std::list<MapObject*>::iter
 {
     if (collider == getPGame()->getPlayer())
     {
-        if (up)
+        if (itemNeeded == dngutil::TID::Empty)
         {
-            playSound(WavFile("StairsUp", false, false));
+            if (up)
+            {
+                playSound(WavFile("StairsUp", false, false));
+            }
+            else
+            {
+                playSound(WavFile("StairsDown", false, false));
+            }
         }
         else
         {
-            playSound(WavFile("StairsDown", false, false));
+            if (!getPGame()->getPlayer()->hasItem(itemNeeded))
+            {
+                return Collision(false, true);
+            }
+            else
+            {
+                if (itemNeeded == dngutil::TID::Bubblecharm)
+                {
+                    playSound(WavFile("WaterStaircase", false, false));
+                }
+            }
         }
+
+        
         Coordinate coord(getPGame()->getActiveRoom()->getRoomInfo().mapCoord);
         if (up)
         {

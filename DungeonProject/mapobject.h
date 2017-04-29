@@ -183,6 +183,26 @@ public:
         )
     {
         this->up = up;
+        itemNeeded = dngutil::TID::Empty;
+    }
+
+    ExitObject(Game* game, Coordinate coord, bool up, ColorChar mapRep, dngutil::TID itemNeeded, bool rawoutput)
+        :MapObject(
+            game,
+            mapRep,
+            coord,
+            "EXIT",
+            true,
+            rawoutput,
+            false,
+            dngutil::TID::Exit,
+            dngutil::P_STAIRCASE,
+            dngutil::BTID::None,
+            false
+        )
+    {
+        this->up = up;
+        this->itemNeeded = itemNeeded;
     }
 
     // Defined in mapobject.cpp because it is big
@@ -195,6 +215,7 @@ public:
 
 private:
     bool up;
+    dngutil::TID itemNeeded;
 };
 
 class HoleObject : public MapObject

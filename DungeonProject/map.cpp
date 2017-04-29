@@ -2596,6 +2596,98 @@ void Map::makeWaterTemple(std::mutex& mut)
         gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction), Mp3File("DungeonTheme")));
         mut.unlock();
     }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("############ ###########");
+        roomTemplate.push_back("##                    ##");
+        roomTemplate.push_back("##                    ##");
+        roomTemplate.push_back("##  # # # # # # # # # ##");
+        roomTemplate.push_back("##                    ##");
+        roomTemplate.push_back("##  # # # # # # # # # ##");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("##  # # # # # # # # # ##");
+        roomTemplate.push_back("##                    ##");
+        roomTemplate.push_back("##  # # # # # # # # # ##");
+        roomTemplate.push_back("##                    ##");
+        roomTemplate.push_back("##                    ##");
+        roomTemplate.push_back("############-###########");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+
+        int difficulty = -1;
+        int backColor = dngutil::CYAN;
+        std::string name = "The Water Temple";
+        Coordinate mapCoord(-3, 10);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("DungeonTheme")));
+        mut.unlock();
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("##wwwwwwwwwwwww       ##");
+        roomTemplate.push_back("##wiwwwwwwwwww        ##");
+        roomTemplate.push_back("##wwwwwwwwww          ##");
+        roomTemplate.push_back("##wwwwwww      o      ##");
+        roomTemplate.push_back("##www                 ##");
+        roomTemplate.push_back("##                      ");
+        roomTemplate.push_back("##                    ##");
+        roomTemplate.push_back("##                    ##");
+        roomTemplate.push_back("##                    ##");
+        roomTemplate.push_back("##                    ##");
+        roomTemplate.push_back("##                    ##");
+        roomTemplate.push_back("############-###########");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+        specificObjects.emplace(Coordinate(15, 4), new Bubblecharm(pgame, Coordinate(15, 4)));
+
+        std::vector<dngutil::TID> possibleCreatures;
+
+        int difficulty = -1;
+        int backColor = dngutil::CYAN;
+        std::string name = "The Water Temple";
+        Coordinate mapCoord(-4, 10);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("DungeonTheme")));
+        mut.unlock();
+    }
+
+    tfloor = 1;
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("##          ############");
+        roomTemplate.push_back("## I           #########");
+        roomTemplate.push_back("##                ######");
+        roomTemplate.push_back("##                 #####");
+        roomTemplate.push_back("##                  ####");
+        roomTemplate.push_back("##                    ##");
+        roomTemplate.push_back("###                   ##");
+        roomTemplate.push_back("#####                 ##");
+        roomTemplate.push_back("#######           o  ###");
+        roomTemplate.push_back("#########           ####");
+        roomTemplate.push_back("###########        #####");
+        roomTemplate.push_back("########################");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+        //18,9
+        specificObjects.emplace(Coordinate(18, 9), new Key(pgame, Coordinate(18, 9)));
+
+        std::vector<dngutil::TID> possibleCreatures;
+
+        int difficulty = -1;
+        int backColor = dngutil::BLUE;
+        std::string name = "The Water Temple";
+        Coordinate mapCoord(-4, 10);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("DungeonTheme")));
+        mut.unlock();
+    }
 }
 
 void Map::makeSpiritTemple(std::mutex& mut)
