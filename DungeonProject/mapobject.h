@@ -271,6 +271,13 @@ public:
     Collision mapAction(MapObject* collider, std::list<MapObject*>::iterator& it) override;
 };
 
+class HerosBladeStone : public MapObject
+{
+public:
+    HerosBladeStone(Game* game, Coordinate coord);
+    Collision mapAction(MapObject* collider, std::list<MapObject*>::iterator& it) override;
+};
+
 class HouseDoorObject : public MapObject
 {
 public:

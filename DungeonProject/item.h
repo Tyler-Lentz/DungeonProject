@@ -78,8 +78,9 @@ public:
         bool startReady,
         std::string description,
         WavFile hitsound,
-        dngutil::ClassType classType
-    ) :RItem(pgame, mapRep, coord, name, true, rawoutput, false, dngutil::TID::Primary, false, description)
+        dngutil::ClassType classType,
+        dngutil::TID tid = dngutil::TID::Primary
+    ) :RItem(pgame, mapRep, coord, name, true, rawoutput, false, tid, false, description)
     {
         this->dmgMultiplier = dmgMultiplier;
         this->attSpeed = attSpeed;
@@ -196,6 +197,30 @@ private:
     bool isUsed(Coordinate coord);
 
     const int HEALTH_DECREASE = 30;
+};
+
+class HerosBlade : public Primary
+{
+public:
+    HerosBlade(Game* pgame, Coordinate coord) :
+        Primary(
+            pgame,
+            ColorChar('T', dngutil::YELLOW),
+            coord,
+            "Hero's Blade",
+            false,
+            1.7,
+            4,
+            100,
+            true,
+            "Blade forged by the gods",
+            WavFile("HerosBladeAttack", false, false),
+            dngutil::ClassType::KNIGHT,
+            dngutil::TID::HerosBlade
+        )
+    {
+
+    }
 };
 
 //-------------------------------------------------------------

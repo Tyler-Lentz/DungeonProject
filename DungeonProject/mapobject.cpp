@@ -564,6 +564,91 @@ Collision AltarObject::mapAction(MapObject* collider, std::list<MapObject*>::ite
 
 //---------------------------------------------------------------
 
+//---------------------------------------------------------------
+// Hero Blade Stone functions
+
+HerosBladeStone::HerosBladeStone(Game* game, Coordinate coord)
+    :MapObject(
+        game,
+        ColorChar(' ', getColor(dngutil::DARKGRAY, dngutil::DARKGRAY)),
+        coord,
+        "HEROSBLADESTONE",
+        true,
+        true,
+        false,
+        dngutil::TID::HerosBladeStone,
+        dngutil::P_WALL,
+        dngutil::BTID::None,
+        true
+    )
+{
+
+}
+
+Collision HerosBladeStone::mapAction(MapObject* collider, std::list<MapObject*>::iterator& it)
+{
+    if (collider == getPGame()->getPlayer() && !getPGame()->getPlayer()->hasItem(dngutil::TID::HerosBlade))
+    {
+        stopSound(SoundType::MP3);
+        VirtualWindow* v = getPGame()->getVWin();
+        TextMacros& t = v->txtmacs;
+        Coordinate vcursor(30, t.DIVIDER_LINES[1] + 10);
+
+        t.clearMapArea(true, 10);
+        t.clearDivider("bottom");
+
+        int handleColor = dngutil::MAGENTA;
+        int bladeColor = dngutil::YELLOW;
+        int rockColor = dngutil::DARKGRAY;
+        int flowerColor = dngutil::RED;
+        int stemColor = dngutil::GREEN;
+
+        v->put(ColorString(R"(        _)", handleColor), vcursor); vcursor.y++;
+        v->put(ColorString(R"(       (_))", handleColor), vcursor); vcursor.y++;
+        v->put(ColorString(R"(       |=|)", handleColor), vcursor); vcursor.y++;
+        v->put(ColorString(R"(       |=|)", handleColor), vcursor); vcursor.y++;
+        v->put(ColorString(R"(   /|__|_|__|\)", handleColor), vcursor); vcursor.y++;
+        v->put(ColorString(R"(  (    ( )    ))", handleColor), vcursor); vcursor.y++;
+        v->put(ColorString(R"(   \|\/\"/\/|/)", handleColor), vcursor); vcursor.y++;
+        v->put(ColorString(R"(     |  Y  |)", bladeColor), vcursor); vcursor.y++;
+        v->put(ColorString(R"(     |  |  |)", bladeColor), vcursor); vcursor.y++;
+        v->put(ColorString(R"(     |  |  |)", bladeColor), vcursor); vcursor.y++;
+        v->put(ColorString(R"(    _)", rockColor) + ColorString(R"(|  |  |)", bladeColor), vcursor); vcursor.y++;
+        v->put(ColorString(R"( __/ )", rockColor) + ColorString(R"(|  |  |)", bladeColor) + ColorChar('\\', rockColor), vcursor); vcursor.y++;
+        v->put(ColorString(R"(/  \ )", rockColor) + ColorString(R"(|  |  |)", bladeColor) + ColorString(R"(  \)", rockColor), vcursor); vcursor.y++;
+        v->put(ColorString(R"(   __)", rockColor) + ColorString(R"(|  |  |)", bladeColor) + ColorString(R"(   |)", rockColor), vcursor); vcursor.y++;
+        v->put(ColorString(R"(/\/  )", rockColor) + ColorString(R"(|  |  |)", bladeColor) + ColorString(R"(   |\)", rockColor), vcursor); vcursor.y++;
+        v->put(ColorString(R"( <   +)", rockColor) + ColorString(R"(\ |  |)", bladeColor) + ColorString(R"(\ />  \)", rockColor), vcursor); vcursor.y++;
+        v->put(ColorString(R"(  >   + )", rockColor) + ColorString(R"(\  |)", bladeColor) + ColorString(R"( LJ    |)", rockColor), vcursor); vcursor.y++;
+        v->put(ColorString(R"(        + )", rockColor) + ColorString(R"(\|)", bladeColor) + ColorString(R"(+  \  < \)", rockColor), vcursor); vcursor.y++;
+        v->put(ColorString(R"(  (O))", flowerColor) + ColorString(R"(      +    |    ))", rockColor), vcursor); vcursor.y++;
+        v->put(ColorString(R"(   |  )", stemColor) + ColorString(R"(           \  /\ )", rockColor), vcursor); vcursor.y++;
+        v->put(ColorString(R"( ( | ))", stemColor) + ColorString(R"(   (o)  )", flowerColor) + ColorString(R"(    \/  ))", rockColor), vcursor); vcursor.y++;
+        v->put(ColorString(R"(_)", rockColor) + ColorString(R"(\\|//)", stemColor) + ColorString(R"(__)", rockColor) + ColorString(R"(( | ))", stemColor) + ColorString(R"(______)_/ )", rockColor), vcursor); vcursor.y++;
+        v->put(ColorString(R"(        \\|//        )", stemColor), vcursor); vcursor.y++;
+
+        playSound(Mp3File("FindVeryImportantItem"));
+        Sleep(12000);
+        stopSound(SoundType::MP3);
+
+        getPGame()->getPlayer()->addToInventory(new HerosBlade(getPGame(), Coordinate(-1, -1)));
+
+        int l = t.BOTTOM_DIVIDER_TEXT_LINE;
+        v->putcen(ColorString("You have found the Hero's Blade!", dngutil::YELLOW), l, true);
+        pressEnter(Coordinate(0, l + 1), v);
+        t.clearLine(l);
+        t.clearLine(l + 1);
+
+        t.clearDivider("bottom");
+        t.clearMapArea(false, NULL);
+        t.displayGame(getPGame());
+
+        getPGame()->getOverworldMusic().play();
+    }
+    return Collision(false, true, false);
+}
+
+//---------------------------------------------------------------
 
 //---------------------------------------------------------------
 // Hero Spirit functions
@@ -650,6 +735,18 @@ Collision HeroSpirit::mapAction(MapObject* collider, std::list<MapObject*>::iter
         pressEnter(Coordinate(0, l + 1), v);
         t.clearLine(l);
         t.clearLine(l + 1);
+
+        v->putcen(ColorString("Additionally - you should find the blade that I used to seal away Zorlock", dngutil::WHITE), l, true);
+        pressEnter(Coordinate(0, l + 1), v);
+        t.clearLine(l);
+        t.clearLine(l + 1);
+
+        v->putcen(ColorString("I returned it deep within the Korloma Forest - you will likely need", dngutil::WHITE), l, true);
+        v->putcen(ColorString("a lot of gear to retrieve it from its resting place.", dngutil::WHITE), l, true);
+        pressEnter(Coordinate(0, l + 2), v);
+        t.clearLine(l);
+        t.clearLine(l + 1);
+        t.clearLine(l + 2);
 
         getPGame()->getPlayer()->addToInventory(new HerosTunic(getPGame(), Coordinate(-1, -1)));
 

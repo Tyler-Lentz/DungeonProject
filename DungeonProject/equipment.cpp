@@ -87,7 +87,7 @@ void HerosTunic::unequipAction()
     getPGame()->getPlayer()->changeMapChar(ColorChar('A', dngutil::noArmorPlayerColor));
     getPGame()->getPlayer()->setDef(getPGame()->getPlayer()->getDef() - 3);
     getPGame()->getPlayer()->setMaxhp(getPGame()->getPlayer()->getMaxhp() - 10);
-    if (getPGame()->getPlayer()->getHp() > getPGame()->getPlayer()->getMaxhp())
+    if (getPGame()->getPlayer()->getHp() > static_cast<int>(getPGame()->getPlayer()->getMaxhp()))
     {
         getPGame()->getPlayer()->setHp(getPGame()->getPlayer()->getMaxhp());
     }

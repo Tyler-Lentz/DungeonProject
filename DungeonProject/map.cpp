@@ -2101,24 +2101,202 @@ void Map::makeOverworld(std::mutex& mut)
         roomTemplate.push_back("########################");
         roomTemplate.push_back("           #############");
         roomTemplate.push_back("   0  0     0    #######");
-        roomTemplate.push_back("                  ######");
-        roomTemplate.push_back("  0     00    0     ####");
+        roomTemplate.push_back("                   wwwww");
+        roomTemplate.push_back("  0     00    0     wwww");
         roomTemplate.push_back("      0              ###");
         roomTemplate.push_back("  0         00    0   ##");
 
         std::map<Coordinate, MapObject*> specificObjects;
 
-std::vector<dngutil::TID> possibleCreatures;
-possibleCreatures.push_back(dngutil::TID::Bowman);
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Bowman);
 
-int difficulty = 1;
-int backColor = dngutil::GREEN;
-std::string name = "The Korloma Forest";
-Coordinate mapCoord(3, 1);
-RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
-mut.lock();
-gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("ForestTheme")));
-mut.unlock();
+        int difficulty = 1;
+        int backColor = dngutil::GREEN;
+        std::string name = "The Korloma Forest";
+        Coordinate mapCoord(3, 1);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("ForestTheme")));
+        mut.unlock();
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("###################wwwww");
+        roomTemplate.push_back("#################wwwwwww");
+        roomTemplate.push_back("###############wwwwwww##");
+        roomTemplate.push_back("############wwwwwww#####");
+        roomTemplate.push_back("##########wwwwww########");
+        roomTemplate.push_back("#######wwwwwww##########");
+        roomTemplate.push_back("#####wwwwwwwww##########");
+        roomTemplate.push_back("wwwwwwwwww##############");
+        roomTemplate.push_back("wwwwww##################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Bowman);
+
+        int difficulty = 1;
+        int backColor = dngutil::GREEN;
+        std::string name = "The Korloma Forest - Forgotten River";
+        Coordinate mapCoord(4, 1);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("ForestTheme")));
+        mut.unlock();
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("#####wwwwwwwwwwwwwwww###");
+        roomTemplate.push_back("wwwwwwwwwwwwwwwwwwwwww##");
+        roomTemplate.push_back("wwwwwwwwwwwwwwwwwwwwww##");
+        roomTemplate.push_back("###wwwwwwwwwwwwwwwwwww##");
+        roomTemplate.push_back("####wwwwwwwwwwwwwwwwww##");
+        roomTemplate.push_back("####wwwwwwwwwwwwwwwwww##");
+        roomTemplate.push_back("#####wwwwwwwwwwwwwwwww##");
+        roomTemplate.push_back("######wwwwwwwwwwwwwwww##");
+        roomTemplate.push_back("######wwwwwwwwwwwwwww###");
+        roomTemplate.push_back("######wwwwwwwwwwwwww####");
+        roomTemplate.push_back("##########wwwiwwww######");
+        roomTemplate.push_back("########################");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+
+        int difficulty = 1;
+        int backColor = dngutil::GREEN;
+        std::string name = "The Korloma Forest - Forgotten Lake";
+        Coordinate mapCoord(5, 1);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("ForestTheme")));
+        mut.unlock();
+    }
+    tfloor = 1;
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("##########        ######");
+        roomTemplate.push_back("##########   I    ######");
+        roomTemplate.push_back("#########          #####");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+
+        int difficulty = 1;
+        int backColor = dngutil::BLUE;
+        std::string name = "The Korloma Forest - Underwater";
+        Coordinate mapCoord(5, 1);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("ForestTheme")));
+        mut.unlock();
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("#########          #####");
+        roomTemplate.push_back("#########         ######");
+        roomTemplate.push_back("##########   I    ######");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+
+        int difficulty = 1;
+        int backColor = dngutil::BLUE;
+        std::string name = "The Korloma Forest - Underwater";
+        Coordinate mapCoord(5, 2);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("ForestTheme")));
+        mut.unlock();
+    }
+    tfloor = 2;
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("#######    wwiww  ######");
+        roomTemplate.push_back("#####     0 www 0    ###");
+        roomTemplate.push_back("####                 ###");
+        roomTemplate.push_back("#####   0        0   ###");
+        roomTemplate.push_back("######              ####");
+        roomTemplate.push_back("######  0        0  ####");
+        roomTemplate.push_back("#######             ####");
+        roomTemplate.push_back("####### 0        0  ####");
+        roomTemplate.push_back("#######             ####");
+        roomTemplate.push_back("####### 0        0  ####");
+        roomTemplate.push_back("#######             ####");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+
+        int difficulty = 1;
+        int backColor = dngutil::GREEN;
+        std::string name = "Korloma Path";
+        Coordinate mapCoord(5, 2);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("SpiritTheme")));
+        mut.unlock();
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("#######            #####");
+        roomTemplate.push_back("####### 0        0 #####");
+        roomTemplate.push_back("#######            #####");
+        roomTemplate.push_back("######  0        0  ####");
+        roomTemplate.push_back("######               ###");
+        roomTemplate.push_back("#####   0        0   ###");
+        roomTemplate.push_back("######              ####");
+        roomTemplate.push_back("######  0        0  ####");
+        roomTemplate.push_back("#######             ####");
+        roomTemplate.push_back("######  0        0  ####");
+        roomTemplate.push_back("######    0 o 0     ####");
+        roomTemplate.push_back("#########         ######");
+        roomTemplate.push_back("########################");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+        specificObjects.emplace(Coordinate(12, 10), new HerosBladeStone(pgame, Coordinate(12, 10)));
+
+        std::vector<dngutil::TID> possibleCreatures;
+
+        int difficulty = 1;
+        int backColor = dngutil::GREEN;
+        std::string name = "Korloma Path";
+        Coordinate mapCoord(5, 3);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("SpiritTheme")));
+        mut.unlock();
     }
 
     tfloor = 1;
