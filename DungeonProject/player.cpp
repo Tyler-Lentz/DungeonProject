@@ -484,7 +484,6 @@ void Player::addExperience(unsigned int experience, dngutil::EvType ev)
 
         Coordinate vcursor(0, vwin->txtmacs.DIVIDER_LINES[1] + 4);
         vwin->putcen(ColorString("Level Up! You are now level " + std::to_string(getLvl()), dngutil::WHITE), vcursor.y);
-        playSound(WavFile("LevelUp", false, false));
 
         vcursor.y++;
 
