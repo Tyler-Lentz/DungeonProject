@@ -376,8 +376,6 @@ void Game::titleScreen()
                 name.resize(8);
             }
 
-            vwin->getConsole().setTitle(name);
-
             player->setName(name);
 
             if (keypress(VK_SHIFT))
