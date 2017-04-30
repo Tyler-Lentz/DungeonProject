@@ -2642,6 +2642,40 @@ void Map::makeOverworld(std::mutex& mut)
         mut.unlock();
 
     }
+    tfloor = 1;
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########^###############");
+        roomTemplate.push_back("#######        :::::####");
+        roomTemplate.push_back("#######        ::o::####");
+        roomTemplate.push_back("#######        ::::#####");
+        roomTemplate.push_back("#########      ::::#####");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+        std::vector<ColorString> dialogue;
+
+        std::vector<dngutil::TID> possibleCreatures;
+
+        int difficulty = 0;
+        int backColor = dngutil::LIGHTGRAY;
+        std::string name = "Lullin Cave";
+        Coordinate mapCoord(0, -4);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("CaveTheme")));
+        mut.unlock();
+
+    }
+    tfloor = 2;
     {
         std::vector<std::string> roomTemplate;
         roomTemplate.push_back("########################");
