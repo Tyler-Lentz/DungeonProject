@@ -331,6 +331,7 @@ void Game::cleanup(dngutil::ReturnVal returnval)
 
 void Game::titleScreen()
 {
+    stopSound(SoundType::MP3);
     playSound(Mp3File("TitleTheme"));
 
     vwin->txtmacs.drawDividers();
