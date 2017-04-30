@@ -62,10 +62,10 @@ Player::Player(
         dngutil::ClassType::ADVENTURER
     )
 {
-    harp1 = true;
-    harp2 = true;
-    harp3 = true;
-    harp4 = true;
+    harp1 = false;
+    harp2 = false;
+    harp3 = false;
+    harp4 = false;
 
     startingDungeonMapCoord = Coordinate(0, 0);
     startingDungeonRoomCoord = Coordinate(0, 0);
@@ -76,14 +76,6 @@ Player::Player(
 
     armor = new BlueTunic(getPGame(), Coordinate(-1, -1));
     boots = new StandardBoots(getPGame(), Coordinate(-1, -1));
-
-    inventory.push_back(new Waterboots(getPGame(), Coordinate(-1, -1)));
-    inventory.push_back(new Bubblecharm(getPGame(), Coordinate(-1, -1)));
-    for (int i = 0; i < 15; i++)
-    {
-        increaseLvl(1);
-        levelUpStats();
-    }
 
     hpEv = 0;
     attEv = 0;
