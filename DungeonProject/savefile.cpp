@@ -85,6 +85,15 @@ void saveGame(Player* player, Game* game)
 
     file.close();
     xorFile();
+
+    file.open("backupsave.txt", std::ios::out | std::ios::trunc);
+    std::ifstream in("save.txt");
+    std::string str;
+    std::getline(in, str, std::string::traits_type::to_char_type(
+        std::string::traits_type::eof()));
+    in.close();
+    file << str;
+    file.close();
 }
 
 std::string getInventoryItemText(Item& i)

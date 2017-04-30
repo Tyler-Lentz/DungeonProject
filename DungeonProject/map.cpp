@@ -1015,7 +1015,7 @@ void Map::makeOverworld(std::mutex& mut)
         roomTemplate.push_back("                        ");
         roomTemplate.push_back("     0          ######  ");
         roomTemplate.push_back("                ######  ");
-        roomTemplate.push_back("     0           #####  ");
+        roomTemplate.push_back("     0          o#####  ");
         roomTemplate.push_back("       E        ######  ");
         roomTemplate.push_back("     0          ######  ");
         roomTemplate.push_back("                        ");
@@ -1041,6 +1041,8 @@ void Map::makeOverworld(std::mutex& mut)
             ));
         // ID: 0XAH
         specificObjects.emplace(Coordinate(7, 9), new HouseDoorObject(pgame, Coordinate(7, 9), Coordinate(120, 120), Coordinate(5, 2), dngutil::HOUSE_FLOOR));
+        // ID: 0XAI
+        specificObjects.emplace(Coordinate(16, 3), new HouseDoorObject(pgame, Coordinate(16, 3), Coordinate(119, 119), Coordinate(0, 2), dngutil::HOUSE_FLOOR));
 
 
         std::vector<dngutil::TID> possibleCreatures;
@@ -1058,18 +1060,18 @@ void Map::makeOverworld(std::mutex& mut)
     }
     {
         std::vector<std::string> roomTemplate;
-        roomTemplate.push_back("                        ");
-        roomTemplate.push_back("                        ");
-        roomTemplate.push_back("                        ");
-        roomTemplate.push_back("        0   0   0       ");
-        roomTemplate.push_back("    0  E           0    ");
-        roomTemplate.push_back("          wwwww         ");
-        roomTemplate.push_back("    0     wwwww    0    ");
-        roomTemplate.push_back("          wwwww         ");
-        roomTemplate.push_back("    0           E  0    ");
-        roomTemplate.push_back("        0   0    0      ");
-        roomTemplate.push_back("                        ");
-        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("##########              ");
+        roomTemplate.push_back("######                  ");
+        roomTemplate.push_back("###                     ");
+        roomTemplate.push_back("##      0   0   0       ");
+        roomTemplate.push_back("##  0  E           0    ");
+        roomTemplate.push_back("##        wwwww         ");
+        roomTemplate.push_back("##  0     wwwww    0    ");
+        roomTemplate.push_back("##        wwwww         ");
+        roomTemplate.push_back("##  0           E  0    ");
+        roomTemplate.push_back("##      0   0    0      ");
+        roomTemplate.push_back("####                    ");
+        roomTemplate.push_back("#######                 ");
         roomTemplate.push_back("########################");
         std::map<Coordinate, MapObject*> specificObjects;
         std::vector<ColorString> dialogue;
@@ -1107,7 +1109,147 @@ void Map::makeOverworld(std::mutex& mut)
         mut.unlock();
 
     }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("#####################  0");
+        roomTemplate.push_back("###################     ");
+        roomTemplate.push_back("##################  0   ");
+        roomTemplate.push_back("#################       ");
+        roomTemplate.push_back("##############   0 E    ");
+        roomTemplate.push_back("#############           ");
+        roomTemplate.push_back("###########   #######   ");
+        roomTemplate.push_back("###########   #######   ");
+        roomTemplate.push_back("###########   ######o   ");
+        roomTemplate.push_back("###########   #######   ");
+        roomTemplate.push_back("##########              ");
+        std::map<Coordinate, MapObject*> specificObjects;
+        std::vector<ColorString> dialogue;
+        dialogue.push_back(ColorString("This town desparately needs supplies, but none can", dngutil::WHITE));
+        dialogue.push_back(ColorString("come in because the only way - Arklaka Pass - is flooded.", dngutil::WHITE));
+        specificObjects.emplace(
+            Coordinate(19, 6),
+            new Npc(
+                pgame,
+                ColorChar('A', dngutil::WHITE),
+                Coordinate(19, 6),
+                "Chris Mosely",
+                dialogue
+            ));
+        // ID: 0XAK
+        specificObjects.emplace(Coordinate(20, 10), new HouseDoorObject(pgame, Coordinate(20, 10), Coordinate(117, 117), Coordinate(6, 2), dngutil::HOUSE_FLOOR));
 
+
+        std::vector<dngutil::TID> possibleCreatures;
+
+        int difficulty = 6;
+        int backColor = dngutil::GREEN;
+        std::string name = "Arkala Village";
+        Coordinate mapCoord(-3, -8);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("VillageTheme")));
+        mut.unlock();
+
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("          ######        ");
+        roomTemplate.push_back("           #######      ");
+        roomTemplate.push_back("    wwwwwwwww####       ");
+        roomTemplate.push_back("   wwwwwwwwwww####      ");
+        roomTemplate.push_back("  wwwwwwwwwwwww###      ");
+        roomTemplate.push_back("  wwwwwwwwwwwww####     ");
+        roomTemplate.push_back("   wwwwwwwwwwwww##      ");
+        roomTemplate.push_back("     wwwwwwwwww###      ");
+        roomTemplate.push_back("              ###       ");
+        roomTemplate.push_back("                        ");
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+
+        int difficulty = 6;
+        int backColor = dngutil::GREEN;
+        std::string name = "Arkala Village";
+        Coordinate mapCoord(-2, -8);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("VillageTheme")));
+        mut.unlock();
+
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("      wwwwwwwwww########");
+        roomTemplate.push_back("      wwwwwwwwwww#######");
+        roomTemplate.push_back("      wwwwwwwwww########");
+        roomTemplate.push_back("       wwwwwwwww########");
+        roomTemplate.push_back("       wwwwwwwww########");
+        roomTemplate.push_back("       wwwwwwwwww#######");
+        roomTemplate.push_back("       wwwwwwwwwww######");
+        roomTemplate.push_back("          wwwwwwww######");
+        roomTemplate.push_back("                  ######");
+        roomTemplate.push_back("                  ######");
+        roomTemplate.push_back("                 #######");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+        // ID: 0XAJ
+        specificObjects.emplace(Coordinate(7, 4), new HouseDoorObject(pgame, Coordinate(7, 4), Coordinate(118, 118), Coordinate(3, 3), dngutil::HOUSE_FLOOR));
+
+        std::vector<dngutil::TID> possibleCreatures;
+
+        int difficulty = 0;
+        int backColor = dngutil::GREEN;
+        std::string name = "Arkala Village";
+        Coordinate mapCoord(-1, -8);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("VillageTheme")));
+        mut.unlock();
+
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("                 #######");
+        roomTemplate.push_back(" 0  #######  0   #######");
+        roomTemplate.push_back("    #######     ########");
+        roomTemplate.push_back("    #######  0   #######");
+        roomTemplate.push_back(" 0  ###o###     ########");
+        roomTemplate.push_back("             0  ########");
+        roomTemplate.push_back("                ########");
+        roomTemplate.push_back("   0             #######");
+        roomTemplate.push_back("        ww ww     ######");
+        roomTemplate.push_back("   0    w# #w     ######");
+        roomTemplate.push_back("          +     0 ######");
+        roomTemplate.push_back("   0    w# #w     ######");
+        roomTemplate.push_back("        ww ww    #######");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+        // ID: 0XAJ
+        specificObjects.emplace(Coordinate(7, 4), new HouseDoorObject(pgame, Coordinate(7, 4), Coordinate(118, 118), Coordinate(3,3), dngutil::HOUSE_FLOOR));
+
+        std::vector<dngutil::TID> possibleCreatures;
+
+        int difficulty = 0;
+        int backColor = dngutil::GREEN;
+        std::string name = "Arkala Village";
+        Coordinate mapCoord(-1, -7);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("VillageTheme")));
+        mut.unlock();
+
+    }
     {
         std::vector<std::string> roomTemplate;
         roomTemplate.push_back("                 #######");
@@ -2817,7 +2959,105 @@ void Map::makeHouses(std::mutex& mut)
         Coordinate mapCoord(120, 120);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
         mut.lock();
-        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("SpiritTheme")));
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("VillageTheme")));
+        mut.unlock();
+    }
+    {
+        // ID: 0XAI
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("######");
+        roomTemplate.push_back("#E   #");
+        roomTemplate.push_back("o    #");
+        roomTemplate.push_back("#    #");
+        roomTemplate.push_back("######");
+
+
+        std::map<Coordinate, MapObject*> specificObjects;
+        specificObjects.emplace(Coordinate(0, 2), new HouseDoorObject(pgame, Coordinate(0, 2), Coordinate(-2, -7), Coordinate(16, 3), 2));
+        
+        std::vector<ColorString> dialogue;
+        dialogue.push_back(ColorString("There used to be a", dngutil::WHITE) + ColorString(" temple", dngutil::TEXT_HIGHLIGHT_COLOR) + ColorString(" at the graveyard, but it sank into the ground", dngutil::WHITE));
+        dialogue.push_back(ColorString("when Zorlock attacked. Only the top room remains.", dngutil::WHITE));
+        specificObjects.emplace(
+            Coordinate(1, 1),
+            new Npc(
+                pgame,
+                ColorChar('A', dngutil::WHITE),
+                Coordinate(1, 1),
+                "Harry Languan",
+                dialogue
+            ));
+
+        std::vector<dngutil::TID> possibleCreatures;
+
+        int difficulty = 0;
+        int backColor = dngutil::BROWN;
+        std::string name = "House";
+        Coordinate mapCoord(119, 119);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("VillageTheme")));
+        mut.unlock();
+    }
+
+    {
+        // ID: 0XAJ
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("#######");
+        roomTemplate.push_back("# E   #");
+        roomTemplate.push_back("#     #");
+        roomTemplate.push_back("###o###");
+
+
+        std::map<Coordinate, MapObject*> specificObjects;
+        specificObjects.emplace(Coordinate(3, 3), new HouseDoorObject(pgame, Coordinate(3, 3), Coordinate(-1, -7), Coordinate(7, 4), 2));
+
+        std::vector<ColorString> dialogue;
+        dialogue.push_back(ColorString("Our kingdom has been falling into ruins for centuries...", dngutil::WHITE));
+        dialogue.push_back(ColorString("It's sad to compare today's destroyed castle with old pictures.", dngutil::WHITE));
+        specificObjects.emplace(
+            Coordinate(2, 1),
+            new Npc(
+                pgame,
+                ColorChar('A', dngutil::WHITE),
+                Coordinate(2, 1),
+                "Cleon Ghoslan",
+                dialogue
+            ));
+
+        std::vector<dngutil::TID> possibleCreatures;
+
+        int difficulty = 0;
+        int backColor = dngutil::BROWN;
+        std::string name = "House";
+        Coordinate mapCoord(118, 118);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("VillageTheme")));
+        mut.unlock();
+    }
+
+    {
+        // ID: 0XAK
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("#######");
+        roomTemplate.push_back("#     #");
+        roomTemplate.push_back("#     o");
+        roomTemplate.push_back("#######");
+
+
+        std::map<Coordinate, MapObject*> specificObjects;
+        specificObjects.emplace(Coordinate(6, 2), new HouseDoorObject(pgame, Coordinate(6, 2), Coordinate(-3, -8), Coordinate(20, 10), 2));
+
+        std::vector<dngutil::TID> possibleCreatures;
+
+        int difficulty = 0;
+        int backColor = dngutil::BROWN;
+        std::string name = "House";
+        Coordinate mapCoord(117, 117);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("VillageTheme")));
         mut.unlock();
     }
 }
@@ -3047,6 +3287,68 @@ pgame->getVWin()->txtmacs.displayGame(pgame);
     }
     {
         std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("############ ###########");
+        roomTemplate.push_back("###########   ##########");
+        roomTemplate.push_back("##wwwwwwww     wwwwwww##");
+        roomTemplate.push_back("##wwwwwwww  e  wwwwwww##");
+        roomTemplate.push_back("##wwwwwwww     wwwwwww##");
+        roomTemplate.push_back("##wwwwwwww     wwwwwww##");
+        roomTemplate.push_back("##wwwwwwww     wwwwwww##");
+        roomTemplate.push_back("##wwwwwwww     wwwwwww##");
+        roomTemplate.push_back("##wwwwwwww     wwwwwww##");
+        roomTemplate.push_back("##wwwwwwww  e  wwwwwww##");
+        roomTemplate.push_back("##wwwwwwww     wwwwwww##");
+        roomTemplate.push_back("###########   ##########");
+        roomTemplate.push_back("############-###########");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::LSKnight);
+        possibleCreatures.push_back(dngutil::TID::SSKnight);
+        possibleCreatures.push_back(dngutil::TID::Mage);
+
+        int difficulty = -2;
+        int backColor = dngutil::CYAN;
+        std::string name = "The Water Temple";
+        Coordinate mapCoord(-3, 11);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("DungeonTheme")));
+        mut.unlock();
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("############ ###########");
+        roomTemplate.push_back("###########   ##########");
+        roomTemplate.push_back("##wwwwwwwwwwwwwwwwwwww##");
+        roomTemplate.push_back("##wwwwwwwwwwwwwwwwwwww##");
+        roomTemplate.push_back("##wwwwwwwwwwwwwwwwwwww##");
+        roomTemplate.push_back("##wwwwwwwwwwwwwwwwwwww##");
+        roomTemplate.push_back("##wwwwwwwwwwwwwwwwwwww##");
+        roomTemplate.push_back("##wwwwwwwwwwwwwwwwwwww##");
+        roomTemplate.push_back("##wwwwwwwwwiiiwwwwwwww##");
+        roomTemplate.push_back("##wwwwwwwwwiiiwwwwwwww##");
+        roomTemplate.push_back("##wwwwwwwwwwwwwwwwwwww##");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+
+        int difficulty = -2;
+        int backColor = dngutil::CYAN;
+        std::string name = "The Water Temple";
+        Coordinate mapCoord(-3, 12);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("DungeonTheme")));
+        mut.unlock();
+    }
+
+    {
+        std::vector<std::string> roomTemplate;
         roomTemplate.push_back("########################");
         roomTemplate.push_back("####wwwwwwwwwwwwwwww####");
         roomTemplate.push_back("####wwwwwwwwwwwwiwww####");
@@ -3233,8 +3535,8 @@ pgame->getVWin()->txtmacs.displayGame(pgame);
                 "Crossbow",
                 false,
                 1.4,
-                4,
-                95,
+                5,
+                85,
                 true,
                 "A very accurate and forceful bow",
                 WavFile("BowAttack1", false, false),
@@ -3347,6 +3649,209 @@ pgame->getVWin()->txtmacs.displayGame(pgame);
         int backColor = dngutil::BLUE;
         std::string name = "The Water Temple";
         Coordinate mapCoord(-2, 11);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("DungeonTheme")));
+        mut.unlock();
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("##                    ##");
+        roomTemplate.push_back("##                    ##");
+        roomTemplate.push_back("##          e         ##");
+        roomTemplate.push_back("##                    ##");
+        roomTemplate.push_back("##                    | ");
+        roomTemplate.push_back("##                    ##");
+        roomTemplate.push_back("##         III        ##");
+        roomTemplate.push_back("##         III        ##");
+        roomTemplate.push_back("##                    ##");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        auto puzzleSolved = [](const std::list<Creature*>& creatureList, const GAMEMAP& gameMap) -> bool
+        {
+            if (creatureList.size() == 1)
+            {
+                return true;
+            }
+            return false;
+        };
+
+        auto puzzleAction = [this](std::list<Creature*> creatureList, GAMEMAP& gameMap) -> void
+        {
+            std::vector<Coordinate> deletionList;
+            deletionList.push_back(Coordinate(0, 6));
+            deletionList.push_back(Coordinate(1, 6));
+            for (auto i : deletionList)
+            {
+                WallObject* wall = dynamic_cast<WallObject*>(gameMap[i.y][i.x].back());
+
+                if (wall == nullptr)
+                {
+                    errorMessage("error in puzzle", __LINE__, __FILE__);
+                }
+
+                gameMap[i.y][i.x].remove(wall);
+                wall->removeFromMap(true);
+            }
+        };
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::SSKnight);
+
+        int difficulty = -2;
+        int backColor = dngutil::BLUE;
+        std::string name = "The Water Temple";
+        Coordinate mapCoord(-3, 12);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction), Mp3File("DungeonTheme")));
+        mut.unlock();
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("##                    ##");
+        roomTemplate.push_back("##                    ##");
+        roomTemplate.push_back("##                    ##");
+        roomTemplate.push_back("##                    ##");
+        roomTemplate.push_back("                 o    ##");
+        roomTemplate.push_back("##                    ##");
+        roomTemplate.push_back("##                    ##");
+        roomTemplate.push_back("##                    ##");
+        roomTemplate.push_back("##                    ##");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        auto puzzleSolved = [](const std::list<Creature*>& creatureList, const GAMEMAP& gameMap) -> bool
+        {
+            if (gameMap[6][17].size() == 1)
+            {
+                return true;
+            }
+            return false;
+        };
+
+        auto puzzleAction = [this](std::list<Creature*> creatureList, GAMEMAP& gameMap) -> void
+        {
+            gameMap[6][20].push_back(new HarpPiece(pgame, Coordinate(20, 6), 2));
+        };
+
+        std::vector<SegEnemy*> bossparts;
+        bossparts.push_back(dynamic_cast<SegEnemy*>(pgame->generateCreature(1, dngutil::TID::BloodJawPhase1)));
+        bossparts[0]->setFirst();
+        bossparts.push_back(dynamic_cast<SegEnemy*>(pgame->generateCreature(1, dngutil::TID::BloodJawPhase2)));
+        bossparts.push_back(dynamic_cast<SegEnemy*>(pgame->generateCreature(1, dngutil::TID::BloodJawPhase3)));
+
+        std::map<Coordinate, MapObject*> specificObjects;
+        specificObjects.emplace(Coordinate(17, 6), new SegbossTrigger(
+            pgame, Coordinate(17, 6),
+            new Segboss(bossparts, pgame),
+            ColorChar('@', dngutil::LIGHTBLUE)
+        ));
+
+        std::vector<dngutil::TID> possibleCreatures;
+
+        int difficulty = -4;
+        int backColor = dngutil::BLACK;
+        std::string name = "The Water Temple";
+        Coordinate mapCoord(-2, 12);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction), Mp3File("DangerTheme")));
+        mut.unlock();
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("######   ##### #      ##");
+        roomTemplate.push_back("#### # # #     ###### ##");
+        roomTemplate.push_back("##     # e # #   #### ##");
+        roomTemplate.push_back("## ############# #### ##");
+        roomTemplate.push_back("   #############        ");
+        roomTemplate.push_back("## ############# #### ##");
+        roomTemplate.push_back("## #o       #    #### ##");
+        roomTemplate.push_back("## ####  #  #  #####  ##");
+        roomTemplate.push_back("##    #  #  e  #     ###");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+      
+        std::map<Coordinate, MapObject*> specificObjects;
+        specificObjects.emplace(Coordinate(4, 8), new Potion(pgame, Coordinate(4, 8), dngutil::POTION_HEAL));
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Mage);
+
+        int difficulty = -2;
+        int backColor = dngutil::BLUE;
+        std::string name = "The Water Temple";
+        Coordinate mapCoord(-4, 12);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("DungeonTheme")));
+        mut.unlock();
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("##                    ##");
+        roomTemplate.push_back("##  I                   ");
+        roomTemplate.push_back("##                    ##");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Mage);
+
+        int difficulty = -2;
+        int backColor = dngutil::BLUE;
+        std::string name = "The Water Temple";
+        Coordinate mapCoord(-5, 12);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("DungeonTheme")));
+        mut.unlock();
+    }
+
+    tfloor = 2;
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("##wwwww  ###############");
+        roomTemplate.push_back("##wwiww     e     e o ##");
+        roomTemplate.push_back("##wwwww  ###############");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        //20,6
+        std::map<Coordinate, MapObject*> specificObjects;
+        specificObjects.emplace(Coordinate(20, 6), new Key(pgame, Coordinate(20, 6)));
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::LSKnight);
+
+        int difficulty = -3;
+        int backColor = dngutil::CYAN;
+        std::string name = "The Water Temple";
+        Coordinate mapCoord(-5, 12);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
         mut.lock();
         gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("DungeonTheme")));

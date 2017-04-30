@@ -584,7 +584,7 @@ void Game::backgroundStory()
     Sleep(onelineTime);
     tm->clearLine(topOfText);
 
-    t->putcen(ColorString("He created monsters throughout the land which terrorized citizens", dngutil::WHITE), topOfText, true);
+    t->putcen(ColorString("He spawned monsters and spat a fireball at the castle - destroying it", dngutil::WHITE), topOfText, true);
     Sleep(onelineTime);
     tm->clearLine(topOfText);
 

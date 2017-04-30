@@ -998,8 +998,6 @@ BloodjawPhase1::BloodjawPhase1(
     dngutil::ClassType::KNIGHT
 )
 {
-    setMaxhp(getHp() * 2);
-    setHp(getMaxhp());
 }
 
 
@@ -1093,9 +1091,7 @@ BloodjawPhase2::BloodjawPhase2(
     dngutil::ClassType::KNIGHT
 )
 {
-    setMaxhp(dngutil::MAX_HP);
-    setHp(getMaxhp());
-    increaseDef(static_cast<int>(getDef() * 1.3));
+    increaseDef(static_cast<int>(getDef() * 1.2));
 }
 
 void BloodjawPhase2::printSelf()
@@ -1183,9 +1179,8 @@ BloodjawPhase3::BloodjawPhase3(
     dngutil::ClassType::KNIGHT
 )
 {
-    setMaxhp(dngutil::MAX_HP - 50);
+    setMaxhp(getHp() * 2);
     setHp(getMaxhp());
-    increaseDef(static_cast<int>(getDef() * 1.1));
 }
 
 void BloodjawPhase3::printSelf()
