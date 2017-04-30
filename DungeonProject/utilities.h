@@ -100,7 +100,8 @@ namespace dngutil
         Robber,
         Bubblecharm,
         HerosBlade,
-        HerosBladeStone
+        HerosBladeStone,
+        TrueZorlock
     };
 
     enum class BTID

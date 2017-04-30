@@ -41,6 +41,7 @@ public:
 
     virtual void printSelf() = 0;
     virtual std::string drop() = 0;
+    virtual void beginingCutscene() {}
     Collision mapAction(MapObject* collider, std::list<MapObject*>::iterator& it) override;
     void printStats(int LONGEST_LINE_LENGTH, int startingCursorY) override;
 
@@ -322,6 +323,25 @@ public:
     );
     ColorString getBattleInfo() const override;
     void printSelf() override;
+};
+
+class TrueZorlock : public BEnemy
+{
+public:
+    TrueZorlock(
+        Game* pgame,
+        Coordinate coord,
+        int hp,
+        unsigned int att,
+        unsigned int def,
+        unsigned int lck,
+        unsigned int spd,
+        unsigned int lvl
+    );
+    ColorString getBattleInfo() const override;
+    void printSelf() override;
+    void beginingCutscene() override;
+    void deathSequence() override;
 };
 
 class WaterHorse : public BEnemy

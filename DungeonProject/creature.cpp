@@ -359,6 +359,11 @@ bool Creature::battle(MapObject* t_enemy)
     vwin->txtmacs.clearMapArea(true, 20);
     vwin->txtmacs.clearDivider("bottom");
 
+    enemy->beginingCutscene();
+
+    vwin->txtmacs.clearMapArea(true, 20);
+    vwin->txtmacs.clearDivider("bottom");
+
     enemy->getBattleMusic().play();
 
     enemy->printSelf();
@@ -613,7 +618,7 @@ bool Creature::adjustPosition(dngutil::Movement movement)
 
 
         for (auto it = getPGame()->getActiveRoom()->getObjects(getCoord()).begin();
-            it != getPGame()->getActiveRoom()->getObjects(getCoord()).end(); )
+             it != getPGame()->getActiveRoom()->getObjects(getCoord()).end(); )
         {
             Collision c = (*it)->mapAction(this, it);
             if (c.exitCollisions)
