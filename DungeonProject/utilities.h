@@ -101,7 +101,8 @@ namespace dngutil
         Bubblecharm,
         HerosBlade,
         HerosBladeStone,
-        TrueZorlock
+        TrueZorlock,
+        DesertGoblin
     };
 
     enum class BTID

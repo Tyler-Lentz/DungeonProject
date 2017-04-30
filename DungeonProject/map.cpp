@@ -339,6 +339,278 @@ void Map::makeOverworld(std::mutex& mut)
 
     }
 
+    // Boranian Desert
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("                       #");
+        roomTemplate.push_back("                       #");
+        roomTemplate.push_back("                       #");
+        roomTemplate.push_back("                       #");
+        roomTemplate.push_back("                       #");
+        roomTemplate.push_back("      e                #");
+        roomTemplate.push_back("                       #");
+        roomTemplate.push_back("                       #");
+        roomTemplate.push_back("                       #");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("#################       ");
+        roomTemplate.push_back("########################");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::DesertGoblin);
+
+        int difficulty = 3;
+        int backColor = dngutil::BROWN;
+        std::string name = "Boranian Desert";
+        Coordinate mapCoord(-3, -1);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("OverworldTheme")));
+        mut.unlock();
+
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("      e                 ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("           e            ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::DesertGoblin);
+
+        int difficulty = 3;
+        int backColor = dngutil::BROWN;
+        std::string name = "Boranian Desert";
+        Coordinate mapCoord(-4, -1);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("OverworldTheme")));
+        mut.unlock();
+
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("        e               ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("            ####        ");
+        roomTemplate.push_back("          #######       ");
+        roomTemplate.push_back("        ############    ");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::DesertGoblin);
+
+        int difficulty = 3;
+        int backColor = dngutil::BROWN;
+        std::string name = "Boranian Desert";
+        Coordinate mapCoord(-5, -1);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("OverworldTheme")));
+        mut.unlock();
+
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("##                      ");
+        roomTemplate.push_back("##                      ");
+        roomTemplate.push_back("##                      ");
+        roomTemplate.push_back("##                      ");
+        roomTemplate.push_back("##                      ");
+        roomTemplate.push_back("##                      ");
+        roomTemplate.push_back("##    e                 ");
+        roomTemplate.push_back("###                     ");
+        roomTemplate.push_back("####        e           ");
+        roomTemplate.push_back("######                  ");
+        roomTemplate.push_back("##########              ");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::DesertGoblin);
+
+        int difficulty = 3;
+        int backColor = dngutil::BROWN;
+        std::string name = "Boranian Desert";
+        Coordinate mapCoord(-6, -1);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("OverworldTheme")));
+        mut.unlock();
+
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("                      ##");
+        roomTemplate.push_back("                      ##");
+        roomTemplate.push_back("                      ##");
+        roomTemplate.push_back("                      ##");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("      e               E ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                       #");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+        specificObjects.emplace(Coordinate(22, 6), new Npc(
+            pgame,
+            ColorChar('A', dngutil::WHITE),
+            Coordinate(22, 6),
+            "Trey Hidalgo",
+            ColorString("The desert is inhabited by goblins, the only human area is Desert Town.", dngutil::WHITE)
+        ));
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::DesertGoblin);
+
+        int difficulty = 3;
+        int backColor = dngutil::BROWN;
+        std::string name = "Boranian Desert";
+        Coordinate mapCoord(-3, -2);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("OverworldTheme")));
+        mut.unlock();
+
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                e       ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::DesertGoblin);
+
+        int difficulty = 3;
+        int backColor = dngutil::BROWN;
+        std::string name = "Boranian Desert";
+        Coordinate mapCoord(-4, -2);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("OverworldTheme")));
+        mut.unlock();
+
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("      E wwwwwww         ");
+        roomTemplate.push_back("       wwwwwwwwwww      ");
+        roomTemplate.push_back("        wwwwwwwww       ");
+        roomTemplate.push_back("        wwwwwwwww       ");
+        roomTemplate.push_back("       wwwwwwwww        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+        specificObjects.emplace(Coordinate(6, 4), new Npc(
+            pgame,
+            ColorChar('A', dngutil::WHITE),
+            Coordinate(6, 4),
+            "Danny Hernandez",
+            ColorString("I'm here collecting water for Desert Town, What are you doing?", dngutil::WHITE)
+        ));
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::DesertGoblin);
+
+        int difficulty = 3;
+        int backColor = dngutil::BROWN;
+        std::string name = "Boranian Desert Oasis";
+        Coordinate mapCoord(-5, -2);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("OverworldTheme")));
+        mut.unlock();
+
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("##                      ");
+        roomTemplate.push_back("##     e                ");
+        roomTemplate.push_back("##                      ");
+        roomTemplate.push_back("##                      ");
+        roomTemplate.push_back("##                      ");
+        roomTemplate.push_back("##                      ");
+        roomTemplate.push_back("##                      ");
+        roomTemplate.push_back("##      e               ");
+        roomTemplate.push_back("##                      ");
+        roomTemplate.push_back("##                      ");
+        roomTemplate.push_back("##                      ");
+        roomTemplate.push_back("##                 e    ");
+        roomTemplate.push_back("##                      ");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::DesertGoblin);
+
+        int difficulty = 3;
+        int backColor = dngutil::BROWN;
+        std::string name = "Boranian Desert";
+        Coordinate mapCoord(-6, -2);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("OverworldTheme")));
+        mut.unlock();
+
+    }
+
     // Glorian Plains
     {
         std::vector<std::string> roomTemplate;

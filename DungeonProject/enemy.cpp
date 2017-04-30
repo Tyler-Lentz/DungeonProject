@@ -2560,6 +2560,95 @@ void Mage::printSelf()
 }
 //----------------------------------------------------------------
 
+
+//----------------------------------------------------------------
+// Desert Goblin
+DesertGoblin::DesertGoblin(
+    Game* pgame,
+    Coordinate coord,
+    int hp,
+    unsigned int att,
+    unsigned int def,
+    unsigned int lck,
+    unsigned int spd,
+    unsigned int lvl
+) : REnemy(
+    pgame,
+    ColorChar('o', dngutil::CYAN),
+    coord,
+    "Goblin",
+    false,
+    dngutil::TID::DesertGoblin,
+    hp, att, def, lck, spd, lvl,
+    new Primary(
+        pgame,
+        ColorChar('=', dngutil::WHITE),
+        coord,
+        "Offensive Claws",
+        false,
+        1.34,
+        2,
+        65,
+        false,
+        "Claws from a Goblin",
+        WavFile("Attack1", false, false),
+        dngutil::ClassType::KNIGHT
+    ),
+    new Secondary(
+        pgame,
+        ColorChar('=', dngutil::WHITE),
+        coord,
+        "Defensive Claw",
+        false,
+        dngutil::TID::Secondary,
+        0,
+        1,
+        "Claws used for defense from a Goblin"
+    ),
+    Mp3File("BattleTheme", "BattleThemeAlt"),
+    random(40, 58),
+    WavFile("EnemyDeath", false, false),
+    dngutil::EvType::SPEED,
+    dngutil::ClassType::KNIGHT
+)
+{
+
+}
+
+void DesertGoblin::printSelf()
+{
+    Coordinate vcursor(0, getPGame()->getVWin()->txtmacs.DIVIDER_LINES[1] + 1);
+    VirtualWindow* t = getPGame()->getVWin();
+    int color = dngutil::CYAN;
+    vcursor.y += 3;
+    t->put(ColorString(R"(               ,     _.._     ,)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(               (`._."`    `"._.'))", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                '._          _.'               /\)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                 | /`-.  .-'\ | __           .'.')", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                 |(_()_\/_()_)|'  `\        ( ()", color), vcursor); vcursor.y++;
+    const int TOP_CURSOR_Y = vcursor.y;
+    t->put(ColorString(R"(                 ;   ,____,   ;     \        ) ))", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                  \  /VvvV\  /    \  \.__   / /)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                 /`'._`""`_.'      \  \  `\/ /)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                /  .  `--'          \  \    /)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(               /  / `-,       _.----'   \  ;)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(              /  /     )     /  .--------` \)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(             /  /.----'     /  /   ___.     \)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(            /  /|   _    _,|  (---'   \     |)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(           /  / |   \`""`  \\\\        \    |)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(          / /`  |    |      \\\`        \   \)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(         / /    ;    |                  /   /)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(        / / _    \  /                 /`  /`)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(       / _\/(    | |                 /  .'_)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(      | ( \  '--'  \               .'  (__)`\)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(      \\\\  `-------'         jgs /________.')", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(       `\\\)", color), vcursor); vcursor.y++;
+    const int LONGEST_LINE_LENGTH = 50;
+
+    printStats(LONGEST_LINE_LENGTH, TOP_CURSOR_Y);
+}
+//----------------------------------------------------------------
+
 //----------------------------------------------------------------
 // Bowman
 Bowman::Bowman(
@@ -2756,7 +2845,7 @@ void SegEnemy::deathSequence()
     getPGame()->getVWin()->txtmacs.clearMapArea(true, 10);
     getPGame()->getVWin()->txtmacs.clearDivider("bottom");
     playSound(Mp3File("Win"));
-    Sleep(5000);
+    Sleep(10500);
     stopSound(SoundType::MP3);
     Enemy::deathSequence();
 }

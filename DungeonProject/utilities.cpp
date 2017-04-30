@@ -150,7 +150,7 @@ void credits(dngutil::CreditType c, Game* pgame)
     v->putcen(ColorString("Play Testing: Tyler Lentz, Thomas Westenhoffer, Kristian Rascon,", color), vcursor.y++);
     v->putcen(ColorString("Collin Werth", color), vcursor.y++);
     vcursor.y++;
-    v->putcen(ColorString("Music/Sound effects: Legend of Zelda 1, 2 and 3", color), vcursor.y++);
+    v->putcen(ColorString("Music/Sound effects: many Legend of Zelda games", color), vcursor.y++);
     vcursor.y++;
     v->putcen(ColorString("Special Thanks to: ", color), vcursor.y++);
     vcursor.y += 5;
