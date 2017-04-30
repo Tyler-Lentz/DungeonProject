@@ -437,6 +437,7 @@ DungeonCheck::DungeonCheck(Game* game, Coordinate coord, int harp) :
     ) 
 {
     harpNumber = harp;
+    allow5Cross = true;
 }
 
 Collision DungeonCheck::mapAction(MapObject* collider, std::list<MapObject*>::iterator& it)
@@ -446,15 +447,16 @@ Collision DungeonCheck::mapAction(MapObject* collider, std::list<MapObject*>::it
     {
         if (harpNumber == 5)
         {
-            if (getPGame()->getPlayer()->hasFullHarp())
+            if (getPGame()->getPlayer()->hasFullHarp() && allow5Cross)
             {
                 getPGame()->getPlayer()->setDungeonStart();
                 getPGame()->setDungeonLevel(getPGame()->getPlayer()->getLvl());
 
-
+                stopSound(SoundType::MP3);
                 VirtualWindow* t = getPGame()->getVWin();
                 Coordinate vcursor(0, t->txtmacs.DIVIDER_LINES[1] + 5);
                 t->txtmacs.clearMapArea(true, 5);
+                t->txtmacs.clearDivider("bottom");
                 t->putcen(ColorString(R"(         ____                   )", dngutil::YELLOW), vcursor.y); vcursor.y++;
                 t->putcen(ColorString(R"(         SSSS____.              )", dngutil::YELLOW), vcursor.y); vcursor.y++;
                 t->putcen(ColorString(R"(         (WW);;;;;\             )", dngutil::YELLOW), vcursor.y); vcursor.y++;
@@ -474,12 +476,15 @@ Collision DungeonCheck::mapAction(MapObject* collider, std::list<MapObject*>::it
                 t->putcen(ColorString(R"(         ,UU,'   ||             )", dngutil::YELLOW), vcursor.y); vcursor.y++;
                 t->putcen(ColorString(R"(       (~~~~~~~~~~~~]""'        )", dngutil::YELLOW), vcursor.y); vcursor.y++;
                 t->putcen(ColorString(R"(~~~~~~~~~~~~~~~~~~~~~~~~~~~     )", dngutil::YELLOW), vcursor.y); vcursor.y++;
-                playSound(WavFile("FindVeryImportantItem", false, false));
+                playSound(Mp3File("FindVeryImportantItem"));
+                Sleep(12000);
+                stopSound(SoundType::MP3);
                 t->txtmacs.displayGame(getPGame());
-
+                getPGame()->getOverworldMusic().play();
+                allow5Cross = false;
                 return Collision(true, false, true);
             }
-            else
+            else if (allow5Cross)
             {
                 getPGame()->getVWin()->txtmacs.clearDivider("bottom");
                 getPGame()->getVWin()->putcen(
@@ -769,7 +774,7 @@ Collision HeroSpirit::mapAction(MapObject* collider, std::list<MapObject*>::iter
         t.clearLine(l + 1);
 
         v->putcen(ColorString("I returned it deep within the Korloma Forest - you will likely need", dngutil::WHITE), l, true);
-        v->putcen(ColorString("a lot of gear to retrieve it from its resting place.", dngutil::WHITE), l, true);
+        v->putcen(ColorString("a lot of gear to retrieve it from its resting place.", dngutil::WHITE), l + 1, true);
         pressEnter(Coordinate(0, l + 2), v);
         t.clearLine(l);
         t.clearLine(l + 1);

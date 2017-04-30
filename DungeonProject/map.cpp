@@ -32,6 +32,7 @@ Map::Map(Game* game)
     functions.emplace_back([&]() {makeHouses(mut); });
     functions.emplace_back([&]() {makeSpiritTemple(mut); });
     functions.emplace_back([&]() {makeWaterTemple(mut); });
+    functions.emplace_back([&]() {makeTowerOfTheGods(mut); });
     for (auto& i : functions)
     {
         i.join();
@@ -3069,7 +3070,7 @@ void Map::makeTowerOfTheGods(std::mutex& mut)
         std::vector<std::string> roomTemplate;
         roomTemplate.push_back("@@@@@@@@@@@@@@@@@@@@@@@@");
         roomTemplate.push_back("@@@@@@@@@@@@@@@@@@@@@@@@");
-        roomTemplate.push_back("@@ooo                 @@");
+        roomTemplate.push_back("@@oo                  @@");
         roomTemplate.push_back("@@                    @@");
         roomTemplate.push_back("@@                    @@");
         roomTemplate.push_back("@@                    @@");
@@ -3077,7 +3078,7 @@ void Map::makeTowerOfTheGods(std::mutex& mut)
         roomTemplate.push_back("@@                    @@");
         roomTemplate.push_back("@@                    @@");
         roomTemplate.push_back("@@                    @@");
-        roomTemplate.push_back("@@ooo                 @@");
+        roomTemplate.push_back("@@oo                  @@");
         roomTemplate.push_back("@@@@@@@@@@@@@@@@@@@@@@@@");
         roomTemplate.push_back("@@@@@@@@@@@@@@@@@@@@@@@@");
 
@@ -3085,16 +3086,14 @@ void Map::makeTowerOfTheGods(std::mutex& mut)
         std::map<Coordinate, MapObject*> specificObjects;
         specificObjects.emplace(Coordinate(2, 2), new MagicalPotion(pgame, Coordinate(2, 2)));
         specificObjects.emplace(Coordinate(3, 2), new MagicalPotion(pgame, Coordinate(3, 2)));
-        specificObjects.emplace(Coordinate(4, 2), new MagicalPotion(pgame, Coordinate(4, 2)));
 
-        specificObjects.emplace(Coordinate(2, 10), new Potion(pgame, Coordinate(2, 2), dngutil::POTION_HEAL + 20));
-        specificObjects.emplace(Coordinate(3, 10), new Potion(pgame, Coordinate(3, 2), dngutil::POTION_HEAL + 20));
-        specificObjects.emplace(Coordinate(4, 10), new Potion(pgame, Coordinate(4, 2), dngutil::POTION_HEAL + 20));
+        specificObjects.emplace(Coordinate(2, 10), new Potion(pgame, Coordinate(2, 10), dngutil::POTION_HEAL + 20));
+        specificObjects.emplace(Coordinate(3, 10), new Potion(pgame, Coordinate(3, 10), dngutil::POTION_HEAL + 20));
 
         std::vector<dngutil::TID> possibleCreatures;
 
         int difficulty = 12;
-        int backColor = dngutil::RED;
+        int backColor = dngutil::LIGHTGRAY;
         std::string name = "The Tower of the Gods";
         Coordinate mapCoord(5, -3);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
@@ -3139,14 +3138,14 @@ void Map::makeTowerOfTheGods(std::mutex& mut)
         std::vector<dngutil::TID> possibleCreatures;
         possibleCreatures.push_back(dngutil::TID::SkeletonKing);
 
-        int difficulty = -1;
-        int backColor = dngutil::RED;
+        int difficulty = -2;
+        int backColor = dngutil::LIGHTGRAY;
         std::string name = "The Tower of the Gods";
         Coordinate mapCoord(5, -3);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
 
         mut.lock();
-        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("FinalDungeonTheme")));
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction), Mp3File("FinalDungeonTheme")));
         mut.unlock();
 
     }
@@ -3186,14 +3185,14 @@ void Map::makeTowerOfTheGods(std::mutex& mut)
         std::vector<dngutil::TID> possibleCreatures;
         possibleCreatures.push_back(dngutil::TID::WaterHorse);
 
-        int difficulty = -1;
-        int backColor = dngutil::RED;
+        int difficulty = -2;
+        int backColor = dngutil::LIGHTGRAY;
         std::string name = "The Tower of the Gods";
         Coordinate mapCoord(5, -3);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
 
         mut.lock();
-        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("FinalDungeonTheme")));
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction), Mp3File("FinalDungeonTheme")));
         mut.unlock();
 
     }
@@ -3232,14 +3231,14 @@ void Map::makeTowerOfTheGods(std::mutex& mut)
         std::vector<dngutil::TID> possibleCreatures;
         possibleCreatures.push_back(dngutil::TID::FlameHorse);
 
-        int difficulty = -1;
-        int backColor = dngutil::RED;
+        int difficulty = -2;
+        int backColor = dngutil::LIGHTGRAY;
         std::string name = "The Tower of the Gods";
         Coordinate mapCoord(5, -3);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
 
         mut.lock();
-        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("FinalDungeonTheme")));
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction), Mp3File("FinalDungeonTheme")));
         mut.unlock();
 
     }
@@ -3278,14 +3277,14 @@ void Map::makeTowerOfTheGods(std::mutex& mut)
         std::vector<dngutil::TID> possibleCreatures;
         possibleCreatures.push_back(dngutil::TID::GhostHorse);
 
-        int difficulty = -2;
-        int backColor = dngutil::RED;
+        int difficulty = -3;
+        int backColor = dngutil::LIGHTGRAY;
         std::string name = "The Tower of the Gods";
         Coordinate mapCoord(5, -3);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
 
         mut.lock();
-        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("FinalDungeonTheme")));
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction), Mp3File("FinalDungeonTheme")));
         mut.unlock();
 
     }
@@ -3311,7 +3310,7 @@ void Map::makeTowerOfTheGods(std::mutex& mut)
         std::vector<dngutil::TID> possibleCreatures;
 
         int difficulty = -2;
-        int backColor = dngutil::RED;
+        int backColor = dngutil::LIGHTGRAY;
         std::string name = "Top of The Tower of the Gods";
         Coordinate mapCoord(5, -3);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
@@ -3329,7 +3328,7 @@ void Map::makeTowerOfTheGods(std::mutex& mut)
         roomTemplate.push_back("WWWWWWWWWWWWWWWWWWWWWWWW");
         roomTemplate.push_back("WWWWWWW           WWWWWW");
         roomTemplate.push_back("WWWWWWW     o     WWWWWW");
-        roomTemplate.push_back("WWWWWWW           WWWWW ");
+        roomTemplate.push_back("WWWWWWW           WWWWWW");
         roomTemplate.push_back("WWWWWWW           WWWWWW");
         roomTemplate.push_back("WWWWWWW           WWWWWW");
         roomTemplate.push_back("WWWWWWW           WWWWWW");
@@ -3348,7 +3347,10 @@ void Map::makeTowerOfTheGods(std::mutex& mut)
 
         auto puzzleAction = [this](std::list<Creature*> creatureList, GAMEMAP& gameMap) -> void
         {
-            gameMap[10][12].push_back(new HarpPiece(pgame, Coordinate(20, 6), 4));
+            Creature* creature = pgame->generateCreature(1, dngutil::TID::TrueZorlock);
+            creature->setPosition(Coordinate(12, 10));
+            gameMap[10][12].push_back(creature);
+            pgame->getActiveRoom()->addCreature(creature, Coordinate(12, 10));
         };
 
         std::vector<SegEnemy*> bossparts;
@@ -3356,7 +3358,6 @@ void Map::makeTowerOfTheGods(std::mutex& mut)
         bossparts[0]->setFirst();
         bossparts.push_back(dynamic_cast<SegEnemy*>(pgame->generateCreature(1, dngutil::TID::EvilBeastPhase2)));
         bossparts.push_back(dynamic_cast<SegEnemy*>(pgame->generateCreature(1, dngutil::TID::EvilBeastPhase3)));
-        bossparts.push_back(dynamic_cast<SegEnemy*>(pgame->generateCreature(1, dngutil::TID::EvilBeastPhase4)));
 
         std::map<Coordinate, MapObject*> specificObjects;
         specificObjects.emplace(Coordinate(12, 5), new SegbossTrigger(
@@ -3367,9 +3368,8 @@ void Map::makeTowerOfTheGods(std::mutex& mut)
 
         std::vector<dngutil::TID> possibleCreatures;
 
-        int difficulty = -1 
-            ;
-        int backColor = dngutil::RED;
+        int difficulty = -3;
+        int backColor = dngutil::LIGHTGRAY;
         std::string name = "Top of The Tower of the Gods";
         Coordinate mapCoord(5, -4);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);

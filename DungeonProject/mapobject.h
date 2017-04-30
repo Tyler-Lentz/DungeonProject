@@ -274,6 +274,7 @@ public:
 
 private:
     int harpNumber;
+    bool allow5Cross;
 };
 
 class AltarObject : public MapObject

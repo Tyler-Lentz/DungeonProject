@@ -636,7 +636,7 @@ public:
     );
 
     void printSelf() override;
-
+    void deathSequence() override;
 };
 
 class EvilBeastPhase4 : public SegEnemy
@@ -654,8 +654,6 @@ public:
     );
 
     void printSelf() override;
-
-    void deathSequence() override;
 };
 //----------------------------------------------------------------
 // segboss

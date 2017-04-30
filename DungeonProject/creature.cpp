@@ -361,9 +361,6 @@ bool Creature::battle(MapObject* t_enemy)
 
     enemy->beginingCutscene();
 
-    vwin->txtmacs.clearMapArea(true, 20);
-    vwin->txtmacs.clearDivider("bottom");
-
     enemy->getBattleMusic().play();
 
     enemy->printSelf();

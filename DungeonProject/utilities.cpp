@@ -123,11 +123,6 @@ void credits(dngutil::CreditType c, Game* pgame)
         v->clearScreen(dngutil::WHITE);
     }
 
-    if (c != dngutil::CreditType::TITLESCREEN)
-    {
-        playSound(Mp3File("Ending"));
-    }
-
     int color = 0;
     if (c == dngutil::CreditType::VICTORY)
     {
@@ -162,7 +157,8 @@ void credits(dngutil::CreditType c, Game* pgame)
     
     if (c != dngutil::CreditType::TITLESCREEN)
     {
-         v->putcen(ColorString("Your quest is over - peace has been restored", color), vcursor.y++);
+         v->putcen(ColorString("Your quest is over", color), vcursor.y++);
+         vcursor.y += 5;
     }        
     
     v->putcen(ColorString("More people will be added to credits as they help", color), vcursor.y++);

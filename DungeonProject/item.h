@@ -210,7 +210,7 @@ public:
             "Hero's Blade",
             false,
             1.7,
-            4,
+            5,
             100,
             true,
             "Blade forged by the gods",

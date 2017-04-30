@@ -217,6 +217,10 @@ Creature* Game::generateCreature(int difficulty, dngutil::TID tid)
         enemy = new BloodSkeleton(this, Coordinate(-1, -1), health, attack, defense, luck, speed, level);
         break;
 
+    case dngutil::TID::TrueZorlock:
+        enemy = new TrueZorlock(this, Coordinate(-1, -1), health, attack, defense, luck, speed, level);
+        break;
+
     case dngutil::TID::LSKnight:
         enemy = new LSKnight(this, Coordinate(-1, -1), health, attack, defense, luck, speed, level);
         break;
