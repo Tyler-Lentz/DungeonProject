@@ -102,3 +102,13 @@ void Bubblecharm::unequipAction()
 {
     getPGame()->getPlayer()->changeMapChar(ColorChar('A', dngutil::noArmorPlayerColor));
 }
+
+void ReinforcedBoots::equipAction()
+{
+    getPGame()->getPlayer()->increaseDef(2);
+}
+
+void ReinforcedBoots::unequipAction()
+{
+    getPGame()->getPlayer()->setDef(getPGame()->getPlayer()->getDef() - 2);
+}

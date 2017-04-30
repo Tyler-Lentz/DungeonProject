@@ -141,8 +141,21 @@ void Enemy::deathSequence()
 
         getPGame()->getVWin()->putcen(
             ColorString("The " + getName() + " drops a " + dropType, dngutil::CYAN),
-            getPGame()->getVWin()->txtmacs.BOTTOM_DIVIDER_TEXT_LINE);
+            getPGame()->getVWin()->txtmacs.BOTTOM_DIVIDER_TEXT_LINE, true);
         pressEnter(Coordinate(0, getPGame()->getVWin()->txtmacs.BOTTOM_DIVIDER_TEXT_LINE + 1), getPGame()->getVWin()); 
+    }
+
+    getPGame()->getVWin()->txtmacs.clearLine(getPGame()->getVWin()->txtmacs.BOTTOM_DIVIDER_TEXT_LINE);
+    getPGame()->getVWin()->txtmacs.clearLine(getPGame()->getVWin()->txtmacs.BOTTOM_DIVIDER_TEXT_LINE + 1);
+
+    int goldAmount = random(0, 17);
+    if (goldAmount > 0)
+    {
+        getPGame()->getPlayer()->changeGold(goldAmount);
+        getPGame()->getVWin()->putcen(
+            ColorString("The " + getName() + " drops " + std::to_string(goldAmount) + " gold", dngutil::CYAN),
+            getPGame()->getVWin()->txtmacs.BOTTOM_DIVIDER_TEXT_LINE, true);
+        pressEnter(Coordinate(0, getPGame()->getVWin()->txtmacs.BOTTOM_DIVIDER_TEXT_LINE + 1), getPGame()->getVWin());
     }
 }
 

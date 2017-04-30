@@ -83,6 +83,8 @@ Player::Player(
     lckEv = 0;
     spdEv = 0;
 
+    gold = 0;
+
     steps = pgame->getDifficulty().beastSteps;
 }
 
@@ -108,6 +110,21 @@ void Player::gotoDungeonStart(int harpPiece)
     startingDungeonMapCoord = Coordinate(0, 0);
     startingDungeonRoomCoord = Coordinate(0, 0);
     getPGame()->setOverworldMusic(getPGame()->getActiveRoom()->getMusic());
+}
+
+int Player::getGold() const
+{
+    return gold;
+}
+
+void Player::changeGold(int amount)
+{
+    gold += amount;
+}
+
+void Player::setGold(int amount)
+{
+    gold = amount;
 }
 
 void Player::setDungeonStart(Coordinate room, Coordinate map)

@@ -355,7 +355,9 @@ void TextMacros::clearLine(unsigned int line)
 void TextMacros::displayInventory(int positions[], Player* player)
 {
     clearMapArea(false, NULL);
-    Coordinate vcursor(0, DIVIDER_LINES[1] + 3);
+    Coordinate vcursor(0, DIVIDER_LINES[1] + 2);
+    
+    vwin->put(ColorString("   Gold: " + std::to_string(player->getGold()), dngutil::YELLOW), vcursor); vcursor.y++;
 
     positions[0] = vcursor.y;
     for (auto& i : player->getInventory())

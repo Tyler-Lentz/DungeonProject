@@ -131,6 +131,31 @@ private:
     void unequipAction() override;
 };
 
+class ReinforcedBoots : public Equipment
+{
+public:
+    ReinforcedBoots(
+        Game* pgame,
+        Coordinate coord
+    ) :Equipment(
+        pgame,
+        ColorChar('*', dngutil::BROWN),
+        coord,
+        "Reinforced Boots",
+        false,
+        "Boots that give extra defense",
+        EquipSlotId::BOOTS,
+        dngutil::TID::ReinforcedBoots
+    )
+    {
+
+    }
+
+private:
+    void equipAction() override;
+    void unequipAction() override;
+};
+
 class HerosTunic : public Equipment
 {
 public:

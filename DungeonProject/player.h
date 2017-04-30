@@ -88,6 +88,10 @@ public:
     void setBoots(Equipment* equip);
 
     bool hasItem(dngutil::TID tid, bool onlyCountHolding = false);
+
+    int getGold() const;
+    void changeGold(int amount);
+    void setGold(int amount); 
 private:
 
     Coordinate startingDungeonMapCoord;
@@ -114,6 +118,8 @@ private:
 
     Equipment* armor;
     Equipment* boots;
+
+    int gold;
 };
 
 #endif

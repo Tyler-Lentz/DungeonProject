@@ -46,6 +46,7 @@ void saveGame(Player* player, Game* game)
 
     file << player->getName() << std::endl
         << game->getRawFloor() << std::endl
+        << player->getGold() << std::endl
         << player->getStartingDungeonRoomCoord().x << std::endl
         << player->getStartingDungeonRoomCoord().y << std::endl
         << player->getStartingDungeonMapCoord().x << std::endl
@@ -159,6 +160,9 @@ bool loadGame(Game* game)
 
     std::getline(file, s);
     game->setActiveFloor(stoi(s));
+
+    std::getline(file, s);
+    p->setGold(stoi(s));
 
     Coordinate coord;
     Coordinate coord2;
@@ -362,6 +366,7 @@ Item* getItemFromId(dngutil::TID tid, Game* game)
     case dngutil::TID::HerosTunic: return new HerosTunic(game, Coordinate(-1, -1));
     case dngutil::TID::HerosBlade: return new HerosBlade(game, Coordinate(-1, -1));
     case dngutil::TID::Bubblecharm: return new Bubblecharm(game, Coordinate(-1, -1));
+    case dngutil::TID::ReinforcedBoots: return new ReinforcedBoots(game, Coordinate(-1, -1));
     }
     errorMessage("invalid tid passed to getItemFromId()", __LINE__, __FILE__);
 

@@ -292,6 +292,19 @@ public:
     Collision mapAction(MapObject* collider, std::list<MapObject*>::iterator& it) override;
 };
 
+class VenderObject : public MapObject
+{
+public:
+    VenderObject(Game* game, Coordinate coord, ColorString name, ColorChar mapRep, dngutil::TID itemTid, int price);
+    Collision mapAction(MapObject* collider, std::list<MapObject*>::iterator& it) override;
+
+private:
+    ColorString itemName;
+    ColorChar mapRep;
+    dngutil::TID itemTid;
+    int price;
+};
+
 class HerosBladeStone : public MapObject
 {
 public:

@@ -102,7 +102,9 @@ namespace dngutil
         HerosBlade,
         HerosBladeStone,
         TrueZorlock,
-        DesertGoblin
+        DesertGoblin,
+        Vender,
+        ReinforcedBoots
     };
 
     enum class BTID
@@ -110,15 +112,6 @@ namespace dngutil
         Creature,
         Item,
         None
-    };
-
-    enum class DungeonType
-    {
-        DRAGONS_LAIR,
-        GRYPHONS_TOWER,
-        FIFTYTRIALS,
-        UNDERWATER_DUNGEON,
-        NEITHER
     };
 
     enum class ClassType

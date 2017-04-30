@@ -597,6 +597,78 @@ Collision AltarObject::mapAction(MapObject* collider, std::list<MapObject*>::ite
 //---------------------------------------------------------------
 
 //---------------------------------------------------------------
+// Vender Object functions
+
+VenderObject::VenderObject(Game* game, Coordinate coord, ColorString name, ColorChar mapRep, dngutil::TID itemTid, int price)
+    :MapObject(
+        game,
+        mapRep,
+        coord,
+        "VENDER",
+        true,
+        false,
+        false,
+        dngutil::TID::Vender,
+        dngutil::P_WALL,
+        dngutil::BTID::None,
+        true
+    )
+{
+    itemName = name;
+    this->itemTid = itemTid;
+    this->price = price;
+}
+
+Collision VenderObject::mapAction(MapObject* collider, std::list<MapObject*>::iterator& it)
+{
+    if (collider == getPGame()->getPlayer())
+    {
+        VirtualWindow* t = getPGame()->getVWin();
+        TextMacros& txt = t->txtmacs;
+
+        txt.clearDivider("bottom");
+        int topLine = txt.BOTTOM_DIVIDER_TEXT_LINE - 1;
+
+        t->putcen(ColorString("That would be ", dngutil::WHITE) + itemName + ColorString(". It costs " + std::to_string(price) + " gold.", dngutil::WHITE), topLine, true);
+        t->putcen(ColorString("Would you like to buy it? You have " + std::to_string(getPGame()->getPlayer()->getGold()) + " gold (Y = yes N = no)", dngutil::WHITE), topLine + 1, true);
+
+        while (true)
+        {
+            if (keypress('Y'))
+            {
+                txt.clearDivider("bottom");
+                if (getPGame()->getPlayer()->getGold() >= price)
+                {
+                    getPGame()->getPlayer()->changeGold(price * -1);
+                    getPGame()->getPlayer()->addToInventory(getItemFromId(itemTid, getPGame()));
+                    playSound(WavFile("FindItem", false, false));
+                    t->putcen(ColorString("Thank you for your business", dngutil::WHITE), topLine, true);
+                    pressEnter(Coordinate(0, topLine + 1), t);
+                }
+                else
+                {
+                    playSound(WavFile("PuzzleError", false, false));
+                    t->putcen(ColorString("You don't have enough gold", dngutil::WHITE), topLine);
+                    pressEnter(Coordinate(0, topLine + 1), t);
+                }
+                break;
+            }
+            else if (keypress('N'))
+            {
+                break;
+            }
+        }
+
+        txt.clearDivider("bottom");
+        txt.displayOverworldInfo(getPGame());
+    }
+    return Collision(false, true, false);
+}
+
+//---------------------------------------------------------------
+
+
+//---------------------------------------------------------------
 // Hero Blade Stone functions
 
 HerosBladeStone::HerosBladeStone(Game* game, Coordinate coord)
