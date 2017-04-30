@@ -284,6 +284,7 @@ public:
     Collision mapAction(MapObject* collider, std::list<MapObject*>::iterator& it) override;
 };
 
+
 class HeroSpirit : public MapObject
 {
 public:
