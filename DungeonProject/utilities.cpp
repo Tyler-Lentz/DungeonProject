@@ -114,45 +114,22 @@ int getHealthbarSleepTime(int damageDealt)
     return (200 / damageDealt);
 }
 
-void credits(dngutil::CreditType c, Game* pgame, dngutil::DungeonType dungeon)
+void credits(dngutil::CreditType c, Game* pgame)
 {
     VirtualWindow* v = pgame->getVWin();
 
-    if (c == dngutil::CreditType::SECRET_VICTORY)
-    {
-        v->clearScreen(dngutil::LIGHTBLUE);
-    }
-    else if (c == dngutil::CreditType::VICTORY)
+    if (c == dngutil::CreditType::VICTORY)
     {
         v->clearScreen(dngutil::WHITE);
     }
 
     if (c != dngutil::CreditType::TITLESCREEN)
     {
-        Sleep(4000);
-        playSound(Mp3File("Win"));
-        Sleep(5000);
-        stopSound(SoundType::MP3);
-
-        Sleep(100);
-        if (c == dngutil::CreditType::VICTORY)
-        {
-            playSound(Mp3File("Ending"));
-        }
-        else
-        {
-            playSound(Mp3File("alternate"));
-        }
-
-        pgame->adjustScore(dngutil::BASE_SCORE_VICTORY);
+        playSound(Mp3File("Ending"));
     }
 
     int color = 0;
-    if (c == dngutil::CreditType::SECRET_VICTORY)
-    {
-        color = getColor(dngutil::WHITE, dngutil::LIGHTBLUE);
-    }
-    else if (c == dngutil::CreditType::VICTORY)
+    if (c == dngutil::CreditType::VICTORY)
     {
         color = getColor(dngutil::BLACK, dngutil::WHITE);
     }
@@ -167,87 +144,30 @@ void credits(dngutil::CreditType c, Game* pgame, dngutil::DungeonType dungeon)
         v->txtmacs.clearMapArea(false, NULL);
     }
 
-    if (dungeon == dngutil::DungeonType::DRAGONS_LAIR)
-    {
-        v->putcen(ColorString("DUNGEON RPG - DRAGON'S LAIR", color), vcursor.y++);
-        if (c == dngutil::CreditType::SECRET_VICTORY)
-        {
-            v->putcen(ColorString("You avenge your village and", color), vcursor.y++);
-            v->putcen(ColorString("you have vanquished all evil from the dungeon!", color), vcursor.y++);
-        }
-        else if (c == dngutil::CreditType::VICTORY)
-        {
-            v->putcen(ColorString("You avenge your village but", color), vcursor.y++);
-            v->putcen(ColorString("a dark energy still resides in the dungeon...", color), vcursor.y++);
-        }
-    }
-    else if (dungeon == dngutil::DungeonType::GRYPHONS_TOWER)
-    {
-        v->putcen(ColorString("DUNGEON RPG - GRYPHON'S TOWER", color), vcursor.y++);
-        if (c == dngutil::CreditType::SECRET_VICTORY)
-        {
-            v->putcen(ColorString("You save your family and", color), vcursor.y++);
-            v->putcen(ColorString("you have vanquished all evil from the dungeon!", color), vcursor.y++);
-        }
-        else if (c == dngutil::CreditType::VICTORY)
-        {
-            v->putcen(ColorString("You save your family but", color), vcursor.y++);
-            v->putcen(ColorString("a dark energy still resides in the dungeon...", color), vcursor.y++);
-        }
-    }
-    else if (dungeon == dngutil::DungeonType::FIFTYTRIALS)
-    {
-        v->putcen(ColorString("DUNGEON RPG - PIT OF 50 TRIALS", color), vcursor.y++);
-        v->putcen(ColorString("You conquer the dungeon and", color), vcursor.y++);
-        v->putcen(ColorString("have escaped with great treasures!", color), vcursor.y++);
-    }
-    else if (dungeon == dngutil::DungeonType::UNDERWATER_DUNGEON)
-    {
-        v->putcen(ColorString("DUNGEON RPG - UNDERWATER TEMPLE", color), vcursor.y++);
-        if (c == dngutil::CreditType::SECRET_VICTORY)
-        {
-            v->putcen(ColorString("You kill the Beast and", color), vcursor.y++);
-            v->putcen(ColorString("have vanquished all evil from the temple!", color), vcursor.y++);
-        }
-        else if (c == dngutil::CreditType::VICTORY)
-        {
-            v->putcen(ColorString("You rid the ocean of Bloodjaw but", color), vcursor.y++);
-            v->putcen(ColorString("a dark energy still resides in the temple...", color), vcursor.y++);
-        }
-    }
-    else
-    {
-        v->putcen(ColorString("DUNGEON RPG", color), vcursor.y++);
-    }
+    v->putcen(ColorString("Harp of the Gods", color), vcursor.y++);
 
-    
     vcursor.y += 4;
 
     v->putcen(ColorString("Programming: Tyler Lentz", color), vcursor.y++);
     vcursor.y++;
-    v->putcen(ColorString("Story: Tyler Lentz and Thomas Westenhofer", color), vcursor.y++);
+    v->putcen(ColorString("Story: Tyler Lentz", color), vcursor.y++);
     vcursor.y++;
-    v->putcen(ColorString("Play Testing: Tyler Lentz, Thomas Westenhofer, Kristian Rascon,", color), vcursor.y++);
-    v->putcen(ColorString("Danny Hernandez and others", color), vcursor.y++);
+    v->putcen(ColorString("Play Testing: Tyler Lentz, Thomas Westenhoffer, Kristian Rascon,", color), vcursor.y++);
+    v->putcen(ColorString("Collin Werth", color), vcursor.y++);
     vcursor.y++;
     v->putcen(ColorString("Music/Sound effects: Legend of Zelda 1, 2 and 3", color), vcursor.y++);
     vcursor.y++;
-    v->putcen(ColorString("Special Thanks to: Evan \"Little Fella\" Maich,", color), vcursor.y++);
-    v->putcen(ColorString("Niko \"Mile Stretch Mile\" Fernandez and", color), vcursor.y++);
-    v->putcen(ColorString("Anthony \"Duganator 3000\" Dugan", color), vcursor.y++);
+    v->putcen(ColorString("Special Thanks to: ", color), vcursor.y++);
     vcursor.y += 5;
+    
     if (c != dngutil::CreditType::TITLESCREEN)
     {
-        v->putcen(
-            ColorString("Your score was: ", color) +
-            ColorString(std::to_string(pgame->getScore()), color),
-            vcursor.y++
-        ); 
-        vcursor.y += 2;
-        v->putcen(ColorString("Your adventure is over", color), vcursor.y++);
-        vcursor.y += 3;
-    }
+         v->putcen(ColorString("Your quest is over - peace has been restored", color), vcursor.y++);
+    }        
     
+    v->putcen(ColorString("More people will be added to credits as they help", color), vcursor.y++);
+
+
     pressEnter(vcursor, v, color);
 
     if (c != dngutil::CreditType::TITLESCREEN)

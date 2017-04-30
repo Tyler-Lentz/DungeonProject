@@ -162,8 +162,7 @@ namespace dngutil
     enum class CreditType
     {
         TITLESCREEN,
-        VICTORY,
-        SECRET_VICTORY
+        VICTORY
     };
 
     enum Priority
@@ -235,7 +234,7 @@ int getExpToLevel(unsigned int level);
 
 int getHealthbarSleepTime(int damageDealt);
 
-void credits(dngutil::CreditType c, Game* pgame, dngutil::DungeonType dungeon);
+void credits(dngutil::CreditType c, Game* pgame);
 
 void intro(VirtualWindow* vwin);
 
