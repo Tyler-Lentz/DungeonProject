@@ -420,6 +420,42 @@ Collision DoorObject::mapAction(MapObject* collider, std::list<MapObject*>::iter
 //---------------------------------------------------------------
 
 //---------------------------------------------------------------
+// Smashable Rock Functions
+SmashableRockObject::SmashableRockObject(Game* game, Coordinate coord) :
+    MapObject(
+        game,
+        ColorChar(static_cast<unsigned char>(178),getColor(dngutil::BROWN, dngutil::YELLOW)),
+        coord,
+        "SMASHABLEROCK",
+        false,
+        true,
+        false,
+        dngutil::TID::SmashableRock,
+        dngutil::P_WALL,
+        dngutil::BTID::None,
+        true
+    ) {}
+
+Collision SmashableRockObject::mapAction(MapObject* collider, std::list<MapObject*>::iterator& it)
+{
+    // dont use the it passed through in this function
+    if (collider == getPGame()->getPlayer() && getPGame()->getPlayer()->hasItem(dngutil::TID::PowerBoots, true))
+    {
+        getPGame()->getActiveRoom()->getObjects(getCoord()).remove(this);
+        removeFromMap(true);
+        playSound(WavFile("UnlockDoor", false, false));
+        return Collision(true, false, true);
+    }
+    else
+    {
+        return Collision(false, true, false);
+    }
+}
+
+//---------------------------------------------------------------
+
+
+//---------------------------------------------------------------
 // DungeonCheck Functions
 DungeonCheck::DungeonCheck(Game* game, Coordinate coord, int harp) :
     MapObject(

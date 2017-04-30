@@ -104,7 +104,9 @@ namespace dngutil
         TrueZorlock,
         DesertGoblin,
         Vender,
-        ReinforcedBoots
+        ReinforcedBoots,
+        PowerBoots,
+        SmashableRock
     };
 
     enum class BTID

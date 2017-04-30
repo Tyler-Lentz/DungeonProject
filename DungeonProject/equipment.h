@@ -85,6 +85,27 @@ public:
     }
 };
 
+class PowerBoots : public Equipment
+{
+public:
+    PowerBoots(
+        Game* pgame,
+        Coordinate coord
+    ) :Equipment(
+        pgame,
+        ColorChar('*', dngutil::LIGHTRED),
+        coord,
+        "Power Boots",
+        false,
+        "Boots that let you smash certain rocks",
+        EquipSlotId::BOOTS,
+        dngutil::TID::PowerBoots
+    )
+    {
+
+    }
+};
+
 class Waterboots : public Equipment
 {
 public:

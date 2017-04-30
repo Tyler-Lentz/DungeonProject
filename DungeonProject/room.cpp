@@ -55,6 +55,10 @@ Room::Room(Game* t_game_pointer, RoomInfo roomToGenerate, Puzzle* puzzle, Mp3Fil
                 gameMap[i][j].push_back(new WallObject(game_pointer, Coordinate(j, i)));
                 break;
 
+            case ':':
+                gameMap[i][j].push_back(new SmashableRockObject(game_pointer, Coordinate(j, i)));
+                break;
+
             case 'I':
                 gameMap[i][j].push_back(new ExitObject(
                     game_pointer, Coordinate(j, i), true,

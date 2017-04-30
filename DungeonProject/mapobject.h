@@ -266,6 +266,13 @@ public:
     Collision mapAction(MapObject* collider, std::list<MapObject*>::iterator& it) override;
 };
 
+class SmashableRockObject : public MapObject
+{
+public:
+    SmashableRockObject(Game* game, Coordinate coord);
+    Collision mapAction(MapObject* collider, std::list<MapObject*>::iterator& it) override;
+};
+
 class DungeonCheck : public MapObject
 {
 public:
