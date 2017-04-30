@@ -15,7 +15,8 @@ Npc::Npc(
     ColorChar mapRep,
     Coordinate coord,
     std::string name,
-    std::vector<ColorString> dialogue
+    std::vector<ColorString> dialogue,
+    bool move
 ) :
     Creature(
         pgame, mapRep, coord, name,
@@ -29,6 +30,7 @@ Npc::Npc(
     )
 {
     this->dialogue = dialogue;
+    this->move = move;
 }
 
 Npc::Npc(
@@ -36,7 +38,8 @@ Npc::Npc(
     ColorChar mapRep,
     Coordinate coord,
     std::string name,
-    ColorString dialogue
+    ColorString dialogue,
+    bool move
 ) :
     Creature(
         pgame, mapRep, coord, name,
@@ -50,11 +53,12 @@ Npc::Npc(
     )
 {
     this->dialogue.push_back(dialogue);
+    this->move = move;
 }
 
 bool Npc::movement()
 {
-    if (!((getLastMoveTime() + 3500) > GetTickCount()))
+    if (!((getLastMoveTime() + 3500) > GetTickCount()) && move)
     {
         switch (random(dngutil::MOVEMENT_RANDOM_CHANCE * 10))
         {

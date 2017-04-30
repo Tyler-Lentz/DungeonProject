@@ -17,7 +17,8 @@ public:
         ColorChar mapRep,
         Coordinate coord,
         std::string name,
-        std::vector<ColorString> dialogue
+        std::vector<ColorString> dialogue,
+        bool move = true
     );
 
     Npc(
@@ -25,7 +26,8 @@ public:
         ColorChar mapRep,
         Coordinate coord,
         std::string name,
-        ColorString dialogue
+        ColorString dialogue,
+        bool move = true
     );
 
     bool movement() override;
@@ -35,6 +37,7 @@ public:
     void levelUpStats() override {}
 private:
     std::vector<ColorString> dialogue;
+    bool move;
 };
 
 #endif
