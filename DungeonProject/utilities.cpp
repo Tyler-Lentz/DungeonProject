@@ -118,53 +118,77 @@ void credits(dngutil::CreditType c, Game* pgame)
 {
     VirtualWindow* v = pgame->getVWin();
 
-    if (c == dngutil::CreditType::VICTORY)
-    {
-        v->clearScreen(dngutil::WHITE);
-    }
+    Coordinate vcursor(0, 5);
 
-    int color = 0;
-    if (c == dngutil::CreditType::VICTORY)
+    int color;
+    int color2;
+    int sleepTime;
+    int clearScreenColor;
+    if (c == dngutil::CreditType::TITLESCREEN)
     {
-        color = getColor(dngutil::BLACK, dngutil::WHITE);
+        v->clearScreen(dngutil::BLACK);
+
+        color = dngutil::WHITE;
+        color2 = dngutil::GREEN;
+        sleepTime = 200;
+        clearScreenColor = dngutil::BLACK;
     }
     else
     {
-        color = getColor(dngutil::WHITE, dngutil::BLACK);
-
-    }
-    Coordinate vcursor(0, 5);
-    if (c == dngutil::CreditType::TITLESCREEN)
-    {
-        v->txtmacs.clearMapArea(false, NULL);
+        v->clearScreen(dngutil::WHITE);
+        color = getColor(dngutil::BLACK, dngutil::WHITE);
+        color2 = getColor(dngutil::GREEN, dngutil::WHITE);
+        sleepTime = 350;
+        clearScreenColor = dngutil::WHITE;
     }
 
-    v->putcen(ColorString("Harp of the Gods", color), vcursor.y++);
+    std::vector<ColorString> credits;
 
-    vcursor.y += 4;
+    auto addEmptySpace = [&](int amount) {
+        for (int i = 0; i < amount; i++)
+        {
+            credits.push_back(ColorString("", color));
+        }
+    };
 
-    v->putcen(ColorString("Programming: Tyler Lentz", color), vcursor.y++);
-    vcursor.y++;
-    v->putcen(ColorString("Story: Tyler Lentz", color), vcursor.y++);
-    vcursor.y++;
-    v->putcen(ColorString("Play Testing: Tyler Lentz, Thomas Westenhoffer, Kristian Rascon,", color), vcursor.y++);
-    v->putcen(ColorString("Collin Werth", color), vcursor.y++);
-    vcursor.y++;
-    v->putcen(ColorString("Music/Sound effects: many Legend of Zelda games", color), vcursor.y++);
-    vcursor.y++;
-    v->putcen(ColorString("Special Thanks to: ", color), vcursor.y++);
-    vcursor.y += 5;
-    
-    if (c != dngutil::CreditType::TITLESCREEN)
+    addEmptySpace(35);
+    credits.push_back(ColorString("Harp of the Gods", color2));
+    addEmptySpace(20);
+    credits.push_back(ColorString("Programming: Tyler Lentz", color));
+    addEmptySpace(8);
+    credits.push_back(ColorString("Story: Tyler Lentz", color));
+    addEmptySpace(8);
+    credits.push_back(ColorString("Playtesting: Tyler Lentz, Thomas Westenhofer, Collin Werth,", color));
+    credits.push_back(ColorString("Kristian Rascon and Danny Hernandez", color));
+    addEmptySpace(8);
+    credits.push_back(ColorString("Music: The Legend of Zelda 1, The Legend of Zelda 2, ", color));
+    credits.push_back(ColorString("Link to the Past, Link's Awakening and Olcarina of Time", color));
+    addEmptySpace(32);
+    if (c == dngutil::CreditType::VICTORY)
     {
-         v->putcen(ColorString("Your quest is over", color), vcursor.y++);
-         vcursor.y += 5;
+        credits.push_back(ColorString("Peace has been restored to Bora", color2));
+        credits.push_back(ColorString("Your quest is over...", color2));
+        addEmptySpace(16);
     }        
-    
-    v->putcen(ColorString("More people will be added to credits as they help", color), vcursor.y++);
+    credits.push_back(ColorString("Press enter to continue", color2));
+    addEmptySpace(16);
 
+    for (unsigned int i = 0; i < credits.size() - 40; i++)
+    {
+        Sleep(sleepTime);
+        v->clearScreen(clearScreenColor);
+        for (unsigned int j = 0; j < 40; j++)
+        {
+            v->putcen(credits[i + j], j);
+        }
+        if (keypress(VK_RETURN))
+        {
+            goto skipCredits;
+        }
+    }
 
-    pressEnter(vcursor, v, color);
+    while (!keypress(VK_RETURN));
+    skipCredits:
 
     if (c != dngutil::CreditType::TITLESCREEN)
     {
