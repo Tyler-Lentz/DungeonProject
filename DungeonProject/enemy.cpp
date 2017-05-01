@@ -148,7 +148,11 @@ void Enemy::deathSequence()
     getPGame()->getVWin()->txtmacs.clearLine(getPGame()->getVWin()->txtmacs.BOTTOM_DIVIDER_TEXT_LINE);
     getPGame()->getVWin()->txtmacs.clearLine(getPGame()->getVWin()->txtmacs.BOTTOM_DIVIDER_TEXT_LINE + 1);
 
-    int goldAmount = random(0, 17);
+    int goldAmount = random(0, 1);
+    if (goldAmount != 0)
+    {
+        goldAmount += random(0, 9);
+    }
     if (goldAmount > 0)
     {
         getPGame()->getPlayer()->changeGold(goldAmount);
@@ -456,7 +460,7 @@ BloodSkeleton::BloodSkeleton(
     unsigned int lvl
 ) : SmartEnemy(
     pgame,
-    ColorChar('T', dngutil::RED),
+    ColorChar('T', dngutil::LIGHTRED),
     coord,
     "Blood Skeleton",
     false,
@@ -483,12 +487,12 @@ BloodSkeleton::BloodSkeleton(
         "Stained Shield",
         false,
         dngutil::TID::Secondary,
-        140,
-        1.12,
+        175,
+        1,
         "A shield from a blood skeleton"
     ),
     Mp3File("BattleTheme", "BattleThemeAlt"),
-    random(31, 40),
+    random(31, 60),
     WavFile("EnemyDeath", false, false),
     dngutil::EvType::HEALTH,
     dngutil::ClassType::KNIGHT
@@ -2600,8 +2604,8 @@ DesertGoblin::DesertGoblin(
         "Offensive Claws",
         false,
         1.34,
-        2,
-        65,
+        3,
+        60,
         false,
         "Claws from a Goblin",
         WavFile("Attack1", false, false),
@@ -3309,7 +3313,7 @@ DragonHead::DragonHead(
     dngutil::ClassType::KNIGHT
 )
 {
-    setMaxhp(dngutil::MAX_HP - 50);
+    setMaxhp(static_cast<unsigned int>(getMaxhp() * 1.78));
     setHp(getMaxhp());
 }
 
