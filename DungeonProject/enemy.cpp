@@ -3103,7 +3103,7 @@ DragonTail::DragonTail(
     dngutil::ClassType::KNIGHT
 )
 {
-    setMaxhp(static_cast<unsigned int>(getMaxhp() * 1.4));
+    setMaxhp(static_cast<unsigned int>(getMaxhp() * 1.75));
     setHp(getMaxhp());
 }
 
@@ -3313,7 +3313,7 @@ DragonHead::DragonHead(
     dngutil::ClassType::KNIGHT
 )
 {
-    setMaxhp(static_cast<unsigned int>(getMaxhp() * 1.78));
+    setMaxhp(static_cast<unsigned int>(getMaxhp() * 2));
     setHp(getMaxhp());
 }
 
