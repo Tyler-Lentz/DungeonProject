@@ -617,8 +617,9 @@ Collision AltarObject::mapAction(MapObject* collider, std::list<MapObject*>::ite
         stopSound(SoundType::MP3);
 
         vcursor.y = t.BOTTOM_DIVIDER_TEXT_LINE;
+        getPGame()->getPlayer()->increaseHealth(getPGame()->getPlayer()->getMaxhp());
         saveGame(getPGame()->getPlayer(), getPGame());
-        v->putcen(ColorString("Your game has been saved", dngutil::WHITE), vcursor.y++);
+        v->putcen(ColorString("Your game has been saved and your health is at its full natural stat.", dngutil::WHITE), vcursor.y++);
         pressEnter(vcursor, v);
         t.clearDivider("bottom");
         t.clearMapArea(false, NULL);
