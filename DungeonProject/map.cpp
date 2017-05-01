@@ -3922,6 +3922,38 @@ void Map::makeHouses(std::mutex& mut)
         gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("VillageTheme")));
         mut.unlock();
     }
+
+    {
+        // ID: 0XAE
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########");
+        roomTemplate.push_back("#   E  #");
+        roomTemplate.push_back("#      #");
+        roomTemplate.push_back("#o######");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+        specificObjects.emplace(Coordinate(1, 3), new HouseDoorObject(pgame, Coordinate(1, 3), Coordinate(0, -4), Coordinate(12, 10), 2));
+
+        specificObjects.emplace(
+            Coordinate(4, 1),
+            new Npc(
+                pgame,
+                ColorChar('A', dngutil::WHITE),
+                Coordinate(4, 1),
+                "Lolan Sanchez",
+                ColorString("I just had the strangest dream - I imagined the world without me.", dngutil::WHITE)
+            ));
+        std::vector<dngutil::TID> possibleCreatures;
+
+        int difficulty = 0;
+        int backColor = dngutil::BROWN;
+        std::string name = "House";
+        Coordinate mapCoord(-96, -96);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("VillageTheme")));
+        mut.unlock();
+    }
     
     {
         // ID: 0XAF
