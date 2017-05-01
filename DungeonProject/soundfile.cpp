@@ -81,6 +81,8 @@ void Mp3File::play() const
 {
     std::string fullFilename = getFilename() + ".mp3";
 
+    fullFilename = "Music/" + fullFilename;
+
     std::string file = "open \"" + fullFilename + "\" type mpegvideo alias mp3";
     mciSendString(file.c_str(), NULL, 0, NULL);
     mciSendString("play mp3 repeat", NULL, 0, NULL);
@@ -108,6 +110,8 @@ WavFile::WavFile():
 void WavFile::play() const
 {
     std::string fullFileName = getFilename() + ".wav";
+
+    fullFileName = "Music/" + fullFileName;
 
     if (loop)
     {
