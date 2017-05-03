@@ -618,161 +618,147 @@ void Player::levelUpStats()
 
 void Player::inventoryMenu() // How not to program in three easy steps. 1: Dont do this.
 {
-    int topline = getPGame()->getVWin()->txtmacs.POSITION_FOR_TOP_DIVIDER_TEXT;
-    getPGame()->getVWin()->txtmacs.clearLine(topline);
-    getPGame()->getVWin()->putcen(ColorString("Press Esc to exit inventory", dngutil::WHITE), topline);
+    VirtualWindow* v = getPGame()->getVWin();
+    TextMacros& t = v->txtmacs;
 
+    int topline = t.POSITION_FOR_TOP_DIVIDER_TEXT;
+    t.clearLine(topline);
+    t.clearDivider("bottom");
+    v->putcen(ColorString("Press Esc to exit inventory", dngutil::WHITE), topline);
 
-    bool exitFunction = false;
+    const int PAGE_SIZE = 30;
+    double temp = static_cast<double>(inventory.size()) / (PAGE_SIZE - 1);
+    const int numberOfPages = (ceil(temp));
 
-    int positions[2];
+    std::vector<std::vector<Item*>> invMenu;
+    invMenu.resize(numberOfPages);
 
-    getPGame()->getVWin()->txtmacs.displayInventory(positions, this);
-
-    if (false)
+    for (int i = 0; i < inventory.size(); i++)
     {
-    beginning:
-        getPGame()->getVWin()->txtmacs.displayInventory(positions, this);
-    }
-
-    getPGame()->getVWin()->txtmacs.clearDivider("bottom");
-    Coordinate vcursor(0, positions[0]);
-
-    while (!exitFunction)
-    {
-        getPGame()->getVWin()->put(ColorString("->", dngutil::CYAN), vcursor);
-
-        while (!exitFunction)
+        //for (int j = (i * PAGE_SIZE); (j < ((i + 1) * PAGE_SIZE)) && (j < inventory.size()); j++)
         {
-            if (keypress(VK_UP) && vcursor.y > positions[0])
-            {
-                Sleep(dngutil::MENU_DELAY);
-                vcursor.x = 0;
-                getPGame()->getVWin()->put(ColorString("   ", dngutil::LIGHTGRAY), vcursor);
-
-                vcursor.y--;
-                break;
-            }
-            else if (keypress(VK_DOWN) && vcursor.y < positions[1])
-            {
-                Sleep(dngutil::MENU_DELAY);
-                vcursor.x = 0;
-                getPGame()->getVWin()->put(ColorString("   ", dngutil::LIGHTGRAY), vcursor);
-
-                vcursor.y++;
-                break;
-            }
-            else if (keypress(VK_RETURN) && !inventory.empty())
-            {
-                Sleep(dngutil::MENU_DELAY);
-                unsigned int itemPosition = (abs(positions[0] - vcursor.y));
-                Item* itemModifying = inventory[itemPosition];
-                itemModifying->action(this, itemPosition);
-
-                if (itemModifying->isConsumable())
-                {
-                    delete itemModifying;
-                    std::vector<Item*>::iterator it = inventory.begin();
-                    it += itemPosition;
-                    inventory.erase(it);
-                }
-                vcursor.y++;
-                pressEnter(Coordinate(0, getPGame()->getVWin()->txtmacs.BOTTOM_DIVIDER_TEXT_LINE + 1), getPGame()->getVWin());
-                goto beginning;
-            }
-            else if (keypress('U') && !inventory.empty())
-            {
-                Sleep(dngutil::MENU_DELAY);
-                unsigned int itemPosition = (abs(positions[0] - vcursor.y));
-                Item* itemModifying = inventory[itemPosition];
-
-                switch (itemModifying->getTypeId())
-                {
-                case dngutil::TID::Primary:
-                {
-                    Primary* primary = dynamic_cast<Primary*>(itemModifying);
-                    int attackColor;
-                    std::string attackSign;
-                    if (getPrimary().getDmgMultiplier() > primary->getDmgMultiplier())
-                    {
-                        attackColor = dngutil::RED;
-                        attackSign = "- ";
-                    }
-                    else
-                    {
-                        attackColor = dngutil::GREEN;
-                        attackSign = "+ ";
-                    }
-
-                    int speedColor;
-                    std::string speedSign;
-                    if (getPrimary().getAttSpeed() > primary->getAttSpeed())
-                    {
-                        speedColor = dngutil::GREEN;
-                        speedSign = "- ";
-                    }
-                    else
-                    {
-                        speedColor = dngutil::RED;
-                        speedSign = "+ ";
-                    }
-
-                    getPGame()->getVWin()->putcen(
-                        ColorString(attackSign + std::to_string(abs(primary->getDmgMultiplier() - getPrimary().getDmgMultiplier())) + " Damage ", attackColor) +
-                        ColorString(speedSign + std::to_string(abs(primary->getAttSpeed() - getPrimary().getAttSpeed())) + " Speed", speedColor),
-                        getPGame()->getVWin()->txtmacs.BOTTOM_DIVIDER_TEXT_LINE
-                    );
-                    pressEnter(Coordinate(0, getPGame()->getVWin()->txtmacs.BOTTOM_DIVIDER_TEXT_LINE + 1), getPGame()->getVWin());
-
-                    break;
-                }
-                case dngutil::TID::Secondary:
-                {
-                    Secondary* secondary = dynamic_cast<Secondary*>(itemModifying);
-                    int deflectColor;
-                    std::string deflectSign;
-                    if (getSecondary().getDeflectTime() > secondary->getDeflectTime())
-                    {
-                        deflectColor = dngutil::RED;
-                        deflectSign = "- ";
-                    }
-                    else
-                    {
-                        deflectColor = dngutil::GREEN;
-                        deflectSign = "+ ";
-                    }
-
-                    int defenseColor;
-                    std::string defenseSign;
-                    if (getSecondary().getDefenseBoost() > secondary->getDefenseBoost())
-                    {
-                        defenseColor = dngutil::RED;
-                        defenseSign = "- ";
-                    }
-                    else
-                    {
-                        defenseColor = dngutil::GREEN;
-                        defenseSign = "+ ";
-                    }
-
-                    getPGame()->getVWin()->putcen(
-                        ColorString(deflectSign + std::to_string(abs(secondary->getDeflectTime() - getSecondary().getDeflectTime())) + " Deflect Time ", deflectColor) +
-                        ColorString(defenseSign + std::to_string(abs(secondary->getDefenseBoost() - getSecondary().getDefenseBoost())) + " Defense", defenseColor),
-                        getPGame()->getVWin()->txtmacs.BOTTOM_DIVIDER_TEXT_LINE
-                    );
-                    pressEnter(Coordinate(0, getPGame()->getVWin()->txtmacs.BOTTOM_DIVIDER_TEXT_LINE + 1), getPGame()->getVWin());
-                    break;
-                }
-
-                }
-                goto beginning;
-            }
-            else if (keypress(VK_ESCAPE))
-            {
-                exitFunction = true;
-            }
+            invMenu[static_cast<int>(i / PAGE_SIZE)].push_back(inventory[i]);
         }
     }
+
+    int pageLine = topline + 1;
+    int currentPage = 0;
+    int topcoord = t.DIVIDER_LINES[1] + 3; // this is also in the displayInventory function
+    int bottomcoord;
+    int currentcoord = topcoord;
+
+    auto displayPage = [&](int page)
+    {
+        if (page < 0 || page >= numberOfPages)
+        {
+            errorMessage("Error in PAGE NUMBERS while displaying inventory", __LINE__, __FILE__);
+        }
+
+        bool newPage;
+        if (page == currentPage)
+        {
+            newPage = false;
+        }
+        else
+        {
+            newPage = true;
+        }
+
+        t.clearLine(pageLine);
+        t.clearMapArea(false, NULL);
+        std::string pageNumberString = " Page " + std::to_string(page) + " ";
+        if (page > 0)
+        {
+            pageNumberString = "<--" + pageNumberString;
+        }
+        if ((page >= 0) && (page < (numberOfPages - 1)))
+        {
+            pageNumberString += "-->";
+        }
+        if (page == (numberOfPages - 1))
+        {
+            bottomcoord = topcoord + (PAGE_SIZE - ((numberOfPages * PAGE_SIZE) - (inventory.size())));
+        }
+        else
+        {
+            bottomcoord = topcoord + 30;
+        }
+
+        if (newPage)
+        {
+            currentPage = page;
+            currentcoord = topcoord;
+        }
+
+        v->putcen(ColorString(pageNumberString, dngutil::WHITE), pageLine);
+        t.displayInventory(invMenu[page], this);
+    };
+
+    displayPage(0);
+    while (true)
+    {
+        v->put(ColorString("->", dngutil::LIGHTCYAN), Coordinate(0, currentcoord));
+        if (keypress(VK_LEFT))
+        {
+            if (currentPage > 0)
+            {
+                displayPage(currentPage - 1);
+                continue;
+            }
+        }
+        if (keypress(VK_RIGHT))
+        {
+            if (currentPage < (numberOfPages - 1))
+            {
+                displayPage(currentPage + 1);
+                continue;
+            }
+        }
+        if (keypress(VK_UP))
+        {
+            if (currentcoord > topcoord)
+            {
+                Sleep(dngutil::MENU_DELAY);
+                v->put(ColorString("  ", dngutil::LIGHTGRAY), Coordinate(0, currentcoord));
+                currentcoord--;
+                continue;
+            }
+        }
+        if (keypress(VK_DOWN))
+        {
+            if (currentcoord < bottomcoord)
+            {
+                Sleep(dngutil::MENU_DELAY);
+                v->put(ColorString("  ", dngutil::LIGHTGRAY), Coordinate(0, currentcoord));
+                currentcoord++;
+                continue;
+            }
+        }
+        if (keypress(VK_RETURN))
+        {
+            Sleep(dngutil::MENU_DELAY * 2);
+            unsigned int itemIndex = (currentPage * PAGE_SIZE) + abs(currentcoord - topcoord);
+            Item* itemModifying = inventory[itemIndex];
+            itemModifying->action(this, itemIndex);
+
+            if (itemModifying->isConsumable())
+            {
+                delete itemModifying;
+                std::vector<Item*>::iterator it = inventory.begin();
+                it += itemIndex;
+                inventory.erase(it);
+            }
+
+            pressEnter(Coordinate(0, t.BOTTOM_DIVIDER_TEXT_LINE + 1), v);
+            inventoryMenu();
+            break;
+        }
+        if (keypress(VK_ESCAPE))
+        {
+            break;
+        }
+    }
+
     getPGame()->getVWin()->txtmacs.displayGame(getPGame());
 }
 

@@ -352,23 +352,20 @@ void TextMacros::clearLine(unsigned int line)
     vwin->putcen(ColorString(std::string(dngutil::CONSOLEX, ' '), dngutil::LIGHTGRAY), line);
 }
 
-void TextMacros::displayInventory(int positions[], Player* player)
+void TextMacros::displayInventory(std::vector<Item*> menu, Player* player)
 {
     clearMapArea(false, NULL);
     Coordinate vcursor(0, DIVIDER_LINES[1] + 2);
     
     vwin->put(ColorString("   Gold: " + std::to_string(player->getGold()), dngutil::YELLOW), vcursor); vcursor.y++;
-
-    positions[0] = vcursor.y;
-    for (auto& i : player->getInventory())
+    // if top line changes change it in the player inventory function
+    for (auto& i : menu)
     {
         vwin->put(ColorString("   " + i->getName() + " - ", dngutil::LIGHTGRAY)
             + i->getMapRep()
             + ColorString(" - " + i->getDescription(), dngutil::LIGHTGRAY), Coordinate(0, vcursor.y));
         vcursor.y++;
     }
-
-    positions[1] = --vcursor.y;
 }
 
 

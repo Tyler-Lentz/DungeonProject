@@ -15,6 +15,7 @@ class Room;
 class VirtualWindow;
 class Game;
 class Player;
+class Item;
 
 struct TextMacros
 {
@@ -73,7 +74,7 @@ struct TextMacros
 
     // Displays the inventory and the array passed through will contain 
     // the top line and bottom line of the inventory
-    void displayInventory(int positions[], Player* player);
+    void displayInventory(std::vector<Item*>, Player* player);
 
     // Screen while the player is falling through a hole
     void fallingScreen(Game* game);
