@@ -641,7 +641,7 @@ void Player::inventoryMenu() // How not to program in three easy steps. 1: Dont 
         }
     }
 
-    int pageLine = topline + 2;
+    int pageLine = topline + 1;
     int currentPage = 0;
     int topcoord = t.DIVIDER_LINES[1] + 3; // this is also in the displayInventory function
     int bottomcoord;
