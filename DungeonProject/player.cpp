@@ -641,7 +641,7 @@ void Player::inventoryMenu() // How not to program in three easy steps. 1: Dont 
         }
     }
 
-    int pageLine = topline + 1;
+    int pageLine = topline + 2;
     int currentPage = 0;
     int topcoord = t.DIVIDER_LINES[1] + 3; // this is also in the displayInventory function
     int bottomcoord;
@@ -651,6 +651,15 @@ void Player::inventoryMenu() // How not to program in three easy steps. 1: Dont 
     {
         if (page < 0 || page >= numberOfPages)
         {
+            if (inventory.empty())
+            {
+                t.clearLine(pageLine);
+                t.clearMapArea(false, NULL);
+                std::vector<Item*> emptyVec;
+                t.displayInventory(emptyVec, this);
+                return;
+            }
+
             errorMessage("Error in PAGE NUMBERS while displaying inventory", __LINE__, __FILE__);
         }
 
@@ -726,7 +735,7 @@ void Player::inventoryMenu() // How not to program in three easy steps. 1: Dont 
         }
         if (keypress(VK_DOWN))
         {
-            if (currentcoord < bottomcoord)
+            if (currentcoord < (bottomcoord - 1))
             {
                 Sleep(dngutil::MENU_DELAY);
                 v->put(ColorString("  ", dngutil::LIGHTGRAY), Coordinate(0, currentcoord));
@@ -734,7 +743,7 @@ void Player::inventoryMenu() // How not to program in three easy steps. 1: Dont 
                 continue;
             }
         }
-        if (keypress(VK_RETURN))
+        if (keypress(VK_RETURN) && !inventory.empty())
         {
             Sleep(dngutil::MENU_DELAY * 2);
             unsigned int itemIndex = (currentPage * PAGE_SIZE) + abs(currentcoord - topcoord);
