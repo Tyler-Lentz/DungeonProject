@@ -655,7 +655,7 @@ void Game::backgroundStory()
     Sleep(onelineTime);
     tm->clearLine(topOfText);
 
-    t->putcen(ColorString("Zorlock's seal has begun to weaken...", color), topOfText, true);
+    t->putcen(ColorString("People believe Zorlock's seal has begun to weaken...", color), topOfText, true);
     Sleep(onelineTime);
     tm->clearLine(topOfText);
 
