@@ -193,6 +193,8 @@ void Flute::action(Player* player, unsigned int inventoryIndex)
 
 //-------------------------------------------------------
 
+
+
 //-------------------------------------------------------
 // BasiliskHorn Functions
 
@@ -219,6 +221,31 @@ void BasiliskHorn::action(Player* player, unsigned int inventoryIndex)
             i->increaseLastMoveTime(15000);
         }
     }
+
+    int line = getPGame()->getVWin()->txtmacs.BOTTOM_DIVIDER_TEXT_LINE;
+
+    getPGame()->getVWin()->putcen(ColorString(output, dngutil::LIGHTGRAY), line);
+}
+
+//-------------------------------------------------------
+
+//-------------------------------------------------------
+// SunCharm Functions
+
+SunCharm::SunCharm(Game* pgame, Coordinate coord)
+    :RItem(pgame, ColorChar('o', dngutil::YELLOW), coord, "Sun Charm",
+        true, false, false, dngutil::TID::SunCharm, true, "Guarentees your next attack to hit. 1 time use.")
+{
+
+}
+
+void SunCharm::action(Player* player, unsigned int inventoryIndex)
+{
+    std::string output;
+    Coordinate mapCoord = getPGame()->getActiveRoom()->getRoomInfo().mapCoord;
+
+    getPGame()->getPlayer()->setCanMiss(false);
+    output = "Your next hit is guarenteed to hit.";
 
     int line = getPGame()->getVWin()->txtmacs.BOTTOM_DIVIDER_TEXT_LINE;
 

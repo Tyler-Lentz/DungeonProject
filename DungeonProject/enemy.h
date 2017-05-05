@@ -360,6 +360,24 @@ public:
     void printSelf() override;
 };
 
+class DesertGryphon : public BEnemy
+{
+public:
+    DesertGryphon(
+        Game* pgame,
+        Coordinate coord,
+        int hp,
+        unsigned int att,
+        unsigned int def,
+        unsigned int lck,
+        unsigned int spd,
+        unsigned int lvl
+    );
+    std::string drop() override;
+    ColorString getBattleInfo() const override;
+    void printSelf() override;
+};
+
 class TrueZorlock : public BEnemy
 {
 public:

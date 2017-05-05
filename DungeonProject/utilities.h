@@ -108,7 +108,9 @@ namespace dngutil
         PowerBoots,
         SmashableRock,
         Basilisk,
-        BasiliskHorn
+        BasiliskHorn,
+        DesertGryphon,
+        SunCharm
     };
 
     enum class BTID

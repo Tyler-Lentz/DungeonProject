@@ -207,6 +207,14 @@ public:
     void action(Player* player, unsigned int inventoryIndex) override;
 };
 
+class SunCharm : public RItem
+{
+public:
+    SunCharm(Game* pgame, Coordinate coord);
+
+    void action(Player* player, unsigned int inventoryIndex) override;
+};
+
 class HerosBlade : public Primary
 {
 public:

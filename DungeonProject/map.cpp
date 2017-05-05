@@ -551,10 +551,27 @@ void Map::makeOverworld(std::mutex& mut)
         roomTemplate.push_back("        wwwwwwwww       ");
         roomTemplate.push_back("        wwwwwwwww       ");
         roomTemplate.push_back("       wwwwwwwww        ");
+        roomTemplate.push_back("                E       ");
         roomTemplate.push_back("                        ");
         roomTemplate.push_back("                        ");
         roomTemplate.push_back("                        ");
-        roomTemplate.push_back("                        ");
+
+        auto puzzleSolved = [](const std::list<Creature*>& creatureList, const GAMEMAP& gameMap) -> bool
+        {
+            if (creatureList.front()->getPGame()->getPlayer()->getLvl() >= 20)
+            {
+                return true;
+            }
+            return false;
+        };
+
+        auto puzzleAction = [this](std::list<Creature*> creatureList, GAMEMAP& gameMap) -> void
+        {
+            Creature* creature = pgame->generateCreature(1, dngutil::TID::DesertGryphon);
+            creature->setPosition(Coordinate(12, 3));
+            gameMap[3][12].push_back(creature);
+            pgame->getActiveRoom()->addCreature(creature, Coordinate(12, 3));
+        };
 
         std::map<Coordinate, MapObject*> specificObjects;
         specificObjects.emplace(Coordinate(6, 4), new Npc(
@@ -565,17 +582,25 @@ void Map::makeOverworld(std::mutex& mut)
             ColorString("I'm here collecting water for Desert Town, What are you doing?", dngutil::WHITE)
         ));
 
+        specificObjects.emplace(Coordinate(16, 9), new Npc(
+            pgame,
+            ColorChar('A', dngutil::WHITE),
+            Coordinate(16, 9),
+            "George Clamarl",
+            ColorString("Legends say if a powerful person comes here a beast will challenge them.", dngutil::WHITE)
+        ));
+
         std::vector<dngutil::TID> possibleCreatures;
         possibleCreatures.push_back(dngutil::TID::DesertGoblin);
 
-        int difficulty = 3;
+        int difficulty = -999;
         int backColor = dngutil::BROWN;
         std::string name = "Boranian Desert Oasis";
         Coordinate mapCoord(-5, -2);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
 
         mut.lock();
-        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("OverworldTheme")));
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction), Mp3File("OverworldTheme")));
         mut.unlock();
 
     }

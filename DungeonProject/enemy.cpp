@@ -970,6 +970,118 @@ std::string Basilisk::drop()
 
 
 //----------------------------------------------------------------
+// Desert Gryhon Functions
+
+DesertGryphon::DesertGryphon(
+    Game* pgame,
+    Coordinate coord,
+    int hp,
+    unsigned int att,
+    unsigned int def,
+    unsigned int lck,
+    unsigned int spd,
+    unsigned int lvl
+) : BEnemy(
+    pgame,
+    ColorChar('M', dngutil::BLACK),
+    coord,
+    "Desert Gryphon",
+    false,
+    dngutil::TID::DesertGryphon,
+    hp,
+    att,
+    def,
+    lck,
+    spd,
+    lvl,
+    new Primary(
+        pgame,
+        ColorChar('=', dngutil::BROWN),
+        coord,
+        "Gryphon Claws",
+        false,
+        1.6,
+        4,
+        80,
+        false,
+        "You cant get this so this doesnt matter",
+        WavFile("Attack1", false, false),
+        dngutil::ClassType::KNIGHT
+    ),
+    new Secondary(
+        pgame,
+        ColorChar('?', dngutil::GREEN),
+        coord,
+        "Gryphon Armor",
+        false,
+        dngutil::TID::Secondary,
+        0,
+        1.3,
+        "You cant get this so this doesnt matter"
+    ),
+    Mp3File("MinibossTheme"),
+    80,
+    WavFile("Screech", false, false),
+    dngutil::EvType::DEFENSE,
+    dngutil::ClassType::KNIGHT
+)
+{
+    setMaxhp(getHp() * 2.3);
+    setHp(getMaxhp());
+}
+
+ColorString DesertGryphon::getBattleInfo() const
+{
+    return ColorString("The Desert Gryphon towers above you.", dngutil::RED);
+}
+
+void DesertGryphon::printSelf()
+{
+    Coordinate vcursor(0, getPGame()->getVWin()->txtmacs.DIVIDER_LINES[1] + 1);
+    VirtualWindow* t = getPGame()->getVWin();
+    int color = dngutil::BROWN;
+    t->put(ColorString(R"(            //           //)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(           ///          ///)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(          ////         ////)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(          |////       /////)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(          |))//;     /)))//;)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(         /)))))/;   /)))))/;)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(     .---`,))))/;  /)))))))/;)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"( __--\/6-  \`))/; |)))))))/;)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"((----/    \\\``;  |))))))/;)", color), vcursor); vcursor.y++;
+    const int TOP_CURSOR_Y = vcursor.y;
+    t->put(ColorString(R"(   ~/-\  \\\\\``   \))))))/;)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(       \\\\\\\\`    |)))))/;)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(       |\\\\\\\\___/))))))/;__-------.)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(       //////|  %%_/))))))/;           \___,)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(      |||||||\   \%%%%VLK;:              \_. \)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(      |\\\\\\\\\                        |  | |)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(       \\\\\\\                          |  | |)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(        |\\\\               __|        /   / /)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(        | \\__\     \___----  |       |   / /)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(        |    / |     >     \   \      \  / /)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(        |   /  |    /       \   \      >/ /  ,,)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(        |   |  |   |         |   |    // /  //,)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(        |   |  |   |         |   |   /| |   |\\,)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(     _--'   _--'   |     _---_---'  |  \ \__/\|/)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(    (-(-===(-(-(===/    (-(-=(-(-(==/   \____/)", color), vcursor); vcursor.y++;
+    const int LONGEST_LINE_LENGTH = 65;
+
+    printStats(LONGEST_LINE_LENGTH, TOP_CURSOR_Y);
+}
+
+std::string DesertGryphon::drop()
+{
+    Item* itemToAdd;
+    itemToAdd = new SunCharm(getPGame(), Coordinate(-1, -1));
+    getPGame()->getPlayer()->addToInventory(itemToAdd);
+    return "Sun Charm";
+}
+
+//----------------------------------------------------------------
+
+
+//----------------------------------------------------------------
 // True Zorlock Functions
 
 TrueZorlock::TrueZorlock(

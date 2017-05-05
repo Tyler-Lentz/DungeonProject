@@ -549,6 +549,11 @@ void Creature::setClass(dngutil::ClassType classType)
     this->classType = classType;
 }
 
+void Creature::setCanMiss(bool value)
+{
+    canMiss = value;
+}
+
 std::string Creature::getClassName()
 {
     std::string name;

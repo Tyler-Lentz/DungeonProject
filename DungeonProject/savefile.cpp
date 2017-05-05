@@ -369,6 +369,7 @@ Item* getItemFromId(dngutil::TID tid, Game* game, bool saving)
     case dngutil::TID::ReinforcedBoots: return new ReinforcedBoots(game, Coordinate(-1, -1));
     case dngutil::TID::PowerBoots: return new PowerBoots(game, Coordinate(-1, -1));
     case dngutil::TID::BasiliskHorn: return new BasiliskHorn(game, Coordinate(-1, -1));
+    case dngutil::TID::SunCharm: return new BasiliskHorn(game, Coordinate(-1, -1));
     }
 
     if (saving)

@@ -114,6 +114,7 @@ public:
     Secondary*& getSecondaryMemory();
 
     void setLastMoveTime(unsigned long amount);
+    void setCanMiss(bool value);
 private:
     dngutil::ClassType classType;
 
