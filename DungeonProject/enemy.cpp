@@ -917,14 +917,14 @@ TrueZorlock::TrueZorlock(
 
 ColorString TrueZorlock::getBattleInfo() const
 {
-    return ColorString("\"This is where your miserable little life ends\"", dngutil::MAGENTA);
+    return ColorString("\"This is where your miserable little life ends\"", dngutil::LIGHTGREEN);
 }
 
 void TrueZorlock::printSelf()
 {
     Coordinate vcursor(0, getPGame()->getVWin()->txtmacs.DIVIDER_LINES[1] + 1);
     VirtualWindow* v = getPGame()->getVWin();
-    int color = dngutil::MAGENTA;
+    int color = dngutil::LIGHTGREEN;
     v->put(ColorString(R"(           _/          ,          .                                          )", color), vcursor); vcursor.y++;
     v->put(ColorString(R"(       , -' )         ( \-------.,')            (\_________________________  )", color), vcursor); vcursor.y++;
     v->put(ColorString(R"(     , ,-/ |          /\_) )     \/            ,' _.----------------------,\ )", color), vcursor); vcursor.y++;
@@ -1051,59 +1051,183 @@ void TrueZorlock::beginingCutscene()
         }
         else
         {
-            vcursor.x = 3;
-            v->put(ColorString(R"(           _/          ,          .                                          )", dngutil::MAGENTA), vcursor); vcursor.y++;
-            v->put(ColorString(R"(       , -' )         ( \-------.,')            (\_________________________  )", dngutil::MAGENTA), vcursor); vcursor.y++;
-            v->put(ColorString(R"(     , ,-/ |          /\_) )     \/            ,' _.----------------------,\ )", dngutil::MAGENTA), vcursor); vcursor.y++;
-            v->put(ColorString(R"(   ,',  /, |         /      >--. ,)           / /\\                          )", dngutil::MAGENTA), vcursor); vcursor.y++;
-            v->put(ColorString(R"(  / ,  //|,'        /'     '\--'\\)          /,'  \\     `         `   ,     )", dngutil::MAGENTA), vcursor); vcursor.y++;
-            v->put(ColorString(R"( / ,  // ||       ,'     (.--^( `')         //     \\                \       )", dngutil::MAGENTA), vcursor); vcursor.y++;
-            v->put(ColorString(R"(( ,  //  ||,___,-'    (___\\  '^^^'        //       \\              ,        )", dngutil::MAGENTA), vcursor); vcursor.y++;
-            v->put(ColorString(R"( \  //   ||--.__     (     \`^--)  _____.-'/         \\   `                  )", dngutil::MAGENTA), vcursor); vcursor.y++;
-            v->put(ColorString(R"(  >'/    ||,        (       \|_(\-'      ,'           \\         \,          )", dngutil::MAGENTA), vcursor); vcursor.y++;
-            v->put(ColorString(R"( /,'     ||          \           \      /              \\                    )", dngutil::MAGENTA), vcursor); vcursor.y++;
-            v->put(ColorString(R"((/       ||           \           )  ,'(     `     `    \\      ,            )", dngutil::MAGENTA), vcursor); vcursor.y++;
-            v->put(ColorString(R"( `       ||\           \      ) ,'  /_  )                \\    \             )", dngutil::MAGENTA), vcursor); vcursor.y++;
-            v->put(ColorString(R"(         || `.          `.    ,'   /( `.\  \ , \ \,       \\   ,             )", dngutil::MAGENTA), vcursor); vcursor.y++;
-            v->put(ColorString(R"(   `     || (_`.          ` .'   .'  )  `)'            ,   \\                )", dngutil::MAGENTA), vcursor); vcursor.y++;
-            v->put(ColorString(R"(         ||  (_ `-v-------  ^--v' , )                      '\\,              )", dngutil::MAGENTA), vcursor); vcursor.y++;
-            v->put(ColorString(R"(         ||    (    , _,-  /  -./ )'                         `)              )", dngutil::MAGENTA), vcursor); vcursor.y++;
-            v->put(ColorString(R"(     `   '|     ),  ,'    '     )'                                           )", dngutil::MAGENTA), vcursor); vcursor.y++;
-            v->put(ColorString(R"(        ' ;    /  ,'          ,'                                             )", dngutil::MAGENTA), vcursor); vcursor.y++;
-            v->put(ColorString(R"(       /,'    /  /      '    /                                               )", dngutil::MAGENTA), vcursor); vcursor.y++;
-            v->put(ColorString(R"(       \|    /  (          ,'                                                )", dngutil::MAGENTA), vcursor); vcursor.y++;
-            v->put(ColorString(R"(       ('  ,'    `.    "  /                                                  )", dngutil::MAGENTA), vcursor); vcursor.y++;
+            vcursor.x = 0;
+            v->put(ColorString(R"(           _/          ,          .                                          )", dngutil::LIGHTGREEN), vcursor); vcursor.y++;
+            v->put(ColorString(R"(       , -' )         ( \-------.,')            (\_________________________  )", dngutil::LIGHTGREEN), vcursor); vcursor.y++;
+            v->put(ColorString(R"(     , ,-/ |          /\_) )     \/            ,' _.----------------------,\ )", dngutil::LIGHTGREEN), vcursor); vcursor.y++;
+            v->put(ColorString(R"(   ,',  /, |         /      >--. ,)           / /\\                          )", dngutil::LIGHTGREEN), vcursor); vcursor.y++;
+            v->put(ColorString(R"(  / ,  //|,'        /'     '\--'\\)          /,'  \\     `         `   ,     )", dngutil::LIGHTGREEN), vcursor); vcursor.y++;
+            v->put(ColorString(R"( / ,  // ||       ,'     (.--^( `')         //     \\                \       )", dngutil::LIGHTGREEN), vcursor); vcursor.y++;
+            v->put(ColorString(R"(( ,  //  ||,___,-'    (___\\  '^^^'        //       \\              ,        )", dngutil::LIGHTGREEN), vcursor); vcursor.y++;
+            v->put(ColorString(R"( \  //   ||--.__     (     \`^--)  _____.-'/         \\   `                  )", dngutil::LIGHTGREEN), vcursor); vcursor.y++;
+            v->put(ColorString(R"(  >'/    ||,        (       \|_(\-'      ,'           \\         \,          )", dngutil::LIGHTGREEN), vcursor); vcursor.y++;
+            v->put(ColorString(R"( /,'     ||          \           \      /              \\                    )", dngutil::LIGHTGREEN), vcursor); vcursor.y++;
+            v->put(ColorString(R"((/       ||           \           )  ,'(     `     `    \\      ,            )", dngutil::LIGHTGREEN), vcursor); vcursor.y++;
+            v->put(ColorString(R"( `       ||\           \      ) ,'  /_  )                \\    \             )", dngutil::LIGHTGREEN), vcursor); vcursor.y++;
+            v->put(ColorString(R"(         || `.          `.    ,'   /( `.\  \ , \ \,       \\   ,             )", dngutil::LIGHTGREEN), vcursor); vcursor.y++;
+            v->put(ColorString(R"(   `     || (_`.          ` .'   .'  )  `)'            ,   \\                )", dngutil::LIGHTGREEN), vcursor); vcursor.y++;
+            v->put(ColorString(R"(         ||  (_ `-v-------  ^--v' , )                      '\\,              )", dngutil::LIGHTGREEN), vcursor); vcursor.y++;
+            v->put(ColorString(R"(         ||    (    , _,-  /  -./ )'                         `)              )", dngutil::LIGHTGREEN), vcursor); vcursor.y++;
+            v->put(ColorString(R"(     `   '|     ),  ,'    '     )'                                           )", dngutil::LIGHTGREEN), vcursor); vcursor.y++;
+            v->put(ColorString(R"(        ' ;    /  ,'          ,'                                             )", dngutil::LIGHTGREEN), vcursor); vcursor.y++;
+            v->put(ColorString(R"(       /,'    /  /      '    /                                               )", dngutil::LIGHTGREEN), vcursor); vcursor.y++;
+            v->put(ColorString(R"(       \|    /  (          ,'                                                )", dngutil::LIGHTGREEN), vcursor); vcursor.y++;
+            v->put(ColorString(R"(       ('  ,'    `.    "  /                                                  )", dngutil::LIGHTGREEN), vcursor); vcursor.y++;
         }
         Sleep(35);
     }
     stopSound(SoundType::WAV);
 
-    v->putcen(ColorString("- True Zorlock - ", dngutil::MAGENTA), l, true);
+    v->putcen(ColorString("- True Zorlock - ", dngutil::LIGHTGREEN), l, true);
     playSound(WavFile("ZorlockAppears", false, false));
     t.clearLine(l);
 
-    v->putcen(ColorString("I was Zorlock", dngutil::MAGENTA), l, true);
+    v->putcen(ColorString("I was Zorlock", dngutil::LIGHTGREEN), l, true);
     pressEnter(Coordinate(0, l + 1), v);
     t.clearLine(l);
     t.clearLine(l + 1);
 
-    v->putcen(ColorString("When Aegeus, your \"so-called hero,\" sealed me away.", dngutil::MAGENTA), l, true);
-    v->putcen(ColorString("his soul was transfered to my body, and mine was transfered to his.", dngutil::MAGENTA), l + 1, true);
+    v->putcen(ColorString("Right as Aegeus, your \"so-called hero,\" sealed me away", dngutil::LIGHTGREEN), l, true);
+    v->putcen(ColorString("I charged him and as a result our souls switched hosts.", dngutil::LIGHTGREEN), l + 1, true);
     pressEnter(Coordinate(0, l + 2), v);
     t.clearLine(l);
     t.clearLine(l + 1);
     t.clearLine(l + 2);
 
-    v->putcen(ColorString("Now that you have killed Aegeus I am free to regain my true form and", dngutil::MAGENTA), l, true);
-    v->putcen(ColorString("destroy the entire world", dngutil::RED), l + 1, true);
+    v->putcen(ColorString("Now I stood there in his body and he struck me, killing himself", dngutil::LIGHTGREEN), l, true);
+    v->putcen(ColorString("with my overwhelming strength.", dngutil::LIGHTGREEN), l + 1, true);
     pressEnter(Coordinate(0, l + 2), v);
     t.clearLine(l);
     t.clearLine(l + 1);
     t.clearLine(l + 2);
 
-    playSound(WavFile("EnterBattle", false, true));
+    v->putcen(ColorString("But I couldn't kill him as his spirit so I fled.", dngutil::LIGHTGREEN), l, true);
+    v->putcen(ColorString("He was stuck in my body, with the effects of the seal.", dngutil::LIGHTGREEN), l + 1, true);
+    pressEnter(Coordinate(0, l + 2), v);
+    t.clearLine(l);
+    t.clearLine(l + 1);
+    t.clearLine(l + 2);
+
+    v->putcen(ColorString("His blade was useless to me so I put it in its resting spot", dngutil::LIGHTGREEN), l, true);
+    v->putcen(ColorString("at Korloma Forest...", dngutil::LIGHTGREEN), l + 1, true);
+    pressEnter(Coordinate(0, l + 2), v);
+    t.clearLine(l);
+    t.clearLine(l + 1);
+    t.clearLine(l + 2);
+
+    v->putcen(ColorString("There really was no danger of the seal breaking on Aegeus!", dngutil::LIGHTGREEN), l, true);
+    v->putcen(ColorString("It could not have been broken by anyone but a descendant!", dngutil::LIGHTGREEN), l + 1, true);
+    pressEnter(Coordinate(0, l + 2), v);
+    t.clearLine(l);
+    t.clearLine(l + 1);
+    t.clearLine(l + 2);
+
+    v->putcen(ColorString("I waited for the one who would unite the harp and foolishly kill him", dngutil::LIGHTGREEN), l, true);
+    v->putcen(ColorString("so I could regain my true soul.", dngutil::LIGHTGREEN), l + 1, true);
+    pressEnter(Coordinate(0, l + 2), v);
+    t.clearLine(l);
+    t.clearLine(l + 1);
+    t.clearLine(l + 2);
+
+    v->putcen(ColorString("I have used all my enery to achieve this true form.", dngutil::LIGHTGREEN), l, true);
+    v->putcen(ColorString("Green electricity sparks off of my skin!", dngutil::LIGHTGREEN), l + 1, true);
+    pressEnter(Coordinate(0, l + 2), v);
+    t.clearLine(l);
+    t.clearLine(l + 1);
+    t.clearLine(l + 2);
+
+    v->putcen(ColorString("Now I can", dngutil::LIGHTGREEN), l, true);
+    v->putcenSlowScroll(ColorString("take over the entire world!", dngutil::RED), l + 1);
+    pressEnter(Coordinate(0, l + 2), v);
+    t.clearLine(l);
+    t.clearLine(l + 1);
+    t.clearLine(l + 2);
+
+    playSound(WavFile("ZorlockLaugh", false, false));
+
     v->txtmacs.clearMapArea(false, NULL);
     v->txtmacs.clearDivider("bottom");
+
+    Sleep(2000);
+    std::string name = getPGame()->getPlayer()->getName();
+    v->putcenSlowScroll(ColorString(name + "...", dngutil::DARKGRAY), l);
+    pressEnter(Coordinate(0, l + 1), v);
+    t.clearLine(l);
+    t.clearLine(l + 1);
+
+    v->putcenSlowScroll(ColorString(name + "!", dngutil::DARKGRAY), l);
+    pressEnter(Coordinate(0, l + 1), v);
+    t.clearLine(l);
+    t.clearLine(l + 1);
+
+    v->putcen(ColorString("It is I, Aegeus. In spirit form.", dngutil::DARKGRAY), l, true);
+    pressEnter(Coordinate(0, l + 1), v);
+    t.clearLine(l);
+    t.clearLine(l + 1);
+
+    v->putcen(ColorString("I can provide you one gift to defeat Zorlock...", dngutil::DARKGRAY), l, true);
+    pressEnter(Coordinate(0, l + 1), v);
+    t.clearLine(l);
+    t.clearLine(l + 1);
+
+    vcursor.y = t.DIVIDER_LINES[1] + 1;
+    v->putcen(ColorString(R"( _________________________ )", dngutil::YELLOW), vcursor.y++);
+    v->putcen(ColorString(R"(|<><><>     |  |    <><><>|)", dngutil::YELLOW), vcursor.y++);
+    v->putcen(ColorString(R"(|<>         |  |        <>|)", dngutil::YELLOW), vcursor.y++);
+    v->putcen(ColorString(R"(|           |  |          |)", dngutil::YELLOW), vcursor.y++);
+    v->putcen(ColorString(R"(|  (______ <\-/> ______)  |)", dngutil::YELLOW), vcursor.y++);
+    v->putcen(ColorString(R"(|  /_.-=-.\| " |/.-=-._\  |)", dngutil::YELLOW), vcursor.y++);
+    v->putcen(ColorString(R"(|   /_    \(o_o)/    _\   |)", dngutil::YELLOW), vcursor.y++);
+    v->putcen(ColorString(R"(|    /_  /\/ ^ \/\  _\    |)", dngutil::YELLOW), vcursor.y++);
+    v->putcen(ColorString(R"(|      \/ | / \ | \/      |)", dngutil::YELLOW), vcursor.y++);
+    v->putcen(ColorString(R"(|_______ /((( )))\ _______|)", dngutil::YELLOW), vcursor.y++);
+    v->putcen(ColorString(R"(|      __\ \___/ /__      |)", dngutil::YELLOW), vcursor.y++);
+    v->putcen(ColorString(R"(|--- (((---'   '---))) ---|)", dngutil::YELLOW), vcursor.y++);
+    v->putcen(ColorString(R"(|           |  |          |)", dngutil::YELLOW), vcursor.y++);
+    v->putcen(ColorString(R"(|           |  |          |)", dngutil::YELLOW), vcursor.y++);
+    v->putcen(ColorString(R"(:           |  |          :)", dngutil::YELLOW), vcursor.y++);
+    v->putcen(ColorString(R"( \<>        |  |       <>/ )", dngutil::YELLOW), vcursor.y++);
+    v->putcen(ColorString(R"(  \<>       |  |      <>/  )", dngutil::YELLOW), vcursor.y++);
+    v->putcen(ColorString(R"(   \<>      |  |     <>/   )", dngutil::YELLOW), vcursor.y++);
+    v->putcen(ColorString(R"(    `\<>    |  |   <>/'    )", dngutil::YELLOW), vcursor.y++);
+    v->putcen(ColorString(R"(      `\<>  |  |  <>/'     )", dngutil::YELLOW), vcursor.y++);
+    v->putcen(ColorString(R"(        `\<>|  |<>/'       )", dngutil::YELLOW), vcursor.y++);
+    v->putcen(ColorString(R"(          `-.  .-`         )", dngutil::YELLOW), vcursor.y++);
+    v->putcen(ColorString(R"(            '--'           )", dngutil::YELLOW), vcursor.y++);
+
+    v->putcenSlowScroll(ColorString("- The Hero's Shield -", dngutil::YELLOW), l);
+
+    getPGame()->getPlayer()->addToInventory(new Secondary(
+        getPGame(),
+        ColorChar('(', dngutil::YELLOW),
+        Coordinate(-1, -1),
+        "Hero's Shield",
+        false,
+        dngutil::TID::Secondary,
+        255,
+        1.3,
+        "A shield forged by the gods. Given in a time of need."
+    ));
+
+    playSound(Mp3File("FindVeryImportantItem"));
+    Sleep(10000);
+    stopSound(SoundType::MP3);
+
+    getPGame()->getPlayer()->swapSecondary(getPGame()->getPlayer()->getInventoryNotConst().back());
+
+    pressEnter(Coordinate(0, l + 1), v);
+    t.clearLine(l);
+    t.clearLine(l + 1);
+
+    v->putcenSlowScroll(ColorString("Go, do what needs to be done!", dngutil::DARKGRAY), l);
+    pressEnter(Coordinate(0, l + 1), v);
+    t.clearLine(l);
+    t.clearLine(l + 1);
+
+    v->txtmacs.clearMapArea(false, NULL);
+    v->txtmacs.clearDivider("bottom");
+
+    playSound(WavFile("EnterBattle", false, false));
 }
 
 void TrueZorlock::deathSequence()

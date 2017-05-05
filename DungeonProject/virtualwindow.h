@@ -98,6 +98,7 @@ public:
     // These center the string/char on the specified line
     void putcen(ColorChar colchar, unsigned int line);
     void putcen(ColorString colstr, unsigned int line, bool scrolling = false);
+    void putcenSlowScroll(ColorString colstr, unsigned int line);
 
     // clears the entire screen and sets it to the color specified, default is black
     void clearScreen(int color = dngutil::BLACK);

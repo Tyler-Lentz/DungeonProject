@@ -481,6 +481,27 @@ void VirtualWindow::putcen(ColorString colstr, unsigned int line, bool scrolling
     }
 }
 
+void VirtualWindow::putcenSlowScroll(ColorString colstr, unsigned int line)
+{
+    Coordinate coord(static_cast<int>((width - colstr.size()) / 2), line);
+
+    playSound(WavFile("LetterSound", true, true));
+
+    for (auto i : colstr)
+    {
+        put(i, coord);
+        Sleep(dngutil::TEXT_SCROLL_TIME * 2);
+        coord.x++;
+        if (coord.x >= dngutil::CONSOLEX)
+        {
+            coord.x = 0;
+            coord.y++;
+        }
+    }
+
+    stopSound(SoundType::WAV);
+}
+
 void VirtualWindow::refresh()
 {
     refreshMut.lock();
