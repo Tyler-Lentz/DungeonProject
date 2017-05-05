@@ -232,22 +232,22 @@ bool loadGame(Game* game)
 
     std::getline(file, s);
     delete p->getPrimaryMemory();
-    p->setPrimary(getPrimaryFromSaveString(s, game));
+    p->setPrimary(getPrimaryFromSaveString(s, game,true));
 
     std::getline(file, s);
     delete p->getSecondaryMemory();
-    p->setSecondary(getSecondaryFromSaveString(s, game));
+    p->setSecondary(getSecondaryFromSaveString(s, game,true));
 
     std::getline(file, s);
     p->getArmorMemory()->unequipAction();
     delete p->getArmorMemory();
-    p->setArmor(dynamic_cast<Equipment*>(getItemFromId(static_cast<dngutil::TID>(stoi(s)), game)));
+    p->setArmor(dynamic_cast<Equipment*>(getItemFromId(static_cast<dngutil::TID>(stoi(s)), game,true)));
     p->getArmorMemory()->equipAction();
 
     std::getline(file, s);
     p->getBootsMemory()->unequipAction();
     delete p->getBootsMemory();
-    p->setBoots(dynamic_cast<Equipment*>(getItemFromId(static_cast<dngutil::TID>(stoi(s)), game)));
+    p->setBoots(dynamic_cast<Equipment*>(getItemFromId(static_cast<dngutil::TID>(stoi(s)), game, true)));
     p->getBootsMemory()->equipAction();
 
     for (auto& i : p->getInventoryNotConst())
@@ -265,15 +265,15 @@ bool loadGame(Game* game)
         dngutil::TID type = static_cast<dngutil::TID>(stoi(buff));
         if (type == dngutil::TID::Primary)
         {
-            p->addToInventory(getPrimaryFromSaveString(s, game));
+            p->addToInventory(getPrimaryFromSaveString(s, game, true));
         }
         else if (type == dngutil::TID::Secondary)
         {
-            p->addToInventory(getSecondaryFromSaveString(s, game));
+            p->addToInventory(getSecondaryFromSaveString(s, game, true));
         }
         else
         {
-            p->addToInventory(getItemFromId(type, game));
+            p->addToInventory(getItemFromId(type, game, true));
         }
 
         std::getline(file, s);
@@ -284,7 +284,7 @@ bool loadGame(Game* game)
     return true;
 }
 
-Primary* getPrimaryFromSaveString(std::string str, Game* game)
+Primary* getPrimaryFromSaveString(std::string str, Game* game, bool saving)
 {
     std::stringstream ss(str);
     std::string buff;
@@ -319,7 +319,7 @@ Primary* getPrimaryFromSaveString(std::string str, Game* game)
     );
 }
 
-Secondary* getSecondaryFromSaveString(std::string str, Game* game)
+Secondary* getSecondaryFromSaveString(std::string str, Game* game, bool saving)
 {
     std::stringstream ss(str);
     std::string buff;
@@ -350,7 +350,7 @@ Secondary* getSecondaryFromSaveString(std::string str, Game* game)
     );
 }
 
-Item* getItemFromId(dngutil::TID tid, Game* game)
+Item* getItemFromId(dngutil::TID tid, Game* game, bool saving)
 {
     switch (tid)
     {
@@ -368,6 +368,11 @@ Item* getItemFromId(dngutil::TID tid, Game* game)
     case dngutil::TID::Bubblecharm: return new Bubblecharm(game, Coordinate(-1, -1));
     case dngutil::TID::ReinforcedBoots: return new ReinforcedBoots(game, Coordinate(-1, -1));
     case dngutil::TID::PowerBoots: return new PowerBoots(game, Coordinate(-1, -1));
+    }
+
+    if (saving)
+    {
+        xorFile();
     }
     errorMessage("invalid tid passed to getItemFromId()", __LINE__, __FILE__);
 

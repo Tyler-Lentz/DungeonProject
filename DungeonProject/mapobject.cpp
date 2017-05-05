@@ -677,7 +677,7 @@ Collision VenderObject::mapAction(MapObject* collider, std::list<MapObject*>::it
                 if (getPGame()->getPlayer()->getGold() >= price)
                 {
                     getPGame()->getPlayer()->changeGold(price * -1);
-                    getPGame()->getPlayer()->addToInventory(getItemFromId(itemTid, getPGame()));
+                    getPGame()->getPlayer()->addToInventory(getItemFromId(itemTid, getPGame(), false));
                     playSound(WavFile("FindItem", false, false));
                     t->putcen(ColorString("Thank you for your business", dngutil::WHITE), topLine, true);
                     pressEnter(Coordinate(0, topLine + 1), t);

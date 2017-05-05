@@ -22,7 +22,7 @@ std::string getSecondarySaveText(Secondary& s);
 
 bool loadGame(Game* game);
 
-Primary* getPrimaryFromSaveString(std::string, Game* game);
-Secondary* getSecondaryFromSaveString(std::string, Game* game);
-Item* getItemFromId(dngutil::TID, Game* game);
+Primary* getPrimaryFromSaveString(std::string, Game* game, bool saving);
+Secondary* getSecondaryFromSaveString(std::string, Game* game, bool saving);
+Item* getItemFromId(dngutil::TID, Game* game, bool saving);
 #endif
