@@ -1251,7 +1251,7 @@ void TrueZorlock::beginingCutscene()
     t.clearLine(l + 1);
     t.clearLine(l + 2);
 
-    v->putcen(ColorString("Now I can", dngutil::LIGHTGREEN), l, true);
+    v->putcen(ColorString("Now, hand over the harp so I can", dngutil::LIGHTGREEN), l, true);
     v->putcenSlowScroll(ColorString("take over the entire world!", dngutil::RED), l + 1);
     pressEnter(Coordinate(0, l + 2), v);
     t.clearLine(l);
