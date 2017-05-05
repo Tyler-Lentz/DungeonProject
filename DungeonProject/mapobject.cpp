@@ -877,19 +877,31 @@ Collision HeroSpirit::mapAction(MapObject* collider, std::list<MapObject*>::iter
         t.clearLine(l);
         t.clearLine(l + 1);
 
-        v->putcen(ColorString("Additionally - you should find the blade that I used to seal away Zorlock", dngutil::WHITE), l, true);
-        pressEnter(Coordinate(0, l + 1), v);
-        t.clearLine(l);
-        t.clearLine(l + 1);
-
-        v->putcen(ColorString("I returned it deep within the Korloma Forest - you will likely need", dngutil::WHITE), l, true);
-        v->putcen(ColorString("a lot of gear to retrieve it from its resting place.", dngutil::WHITE), l + 1, true);
-        pressEnter(Coordinate(0, l + 2), v);
-        t.clearLine(l);
-        t.clearLine(l + 1);
-        t.clearLine(l + 2);
-
         getPGame()->getPlayer()->addToInventory(new HerosTunic(getPGame(), Coordinate(-1, -1)));
+
+        if (!getPGame()->getPlayer()->hasItem(dngutil::TID::HerosBlade))
+        {
+            v->putcen(ColorString("Additionally - you should find the blade that I used to seal away Zorlock", dngutil::WHITE), l, true);
+            pressEnter(Coordinate(0, l + 1), v);
+            t.clearLine(l);
+            t.clearLine(l + 1);
+
+            v->putcen(ColorString("I returned it deep within the Korloma Forest - you will likely need", dngutil::WHITE), l, true);
+            v->putcen(ColorString("a lot of gear to retrieve it from its resting place.", dngutil::WHITE), l + 1, true);
+            pressEnter(Coordinate(0, l + 2), v);
+            t.clearLine(l);
+            t.clearLine(l + 1);
+            t.clearLine(l + 2);
+        }
+        else
+        {
+            v->putcen(ColorString("I see you have already found my blade... Use it well.", dngutil::WHITE), l, true);
+            pressEnter(Coordinate(0, l + 1), v);
+            t.clearLine(l);
+            t.clearLine(l + 1);
+        }
+
+        
 
         v->putcen(ColorString(getPGame()->getPlayer()->getName() + ", please avenge me...", dngutil::WHITE), l, true);
         pressEnter(Coordinate(0, l + 1), v);
