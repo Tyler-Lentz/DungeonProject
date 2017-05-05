@@ -194,6 +194,40 @@ void Flute::action(Player* player, unsigned int inventoryIndex)
 //-------------------------------------------------------
 
 //-------------------------------------------------------
+// BasiliskHorn Functions
+
+BasiliskHorn::BasiliskHorn(Game* pgame, Coordinate coord)
+    :RItem(pgame, ColorChar('!', dngutil::GREEN), coord, "Basilisk Horn",
+        true, false, false, dngutil::TID::BasiliskHorn, false, "When blown, stuns all enemies in the room for 10 seconds.")
+{
+
+}
+
+void BasiliskHorn::action(Player* player, unsigned int inventoryIndex)
+{
+    std::string output;
+    Coordinate mapCoord = getPGame()->getActiveRoom()->getRoomInfo().mapCoord;
+
+    playSound(WavFile("BasiliskHorn", false, false));
+    output = "You stun everything in the room for 15 seconds starting now.";
+
+    for (auto& i : getPGame()->getActiveRoom()->getCreatureList())
+    {
+        if (i->getTypeId() != dngutil::TID::Player)
+        {
+            i->setLastMoveTime(GetTickCount());
+            i->increaseLastMoveTime(15000);
+        }
+    }
+
+    int line = getPGame()->getVWin()->txtmacs.BOTTOM_DIVIDER_TEXT_LINE;
+
+    getPGame()->getVWin()->putcen(ColorString(output, dngutil::LIGHTGRAY), line);
+}
+
+//-------------------------------------------------------
+
+//-------------------------------------------------------
 // Heros Claim Functions
 
 HerosClaim::HerosClaim(Game* pgame, Coordinate coord)

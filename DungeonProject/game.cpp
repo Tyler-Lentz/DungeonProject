@@ -312,6 +312,10 @@ Creature* Game::generateCreature(int difficulty, dngutil::TID tid)
     case dngutil::TID::EvilBeastPhase4:
         enemy = new EvilBeastPhase4(this, Coordinate(-1, -1), health, attack, defense, luck, speed, level);
         break;
+
+    case dngutil::TID::Basilisk:
+        enemy = new Basilisk(this, Coordinate(-1, -1), health, attack, defense, luck, speed, level);
+        break;
     }
 
     if (enemy == nullptr)
@@ -340,7 +344,7 @@ void Game::titleScreen()
 
     vwin->txtmacs.drawDividers();
     vwin->txtmacs.clearDivider("bottom");
-    vwin->putcen(ColorString("The Harp of the Gods v1.0.2", dngutil::GREEN), vwin->txtmacs.DIVIDER_LINES[0] + 1);
+    vwin->putcen(ColorString("The Harp of the Gods v1.0.3", dngutil::GREEN), vwin->txtmacs.DIVIDER_LINES[0] + 1);
     vwin->putcen(ColorString("1 - New Game, 2 - Load \"save.txt\", C - credits, Esc - exit", dngutil::LIGHTGRAY), vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE);
 
     Coordinate vcursor(0, vwin->txtmacs.DIVIDER_LINES[1] + 5);

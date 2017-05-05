@@ -855,6 +855,121 @@ void GhostHorse::printSelf()
 //----------------------------------------------------------------
 
 //----------------------------------------------------------------
+// Basilisk Functions
+
+Basilisk::Basilisk(
+    Game* pgame,
+    Coordinate coord,
+    int hp,
+    unsigned int att,
+    unsigned int def,
+    unsigned int lck,
+    unsigned int spd,
+    unsigned int lvl
+) : BEnemy(
+    pgame,
+    ColorChar('S', dngutil::GREEN),
+    coord,
+    "Basilisk",
+    false,
+    dngutil::TID::Basilisk,
+    hp,
+    att,
+    def,
+    lck,
+    spd,
+    lvl,
+    new Primary(
+        pgame,
+        ColorChar('V', dngutil::DARKGRAY),
+        coord,
+        "Poisonous Fangs",
+        false,
+        1.6,
+        4,
+        80,
+        false,
+        "You cant get this so this doesnt matter",
+        WavFile("Attack1", false, false),
+        dngutil::ClassType::KNIGHT
+    ),
+    new Secondary(
+        pgame,
+        ColorChar('?', dngutil::GREEN),
+        coord,
+        "Scales",
+        false,
+        dngutil::TID::Secondary,
+        0,
+        1.25,
+        "You cant get this so this doesnt matter"
+    ),
+    Mp3File("MinibossTheme"),
+    80,
+    WavFile("Screech", false, false),
+    dngutil::EvType::DEFENSE,
+    dngutil::ClassType::KNIGHT
+)
+{
+    setMaxhp(getHp() * 2);
+    setHp(getMaxhp());
+}
+
+ColorString Basilisk::getBattleInfo() const
+{
+    return ColorString("A terrible monster appears", dngutil::RED);
+}
+
+void Basilisk::printSelf()
+{
+    Coordinate vcursor(0, getPGame()->getVWin()->txtmacs.DIVIDER_LINES[1] + 1);
+    VirtualWindow* t = getPGame()->getVWin();
+    int color = dngutil::GREEN;
+    t->put(ColorString(R"(							                      ,_)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                              ,;;,  .-"```'-.     \\)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                             ,;;;;,/^;/)^/)-.`.___//)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                         <`\ <`\;;;|  \ / \  `-...')", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                       <\) <\) |;;' \^ | , |)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                        |` /|` /;'  |\/ =  |)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                      <\/ <\/ /;'  / | ,  /`'-.,_)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                       \ /;\ /;'  / / =   \  ^   `'.)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                      _/_;/ /'   | /  "    '--:-.^  `'.)", color), vcursor); vcursor.y++;
+    const int TOP_CURSOR_Y = vcursor.y;
+    t->put(ColorString(R"(                   .-' <g>`"`\   / | ,    _,="/  '.    \)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                  /\__    \\ Ss\ | /   ,="   |     \ ^  \)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                 ( ( ,)   | \ `S|| | ,"      L_     |  ^ |)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                  \) `-.  | ||  \| |     _,=.-"`    /    |)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                        | | || ^ \/   ,="  /__  _.-'  ^ /)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                        / | //   /  ,"    |   ``"-._^_.')", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                       /  \_/   /         '--,^     `-.)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                      |  ^    ^;     _,==""/`     ^   `\)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                      \ ^      |   ,"  _.-'    ^  .-.^  |)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                       \    ^  ;     (`    ^   .'`\  ) ^|)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                        '.^    \   ,}` ^__,.-'`\ ^ '' ^ /)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                          '-.^__\    \'`        `-.^_.-')", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                            /   {     })", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                            `//"`.___.')", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                        ,==='`=,__||___)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                         ,=`=``(,=,=.-=;)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                                 (/(|  )", color), vcursor); vcursor.y++;
+
+    const int LONGEST_LINE_LENGTH = 59;
+
+    printStats(LONGEST_LINE_LENGTH, TOP_CURSOR_Y);
+}
+
+std::string Basilisk::drop()
+{
+    Item* itemToAdd;
+    itemToAdd = new BasiliskHorn(getPGame(), Coordinate(-1, -1));
+    getPGame()->getPlayer()->addToInventory(itemToAdd);
+    return "Basilisk Horn";
+}
+
+//----------------------------------------------------------------
+
+
+//----------------------------------------------------------------
 // True Zorlock Functions
 
 TrueZorlock::TrueZorlock(

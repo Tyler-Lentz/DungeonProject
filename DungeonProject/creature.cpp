@@ -146,6 +146,11 @@ void Creature::increaseLastMoveTime(unsigned long amount)
     lastMoveTime += amount;
 }
 
+void Creature::setLastMoveTime(unsigned long amount)
+{
+    lastMoveTime = amount;
+}
+
 void Creature::setPrimary(Primary* primary)
 {
     this->primary = primary;
@@ -339,6 +344,15 @@ bool Creature::battle(MapObject* t_enemy)
     if (getPGame()->getActiveRoom()->getRoomInfo().difficulty == -1)
     {
         while (static_cast<int>(enemy->getLvl()) < getPGame()->getDungeonLevel())
+        {
+            enemy->increaseLvl(1);
+            enemy->levelUpStats();
+        }
+    }
+    else if (getPGame()->getActiveRoom()->getRoomInfo().difficulty == -999)
+    {
+        int level = getPGame()->getPlayer()->getLvl();
+        while (static_cast<int>(enemy->getLvl()) < level)
         {
             enemy->increaseLvl(1);
             enemy->levelUpStats();

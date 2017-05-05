@@ -106,7 +106,9 @@ namespace dngutil
         Vender,
         ReinforcedBoots,
         PowerBoots,
-        SmashableRock
+        SmashableRock,
+        Basilisk,
+        BasiliskHorn
     };
 
     enum class BTID

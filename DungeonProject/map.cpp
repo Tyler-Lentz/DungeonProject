@@ -1774,7 +1774,7 @@ void Map::makeOverworld(std::mutex& mut)
         roomTemplate.push_back("##    ww   &&&  &   &&  ");
         roomTemplate.push_back("##  0 ww   &e           ");
         roomTemplate.push_back("##    ww     &   & &  & ");
-        roomTemplate.push_back("##  0 ww    &       &   ");
+        roomTemplate.push_back("##  0 ww    &      v&   ");
         roomTemplate.push_back("##    ww   &&&      &&  ");
 
         std::map<Coordinate, MapObject*> specificObjects;
@@ -1851,6 +1851,70 @@ void Map::makeOverworld(std::mutex& mut)
         gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("SpiritTheme")));
         mut.unlock();
     }
+
+    // Castle Dungeon
+    tfloor = 1;
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("&&&&&&&&&&&&&&&&&&&&&&&&");
+        roomTemplate.push_back("&&&&&&&&&&&&&&&&&&&&&&&&");
+        roomTemplate.push_back("&&&&&   &   &   &&&&&&&&");
+        roomTemplate.push_back("&&&&& e & e & e &&   &&&");
+        roomTemplate.push_back("&&&&&   &   &   && + &&&");
+        roomTemplate.push_back("&&&&&& &&& &&& &&&   &&&");
+        roomTemplate.push_back("                      &&");
+        roomTemplate.push_back("                      &&");
+        roomTemplate.push_back("&&&&&& &&& &&& &&     &&");
+        roomTemplate.push_back("&&&&&   &   &   &     &&");
+        roomTemplate.push_back("&&&&& e & e & e &     &&");
+        roomTemplate.push_back("&&&&&   &   &   &  ^  &&");
+        roomTemplate.push_back("&&&&&&&&&&&&&&&&&&&&&&&&");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Skeleton);
+
+        int difficulty = -999;
+        int backColor = dngutil::DARKGRAY;
+        std::string name = "Castle Dungeon";
+        Coordinate mapCoord(-7, 2);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("CaveTheme")));
+        mut.unlock();
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("&&&&&&&&&&&&&&&&&&&&&&&&");
+        roomTemplate.push_back("&&&&&&&&&&&&&&&&&&&&&&&&");
+        roomTemplate.push_back("&&&&&&&&&&&&&&&&&&&&&&&&");
+        roomTemplate.push_back("&&&&&&&ww&&&&&&&&&&&&&&&");
+        roomTemplate.push_back("&&&&&wwwwww&&&&&&&&&&&&&");
+        roomTemplate.push_back("&&&&wwwwwwww&&&&&&&&&&&&");
+        roomTemplate.push_back("&&&ww                   ");
+        roomTemplate.push_back("&&&wwe                  ");
+        roomTemplate.push_back("&&&&wwwwwwww&&&&&&&&&&&&");
+        roomTemplate.push_back("&&&&&wwwwww&&&&&&&&&&&&&");
+        roomTemplate.push_back("&&&&&&&ww&&&&&&&&&&&&&&&");
+        roomTemplate.push_back("&&&&&&&&&&&&&&&&&&&&&&&&");
+        roomTemplate.push_back("&&&&&&&&&&&&&&&&&&&&&&&&");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Basilisk);
+
+        int difficulty = -999;
+        int backColor = dngutil::DARKGRAY;
+        std::string name = "Basilisk's Chamber";
+        Coordinate mapCoord(-8, 2);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("CaveTheme")));
+        mut.unlock();
+    }
+    tfloor = 2;
 
     // Arkala Pass
     {

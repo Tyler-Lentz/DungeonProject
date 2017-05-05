@@ -113,6 +113,7 @@ public:
     Primary*& getPrimaryMemory();
     Secondary*& getSecondaryMemory();
 
+    void setLastMoveTime(unsigned long amount);
 private:
     dngutil::ClassType classType;
 

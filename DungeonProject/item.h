@@ -199,6 +199,14 @@ private:
     const int HEALTH_DECREASE = 30;
 };
 
+class BasiliskHorn : public RItem
+{
+public:
+    BasiliskHorn(Game* pgame, Coordinate coord);
+
+    void action(Player* player, unsigned int inventoryIndex) override;
+};
+
 class HerosBlade : public Primary
 {
 public:
