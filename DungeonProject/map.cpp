@@ -1069,8 +1069,7 @@ void Map::makeOverworld(std::mutex& mut)
 
         std::map<Coordinate, MapObject*> specificObjects;
         std::vector<ColorString> dialogue;
-        dialogue.push_back(ColorString("I am currently training for the 800 meter desert race", dngutil::WHITE));
-        dialogue.push_back(ColorString("but currently I'm resting.", dngutil::WHITE));
+        dialogue.push_back(ColorString("I am currently training for the 800 meter desert race.", dngutil::WHITE));
         specificObjects.emplace(Coordinate(3, 2), new Npc(
             pgame,
             ColorChar('A', dngutil::WHITE),
@@ -1081,7 +1080,7 @@ void Map::makeOverworld(std::mutex& mut)
         ));
         dialogue.clear();
         dialogue.push_back(ColorString("Hey kid, keep it between you and me but I'm planning a revolution.", dngutil::WHITE));
-        dialogue.push_back(ColorString("The King is corrupt and does not care about his kingdom or people.", dngutil::WHITE));
+        dialogue.push_back(ColorString("The king is corrupt and does not care about his kingdom or people.", dngutil::WHITE));
         specificObjects.emplace(Coordinate(19, 9), new Npc(
             pgame,
             ColorChar('A', dngutil::WHITE),
