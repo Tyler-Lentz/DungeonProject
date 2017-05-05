@@ -340,7 +340,7 @@ void Game::titleScreen()
 
     vwin->txtmacs.drawDividers();
     vwin->txtmacs.clearDivider("bottom");
-    vwin->putcen(ColorString("The Harp of the Gods v1.0.1", dngutil::GREEN), vwin->txtmacs.DIVIDER_LINES[0] + 1);
+    vwin->putcen(ColorString("The Harp of the Gods v1.0.2", dngutil::GREEN), vwin->txtmacs.DIVIDER_LINES[0] + 1);
     vwin->putcen(ColorString("1 - New Game, 2 - Load \"save.txt\", C - credits, Esc - exit", dngutil::LIGHTGRAY), vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE);
 
     Coordinate vcursor(0, vwin->txtmacs.DIVIDER_LINES[1] + 5);
