@@ -52,7 +52,7 @@ void Map::makeOverworld(std::mutex& mut)
         roomTemplate.push_back("###########            #");
         roomTemplate.push_back("###########            #");
         roomTemplate.push_back("#####v#####            #");
-        roomTemplate.push_back("#              e       #");
+        roomTemplate.push_back("#                      #");
         roomTemplate.push_back("#    A                 #");
         roomTemplate.push_back("                       #");
         roomTemplate.push_back("                       #");
