@@ -193,7 +193,6 @@ namespace dngutil
     const unsigned int MAX_DEF = 200;
     const unsigned int MAX_LCK = 100;
     const unsigned int MAX_SPD = 220;
-    const unsigned int MAX_LVL = 30;
 
     const int TEXT_SCROLL_TIME = 40;
 
