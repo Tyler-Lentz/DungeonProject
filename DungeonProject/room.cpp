@@ -169,7 +169,11 @@ Room::Room(Game* t_game_pointer, RoomInfo roomToGenerate, Puzzle* puzzle, Mp3Fil
                 break;
 
             case 'X':
-                gameMap[i][j].push_back(new HoleObject(game_pointer, Coordinate(j, i)));
+                gameMap[i][j].push_back(new HoleObject(game_pointer, Coordinate(j, i), false));
+                break;
+
+            case 'x':
+                gameMap[i][j].push_back(new HoleObject(game_pointer, Coordinate(j, i), true));
                 break;
 
             case '+':

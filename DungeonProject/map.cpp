@@ -34,6 +34,7 @@ Map::Map(Game* game)
     functions.emplace_back([&]() {makeWaterTemple(mut); });
     functions.emplace_back([&]() {makeFireTemple(mut); });
     functions.emplace_back([&]() {makeTowerOfTheGods(mut); });
+    functions.emplace_back([&]() {makePathToHell(mut); });
     for (auto& i : functions)
     {
         i.join();
@@ -2290,12 +2291,12 @@ void Map::makeOverworld(std::mutex& mut)
     }
     {
         std::vector<std::string> roomTemplate;
-        roomTemplate.push_back("########################");
-        roomTemplate.push_back("########################");
-        roomTemplate.push_back("      wwwwwwwwww########");
-        roomTemplate.push_back("      wwwwwwwwwww#######");
-        roomTemplate.push_back("      wwwwwwwwww########");
-        roomTemplate.push_back("       wwwwwwwww########");
+        roomTemplate.push_back("###################::###");
+        roomTemplate.push_back("###################::###");
+        roomTemplate.push_back("      wwwwwwwwww###::###");
+        roomTemplate.push_back("      wwwwwwwwwww :::###");
+        roomTemplate.push_back("      wwwwwwwwww  :::###");
+        roomTemplate.push_back("       wwwwwwwww   :####");
         roomTemplate.push_back("       wwwwwwwww########");
         roomTemplate.push_back("       wwwwwwwwww#######");
         roomTemplate.push_back("       wwwwwwwwwww######");
@@ -2418,6 +2419,141 @@ void Map::makeOverworld(std::mutex& mut)
         mut.unlock();
 
     }
+
+    // Arkala Cave
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########    ############");
+        roomTemplate.push_back("#######     ############");
+        roomTemplate.push_back("            ############");
+        roomTemplate.push_back("                ########");
+        roomTemplate.push_back("###         e    #######");
+        roomTemplate.push_back("########          ######");
+        roomTemplate.push_back("##########        ######");
+        roomTemplate.push_back("#############   e ######");
+        roomTemplate.push_back("################  ######");
+        roomTemplate.push_back("################    ####");
+        roomTemplate.push_back("#################   ####");
+        roomTemplate.push_back("##################   ###");
+        roomTemplate.push_back("###################  ###");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::BloodSkeleton);
+
+        int difficulty = 13;
+        int backColor = dngutil::DARKGRAY;
+        std::string name = "Arkala Cave";
+        Coordinate mapCoord(-1, -9);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("CaveTheme")));
+        mut.unlock();
+
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("#########oo#############");
+        roomTemplate.push_back("########    ############");
+        roomTemplate.push_back("########::::############");
+        roomTemplate.push_back("########::::############");
+        roomTemplate.push_back("########::::############");
+        roomTemplate.push_back("########::::############");
+        roomTemplate.push_back("########::::############");
+        roomTemplate.push_back("########::::############");
+        roomTemplate.push_back("########::::############");
+        roomTemplate.push_back("########::::############");
+        roomTemplate.push_back("########::::############");
+        roomTemplate.push_back("########    ############");
+        roomTemplate.push_back("########    ############");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+        specificObjects.emplace(Coordinate(9, 0), new DungeonCheck(pgame, Coordinate(9, 0), 6));
+        specificObjects.emplace(Coordinate(10, 0), new DungeonCheck(pgame, Coordinate(10, 0), 6));
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::BloodSkeleton);
+
+        int difficulty = 13;
+        int backColor = dngutil::RED;
+        std::string name = "Gateway?";
+        Coordinate mapCoord(-1, -10);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("CaveTheme")));
+        mut.unlock();
+
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("#######      ###########");
+        roomTemplate.push_back("######        ##########");
+        roomTemplate.push_back("#####          #########");
+        roomTemplate.push_back("####    xxxx    ########");
+        roomTemplate.push_back("###    xxxxxx    #######");
+        roomTemplate.push_back("###    xxxxxx    #######");
+        roomTemplate.push_back("####    xxxx    ########");
+        roomTemplate.push_back("#####          #########");
+        roomTemplate.push_back("######        ##########");
+        roomTemplate.push_back("#######      ###########");
+        roomTemplate.push_back("########    ############");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::BloodSkeleton);
+
+        int difficulty = 13;
+        int backColor = dngutil::RED;
+        std::string name = "Gateway to Hell";
+        Coordinate mapCoord(-1, -11);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("DangerTheme")));
+        mut.unlock();
+
+    }
+
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("###                     ");
+        roomTemplate.push_back("###                     ");
+        roomTemplate.push_back("###         ############");
+        roomTemplate.push_back("####       #############");
+        roomTemplate.push_back("#####  +  ##############");
+        roomTemplate.push_back("######   ###############");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::BloodSkeleton);
+
+        int difficulty = 13;
+        int backColor = dngutil::DARKGRAY;
+        std::string name = "Arkala Cave";
+        Coordinate mapCoord(-2, -9);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("CaveTheme")));
+        mut.unlock();
+
+    }
+
+
 
     // Lullin Village
     {
@@ -2992,7 +3128,7 @@ void Map::makeOverworld(std::mutex& mut)
         possibleCreatures.push_back(dngutil::TID::SSKnight);
         possibleCreatures.push_back(dngutil::TID::LSKnight);
 
-        int difficulty = 12;
+        int difficulty = 19;
         int backColor = dngutil::BROWN;
         std::string name = "The Boranian Valley - Outside the Tower of the Gods";
         Coordinate mapCoord(4, -3);
@@ -3025,7 +3161,7 @@ void Map::makeOverworld(std::mutex& mut)
         possibleCreatures.push_back(dngutil::TID::SSKnight);
         possibleCreatures.push_back(dngutil::TID::LSKnight);
 
-        int difficulty = 12;
+        int difficulty = 19;
         int backColor = dngutil::BROWN;
         std::string name = "The Boranian Valley - Outside the Tower of the Gods";
         Coordinate mapCoord(4, -4);
@@ -3058,7 +3194,7 @@ void Map::makeOverworld(std::mutex& mut)
         possibleCreatures.push_back(dngutil::TID::SSKnight);
         possibleCreatures.push_back(dngutil::TID::LSKnight);
 
-        int difficulty = 12;
+        int difficulty = 19;
         int backColor = dngutil::BROWN;
         std::string name = "The Boranian Valley - Outside the Tower of the Gods";
         Coordinate mapCoord(5, -4);
@@ -3091,7 +3227,7 @@ void Map::makeOverworld(std::mutex& mut)
         possibleCreatures.push_back(dngutil::TID::SSKnight);
         possibleCreatures.push_back(dngutil::TID::LSKnight);
 
-        int difficulty = 12;
+        int difficulty = 19;
         int backColor = dngutil::BROWN;
         std::string name = "The Boranian Valley - Outside the Tower of the Gods";
         Coordinate mapCoord(6, -4);
@@ -3139,7 +3275,7 @@ void Map::makeOverworld(std::mutex& mut)
         possibleCreatures.push_back(dngutil::TID::SSKnight);
         possibleCreatures.push_back(dngutil::TID::LSKnight);
 
-        int difficulty = 12;
+        int difficulty = 19;
         int backColor = dngutil::BROWN;
         std::string name = "The Boranian Valley - Outside the Tower of the Gods";
         Coordinate mapCoord(6, -3);
@@ -3172,7 +3308,7 @@ void Map::makeOverworld(std::mutex& mut)
         possibleCreatures.push_back(dngutil::TID::SSKnight);
         possibleCreatures.push_back(dngutil::TID::LSKnight);
 
-        int difficulty = 12;
+        int difficulty = 19;
         int backColor = dngutil::BROWN;
         std::string name = "The Boranian Valley - Outside the Tower of the Gods";
         Coordinate mapCoord(6, -2);
@@ -3205,7 +3341,7 @@ void Map::makeOverworld(std::mutex& mut)
         possibleCreatures.push_back(dngutil::TID::SSKnight);
         possibleCreatures.push_back(dngutil::TID::LSKnight);
 
-        int difficulty = 12;
+        int difficulty = 19;
         int backColor = dngutil::BROWN;
         std::string name = "The Boranian Valley - Outside the Tower of the Gods";
         Coordinate mapCoord(5, -2);
@@ -3238,7 +3374,7 @@ void Map::makeOverworld(std::mutex& mut)
         possibleCreatures.push_back(dngutil::TID::SSKnight);
         possibleCreatures.push_back(dngutil::TID::LSKnight);
 
-        int difficulty = 12;
+        int difficulty = 19;
         int backColor = dngutil::BROWN;
         std::string name = "The Boranian Valley - Outside the Tower of the Gods";
         Coordinate mapCoord(4, -2);
@@ -3895,6 +4031,44 @@ void Map::makeOverworld(std::mutex& mut)
         mut.lock();
         gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("CaveTheme")));
         mut.unlock();
+    }
+}
+
+void Map::makePathToHell(std::mutex& mut)
+{
+    unsigned int tfloor = 1;
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("#######      ###########");
+        roomTemplate.push_back("######        ##########");
+        roomTemplate.push_back("#####          #########");
+        roomTemplate.push_back("####          e ########");
+        roomTemplate.push_back("###           e         ");
+        roomTemplate.push_back("###           e         ");
+        roomTemplate.push_back("####          e ########");
+        roomTemplate.push_back("#####          #########");
+        roomTemplate.push_back("######        ##########");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Cultist);
+        possibleCreatures.push_back(dngutil::TID::Imp);
+
+        int difficulty = 13;
+        int backColor = dngutil::RED;
+        std::string name = "Path To Hell";
+        Coordinate mapCoord(-1, -11);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("FinalDungeonTheme")));
+        mut.unlock();
+
     }
 }
 

@@ -2938,6 +2938,191 @@ void Mage::printSelf()
 
 
 //----------------------------------------------------------------
+// Cultist
+Cultist::Cultist(
+    Game* pgame,
+    Coordinate coord,
+    int hp,
+    unsigned int att,
+    unsigned int def,
+    unsigned int lck,
+    unsigned int spd,
+    unsigned int lvl
+) : SmartEnemy(
+    pgame,
+    ColorChar('I', dngutil::MAGENTA),
+    coord,
+    "Cultist",
+    false,
+    dngutil::TID::Cultist,
+    hp, att, def, lck, spd, lvl,
+    new Primary(
+        pgame,
+        ColorChar('i', dngutil::MAGENTA),
+        coord,
+        "Cultist's Staff",
+        false,
+        1.5,
+        3,
+        70,
+        false,
+        "A Cultist's staff - spews dark magic",
+        WavFile("MagicAttack1", false, false),
+        dngutil::ClassType::WIZARD
+    ),
+    new Secondary(
+        pgame,
+        ColorChar('*', dngutil::MAGENTA),
+        coord,
+        "Cultist's Aura",
+        false,
+        dngutil::TID::Secondary,
+        200,
+        1,
+        "Aura from a cultist"
+    ),
+    Mp3File("BattleTheme", "BattleThemeAlt"),
+    random(60, 80),
+    WavFile("EnemyDeath", false, false),
+    dngutil::EvType::DEFENSE,
+    dngutil::ClassType::WIZARD
+)
+{
+
+}
+
+void Cultist::printSelf()
+{
+    Coordinate vcursor(0, getPGame()->getVWin()->txtmacs.DIVIDER_LINES[1] + 1);
+    VirtualWindow* t = getPGame()->getVWin();
+    int color = dngutil::MAGENTA;
+    t->put(ColorString(R"()", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"()", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"()", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                             _,-'|)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                          ,-'._  |)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                .||,      |####\ |)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(               \.`',/     \#OO#| |)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(               =\/\/=      |###| |)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(               / || \    ,-'\#/,'`.)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                 ||     ,'   `,,. `.)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                 ,|____,' , ,;' \| |)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                (3|\    _/|/'   _| |)", color), vcursor); vcursor.y++;
+    const int TOP_CURSOR_Y = vcursor.y;
+    t->put(ColorString(R"(                 ||/,-''  | >-'' _,\\)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                 ||'      ==\ ,-'  ,')", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                 ||       |  V \ ,|)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                 ||       |    |` |)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                 ||       |    |   \)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                 ||       |    \    \)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                 ||       |     |    \)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                 ||       |      \_,-')", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                 ||       |___,,--")_\)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                 ||         |_|   ccc/)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                 ||        ccc/)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                 ||         )", color), vcursor); vcursor.y++;
+    const int LONGEST_LINE_LENGTH = 48;
+
+    printStats(LONGEST_LINE_LENGTH, TOP_CURSOR_Y);
+}
+//----------------------------------------------------------------
+
+//----------------------------------------------------------------
+// Imp
+Imp::Imp(
+    Game* pgame,
+    Coordinate coord,
+    int hp,
+    unsigned int att,
+    unsigned int def,
+    unsigned int lck,
+    unsigned int spd,
+    unsigned int lvl
+) : SmartEnemy(
+    pgame,
+    ColorChar('H', dngutil::LIGHTRED),
+    coord,
+    "Imp",
+    false,
+    dngutil::TID::Imp,
+    hp, att, def, lck, spd, lvl,
+    new Primary(
+        pgame,
+        ColorChar('=', dngutil::LIGHTRED),
+        coord,
+        "Imp's Claw",
+        false,
+        1.3,
+        2,
+        70,
+        false,
+        "Claw from an imp",
+        WavFile("Attack1", false, false),
+        dngutil::ClassType::KNIGHT
+    ),
+    new Secondary(
+        pgame,
+        ColorChar('(', dngutil::RED),
+        coord,
+        "Invisible Shield",
+        false,
+        dngutil::TID::Secondary,
+        133,
+        1.2,
+        "Invisible shield from an imp"
+    ),
+    Mp3File("BattleTheme", "BattleThemeAlt"),
+    random(50, 65),
+    WavFile("EnemyDeath", false, false),
+    dngutil::EvType::SPEED,
+    dngutil::ClassType::KNIGHT
+)
+{
+
+}
+
+void Imp::printSelf()
+{
+    Coordinate vcursor(0, getPGame()->getVWin()->txtmacs.DIVIDER_LINES[1] + 1);
+    VirtualWindow* t = getPGame()->getVWin();
+    int color = dngutil::LIGHTRED;
+    t->put(ColorString(R"(                                     ,)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(       ,  .   (          )          -.\ |)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(       | / .- |\        /|         _  \'/)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(        \'/   | \.-""-./ |          \_) ;-')", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(     `'-; (_/ ;   _  _   ;           ) /)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(         \ (   \ (.\/.) /    .-.    / |)", color), vcursor); vcursor.y++;
+    const int TOP_CURSOR_Y = vcursor.y;
+    t->put(ColorString(R"(          \ \   \ \/\/ /-._.'   \   | |)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(           \ \   \ .. /_         \  | |)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(            \ \   |  |__)     |\  \ | |)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(             \ `"`|==|_       | \  \| |)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(              \,-'|==| \      |  \    |)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                   \/   '.    /   `\ /)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                          |   |     `   ,)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                          |   |         )\)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                __.....__/    |        /  \)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(              /`              \        `//`)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(              |  \`-....-'\    `-.____.'/)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(              |  |        /   /`"-----'`)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(              |  |        |  |)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(              | /         |  |)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(       .------' \         /  /)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(      (((--------'        \  |)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                           | \)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                           | |)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                           | |)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                           | /)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                          /  ))", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                         /   |)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                        (-(-(')", color), vcursor); vcursor.y++;
+    const int LONGEST_LINE_LENGTH = 48;
+
+    printStats(LONGEST_LINE_LENGTH, TOP_CURSOR_Y);
+}
+//----------------------------------------------------------------
+
+//----------------------------------------------------------------
 // Desert Goblin
 DesertGoblin::DesertGoblin(
     Game* pgame,

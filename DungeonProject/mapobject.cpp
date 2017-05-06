@@ -240,7 +240,7 @@ Collision ExitObject::mapAction(MapObject* collider, std::list<MapObject*>::iter
 
 //---------------------------------------------------------------
 // HoleObject Functions
-HoleObject::HoleObject(Game* game, Coordinate coord) :
+HoleObject::HoleObject(Game* game, Coordinate coord, bool fallToHell) :
     MapObject(
         game,
         ColorChar(' ', getColor(dngutil::BLACK, dngutil::BLACK)),
@@ -253,7 +253,10 @@ HoleObject::HoleObject(Game* game, Coordinate coord) :
         dngutil::P_STAIRCASE,
         dngutil::BTID::None,
         true
-    ) {}
+    )
+{
+    fallingToHell = fallToHell;
+}
 
 Collision HoleObject::mapAction(MapObject* collider, std::list<MapObject*>::iterator& it)
 {
@@ -290,7 +293,7 @@ Collision HoleObject::mapAction(MapObject* collider, std::list<MapObject*>::iter
                 getPGame()->getActiveRoom()->getObjects(collider->getCoord()).push_back(collider);
                 getPGame()->getVWin()->txtmacs.displayGame(getPGame());
                 getPGame()->clearDeletionList();
-                getPGame()->getVWin()->txtmacs.fallingScreen(getPGame());
+                getPGame()->getVWin()->txtmacs.fallingScreen(getPGame(), fallingToHell);
                 if (getPGame()->getActiveRoom()->hasPuzzle())
                 {
                     playSound(WavFile("Puzzle", false, true));
@@ -532,6 +535,12 @@ Collision DungeonCheck::mapAction(MapObject* collider, std::list<MapObject*>::it
                 getPGame()->getVWin()->txtmacs.clearDivider("bottom");
                 getPGame()->getVWin()->txtmacs.displayOverworldInfo(getPGame());
             }
+        }
+        else if (harpNumber == 6)
+        {
+            getPGame()->getPlayer()->setDungeonStart();
+            getPGame()->setDungeonLevel(getPGame()->getPlayer()->getLvl());
+            return Collision(true, false, true);
         }
         else if (!getPGame()->getPlayer()->hasHarpPiece(harpNumber))
         {

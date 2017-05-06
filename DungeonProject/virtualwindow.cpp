@@ -387,10 +387,15 @@ void TextMacros::displayLevelupStats(Coordinate cursor, Player* player)
     vwin->putcen(ColorString("**************************", dngutil::MAGENTA), cursor.y);
 }
 
-void TextMacros::fallingScreen(Game* game)
+void TextMacros::fallingScreen(Game* game, bool altSound)
 {
     clearMapArea(false, NULL);
     playSound(WavFile("Fall", false, false));
+    if (altSound)
+    {
+        Sleep(500);
+        playSound(WavFile("WarpToDungeonStart", false, false));
+    }
     displayGame(game);
 }
 //-------------------------------------------------------------

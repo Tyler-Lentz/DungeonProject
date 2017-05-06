@@ -217,6 +217,14 @@ Creature* Game::generateCreature(int difficulty, dngutil::TID tid)
         enemy = new BloodSkeleton(this, Coordinate(-1, -1), health, attack, defense, luck, speed, level);
         break;
 
+    case dngutil::TID::Cultist:
+        enemy = new Cultist(this, Coordinate(-1, -1), health, attack, defense, luck, speed, level);
+        break;
+
+    case dngutil::TID::Imp:
+        enemy = new Imp(this, Coordinate(-1, -1), health, attack, defense, luck, speed, level);
+        break;
+
     case dngutil::TID::DesertGoblin:
         enemy = new DesertGoblin(this, Coordinate(-1, -1), health, attack, defense, luck, speed, level);
         break;

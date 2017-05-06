@@ -240,8 +240,11 @@ private:
 class HoleObject : public MapObject
 {
 public:
-    HoleObject(Game* game, Coordinate coord);
+    HoleObject(Game* game, Coordinate coord, bool fallToHell);
     Collision mapAction(MapObject* collider, std::list<MapObject*>::iterator& it) override;
+
+private:
+    bool fallingToHell;
 };
 
 class Water : public MapObject

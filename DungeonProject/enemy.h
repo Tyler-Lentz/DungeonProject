@@ -206,6 +206,40 @@ public:
     void printSelf() override;
 };
 
+class Imp : public SmartEnemy
+{
+public:
+    Imp(
+        Game* pgame,
+        Coordinate coord,
+        int hp,
+        unsigned int att,
+        unsigned int def,
+        unsigned int lck,
+        unsigned int spd,
+        unsigned int lvl
+    );
+
+    void printSelf() override;
+};
+
+class Cultist : public SmartEnemy
+{
+public:
+    Cultist(
+        Game* pgame,
+        Coordinate coord,
+        int hp,
+        unsigned int att,
+        unsigned int def,
+        unsigned int lck,
+        unsigned int spd,
+        unsigned int lvl
+    );
+
+    void printSelf() override;
+};
+
 class Bowman : public REnemy
 {
 public:

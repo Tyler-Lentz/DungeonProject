@@ -77,7 +77,7 @@ struct TextMacros
     void displayInventory(std::vector<Item*>, Player* player);
 
     // Screen while the player is falling through a hole
-    void fallingScreen(Game* game);
+    void fallingScreen(Game* game, bool altSound);
 };
 
 typedef std::vector<ColorString> VWIN;

@@ -110,7 +110,9 @@ namespace dngutil
         Basilisk,
         BasiliskHorn,
         DesertGryphon,
-        SunCharm
+        SunCharm,
+        Imp,
+        Cultist
     };
 
     enum class BTID
