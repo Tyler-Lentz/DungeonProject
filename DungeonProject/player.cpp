@@ -470,6 +470,14 @@ void Player::addExperience(unsigned int experience, dngutil::EvType ev)
 
     playSound(WavFile("Experience", true, true)); 
     vwin->txtmacs.clearMapArea(false, NULL);
+
+    if (getLvl() >= dngutil::MAX_LVL)
+    {
+        vwin->putcen(ColorString("You cannot gain anymore experience", dngutil::CYAN), vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE, true);
+        pressEnter(Coordinate(0, vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE + 1), vwin);
+        return;
+    }
+
     int xpBarLine = static_cast<int>(dngutil::CONSOLEY / 2.0);
     vwin->putcen(ColorString("******************************************", dngutil::BLUE), xpBarLine - 2);
     vwin->putcen(ColorString("******************************************", dngutil::BLUE), xpBarLine + 2);
