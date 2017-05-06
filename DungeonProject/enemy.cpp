@@ -1465,32 +1465,40 @@ void TrueZorlock::deathSequence()
     Sleep(2500);
     int textLine = 22;
 
+    playSound(Mp3File("DeathToTheDemon"));
+
     std::string name = getPGame()->getPlayer()->getName();
-    v->putcen(ColorString("Curse you " + name + "!", dngutil::MAGENTA), textLine, true);
+    v->putcenSlowScroll(ColorString("Curse you " + name + "!", dngutil::MAGENTA), textLine);
     Sleep(2500);
     t.clearLine(textLine);
 
-    v->putcen(ColorString("Curse you Aegeus!", dngutil::MAGENTA), textLine, true);
+    v->putcenSlowScroll(ColorString("Curse you Aegeus!", dngutil::MAGENTA), textLine);
     Sleep(2500);
     t.clearLine(textLine);
 
-    v->putcen(ColorString("Do not think this ends here!", dngutil::MAGENTA), textLine, true);
+    v->putcenSlowScroll(ColorString("Do not think this ends here!", dngutil::MAGENTA), textLine);
     Sleep(2500);
     t.clearLine(textLine);
 
-    v->putcen(ColorString("When I break free of this seal the Kingom of Bora", dngutil::MAGENTA), textLine, true);
-    v->putcen(ColorString("will be destroyed again - Mark my words!", dngutil::MAGENTA), textLine + 1, true);
+    v->putcenSlowScroll(ColorString("When I break free of this seal the Kingom of Bora", dngutil::MAGENTA), textLine);
+    v->putcenSlowScroll(ColorString("will be destroyed again. Mark my words!", dngutil::MAGENTA), textLine + 1);
     Sleep(3500);
     t.clearLine(textLine);
     t.clearLine(textLine + 1);
 
-    v->putcen(ColorString("And I'll reserve a special place in hell for both of you and your descendents!", dngutil::MAGENTA), textLine, true);
-    Sleep(2500);
+    v->putcenSlowScroll(ColorString("And I'll reserve a special place in hell", dngutil::RED), textLine);
+    v->putcenSlowScroll(ColorString("for both of you and all that oppose me!!", dngutil::RED), textLine + 1);
+    Sleep(3500);
     t.clearLine(textLine);
+    t.clearLine(textLine + 1);
+
+    stopSound(SoundType::MP3);
 
     playSound(WavFile("ZorlockDeath", false, false));
 
-    v->putcen(ColorString("Peace has been restored to Bora", dngutil::WHITE), textLine, true);
+    Sleep(3500);
+
+    v->putcenSlowScroll(ColorString("Peace has been restored to Bora", dngutil::YELLOW), textLine);
     playSound(Mp3File("Credits"));
     Sleep(10000);
     t.clearLine(textLine);

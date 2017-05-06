@@ -138,7 +138,7 @@ void credits(dngutil::CreditType c, Game* pgame)
         v->clearScreen(dngutil::WHITE);
         color = getColor(dngutil::BLACK, dngutil::WHITE);
         color2 = getColor(dngutil::GREEN, dngutil::WHITE);
-        sleepTime = 350;
+        sleepTime = 450;
         clearScreenColor = dngutil::WHITE;
     }
 
@@ -153,24 +153,243 @@ void credits(dngutil::CreditType c, Game* pgame)
 
     addEmptySpace(35);
     credits.push_back(ColorString("Harp of the Gods", color2));
+    if (c == dngutil::CreditType::VICTORY)
+    {
+        addEmptySpace(5);
+        credits.push_back(ColorString(R"(         ____                   )", color));
+        credits.push_back(ColorString(R"(         SSSS____.              )", color));
+        credits.push_back(ColorString(R"(         (WW);;;;;\             )", color));
+        credits.push_back(ColorString(R"(         `WW'____ |     ,_____  )", color));
+        credits.push_back(ColorString(R"(          UU ||||\ \___/,---. ) )", color));
+        credits.push_back(ColorString(R"(          UU |||||\____/||| //  )", color));
+        credits.push_back(ColorString(R"(          UU ||||||||||||" //   )", color));
+        credits.push_back(ColorString(R"(          UU |||||||||||' //    )", color));
+        credits.push_back(ColorString(R"(          UU |||||||||"  //     )", color));
+        credits.push_back(ColorString(R"(          UU ||||||||'  //      )", color));
+        credits.push_back(ColorString(R"(          UU |||||||"  //       )", color));
+        credits.push_back(ColorString(R"(          UU ||||||'  //        )", color));
+        credits.push_back(ColorString(R"(          UU ||||"   //         )", color));
+        credits.push_back(ColorString(R"(          UU |||"   //          )", color));
+        credits.push_back(ColorString(R"(          UU ||'   //           )", color));
+        credits.push_back(ColorString(R"(          UU |"   //            )", color));
+        credits.push_back(ColorString(R"(         ,UU,'   ||             )", color));
+        credits.push_back(ColorString(R"(       (~~~~~~~~~~~~]""'        )", color));
+        credits.push_back(ColorString(R"(~~~~~~~~~~~~~~~~~~~~~~~~~~~     )", color));
+        addEmptySpace(2);
+        credits.push_back(ColorString("- The Harp -", color));
+    }
     addEmptySpace(20);
-    credits.push_back(ColorString("Programming: Tyler Lentz", color));
+    credits.push_back(ColorString("Programming: Tyler Lentz", color)); 
+    if (c == dngutil::CreditType::VICTORY)
+    {
+        addEmptySpace(5);
+        credits.push_back(ColorString("                      . . . .", color));
+        credits.push_back(ColorString("                      ,`,`,`,`,", color));
+        credits.push_back(ColorString(". . . .               `\\`\\`\\`\\;", color));
+        credits.push_back(ColorString("`\\`\\`\\`\\`,            ~|;!;!;\\!", color));
+        credits.push_back(ColorString(" ~\\;\\;\\;\\|\\          (--,!!!~`!       .", color));
+        credits.push_back(ColorString("(--,\\\\\\===~\\         (--,|||~`!     ./", color));
+        credits.push_back(ColorString(" (--,\\\\\\===~\\         `,-,~,=,:. _,//", color));
+        credits.push_back(ColorString("  (--,\\\\\\==~`\\        ~-=~-.---|\\;/J,", color));
+        credits.push_back(ColorString("   (--,\\\\\\((```==.    ~'`~/       a |", color));
+        credits.push_back(ColorString("     (-,.\\\\('('(`\\\\.  ~'=~|     \\_.  \\", color));
+        credits.push_back(ColorString("        (,--(,(,(,'\\\\. ~'=|       \\\\_;>", color));
+        credits.push_back(ColorString("          (,-( ,(,(,;\\\\ ~=/        \\", color));
+        credits.push_back(ColorString("          (,-/ (.(.(,;\\\\,/          )", color));
+        credits.push_back(ColorString("           (,--/,;,;,;,\\\\         ./------.", color));
+        credits.push_back(ColorString("             (==,-;-'`;'         /_,----`. \\", color));
+        credits.push_back(ColorString("     ,.--_,__.-'                    `--.  ` \\", color));
+        credits.push_back(ColorString("    (='~-_,--/        ,       ,!,___--. \\  \\_)", color));
+        credits.push_back(ColorString("   (-/~(     |         \\   ,_-         | ) /_|", color));
+        credits.push_back(ColorString("   (~/((\\    )\\._,      |-'         _,/ /", color));
+        credits.push_back(ColorString("    \\\\))))  /   ./~.    |           \\_\\;", color));
+        credits.push_back(ColorString(" ,__/////  /   /    )  /", color));
+        credits.push_back(ColorString("  '===~'   |  |    (, <.", color));
+        credits.push_back(ColorString("           / /       \\. \\", color));
+        credits.push_back(ColorString("         _/ /          \\_\\", color));
+        credits.push_back(ColorString("        /_!/            >_\\", color));
+        addEmptySpace(2);
+        credits.push_back(ColorString("- The 3 Elemental Horses -", color));
+        addEmptySpace(8);
+        credits.push_back(ColorString("    _,_", color));
+        credits.push_back(ColorString("  /7/Y/^\\", color));
+        credits.push_back(ColorString("  vuVV|C)|            ", color) + ColorString("             __ _", color));
+        credits.push_back(ColorString("    \\|^ /          ", color) + ColorString("             .'  Y '>,", color));
+        credits.push_back(ColorString("    )| \\)       ", color) + ColorString("               / _   _   \\", color));
+        credits.push_back(ColorString("   //)|\\\\     ", color) + ColorString("                 )(_) (_)(|}", color));
+        credits.push_back(ColorString("  / ^| \\ \\    ", color) + ColorString("                 {  4A   } /", color));
+        credits.push_back(ColorString(" //^| || \\\\   ", color) + ColorString("                  \\uLuJJ/\\l", color));
+        credits.push_back(ColorString(">//||| |\\\\\\|   ", color) + ColorString("                 |3    p)/", color));
+        credits.push_back(ColorString("| \"\"\"\"\"  7/>l ", color) + ColorString("__ _____ ____      /nnm_n//", color));
+        credits.push_back(ColorString("L>_   _-< 7/|", color) + ColorString("_-__,__-)\\,__)(\".  \\_>-<_/D", color));
+        credits.push_back(ColorString(")D\" Y \"c)  9)  ", color) + ColorString("     //V     \\_\"-._.__G<D     __", color));
+        credits.push_back(ColorString("\\  ||    . _/ ", color) + ColorString("      (       \\ \"-._\"> G<D-_.-\"_=)_", color));
+        credits.push_back(ColorString(" ) __   / /  ", color) + ColorString("       \"      _/.__ />_c__.-__<\"/ ( \\", color));
+        credits.push_back(ColorString(" | | |  |(|  ", color) + ColorString("             < \"-._\"> _.G_.___)\\   \\7\\", color));
+        credits.push_back(ColorString("  \\\"=\" // |   ", color) + ColorString("           (,\"-.__.|\\ \\<.__.-\" )   \\ \\", color));
+        credits.push_back(ColorString("   '---'  |     ", color) + ColorString("         |,\"-.__\"| \\!\"-.__.-\".\\   \\ \\", color));
+        credits.push_back(ColorString("     |_;._/    ", color) + ColorString("          (_\"-.__\"'\\ \\\"-.__.-\".|    \\_\\", color));
+        credits.push_back(ColorString("     )(\" V     ", color) + ColorString("           \\\"-.__\"'|\\ \\-.__.-\".)     \\ \\", color));
+        credits.push_back(ColorString("        (     ", color) + ColorString("             \"-.__'\"\\_\\ \\.__.-\"./      \\ l", color));
+        credits.push_back(ColorString("         )          ", color) + ColorString("        \".__\"\">>G\\ \\__.-\">        V )", color));
+        credits.push_back(ColorString("                                \"\"  G<\\ \\_.-\"        ./7", color));
+        credits.push_back(ColorString("                                     G<\\ \\          ///", color));
+        credits.push_back(ColorString("                                ___  G<D\\ \\        /7^", color));
+        credits.push_back(ColorString("                              /\".-_\"-\"G\"<\\ \\__    ///))", color));
+        credits.push_back(ColorString("                              ||,-_ \"     '.\\_\"- /// (\\", color));
+        credits.push_back(ColorString("                              | (_)  _   \"/ __7 |X/   V", color));
+        credits.push_back(ColorString("                             /\\__\"\"-/ \"\\ _\"\"c_\"GBV", color));
+        credits.push_back(ColorString("                            _)(  \"\"'    \"--.c__>D'", color)); addEmptySpace(2);
+        credits.push_back(ColorString("- Skeleton King -", color));
+    }
     addEmptySpace(8);
     credits.push_back(ColorString("Story: Tyler Lentz", color));
+    if (c == dngutil::CreditType::VICTORY)
+    {
+        addEmptySpace(5);
+        credits.push_back(ColorString(R"(        _)", color));
+        credits.push_back(ColorString(R"(       (_))", color));
+        credits.push_back(ColorString(R"(       |=|)", color));
+        credits.push_back(ColorString(R"(       |=|)", color));
+        credits.push_back(ColorString(R"(   /|__|_|__|\)", color));
+        credits.push_back(ColorString(R"(  (    ( )    ))", color));
+        credits.push_back(ColorString(R"(   \|\/\"/\/|/)", color));
+        credits.push_back(ColorString(R"(     |  Y  |)", color));
+        credits.push_back(ColorString(R"(     |  |  |)", color));
+        credits.push_back(ColorString(R"(     |  |  |)", color));
+        credits.push_back(ColorString(R"(    _|  |  |)", color));
+        credits.push_back(ColorString(R"( __/ |  |  |\)", color));
+        credits.push_back(ColorString(R"(/  \ |  |  |  \)", color));
+        credits.push_back(ColorString(R"(   __|  |  |   |)", color));
+        credits.push_back(ColorString(R"(/\/  |  |  |   |\)", color));
+        credits.push_back(ColorString(R"( <   +\ |  |\ />  \)", color));
+        credits.push_back(ColorString(R"(  >   + \  | LJ    |)", color));
+        credits.push_back(ColorString(R"(        + \|+  \  < \)", color));
+        credits.push_back(ColorString(R"(  (O)      +    |    ))", color));
+        credits.push_back(ColorString(R"(   |             \  /\ )", color));
+        credits.push_back(ColorString(R"( ( | )   (o)      \/  ))", color));
+        credits.push_back(ColorString(R"(_\\|//__( | )______)_/ )", color));
+        credits.push_back(ColorString(R"(        \\|//        )", color));
+        addEmptySpace(2);
+        credits.push_back(ColorString("- The Hero's Blade -", color));
+        addEmptySpace(8);
+        credits.push_back(ColorString(R"( _________________________ )", color));
+        credits.push_back(ColorString(R"(|<><><>     |  |    <><><>|)", color));
+        credits.push_back(ColorString(R"(|<>         |  |        <>|)", color));
+        credits.push_back(ColorString(R"(|           |  |          |)", color));
+        credits.push_back(ColorString(R"(|  (______ <\-/> ______)  |)", color));
+        credits.push_back(ColorString(R"(|  /_.-=-.\| " |/.-=-._\  |)", color));
+        credits.push_back(ColorString(R"(|   /_    \(o_o)/    _\   |)", color));
+        credits.push_back(ColorString(R"(|    /_  /\/ ^ \/\  _\    |)", color));
+        credits.push_back(ColorString(R"(|      \/ | / \ | \/      |)", color));
+        credits.push_back(ColorString(R"(|_______ /((( )))\ _______|)", color));
+        credits.push_back(ColorString(R"(|      __\ \___/ /__      |)", color));
+        credits.push_back(ColorString(R"(|--- (((---'   '---))) ---|)", color));
+        credits.push_back(ColorString(R"(|           |  |          |)", color));
+        credits.push_back(ColorString(R"(|           |  |          |)", color));
+        credits.push_back(ColorString(R"(:           |  |          :)", color));
+        credits.push_back(ColorString(R"( \<>        |  |       <>/ )", color));
+        credits.push_back(ColorString(R"(  \<>       |  |      <>/  )", color));
+        credits.push_back(ColorString(R"(   \<>      |  |     <>/   )", color));
+        credits.push_back(ColorString(R"(    `\<>    |  |   <>/'    )", color));
+        credits.push_back(ColorString(R"(      `\<>  |  |  <>/'     )", color));
+        credits.push_back(ColorString(R"(        `\<>|  |<>/'       )", color));
+        credits.push_back(ColorString(R"(          `-.  .-`         )", color));
+        credits.push_back(ColorString(R"(            '--'           )", color));
+        addEmptySpace(2);
+        credits.push_back(ColorString("- The Hero's Shield -", color));
+    }
     addEmptySpace(8);
     credits.push_back(ColorString("Playtesting: Tyler Lentz, Thomas Westenhofer, Collin Werth,", color));
-    credits.push_back(ColorString("Kristian Rascon and Danny Hernandez", color));
+    credits.push_back(ColorString("Kristian Rascon, Danny Hernandez and Zachary Fineberg", color));
+    if (c == dngutil::CreditType::VICTORY)
+    {
+        addEmptySpace(5);
+        credits.push_back(ColorString(R"(                         /\     /\)", color));
+        credits.push_back(ColorString(R"(                        (_ \   (  \)", color));
+        credits.push_back(ColorString(R"(                        (_ `\iRBNMMbn.)", color));
+        credits.push_back(ColorString(R"(                         \_  \VAPRBNMMb)", color));
+        credits.push_back(ColorString(R"(                           \o_)lI<= (=\)", color));
+        credits.push_back(ColorString(R"(                          / `   ) , _\ ))", color));
+        credits.push_back(ColorString(R"(                          )    /   (_(/)", color));
+        credits.push_back(ColorString(R"(                         /_ __( \ __ _|)", color));
+        credits.push_back(ColorString(R"(                            _|     |_)", color));
+        credits.push_back(ColorString(R"(                   ,edMMNBRB)\ \_  /(PRBNMMbn.)", color));
+        credits.push_back(ColorString(R"(                  dMMNBRPAV/o(_____)o\VAPRBNMMb)", color));
+        credits.push_back(ColorString(R"(                 fMMWBRYIli\ o  o  o /rlIPRBWMMj)", color));
+        credits.push_back(ColorString(R"(                 MMBRRSZIlti+._.-._.+ilIZSRRBMMM)", color));
+        credits.push_back(ColorString(R"(                 /_o__o_/KZYI0lLRBNWMMMN\_o___o_\)", color));
+        credits.push_back(ColorString(R"(                /_____/flZJlDYTPRKBBNWMM \ ___( \)", color));
+        credits.push_back(ColorString(R"(          NNBR0PRRBNMMMMMMMlIPZSKRNWMMMV  \__._\ \)", color));
+        credits.push_back(ColorString(R"(          NMBRR00PRBNNMMMMM_o___o___o__/   )_ __)o))", color));
+        credits.push_back(ColorString(R"(          NMMBRR00PRRBNNMMM___o___o___/    /___/ /)", color));
+        credits.push_back(ColorString(R"(          NMMBBRR00PRRBNNMM_/\_/\_/\_(  __/___x)/)", color));
+        credits.push_back(ColorString(R"(          NMMBBRR00PRRBNNMM \/ \/ \/ __ )    /(`)", color));
+        credits.push_back(ColorString(R"(        __NMMBBRR00PRRBNNMM_________|_ /   _'))", color));
+        credits.push_back(ColorString(R"(       /__        ________        ___)(<  (====.)", color));
+        credits.push_back(ColorString(R"(       \_____________________________)_\ __\---')", color));
+        credits.push_back(ColorString(R"(            VMBBR00RBNMNV           |__|\/)", color));
+        credits.push_back(ColorString(R"(             lMBRR00RNMV  )", color));
+        credits.push_back(ColorString(R"(              VMB00BMNV   )", color));
+        credits.push_back(ColorString(R"(               VMB0BMV   )", color));
+        credits.push_back(ColorString(R"(                b'ger  )", color));
+        credits.push_back(ColorString(R"(                 VMV     )", color));
+        credits.push_back(ColorString(R"(                  V     )", color));
+        addEmptySpace(2);
+        credits.push_back(ColorString("- The Hero (Aegeus) -", color));
+    }
     addEmptySpace(8);
     credits.push_back(ColorString("Music: The Legend of Zelda 1, The Legend of Zelda 2, ", color));
-    credits.push_back(ColorString("Link to the Past, Link's Awakening and Olcarina of Time", color));
+    credits.push_back(ColorString("Link to the Past, Link's Awakening and Ocarina of Time", color));
+    if (c == dngutil::CreditType::VICTORY)
+    {
+        addEmptySpace(5);
+        credits.push_back(ColorString(R"(           _/          ,          .                                          )", color));
+        credits.push_back(ColorString(R"(       , -' )         ( \-------.,')            (\_________________________  )", color));
+        credits.push_back(ColorString(R"(     , ,-/ |          /\_) )     \/            ,' _.----------------------,\ )", color));
+        credits.push_back(ColorString(R"(   ,',  /, |         /      >--. ,)           / /\\                          )", color));
+        credits.push_back(ColorString(R"(  / ,  //|,'        /'     '\--'\\)          /,'  \\     `         `   ,     )", color));
+        credits.push_back(ColorString(R"( / ,  // ||       ,'     (.--^( `')         //     \\                \       )", color));
+        credits.push_back(ColorString(R"(( ,  //  ||,___,-'    (___\\  '^^^'        //       \\              ,        )", color));
+        credits.push_back(ColorString(R"( \  //   ||--.__     (     \`^--)  _____.-'/         \\   `                  )", color));
+        credits.push_back(ColorString(R"(  >'/    ||,        (       \|_(\-'      ,'           \\         \,          )", color));
+        credits.push_back(ColorString(R"( /,'     ||          \           \      /              \\                    )", color));
+        credits.push_back(ColorString(R"((/       ||           \           )  ,'(     `     `    \\      ,            )", color));
+        credits.push_back(ColorString(R"( `       ||\           \      ) ,'  /_  )                \\    \             )", color));
+        credits.push_back(ColorString(R"(         || `.          `.    ,'   /( `.\  \ , \ \,       \\   ,             )", color));
+        credits.push_back(ColorString(R"(   `     || (_`.          ` .'   .'  )  `)'            ,   \\                )", color));
+        credits.push_back(ColorString(R"(         ||  (_ `-v-------  ^--v' , )                      '\\,              )", color));
+        credits.push_back(ColorString(R"(         ||    (    , _,-  /  -./ )'                         `)              )", color));
+        credits.push_back(ColorString(R"(     `   '|     ),  ,'    '     )'                                           )", color));
+        credits.push_back(ColorString(R"(        ' ;    /  ,'          ,'                                             )", color));
+        credits.push_back(ColorString(R"(       /,'    /  /      '    /     , - --- .                                 )", color));
+        credits.push_back(ColorString(R"(       \|    /  (          ,'   '           `.                               )", color));
+        credits.push_back(ColorString(R"(       ('  ,'    `.    "  / ,'                \                              )", color));
+        credits.push_back(ColorString(R"(         ,'        \    ,/,'        '`)   (_   )                             )", color));
+        credits.push_back(ColorString(R"(        /           \ , /'          ,      /  /                              )", color));
+        credits.push_back(ColorString(R"(       .             )  ,       ,         '  /                               )", color));
+        credits.push_back(ColorString(R"(                      )      ,              /                                )", color));
+        credits.push_back(ColorString(R"(       .            ' `|   ,'              /                                 )", color));
+        credits.push_back(ColorString(R"(                    '  |  /              ,'                                  )", color));
+        credits.push_back(ColorString(R"(        |\             | <    ______,---'                                    )", color));
+        credits.push_back(ColorString(R"(        ` \            ','   (                                               )", color));
+        credits.push_back(ColorString(R"(         \ '          /(____ ,`-._,-.                                        )", color));
+        credits.push_back(ColorString(R"(          `.         /      `._, )---)                                       )", color));
+        credits.push_back(ColorString(R"(            `-------'\         `/ \    )", color));
+        addEmptySpace(2);
+        credits.push_back(ColorString("- Zorlock -", color));
+    }
     addEmptySpace(32);
     if (c == dngutil::CreditType::VICTORY)
     {
         credits.push_back(ColorString("Peace has been restored to Bora", color2));
         credits.push_back(ColorString("Your quest is over...", color2));
-        addEmptySpace(16);
+        addEmptySpace(32);
     }        
-    credits.push_back(ColorString("Press enter to continue", color2));
+    else
+    {
+        credits.push_back(ColorString("Press enter to continue", color2));
+    }
     addEmptySpace(16);
 
     for (unsigned int i = 0; i < credits.size() - 40; i++)
@@ -179,20 +398,94 @@ void credits(dngutil::CreditType c, Game* pgame)
         v->clearScreen(clearScreenColor);
         for (unsigned int j = 0; j < 40; j++)
         {
-            v->putcen(credits[i + j], j);
+            v->put(credits[i + j], Coordinate(3, j));
         }
-        if (keypress(VK_RETURN))
+        if (keypress(VK_RETURN) && c == dngutil::CreditType::TITLESCREEN)
         {
             goto skipCredits;
         }
     }
 
-    while (!keypress(VK_RETURN));
-    skipCredits:
-
-    if (c != dngutil::CreditType::TITLESCREEN)
+    if (c == dngutil::CreditType::TITLESCREEN)
+    {
+        while (!keypress(VK_RETURN));
+        skipCredits:
+        ;
+    }
+    else
     {
         stopSound(SoundType::MP3);
+        v->clearScreen();
+        Sleep(1500);
+        v->putcenSlowScroll(ColorString("Go on now, you know what to do. Play the Harp and restore peace.", dngutil::DARKGRAY), 40);
+        Sleep(3500);
+        v->txtmacs.clearLine(40);
+
+        Coordinate vcursor(0, v->txtmacs.DIVIDER_LINES[1] + 5);
+        v->putcen(ColorString(R"(         ____                   )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+        v->putcen(ColorString(R"(         SSSS____.              )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+        v->putcen(ColorString(R"(         (WW);;;;;\             )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+        v->putcen(ColorString(R"(         `WW'____ |     ,_____  )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+        v->putcen(ColorString(R"(          UU ||||\ \___/,---. ) )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+        v->putcen(ColorString(R"(          UU |||||\____/||| //  )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+        v->putcen(ColorString(R"(          UU ||||||||||||" //   )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+        v->putcen(ColorString(R"(          UU |||||||||||' //    )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+        v->putcen(ColorString(R"(          UU |||||||||"  //     )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+        v->putcen(ColorString(R"(          UU ||||||||'  //      )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+        v->putcen(ColorString(R"(          UU |||||||"  //       )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+        v->putcen(ColorString(R"(          UU ||||||'  //        )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+        v->putcen(ColorString(R"(          UU ||||"   //         )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+        v->putcen(ColorString(R"(          UU |||"   //          )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+        v->putcen(ColorString(R"(          UU ||'   //           )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+        v->putcen(ColorString(R"(          UU |"   //            )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+        v->putcen(ColorString(R"(         ,UU,'   ||             )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+        v->putcen(ColorString(R"(       (~~~~~~~~~~~~]""'        )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+        v->putcen(ColorString(R"(~~~~~~~~~~~~~~~~~~~~~~~~~~~     )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+        playSound(Mp3File("TitleTheme"));
+        Sleep(13000);
+        stopSound(SoundType::MP3);
+        Sleep(1000);
+
+        v->clearScreen();
+        playSound(WavFile("Wish", false, false));
+
+        Sleep(1000);
+        playSound(WavFile("RebirthOfBora", false, true));
+
+        int timeToSleep = 900;
+        vcursor.x = 3;
+        vcursor.y = 1;
+        v->put(ColorString(R"(                  [\)", dngutil::WHITE), vcursor); vcursor.y++;
+        v->put(ColorString(R"(                  |\)                                ____)", dngutil::WHITE), vcursor); vcursor.y++; Sleep(timeToSleep);
+        v->put(ColorString(R"(                  |                               __(_   )__)", dngutil::WHITE), vcursor); vcursor.y++; Sleep(timeToSleep);
+        v->put(ColorString(R"(                  Y\          ___               _(          ))", dngutil::WHITE), vcursor); vcursor.y++; Sleep(timeToSleep);
+        v->put(ColorString(R"(                 T  \       __)  )--.          (     )-----`)", dngutil::WHITE), vcursor); vcursor.y++; Sleep(timeToSleep);
+        v->put(ColorString(R"(                J    \   ,-(         )_         `---')", dngutil::WHITE), vcursor); vcursor.y++; Sleep(timeToSleep);
+        v->put(ColorString(R"(               Y/T`-._\ (     (       _)                 __)", dngutil::WHITE), vcursor); vcursor.y++; Sleep(timeToSleep);
+        v->put(ColorString(R"(               /[|   ]|  `-(__  ___)-`  |\          ,-(  __))", dngutil::WHITE), vcursor); vcursor.y++; Sleep(timeToSleep);
+        v->put(ColorString(R"(               | |    |      (__)       J'         (     ))", dngutil::WHITE), vcursor); vcursor.y++; Sleep(timeToSleep);
+        v->put(ColorString(R"(   _           | |  ] |    _           /;\          `-  ')", dngutil::WHITE), vcursor); vcursor.y++; Sleep(timeToSleep);
+        v->put(ColorString(R"(  (,,)        [| |    |    L'         /;  \)", dngutil::WHITE), vcursor); vcursor.y++; Sleep(timeToSleep);
+        v->put(ColorString(R"(             /||.| /\ |   /\         /.,-._\        ___ _)", dngutil::WHITE), vcursor); vcursor.y++; Sleep(timeToSleep);
+        v->put(ColorString(R"(            /_|||| || |  /  \        | |{  |       (._.'_))", dngutil::WHITE), vcursor); vcursor.y++; Sleep(timeToSleep);
+        v->put(ColorString(R"(  L/\       | \| | '` |_ _ {|        | | U |   /\)", dngutil::WHITE), vcursor); vcursor.y++; Sleep(timeToSleep);
+        v->put(ColorString(R"( /v^v\/\   `|  Y | [  '-' '--''-''-"-'`'   | ,`^v\ /\,`\)", dngutil::WHITE), vcursor); vcursor.y++; Sleep(timeToSleep);
+        v->put(ColorString(R"(/ ,'./  \.` |[   |       [     __   L    ] |      /^v\  \)", dngutil::WHITE), vcursor); vcursor.y++; Sleep(timeToSleep);
+        v->put(ColorString(R"(,'     `    |    |           ,`##Y.   ]    |___Y Y____,_,,_,,_)", dngutil::WHITE), vcursor); vcursor.y++; Sleep(timeToSleep);
+        v->put(ColorString(R"(--   -----.-(] [ |   ]     o/####U|o      ]|| /`-, Y   _   Y  Y)", dngutil::WHITE), vcursor); vcursor.y++; Sleep(timeToSleep);
+        v->put(ColorString(R"(   Y Y  --;`~T   |      }   \####U|[\ _,.-(^) ,-'  _  (^)__  _)", dngutil::WHITE), vcursor); vcursor.y++; Sleep(timeToSleep);
+        v->put(ColorString(R"(  Y  YY   ;'~~l  |   L     [|\###U'E'\  \ \Y-` _  (^) _Y  _)", dngutil::WHITE), vcursor); vcursor.y++; Sleep(timeToSleep);
+        v->put(ColorString(R"( Y  Y Y   ;\~~/\{| [      _,'-\`= = '.\_ ,`   (^)(^) (^) (^))", dngutil::WHITE), vcursor); vcursor.y++; Sleep(timeToSleep);
+        v->put(ColorString(R"(     --   ;\~~~/\|  _,.-'`_  `.\_..-'"  _ . ,_ Y_ Y_ _Y  _Y__)", dngutil::WHITE), vcursor); vcursor.y++; Sleep(timeToSleep);
+        v->put(ColorString(R"(    _    _; \~~( Y``   Y (^) / `,      (^)      _   (^) (^))", dngutil::WHITE), vcursor); vcursor.y++; Sleep(timeToSleep);
+        v->put(ColorString(R"(   (^)  (^)`._~ /  L \  _.Y'`  _  ` --  Y - - -(^) - Y - Y -)", dngutil::WHITE), vcursor); vcursor.y++; Sleep(timeToSleep);
+        v->put(ColorString(R"(    Y    Y    `'--..,-'`      (^)   _  -    _   Y ____)", dngutil::WHITE), vcursor); vcursor.y++; Sleep(timeToSleep);
+        v->put(ColorString(R"(      --           _    _ --   Y   (^)   _ (^)  ===   ----)", dngutil::WHITE), vcursor); vcursor.y++; Sleep(timeToSleep);
+        v->put(ColorString(R"(          __   -  (^)  (^)      --- Y   (^) Y)", dngutil::WHITE), vcursor); vcursor.y++; Sleep(timeToSleep);
+        v->put(ColorString(R"(      _            Y    Y                Y             )", dngutil::WHITE), vcursor); vcursor.y++; Sleep(timeToSleep);
+        Sleep(6500);
+        v->putcenSlowScroll(ColorString("Thank you for playing", dngutil::WHITE), v->txtmacs.BOTTOM_DIVIDER_TEXT_LINE);
+        Sleep(5000);
     }
 
     v->clearScreen();
