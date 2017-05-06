@@ -4044,10 +4044,10 @@ void Map::makePathToHell(std::mutex& mut)
         roomTemplate.push_back("#######      ###########");
         roomTemplate.push_back("######        ##########");
         roomTemplate.push_back("#####          #########");
-        roomTemplate.push_back("####          e ########");
-        roomTemplate.push_back("###           e         ");
-        roomTemplate.push_back("###           e         ");
-        roomTemplate.push_back("####          e ########");
+        roomTemplate.push_back("####            ########");
+        roomTemplate.push_back("###                     ");
+        roomTemplate.push_back("###                     ");
+        roomTemplate.push_back("####            ########");
         roomTemplate.push_back("#####          #########");
         roomTemplate.push_back("######        ##########");
         roomTemplate.push_back("########################");
@@ -4056,10 +4056,8 @@ void Map::makePathToHell(std::mutex& mut)
         std::map<Coordinate, MapObject*> specificObjects;
 
         std::vector<dngutil::TID> possibleCreatures;
-        possibleCreatures.push_back(dngutil::TID::Cultist);
-        possibleCreatures.push_back(dngutil::TID::Imp);
 
-        int difficulty = 13;
+        int difficulty = -1;
         int backColor = dngutil::RED;
         std::string name = "Path To Hell";
         Coordinate mapCoord(-1, -11);
@@ -4069,6 +4067,71 @@ void Map::makePathToHell(std::mutex& mut)
         gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("FinalDungeonTheme")));
         mut.unlock();
 
+    }
+    for (int x = 0; x <= 8; x++)
+    {
+        {
+            std::vector<std::string> roomTemplate;
+            roomTemplate.push_back("########################");
+            roomTemplate.push_back("########################");
+            roomTemplate.push_back("#######          #######");
+            roomTemplate.push_back("######     e      ######");
+            roomTemplate.push_back("#####              #####");
+            roomTemplate.push_back("####                ####");
+            roomTemplate.push_back("                       #");
+            roomTemplate.push_back("                       #");
+            roomTemplate.push_back("####                ####");
+            roomTemplate.push_back("#####              #####");
+            roomTemplate.push_back("######            ######");
+            roomTemplate.push_back("########################");
+            roomTemplate.push_back("########################");
+
+            auto puzzleSolved = [](const std::list<Creature*>& creatureList, const GAMEMAP& gameMap) -> bool
+            {
+                if (creatureList.size() > 1)
+                {
+                    return true;
+                }
+                return false;
+            };
+
+            auto puzzleAction = [this](std::list<Creature*> creatureList, GAMEMAP& gameMap) -> void
+            {
+                std::vector<Coordinate> deletionList;
+                deletionList.push_back(Coordinate(23, 7));
+                deletionList.push_back(Coordinate(23, 6));
+                for (auto i : deletionList)
+                {
+                    CastleWallObject* wall = dynamic_cast<CastleWallObject*>(gameMap[i.y][i.x].back());
+
+                    if (wall == nullptr)
+                    {
+                        errorMessage("error in puzzle", __LINE__, __FILE__);
+                    }
+
+                    gameMap[i.y][i.x].remove(wall);
+                    wall->removeFromMap(true);
+                }
+            };
+
+            std::map<Coordinate, MapObject*> specificObjects;
+
+            std::vector<dngutil::TID> possibleCreatures;
+            possibleCreatures.push_back(dngutil::TID::Imp);
+            possibleCreatures.push_back(dngutil::TID::Cultist);
+
+
+            int difficulty = -1;
+            int backColor = dngutil::RED;
+            std::string name = "Path To Hell : Trial " + std::to_string(x + 1);
+            Coordinate mapCoord(x, -11);
+            RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+            mut.lock();
+            gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction), Mp3File("FinalDungeonTheme")));
+            mut.unlock();
+
+        }
     }
 }
 
