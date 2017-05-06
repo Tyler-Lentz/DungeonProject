@@ -250,6 +250,8 @@ bool loadGame(Game* game)
     p->setBoots(dynamic_cast<Equipment*>(getItemFromId(static_cast<dngutil::TID>(stoi(s)), game, true)));
     p->getBootsMemory()->equipAction();
 
+    p->setHp(p->getMaxhp());
+
     for (auto& i : p->getInventoryNotConst())
     {
         delete i;

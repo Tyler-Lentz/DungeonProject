@@ -628,7 +628,8 @@ Collision AltarObject::mapAction(MapObject* collider, std::list<MapObject*>::ite
         vcursor.y = t.BOTTOM_DIVIDER_TEXT_LINE;
         getPGame()->getPlayer()->increaseHealth(getPGame()->getPlayer()->getMaxhp());
         saveGame(getPGame()->getPlayer(), getPGame());
-        v->putcen(ColorString("Your game has been saved and your health is at its full natural stat.", dngutil::WHITE), vcursor.y++);
+        getPGame()->getPlayer()->increaseHealth(getPGame()->getPlayer()->getMaxhp());
+        v->putcen(ColorString("Your game has been saved and your health has been restored", dngutil::WHITE), vcursor.y++);
         pressEnter(vcursor, v);
         t.clearDivider("bottom");
         t.clearMapArea(false, NULL);
