@@ -200,7 +200,7 @@ void Flute::action(Player* player, unsigned int inventoryIndex)
 
 BasiliskHorn::BasiliskHorn(Game* pgame, Coordinate coord)
     :RItem(pgame, ColorChar('!', dngutil::GREEN), coord, "Basilisk Horn",
-        true, false, false, dngutil::TID::BasiliskHorn, false, "When blown, stuns all enemies in the room for 10 seconds.")
+        true, false, false, dngutil::TID::BasiliskHorn, false, "When blown, stuns all enemies in the room for 15 seconds.")
 {
 
 }
