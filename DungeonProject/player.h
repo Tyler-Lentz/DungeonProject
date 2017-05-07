@@ -92,10 +92,16 @@ public:
     int getGold() const;
     void changeGold(int amount);
     void setGold(int amount); 
+
+    void setMaxSpeedMultiplier(double amount);
+
+    const double startingMaxSpeedMultiplier;
 private:
 
     Coordinate startingDungeonMapCoord;
     Coordinate startingDungeonRoomCoord;
+
+    double maxSpeedMultiplier;
 
     double hpEv;
     double attEv;

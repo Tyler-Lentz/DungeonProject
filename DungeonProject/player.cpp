@@ -60,12 +60,14 @@ Player::Player(
         ),
         dngutil::P_PLAYER,
         dngutil::ClassType::ADVENTURER
-    )
+    ), startingMaxSpeedMultiplier(1.5)
 {
     harp1 = false;
     harp2 = false;
     harp3 = false;
     harp4 = false;
+
+    maxSpeedMultiplier = startingMaxSpeedMultiplier;
 
     startingDungeonMapCoord = Coordinate(0, 0);
     startingDungeonRoomCoord = Coordinate(0, 0);
@@ -73,6 +75,7 @@ Player::Player(
     this->exp = 0;
     this->expToLevel = getExpToLevel(getLvl());
     inventory.push_back(new Potion(getPGame(), Coordinate(-1, -1), dngutil::POTION_HEAL));
+    inventory.push_back(new Speedboots(getPGame(), Coordinate(-1, -1)));
 
     armor = new BlueTunic(getPGame(), Coordinate(-1, -1));
     boots = new StandardBoots(getPGame(), Coordinate(-1, -1));
@@ -335,9 +338,15 @@ void Player::removeFromInventory(unsigned int index)
     inventory.erase(it);
 }
 
+void Player::setMaxSpeedMultiplier(double value)
+{
+    maxSpeedMultiplier = value;
+}
+
 bool Player::movement()
 {
-    int adjustedSpeed = static_cast<int>(dngutil::MAX_SPD * 1.5);
+    int adjustedSpeed = static_cast<int>(dngutil::MAX_SPD * maxSpeedMultiplier);
+    // make speed boots adjust the multiplier to max_spd
     bool canmove = !((getLastMoveTime() + ((adjustedSpeed - getSpd())) > GetTickCount()));
 
     if (canmove)

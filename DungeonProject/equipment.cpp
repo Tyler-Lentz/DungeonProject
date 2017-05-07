@@ -57,12 +57,12 @@ void Equipment::unequipAction()
 
 void Speedboots::equipAction()
 {
-    getPGame()->getPlayer()->increaseSpd(50);
+    getPGame()->getPlayer()->setMaxSpeedMultiplier(getPGame()->getPlayer()->startingMaxSpeedMultiplier - 0.25);
 }
 
 void Speedboots::unequipAction()
 {
-    getPGame()->getPlayer()->setSpd(getPGame()->getPlayer()->getSpd() - 50);
+    getPGame()->getPlayer()->setMaxSpeedMultiplier(getPGame()->getPlayer()->startingMaxSpeedMultiplier);
 }
 
 void BlueTunic::equipAction()

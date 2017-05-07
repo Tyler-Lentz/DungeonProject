@@ -139,7 +139,7 @@ public:
         coord,
         "Speedboots",
         false,
-        "Increases speed greatly when worn",
+        "Increases speed when worn",
         EquipSlotId::BOOTS,
         dngutil::TID::Speedboots
     )
