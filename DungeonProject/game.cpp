@@ -356,9 +356,7 @@ void Game::titleScreen()
 
     vwin->txtmacs.drawDividers();
     vwin->txtmacs.clearDivider("bottom");
-    vwin->putcen(ColorString("The Harp of the Gods v1.0.3", dngutil::GREEN), vwin->txtmacs.DIVIDER_LINES[0] + 1);
-    vwin->putcen(ColorString("1 - New Game, 2 - Load \"save.txt\", C - credits, Esc - exit", dngutil::LIGHTGRAY), vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE);
-
+    vwin->putcen(ColorString("The Harp of the Gods v1.1", dngutil::GREEN), vwin->txtmacs.DIVIDER_LINES[0] + 1);
     Coordinate vcursor(0, vwin->txtmacs.DIVIDER_LINES[1] + 5);
     VirtualWindow* t = vwin;
     t->putcen(ColorString(R"(         ____                   )", dngutil::YELLOW), vcursor.y); vcursor.y++;
@@ -381,59 +379,102 @@ void Game::titleScreen()
     t->putcen(ColorString(R"(       (~~~~~~~~~~~~]""'        )", dngutil::YELLOW), vcursor.y); vcursor.y++;
     t->putcen(ColorString(R"(~~~~~~~~~~~~~~~~~~~~~~~~~~~     )", dngutil::YELLOW), vcursor.y); vcursor.y++;
         
+    int currentSelection = 1;
+
+    auto printSelection = [&](int selection)
+    {
+        vwin->txtmacs.clearLine(vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE);
+        vwin->txtmacs.clearLine(vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE + 1);
+
+        switch (selection)
+        {
+        case 1:
+            vwin->putcen(ColorString("New Game", dngutil::LIGHTGRAY), vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE);
+            vwin->putcen(ColorString("    *--->", dngutil::LIGHTGRAY), vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE + 1);
+            break;
+        case 2:
+            vwin->putcen(ColorString("Load Game", dngutil::LIGHTGRAY), vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE);
+            vwin->putcen(ColorString("<---*--->", dngutil::LIGHTGRAY), vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE + 1);
+            break;
+        case 3:
+            vwin->putcen(ColorString("Credits", dngutil::LIGHTGRAY), vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE);
+            vwin->putcen(ColorString("<---*--->", dngutil::LIGHTGRAY), vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE + 1);
+            break;
+        case 4:
+            vwin->putcen(ColorString("Quit", dngutil::LIGHTGRAY), vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE);
+            vwin->putcen(ColorString("<---*    ", dngutil::LIGHTGRAY), vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE + 1);
+            break;
+        }
+    };
+
+    printSelection(currentSelection);
 
     while (true)
     {
-        if (keypress('1'))
+        if (keypress(VK_RIGHT) && currentSelection < 4)
         {
-            vwin->txtmacs.clearMapArea(false, NULL);
-            vwin->txtmacs.clearDivider("bottom");
-
-            vwin->putcen(ColorString("Enter - select    Shift+Enter - select and skip story", dngutil::WHITE), vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE);
-
-            vwin->put(ColorString("Enter your name: ", dngutil::WHITE), Coordinate(15, 20));
-            std::string name;
-            FlushConsoleInputBuffer(GetStdHandle(STD_INPUT_HANDLE));
-            std::cin >> name;
-            std::cin.ignore();
-            if (name.size() > 8)
-            {
-                name.resize(8);
-            }
-
-            player->setName(name);
-
-            if (keypress(VK_SHIFT))
-            {
-                vwin->clearScreen();
-            }
-            else
-            {
-                backgroundStory();
-            }
-
-            break;
+            printSelection(++currentSelection);
+            Sleep(dngutil::MENU_DELAY);
         }
-        else if (keypress('2'))
+        if (keypress(VK_LEFT) && currentSelection > 1)
         {
-            if (loadGame(this))
+            printSelection(--currentSelection);
+            Sleep(dngutil::MENU_DELAY);
+        }
+        if (keypress(VK_RETURN))
+        {
+            if (currentSelection == 1)
             {
                 vwin->txtmacs.clearMapArea(false, NULL);
                 vwin->txtmacs.clearDivider("bottom");
+
+                vwin->putcen(ColorString("Enter - select    Shift+Enter - select and skip story", dngutil::WHITE), vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE);
+
+                vwin->put(ColorString("Enter your name: ", dngutil::WHITE), Coordinate(15, 20));
+                std::string name;
+                FlushConsoleInputBuffer(GetStdHandle(STD_INPUT_HANDLE));
+                std::cin >> name;
+                std::cin.ignore();
+                if (name.size() > 8)
+                {
+                    name.resize(8);
+                }
+
+                player->setName(name);
+
+                if (keypress(VK_SHIFT))
+                {
+                    vwin->clearScreen();
+                }
+                else
+                {
+                    backgroundStory();
+                }
+
+                break;
+            }
+            else if (currentSelection == 2)
+            {
+                if (loadGame(this))
+                {
+                    vwin->txtmacs.clearMapArea(false, NULL);
+                    vwin->txtmacs.clearDivider("bottom");
+                    break;
+                }
+            }
+            else if (currentSelection == 4)
+            {
+                cleanup(dngutil::ReturnVal::EXIT);
+                break;
+            }
+            else if (currentSelection == 3)
+            {
+                vwin->txtmacs.clearDivider("bottom");
+                credits(dngutil::CreditType::TITLESCREEN, this);
                 break;
             }
         }
-        else if (keypress(VK_ESCAPE))
-        {
-            cleanup(dngutil::ReturnVal::EXIT);
-            break;
-        }
-        else if (keypress('C'))
-        {
-            vwin->txtmacs.clearDivider("bottom");
-            credits(dngutil::CreditType::TITLESCREEN, this);
-            break;
-        }
+        
     }
 
     
