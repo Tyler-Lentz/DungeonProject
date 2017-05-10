@@ -34,7 +34,7 @@ Map::Map(Game* game)
     functions.emplace_back([&]() {makeWaterTemple(mut); });
     functions.emplace_back([&]() {makeFireTemple(mut); });
     functions.emplace_back([&]() {makeTowerOfTheGods(mut); });
-    functions.emplace_back([&]() {makePathToHell(mut); });
+    functions.emplace_back([&]() {makeHerosTrial(mut); });
     for (auto& i : functions)
     {
         i.join();
@@ -2455,9 +2455,9 @@ void Map::makeOverworld(std::mutex& mut)
     }
     {
         std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("#########  #############");
+        roomTemplate.push_back("#########  #############");
         roomTemplate.push_back("#########oo#############");
-        roomTemplate.push_back("########    ############");
-        roomTemplate.push_back("########::::############");
         roomTemplate.push_back("########::::############");
         roomTemplate.push_back("########::::############");
         roomTemplate.push_back("########::::############");
@@ -2470,15 +2470,15 @@ void Map::makeOverworld(std::mutex& mut)
         roomTemplate.push_back("########    ############");
 
         std::map<Coordinate, MapObject*> specificObjects;
-        specificObjects.emplace(Coordinate(9, 0), new DungeonCheck(pgame, Coordinate(9, 0), 6));
-        specificObjects.emplace(Coordinate(10, 0), new DungeonCheck(pgame, Coordinate(10, 0), 6));
+        specificObjects.emplace(Coordinate(9, 2), new DungeonCheck(pgame, Coordinate(9, 2), 6));
+        specificObjects.emplace(Coordinate(10, 2), new DungeonCheck(pgame, Coordinate(10, 2), 6));
 
         std::vector<dngutil::TID> possibleCreatures;
         possibleCreatures.push_back(dngutil::TID::BloodSkeleton);
 
         int difficulty = 13;
-        int backColor = dngutil::RED;
-        std::string name = "Gateway?";
+        int backColor = dngutil::MAGENTA;
+        std::string name = "Arkala Cave";
         Coordinate mapCoord(-1, -10);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
 
@@ -2503,19 +2503,36 @@ void Map::makeOverworld(std::mutex& mut)
         roomTemplate.push_back("#######      ###########");
         roomTemplate.push_back("########    ############");
 
+        auto puzzleSolved = [](const std::list<Creature*>& creatureList, const GAMEMAP& gameMap) -> bool
+        {
+            if (creatureList.front()->getCoord().y < 12)
+            {
+                return true;
+            }
+            return false;
+        };
+
+        auto puzzleAction = [this](std::list<Creature*> creatureList, GAMEMAP& gameMap) -> void
+        {
+            gameMap[12][8].push_back(new WallObject(pgame, Coordinate(8, 12)));
+            gameMap[12][9].push_back(new WallObject(pgame, Coordinate(9, 12)));
+            gameMap[12][10].push_back(new WallObject(pgame, Coordinate(10, 12)));
+            gameMap[12][11].push_back(new WallObject(pgame, Coordinate(11, 12)));
+        };
+
+        // 8-11,12   
         std::map<Coordinate, MapObject*> specificObjects;
 
         std::vector<dngutil::TID> possibleCreatures;
-        possibleCreatures.push_back(dngutil::TID::BloodSkeleton);
 
         int difficulty = 13;
-        int backColor = dngutil::RED;
-        std::string name = "Gateway to Hell";
+        int backColor = dngutil::MAGENTA;
+        std::string name = "Hero's Trial Entrance";
         Coordinate mapCoord(-1, -11);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
 
         mut.lock();
-        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("DangerTheme")));
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction), Mp3File("DangerTheme")));
         mut.unlock();
 
     }
@@ -4034,7 +4051,7 @@ void Map::makeOverworld(std::mutex& mut)
     }
 }
 
-void Map::makePathToHell(std::mutex& mut)
+void Map::makeHerosTrial(std::mutex& mut)
 {
     unsigned int tfloor = 1;
     {
@@ -4058,13 +4075,13 @@ void Map::makePathToHell(std::mutex& mut)
         std::vector<dngutil::TID> possibleCreatures;
 
         int difficulty = -1;
-        int backColor = dngutil::RED;
-        std::string name = "Path To Hell";
+        int backColor = dngutil::MAGENTA;
+        std::string name = "Hero's Trial";
         Coordinate mapCoord(-1, -11);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
 
         mut.lock();
-        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("FinalDungeonTheme")));
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("DungeonTheme")));
         mut.unlock();
 
     }
@@ -4088,7 +4105,7 @@ void Map::makePathToHell(std::mutex& mut)
 
             auto puzzleSolved = [](const std::list<Creature*>& creatureList, const GAMEMAP& gameMap) -> bool
             {
-                if (creatureList.size() > 1)
+                if (creatureList.size() == 1)
                 {
                     return true;
                 }
@@ -4102,7 +4119,7 @@ void Map::makePathToHell(std::mutex& mut)
                 deletionList.push_back(Coordinate(23, 6));
                 for (auto i : deletionList)
                 {
-                    CastleWallObject* wall = dynamic_cast<CastleWallObject*>(gameMap[i.y][i.x].back());
+                    WallObject* wall = dynamic_cast<WallObject*>(gameMap[i.y][i.x].back());
 
                     if (wall == nullptr)
                     {
@@ -4122,16 +4139,59 @@ void Map::makePathToHell(std::mutex& mut)
 
 
             int difficulty = -1;
-            int backColor = dngutil::RED;
-            std::string name = "Path To Hell : Trial " + std::to_string(x + 1);
+            int backColor = dngutil::MAGENTA;
+            std::string name = "Hero's Trial - Trial " + std::to_string(x + 1);
             Coordinate mapCoord(x, -11);
             RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
 
             mut.lock();
-            gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction), Mp3File("FinalDungeonTheme")));
+            gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction), Mp3File("DungeonTheme")));
             mut.unlock();
 
         }
+    }
+
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("#######          #######");
+        roomTemplate.push_back("######            ######");
+        roomTemplate.push_back("#####              #####");
+        roomTemplate.push_back("####                ####");
+        roomTemplate.push_back("                    ####");
+        roomTemplate.push_back("                    ####");
+        roomTemplate.push_back("####                ####");
+        roomTemplate.push_back("#####              #####");
+        roomTemplate.push_back("######            ######");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+
+        auto puzzleSolved = [](const std::list<Creature*>& creatureList, const GAMEMAP& gameMap) -> bool
+        {
+            
+        };
+
+        auto puzzleAction = [this](std::list<Creature*> creatureList, GAMEMAP& gameMap) -> void
+        {
+            
+        };
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+
+
+        int difficulty = -1;
+        int backColor = dngutil::MAGENTA;
+        std::string name = "Hero's Trial - Trial 11";
+        Coordinate mapCoord(9, -11);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction), Mp3File("DungeonTheme")));
+        mut.unlock();
+
     }
 }
 

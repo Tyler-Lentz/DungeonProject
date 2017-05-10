@@ -40,7 +40,7 @@ private:
     void makeWaterTemple(std::mutex& mut);
     void makeTowerOfTheGods(std::mutex& mut);
     void makeFireTemple(std::mutex& mut);
-    void makePathToHell(std::mutex& mut);
+    void makeHerosTrial(std::mutex& mut);
 };
 
 #endif

@@ -2950,7 +2950,7 @@ Cultist::Cultist(
     unsigned int lvl
 ) : SmartEnemy(
     pgame,
-    ColorChar('I', dngutil::MAGENTA),
+    ColorChar('I', dngutil::LIGHTMAGENTA),
     coord,
     "Cultist",
     false,
@@ -2958,7 +2958,7 @@ Cultist::Cultist(
     hp, att, def, lck, spd, lvl,
     new Primary(
         pgame,
-        ColorChar('i', dngutil::MAGENTA),
+        ColorChar('i', dngutil::LIGHTMAGENTA),
         coord,
         "Cultist's Staff",
         false,
@@ -2995,7 +2995,7 @@ void Cultist::printSelf()
 {
     Coordinate vcursor(0, getPGame()->getVWin()->txtmacs.DIVIDER_LINES[1] + 1);
     VirtualWindow* t = getPGame()->getVWin();
-    int color = dngutil::MAGENTA;
+    int color = dngutil::LIGHTMAGENTA;
     t->put(ColorString(R"()", color), vcursor); vcursor.y++;
     t->put(ColorString(R"()", color), vcursor); vcursor.y++;
     t->put(ColorString(R"()", color), vcursor); vcursor.y++;
