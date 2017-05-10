@@ -375,6 +375,10 @@ bool Player::movement()
         {
             statsMenu();
         }
+        else if (keypress('M'))
+        {
+            mapMenu();
+        }
     }
     return false;
 }
@@ -861,6 +865,46 @@ Equipment*& Player::getArmorMemory()
 Inventory& Player::getInventoryNotConst()
 {
     return inventory;
+}
+
+void Player::mapMenu()
+{
+    VirtualWindow* v = getPGame()->getVWin();
+    v->txtmacs.clearMapArea(false, NULL);
+    v->txtmacs.clearDivider("bottom");
+
+    Coordinate origin(40, v->txtmacs.DIVIDER_LINES[1] + 20);
+
+    int oldActiveFloor = getPGame()->getRawFloor();
+    getPGame()->setActiveFloor(2);
+    for (auto i : getPGame()->getActiveFloor())
+    {
+        Coordinate position(origin.x + i.first.x, origin.y + i.first.y);
+        ColorChar toDraw;
+        toDraw.color = i.second->getRoomInfo().backColor;
+        if (i.second == getPGame()->getActiveRoom())
+        {
+            toDraw = getPGame()->getPlayer()->getMapRep();
+        }
+        else
+        {
+            toDraw.character = 'O';
+        }
+
+        if (i.second->getMusic().getFilename() == "DungeonTheme")
+        {
+            continue;
+        }
+        v->put(toDraw, position);
+    }
+
+    getPGame()->setActiveFloor(oldActiveFloor);
+
+    pressEnter(Coordinate(0, v->txtmacs.BOTTOM_DIVIDER_TEXT_LINE), v);
+
+    v->txtmacs.clearMapArea(false, NULL);
+    v->txtmacs.clearDivider("bottom");
+    v->txtmacs.displayGame(getPGame());
 }
 
 void Player::statsMenu()

@@ -2291,7 +2291,7 @@ void Map::makeOverworld(std::mutex& mut)
     }
     {
         std::vector<std::string> roomTemplate;
-        roomTemplate.push_back("###################::###");
+        roomTemplate.push_back("###################  ###");
         roomTemplate.push_back("###################::###");
         roomTemplate.push_back("      wwwwwwwwww###::###");
         roomTemplate.push_back("      wwwwwwwwwww :::###");

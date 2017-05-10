@@ -51,6 +51,7 @@ public:
 
     void inventoryMenu();
     void statsMenu();
+    void mapMenu();
 
     const Inventory& getInventory() const;
     Inventory& getInventoryNotConst();
