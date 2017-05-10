@@ -52,6 +52,8 @@ Game::Game(VirtualWindow* vwin)
     :difficulty()
 {
     this->vwin = vwin;
+    this->vwin->putcen(ColorString("LOADING...", dngutil::WHITE), 20);
+
     player = new Player(this, Coordinate(-1, -1), "Link");
     player->getArmorMemory()->equipAction();
     player->getBootsMemory()->equipAction();
@@ -67,6 +69,8 @@ Game::Game(VirtualWindow* vwin)
     map = new Map(this);
 
     dungeonLevel = 1;
+
+    this->vwin->txtmacs.clearLine(20);
 
     //must happen after making new map & player
     titleScreen();
