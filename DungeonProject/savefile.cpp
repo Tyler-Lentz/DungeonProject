@@ -220,12 +220,13 @@ bool loadGame(Game* game)
 
     std::getline(file, s);
     p->setLvl(stoi(s));
+    p->setExpToLevel(getExpToLevel(stoi(s)));
 
     std::getline(file, s);
     p->setExp(stoi(s));
 
     std::getline(file, s);
-    p->setExpToLevel(stoi(s));
+    // where exp to level is stored, but is now obsolete
 
     std::getline(file, s);
     p->setClass(static_cast<dngutil::ClassType>(stoi(s)));

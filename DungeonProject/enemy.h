@@ -531,6 +531,43 @@ public:
     void printSelf() override;
 };
 
+
+class ZorlockImagePhase1 : public SegEnemy
+{
+public:
+    ZorlockImagePhase1(
+        Game* pgame,
+        Coordinate coord,
+        int hp,
+        unsigned int att,
+        unsigned int def,
+        unsigned int lck,
+        unsigned int spd,
+        unsigned int lvl
+    );
+
+    void printSelf() override;
+    void beginingCutscene() override;
+};
+
+class ZorlockImagePhase2 : public SegEnemy
+{
+public:
+    ZorlockImagePhase2(
+        Game* pgame,
+        Coordinate coord,
+        int hp,
+        unsigned int att,
+        unsigned int def,
+        unsigned int lck,
+        unsigned int spd,
+        unsigned int lvl
+    );
+
+    void printSelf() override;
+    void deathSequence() override;
+};
+
 class DragonTail : public SegEnemy
 {
 public:

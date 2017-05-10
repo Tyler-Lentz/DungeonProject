@@ -2661,6 +2661,281 @@ void MegaBeastPhase2::printSelf()
 
 
 //----------------------------------------------------------------
+// Zorlock Image Functions
+
+ZorlockImagePhase1::ZorlockImagePhase1(
+    Game* pgame,
+    Coordinate coord,
+    int hp,
+    unsigned int att,
+    unsigned int def,
+    unsigned int lck,
+    unsigned int spd,
+    unsigned int lvl
+) : SegEnemy(
+    pgame,
+    ColorChar('?', dngutil::DARKGRAY),
+    coord,
+    "Zorlock Image",
+    false,
+    dngutil::TID::ZorlockImagePhase1,
+    hp,
+    att,
+    def,
+    lck,
+    spd,
+    lvl,
+    new Primary(
+        pgame,
+        ColorChar('?', dngutil::DARKGRAY),
+        coord,
+        "Image Flame",
+        false,
+        1.5,
+        5,
+        100,
+        false,
+        ".",
+        WavFile("FireAttack1", false, false),
+        dngutil::ClassType::ADVENTURER
+    ),
+    new Secondary(
+        pgame,
+        ColorChar('?', dngutil::DARKGRAY),
+        coord,
+        "Image Armor",
+        false,
+        dngutil::TID::Secondary,
+        0,
+        1.23,
+        "Images's armor."
+    ),
+    Mp3File("DungeonBoss"),
+    85,
+    WavFile("revival", false, false),
+    dngutil::EvType::DEFENSE,
+    dngutil::ClassType::ADVENTURER
+)
+{
+    setMaxhp(static_cast<unsigned int>(getMaxhp() * 1.5));
+    setHp(getMaxhp());
+}
+
+void ZorlockImagePhase1::printSelf()
+{
+    Coordinate vcursor(0, getPGame()->getVWin()->txtmacs.DIVIDER_LINES[1] + 1);
+    VirtualWindow* v = getPGame()->getVWin();
+    int color = dngutil::DARKGRAY;
+    v->put(ColorString(R"(           _/          ,          .                                          )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(       , -' )         ( \-------.,')            (\_________________________  )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(     , ,-/ |          /\_) )     \/            ,' _.----------------------,\ )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(   ,',  /, |         /      >--. ,)           / /\\                          )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(  / ,  //|,'        /'     '\--'\\)          /,'  \\     `         `   ,     )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"( / ,  // ||       ,'     (.--^( `')         //     \\                \       )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(( ,  //  ||,___,-'    (___\\  '^^^'        //       \\              ,        )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"( \  //   ||--.__     (     \`^--)  _____.-'/         \\   `                  )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(  >'/    ||,        (       \|_(\-'      ,'           \\         \,          )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"( /,'     ||          \           \      /              \\                    )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"((/       ||           \           )  ,'(     `     `    \\      ,            )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"( `       ||\           \      ) ,'  /_  )                \\    \             )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(         || `.          `.    ,'   /( `.\  \ , \ \,       \\   ,             )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(   `     || (_`.          ` .'   .'  )  `)'            ,   \\                )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(         ||  (_ `-v-------  ^--v' , )                      '\\,              )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(         ||    (    , _,-  /  -./ )'                         `)              )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(     `   '|     ),  ,'    '     )'                                           )", color), vcursor); vcursor.y++;
+    const int TOP_CURSOR_Y = vcursor.y;
+    v->put(ColorString(R"(        ' ;    /  ,'          ,'                                             )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(       /,'    /  /      '    /                                               )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(       \|    /  (          ,'                                                )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(       ('  ,'    `.    "  /                                                  )", color), vcursor); vcursor.y++;
+
+    const int LONGEST_LINE_LENGTH = 59;
+
+    printStats(LONGEST_LINE_LENGTH, TOP_CURSOR_Y);
+}
+
+void ZorlockImagePhase1::beginingCutscene()
+{
+    Game* g = getPGame();
+    VirtualWindow* v = g->getVWin();
+    TextMacros& t = v->txtmacs;
+    Coordinate vcursor(10, t.DIVIDER_LINES[1] + 1);
+
+    t.clearMapArea(true, 10);
+    t.clearDivider("bottom");
+
+    int l = t.BOTTOM_DIVIDER_TEXT_LINE;
+    v->putcen(ColorString("I present thee with a challenge made by the Gods.", dngutil::WHITE), l, true);
+    pressEnter(Coordinate(0, l + 1), v);
+    t.clearLine(l);
+    t.clearLine(l + 1);
+}
+
+ZorlockImagePhase2::ZorlockImagePhase2(
+    Game* pgame,
+    Coordinate coord,
+    int hp,
+    unsigned int att,
+    unsigned int def,
+    unsigned int lck,
+    unsigned int spd,
+    unsigned int lvl
+) : SegEnemy(
+    pgame,
+    ColorChar('S', dngutil::LIGHTMAGENTA),
+    coord,
+    "Zorlock Image II",
+    false,
+    dngutil::TID::ZorlockImagePhase2,
+    hp,
+    att,
+    def,
+    lck,
+    spd,
+    lvl,
+    new Primary(
+        pgame,
+        ColorChar('?', dngutil::LIGHTRED),
+        coord,
+        "Image Flame II",
+        false,
+        1.7,
+        4,
+        100,
+        false,
+        "fire",
+        WavFile("FireAttack1", false, false),
+        dngutil::ClassType::WIZARD
+    ),
+    new Secondary(
+        pgame,
+        ColorChar('?', dngutil::DARKGRAY),
+        coord,
+        "Image Armor II",
+        false,
+        dngutil::TID::Secondary,
+        0,
+        1.35,
+        "Image's armor."
+    ),
+    Mp3File("DungeonBoss"),
+    85,
+    WavFile("FinalDeath", false, true),
+    dngutil::EvType::DEFENSE,
+    dngutil::ClassType::WIZARD
+)
+{
+    setMaxhp(static_cast<unsigned int>(getMaxhp() * 1.8));
+    setHp(getMaxhp());
+}
+
+void ZorlockImagePhase2::printSelf()
+{
+    Coordinate vcursor(0, getPGame()->getVWin()->txtmacs.DIVIDER_LINES[1] + 1);
+    VirtualWindow* v = getPGame()->getVWin();
+    int color = dngutil::DARKGRAY;
+    v->put(ColorString(R"(           _/          ,          .                                          )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(       , -' )         ( \-------.,')            (\_________________________  )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(     , ,-/ |          /\_) )     \/            ,' _.----------------------,\ )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(   ,',  /, |         /      >--. ,)           / /\\                          )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(  / ,  //|,'        /'     '\--'\\)          /,'  \\     `         `   ,     )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"( / ,  // ||       ,'     (.--^( `')         //     \\                \       )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(( ,  //  ||,___,-'    (___\\  '^^^'        //       \\              ,        )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"( \  //   ||--.__     (     \`^--)  _____.-'/         \\   `                  )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(  >'/    ||,        (       \|_(\-'      ,'           \\         \,          )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"( /,'     ||          \           \      /              \\                    )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"((/       ||           \           )  ,'(     `     `    \\      ,            )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"( `       ||\           \      ) ,'  /_  )                \\    \             )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(         || `.          `.    ,'   /( `.\  \ , \ \,       \\   ,             )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(   `     || (_`.          ` .'   .'  )  `)'            ,   \\                )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(         ||  (_ `-v-------  ^--v' , )                      '\\,              )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(         ||    (    , _,-  /  -./ )'                         `)              )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(     `   '|     ),  ,'    '     )'                                           )", color), vcursor); vcursor.y++;
+    const int TOP_CURSOR_Y = vcursor.y;
+    v->put(ColorString(R"(        ' ;    /  ,'          ,'                                             )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(       /,'    /  /      '    /                                               )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(       \|    /  (          ,'                                                )", color), vcursor); vcursor.y++;
+    v->put(ColorString(R"(       ('  ,'    `.    "  /                                                  )", color), vcursor); vcursor.y++;
+
+    const int LONGEST_LINE_LENGTH = 59;
+
+    printStats(LONGEST_LINE_LENGTH, TOP_CURSOR_Y);
+}
+
+void ZorlockImagePhase2::deathSequence()
+{
+    Game* g = getPGame();
+    VirtualWindow* v = g->getVWin();
+    TextMacros& t = v->txtmacs;
+    Coordinate vcursor(10, t.DIVIDER_LINES[1] + 1);
+
+    playSound(Mp3File("DeathToTheDemon"));
+
+    t.clearMapArea(true, 10);
+    t.clearDivider("bottom");
+
+    int l = t.BOTTOM_DIVIDER_TEXT_LINE;
+    if (getPGame()->getPlayer()->hasItem(dngutil::TID::GodStone))
+    {
+        v->putcen(ColorString("Thou has done well", dngutil::WHITE), l, true);
+        pressEnter(Coordinate(0, l + 1), v);
+        t.clearLine(l);
+        t.clearLine(l + 1);
+
+        v->putcen(ColorString("I present thee with a prize - 150 Gold", dngutil::WHITE), l, true);
+        pressEnter(Coordinate(0, l + 1), v);
+        t.clearLine(l);
+        t.clearLine(l + 1);
+
+        getPGame()->getPlayer()->changeGold(150);
+        playSound(WavFile("FindItem", false, false));
+        
+        stopSound(SoundType::MP3);
+    }
+    else
+    {
+        v->putcen(ColorString("Thou has done well", dngutil::WHITE), l, true);
+        pressEnter(Coordinate(0, l + 1), v);
+        t.clearLine(l);
+        t.clearLine(l + 1);
+
+        v->putcen(ColorString("I present thee with a prize - The God's Stone", dngutil::WHITE), l, true);
+        pressEnter(Coordinate(0, l + 1), v);
+        t.clearLine(l);
+        t.clearLine(l + 1);
+
+        getPGame()->getPlayer()->addToInventory(new GodStone(getPGame(), Coordinate(-1, -1)));
+        playSound(WavFile("FindItem", false, false));
+
+        stopSound(SoundType::MP3);
+
+        v->putcen(ColorString("BEWARE THE IMPOSTER", dngutil::WHITE), l);
+        playSound(WavFile("Attack4", false, false));
+        t.clearLine(l);
+        t.clearLine(l + 1);
+
+        v->putcen(ColorString("BEWARE THE IMPOSTER", dngutil::LIGHTMAGENTA), l);
+        playSound(WavFile("Attack4", false, false));
+        t.clearLine(l);
+        t.clearLine(l + 1);
+
+        v->putcen(ColorString("BEWARE THE IMPOSTER", dngutil::MAGENTA), l);
+        playSound(WavFile("Attack4", false, false));
+        t.clearLine(l);
+        t.clearLine(l + 1);
+
+        v->putcen(ColorString("BEWARE THE IMPOSTER", dngutil::RED), l);
+        playSound(WavFile("Attack4", false, false));
+        Sleep(3500);
+        t.clearLine(l);
+        t.clearLine(l + 1);
+    }
+}
+//----------------------------------------------------------------
+
+
+
+//----------------------------------------------------------------
 // LSKnight
 LSKnight::LSKnight(
     Game* pgame,
@@ -2962,7 +3237,7 @@ Cultist::Cultist(
         coord,
         "Cultist's Staff",
         false,
-        1.5,
+        1.45,
         3,
         70,
         false,
@@ -3002,7 +3277,7 @@ void Cultist::printSelf()
     t->put(ColorString(R"(                             _,-'|)", color), vcursor); vcursor.y++;
     t->put(ColorString(R"(                          ,-'._  |)", color), vcursor); vcursor.y++;
     t->put(ColorString(R"(                .||,      |####\ |)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(               \.`',/     \#OO#| |)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(               \.`',/     \####| |)", color), vcursor); vcursor.y++;
     t->put(ColorString(R"(               =\/\/=      |###| |)", color), vcursor); vcursor.y++;
     t->put(ColorString(R"(               / || \    ,-'\#/,'`.)", color), vcursor); vcursor.y++;
     t->put(ColorString(R"(                 ||     ,'   `,,. `.)", color), vcursor); vcursor.y++;
@@ -3052,8 +3327,8 @@ Imp::Imp(
         coord,
         "Imp's Claw",
         false,
-        1.3,
-        2,
+        1.4,
+        3,
         70,
         false,
         "Claw from an imp",

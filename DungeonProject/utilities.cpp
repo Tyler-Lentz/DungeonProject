@@ -104,7 +104,12 @@ void pressEnter(Coordinate cursorpos, VirtualWindow* vwin, int color)
 
 int getExpToLevel(unsigned int level)
 {
-    return static_cast<int>(((0.5 * (level * level)) + 50)* 1.25);
+    int exp = static_cast<int>(((0.15 * (level * level)) + 50)* 1.25);
+    if (exp > 170)
+    {
+        exp = 170;
+    }
+    return exp;
 }
 
 

@@ -998,6 +998,10 @@ Collision HarpPiece::mapAction(MapObject* collider, std::list<MapObject*>::itera
             t->putcen(ColorString(R"(       (~~~~~~~~~~~~]""'        )", dngutil::YELLOW), vcursor.y); vcursor.y++;
             t->putcen(ColorString(R"(~~~~~~~~~~~~~~~~~~~~~~~~~~~     )", dngutil::YELLOW), vcursor.y); vcursor.y++;
         }
+        else if (pieceNumber == 6)
+        {
+            goto skipThings;
+        }
 
         playSound(WavFile("GetHarpPiece", false, false));
 
@@ -1008,6 +1012,8 @@ Collision HarpPiece::mapAction(MapObject* collider, std::list<MapObject*>::itera
         vcursor.y = txt.BOTTOM_DIVIDER_TEXT_LINE;
         t->putcen(ColorString("You found a piece of the harp!", dngutil::WHITE), vcursor.y++);
         pressEnter(vcursor, t);
+
+        skipThings:
 
         t->clearScreen();
         playSound(WavFile("WarpToDungeonStart", false, false));

@@ -4059,9 +4059,9 @@ void Map::makeHerosTrial(std::mutex& mut)
         roomTemplate.push_back("########################");
         roomTemplate.push_back("########################");
         roomTemplate.push_back("#######      ###########");
-        roomTemplate.push_back("######        ##########");
+        roomTemplate.push_back("######o       ##########");
         roomTemplate.push_back("#####          #########");
-        roomTemplate.push_back("####            ########");
+        roomTemplate.push_back("####           o########");
         roomTemplate.push_back("###                     ");
         roomTemplate.push_back("###                     ");
         roomTemplate.push_back("####            ########");
@@ -4071,6 +4071,8 @@ void Map::makeHerosTrial(std::mutex& mut)
         roomTemplate.push_back("########################");
 
         std::map<Coordinate, MapObject*> specificObjects;
+        specificObjects.emplace(Coordinate(6, 3), new Potion(pgame, Coordinate(6, 3), dngutil::POTION_HEAL));
+        specificObjects.emplace(Coordinate(15, 5), new MagicalPotion(pgame, Coordinate(15, 5)));
 
         std::vector<dngutil::TID> possibleCreatures;
 
@@ -4138,9 +4140,20 @@ void Map::makeHerosTrial(std::mutex& mut)
             possibleCreatures.push_back(dngutil::TID::Cultist);
 
 
-            int difficulty = -1;
+            int trialNumber = (x + 1);
+            int theDifficulty;
+            if (trialNumber > 5)
+            {
+                theDifficulty = -2;
+            }
+            else
+            {
+                theDifficulty = -1;
+            }
+
+            int difficulty = theDifficulty;
             int backColor = dngutil::MAGENTA;
-            std::string name = "Hero's Trial - Trial " + std::to_string(x + 1);
+            std::string name = "Hero's Trial - Trial " + std::to_string(trialNumber);
             Coordinate mapCoord(x, -11);
             RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
 
@@ -4159,37 +4172,47 @@ void Map::makeHerosTrial(std::mutex& mut)
         roomTemplate.push_back("######            ######");
         roomTemplate.push_back("#####              #####");
         roomTemplate.push_back("####                ####");
-        roomTemplate.push_back("                    ####");
+        roomTemplate.push_back("               o    ####");
         roomTemplate.push_back("                    ####");
         roomTemplate.push_back("####                ####");
         roomTemplate.push_back("#####              #####");
         roomTemplate.push_back("######            ######");
         roomTemplate.push_back("########################");
         roomTemplate.push_back("########################");
-
+        // 15,6
         auto puzzleSolved = [](const std::list<Creature*>& creatureList, const GAMEMAP& gameMap) -> bool
         {
-            return false;
+            return (gameMap[6][15].size() == 1);
         };
 
         auto puzzleAction = [this](std::list<Creature*> creatureList, GAMEMAP& gameMap) -> void
         {
-            
+            gameMap[6][17].push_back(new HarpPiece(pgame, Coordinate(17, 6), 6));
         };
 
+        std::vector<SegEnemy*> bossparts;
+        bossparts.push_back(dynamic_cast<SegEnemy*>(pgame->generateCreature(1, dngutil::TID::ZorlockImagePhase1)));
+        bossparts[0]->setFirst();
+        bossparts.push_back(dynamic_cast<SegEnemy*>(pgame->generateCreature(1, dngutil::TID::ZorlockImagePhase2)));
+
         std::map<Coordinate, MapObject*> specificObjects;
+        specificObjects.emplace(Coordinate(15, 6), new SegbossTrigger(
+            pgame, Coordinate(15, 6),
+            new Segboss(bossparts, pgame),
+            ColorChar('H', dngutil::DARKGRAY)
+        ));
 
         std::vector<dngutil::TID> possibleCreatures;
 
 
-        int difficulty = -1;
+        int difficulty = -2;
         int backColor = dngutil::MAGENTA;
         std::string name = "Hero's Trial - Trial 11";
         Coordinate mapCoord(9, -11);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
 
         mut.lock();
-        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction), Mp3File("DungeonTheme")));
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction), Mp3File("DangerTheme")));
         mut.unlock();
 
     }

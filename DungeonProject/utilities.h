@@ -113,7 +113,9 @@ namespace dngutil
         SunCharm,
         Imp,
         Cultist,
-        GodStone
+        GodStone,
+        ZorlockImagePhase1,
+        ZorlockImagePhase2
     };
 
     enum class BTID

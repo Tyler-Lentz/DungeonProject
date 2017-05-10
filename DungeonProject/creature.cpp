@@ -790,7 +790,7 @@ Damage Creature::getDamageDealt(Creature* defender)
     if (!miss)
     {
         canMiss = true;
-        int critChance = dngutil::MAX_LCK;
+        int critChance = (dngutil::MAX_LCK + 100);
         critChance -= getLck();
         if (critChance < 0)
         {
