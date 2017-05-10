@@ -227,7 +227,7 @@ public:
             false,
             1.7,
             5,
-            100,
+            60,
             true,
             "Blade forged by the gods",
             WavFile("HerosBladeAttack", false, false),
