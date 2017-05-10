@@ -900,6 +900,7 @@ void Player::mapMenu()
 
     getPGame()->setActiveFloor(oldActiveFloor);
 
+    v->putcen(ColorString("- The Kingdom of Bora -", dngutil::YELLOW), v->txtmacs.DIVIDER_LINES[1] + 2);
     pressEnter(Coordinate(0, v->txtmacs.BOTTOM_DIVIDER_TEXT_LINE), v);
 
     v->txtmacs.clearMapArea(false, NULL);
