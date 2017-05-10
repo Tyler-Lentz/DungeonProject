@@ -244,7 +244,7 @@ void GodStone::action(Player* player, unsigned int inventoryIndex)
     std::string output;
     Coordinate mapCoord = getPGame()->getActiveRoom()->getRoomInfo().mapCoord;
 
-    if (player->hasItem(dngutil::TID::GodStone, true))
+    if (player->hasItem(dngutil::TID::HerosBlade, true))
     {
         if (player->getPrimary().getAccuracy() != 100)
         {
