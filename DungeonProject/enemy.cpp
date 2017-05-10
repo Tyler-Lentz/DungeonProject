@@ -3223,7 +3223,7 @@ Bowman::Bowman(
     unsigned int lvl
 ) : REnemy(
     pgame,
-    ColorChar('A', dngutil::BROWN),
+    ColorChar('A', dngutil::LIGHTGREEN),
     coord,
     "Bowman",
     false,
