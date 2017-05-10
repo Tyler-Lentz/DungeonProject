@@ -891,7 +891,7 @@ void Player::mapMenu()
             toDraw.character = 'O';
         }
 
-        if (i.second->getMusic().getFilename() == "DungeonTheme")
+        if (i.second->getMusic().getFilename() == "DungeonTheme" || !i.second->shouldDisplayOnMap())
         {
             continue;
         }

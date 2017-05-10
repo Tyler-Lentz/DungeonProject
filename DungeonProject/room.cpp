@@ -16,11 +16,13 @@
 // Room Functions
 
 
-Room::Room(Game* t_game_pointer, RoomInfo roomToGenerate, Puzzle* puzzle, Mp3File mp3)
+Room::Room(Game* t_game_pointer, RoomInfo roomToGenerate, Puzzle* puzzle, Mp3File mp3, bool displayOnMap)
     :roomInfo(roomToGenerate)
 {
     this->puzzle = puzzle;
     music = mp3;
+
+    this->displayOnMap = displayOnMap;
 
     game_pointer = t_game_pointer;
 
@@ -231,6 +233,11 @@ Room::~Room()
     {
         delete puzzle;
     }
+}
+
+bool Room::shouldDisplayOnMap() const
+{
+    return displayOnMap;
 }
 
 int Room::getRoomX() const

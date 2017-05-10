@@ -97,7 +97,7 @@ class Room
 {
 public:
     // if there is no puzzle pass through a nullptr for the puzzle
-    Room(Game* game_pointer, RoomInfo mapToGenerate, Puzzle* puzzle, Mp3File music);
+    Room(Game* game_pointer, RoomInfo mapToGenerate, Puzzle* puzzle, Mp3File music, bool displayOnMap = true);
     ~Room();
 
     int getRoomX() const;
@@ -143,6 +143,8 @@ public:
 
     // Sets background color of the map
     void setBackgroundColor(int color);
+
+    bool shouldDisplayOnMap() const;
 private:
     GAMEMAP gameMap;
 
@@ -153,6 +155,7 @@ private:
 
     int roomX;
     int roomY;
+    bool displayOnMap;
 
     Game* game_pointer;
     std::list<Creature*> creatureList;
