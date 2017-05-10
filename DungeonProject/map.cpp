@@ -4169,7 +4169,7 @@ void Map::makeHerosTrial(std::mutex& mut)
 
         auto puzzleSolved = [](const std::list<Creature*>& creatureList, const GAMEMAP& gameMap) -> bool
         {
-            
+            return false;
         };
 
         auto puzzleAction = [this](std::list<Creature*> creatureList, GAMEMAP& gameMap) -> void

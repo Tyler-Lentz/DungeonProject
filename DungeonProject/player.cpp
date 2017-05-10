@@ -636,12 +636,12 @@ void Player::inventoryMenu() // How not to program in three easy steps. 1: Dont 
 
     const int PAGE_SIZE = 30;
     double temp = static_cast<double>(inventory.size()) / (PAGE_SIZE - 1);
-    const int numberOfPages = (ceil(temp));
+    const int numberOfPages = static_cast<int>(ceil(temp));
 
     std::vector<std::vector<Item*>> invMenu;
     invMenu.resize(numberOfPages);
 
-    for (int i = 0; i < inventory.size(); i++)
+    for (int i = 0; i < static_cast<int>(inventory.size()); i++)
     {
         //for (int j = (i * PAGE_SIZE); (j < ((i + 1) * PAGE_SIZE)) && (j < inventory.size()); j++)
         {

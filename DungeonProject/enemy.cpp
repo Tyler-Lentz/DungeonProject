@@ -1026,7 +1026,7 @@ DesertGryphon::DesertGryphon(
     dngutil::ClassType::KNIGHT
 )
 {
-    setMaxhp(getHp() * 2.3);
+    setMaxhp(static_cast<unsigned int>(getHp() * 2.3));
     setHp(getMaxhp());
 }
 

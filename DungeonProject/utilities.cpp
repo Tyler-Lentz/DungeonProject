@@ -496,6 +496,40 @@ void credits(dngutil::CreditType c, Game* pgame)
 
 void intro(VirtualWindow* vwin)
 {
+    VirtualWindow* t = vwin;
+    Coordinate temp_cursor;
+    temp_cursor.x = 8;
+    temp_cursor.y = 5;
+    t->put(ColorString(R"(                  [\)", dngutil::WHITE), temp_cursor); temp_cursor.y++;
+    t->put(ColorString(R"(                  |\)                                ____)", dngutil::WHITE), temp_cursor); temp_cursor.y++; 
+    t->put(ColorString(R"(                  |                               __(_   )__)", dngutil::WHITE), temp_cursor); temp_cursor.y++; 
+    t->put(ColorString(R"(                  Y\          ___               _(          ))", dngutil::WHITE), temp_cursor); temp_cursor.y++; 
+    t->put(ColorString(R"(                 T  \       __)  )--.          (     )-----`)", dngutil::WHITE), temp_cursor); temp_cursor.y++; 
+    t->put(ColorString(R"(                J    \   ,-(         )_         `---')", dngutil::WHITE), temp_cursor); temp_cursor.y++; 
+    t->put(ColorString(R"(               Y/T`-._\ (     (       _)                 __)", dngutil::WHITE), temp_cursor); temp_cursor.y++; 
+    t->put(ColorString(R"(               /[|   ]|  `-(__  ___)-`  |\          ,-(  __))", dngutil::WHITE), temp_cursor); temp_cursor.y++; 
+    t->put(ColorString(R"(               | |    |      (__)       J'         (     ))", dngutil::WHITE), temp_cursor); temp_cursor.y++; 
+    t->put(ColorString(R"(   _           | |  ] |    _           /;\          `-  ')", dngutil::WHITE), temp_cursor); temp_cursor.y++; 
+    t->put(ColorString(R"(  (,,)        [| |    |    L'         /;  \)", dngutil::WHITE), temp_cursor); temp_cursor.y++; 
+    t->put(ColorString(R"(             /||.| /\ |   /\         /.,-._\        ___ _)", dngutil::WHITE), temp_cursor); temp_cursor.y++; 
+    t->put(ColorString(R"(            /_|||| || |  /  \        | |{  |       (._.'_))", dngutil::WHITE), temp_cursor); temp_cursor.y++; 
+    t->put(ColorString(R"(  L/\       | \| | '` |_ _ {|        | | U |   /\)", dngutil::WHITE), temp_cursor); temp_cursor.y++; 
+    t->put(ColorString(R"( /v^v\/\   `|  Y | [  '-' '--''-''-"-'`'   | ,`^v\ /\,`\)", dngutil::WHITE), temp_cursor); temp_cursor.y++; 
+    t->put(ColorString(R"(/ ,'./  \.` |[   |       [     __   L    ] |      /^v\  \)", dngutil::WHITE), temp_cursor); temp_cursor.y++; 
+    t->put(ColorString(R"(,'     `    |    |           ,`##Y.   ]    |___Y Y____,_,,_,,_)", dngutil::WHITE), temp_cursor); temp_cursor.y++; 
+    t->put(ColorString(R"(--   -----.-(] [ |   ]     o/####U|o      ]|| /`-, Y   _   Y  Y)", dngutil::WHITE), temp_cursor); temp_cursor.y++; 
+    t->put(ColorString(R"(   Y Y  --;`~T   |      }   \####U|[\ _,.-(^) ,-'  _  (^)__  _)", dngutil::WHITE), temp_cursor); temp_cursor.y++; 
+    t->put(ColorString(R"(  Y  YY   ;'~~l  |   L     [|\###U'E'\  \ \Y-` _  (^) _Y  _)", dngutil::WHITE), temp_cursor); temp_cursor.y++; 
+    t->put(ColorString(R"( Y  Y Y   ;\~~/\{| [      _,'-\`= = '.\_ ,`   (^)(^) (^) (^))", dngutil::WHITE), temp_cursor); temp_cursor.y++; 
+    t->put(ColorString(R"(     --   ;\~~~/\|  _,.-'`_  `.\_..-'"  _ . ,_ Y_ Y_ _Y  _Y__)", dngutil::WHITE), temp_cursor); temp_cursor.y++; 
+    t->put(ColorString(R"(    _    _; \~~( Y``   Y (^) / `,      (^)      _   (^) (^))", dngutil::WHITE), temp_cursor); temp_cursor.y++; 
+    t->put(ColorString(R"(   (^)  (^)`._~ /  L \  _.Y'`  _  ` --  Y - - -(^) - Y - Y -)", dngutil::WHITE), temp_cursor); temp_cursor.y++; 
+    t->put(ColorString(R"(    Y    Y    `'--..,-'`      (^)   _  -    _   Y ____)", dngutil::WHITE), temp_cursor); temp_cursor.y++; 
+    t->put(ColorString(R"(      --           _    _ --   Y   (^)   _ (^)  ===   ----)", dngutil::WHITE), temp_cursor); temp_cursor.y++; 
+    t->put(ColorString(R"(          __   -  (^)  (^)      --- Y   (^) Y)", dngutil::WHITE), temp_cursor); temp_cursor.y++; 
+    t->put(ColorString(R"(      _            Y    Y                Y             )", dngutil::WHITE), temp_cursor); temp_cursor.y++; 
+
+
     playSound(Mp3File("Intro"));
     bool keepGoing = true;
     for (int i = 0; i < 600; i++)
@@ -514,7 +548,6 @@ void intro(VirtualWindow* vwin)
         for (int i = dngutil::CONSOLEY - 1; i > 2; i--)
         {
             Coordinate vcursor(5, i);
-            VirtualWindow* t = vwin;
             t->clearScreen();
             int color = dngutil::YELLOW;
             int scolor = dngutil::WHITE;
