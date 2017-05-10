@@ -277,7 +277,7 @@ void TextMacros::displayOverworldInfo(Game* game)
     {
         clearLine(vcursor.y++);
     }
-    vwin->putcen(ColorString("VALID INPUT {ARROWKEYS, I, U}", dngutil::CYAN), vcursor.y);
+    vwin->putcen(ColorString("VALID INPUT {ARROWKEYS, I, U, M}", dngutil::CYAN), vcursor.y);
 }
 
 dngutil::ReturnVal TextMacros::deathScreen(Game* game)
