@@ -889,12 +889,13 @@ void Player::mapMenu()
         else
         {
             toDraw.character = 'O';
+            if (i.second->getMusic().getFilename() == "DungeonTheme" || !i.second->shouldDisplayOnMap())
+            {
+                continue;
+            }
         }
 
-        if (i.second->getMusic().getFilename() == "DungeonTheme" || !i.second->shouldDisplayOnMap())
-        {
-            continue;
-        }
+        
         v->put(toDraw, position);
     }
 
