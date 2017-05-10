@@ -394,6 +394,7 @@ void TextMacros::fallingScreen(Game* game, bool altSound)
     if (altSound)
     {
         Sleep(500);
+        game->getOverworldMusic().stop();
         playSound(WavFile("WarpToDungeonStart", false, false));
     }
     displayGame(game);
