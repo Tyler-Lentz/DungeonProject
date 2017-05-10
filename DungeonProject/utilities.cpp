@@ -483,8 +483,8 @@ void credits(dngutil::CreditType c, Game* pgame)
         v->put(ColorString(R"(      --           _    _ --   Y   (^)   _ (^)  ===   ----)", dngutil::WHITE), vcursor); vcursor.y++; Sleep(timeToSleep);
         v->put(ColorString(R"(          __   -  (^)  (^)      --- Y   (^) Y)", dngutil::WHITE), vcursor); vcursor.y++; Sleep(timeToSleep);
         v->put(ColorString(R"(      _            Y    Y                Y             )", dngutil::WHITE), vcursor); vcursor.y++; Sleep(timeToSleep);
-        Sleep(6500);
-        v->putcenSlowScroll(ColorString("Thank you for playing", dngutil::WHITE), v->txtmacs.BOTTOM_DIVIDER_TEXT_LINE);
+        Sleep(6800);
+        v->putcen(ColorString("Thank you for playing", dngutil::WHITE), v->txtmacs.BOTTOM_DIVIDER_TEXT_LINE);
         Sleep(5000);
     }
 
