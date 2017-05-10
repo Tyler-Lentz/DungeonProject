@@ -2483,7 +2483,7 @@ void Map::makeOverworld(std::mutex& mut)
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
 
         mut.lock();
-        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("CaveTheme")));
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("CaveTheme"), false));
         mut.unlock();
 
     }
@@ -2532,7 +2532,7 @@ void Map::makeOverworld(std::mutex& mut)
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
 
         mut.lock();
-        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction), Mp3File("DangerTheme")));
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction), Mp3File("DangerTheme"), false));
         mut.unlock();
 
     }
