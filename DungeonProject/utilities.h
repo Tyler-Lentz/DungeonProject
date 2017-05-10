@@ -112,7 +112,8 @@ namespace dngutil
         DesertGryphon,
         SunCharm,
         Imp,
-        Cultist
+        Cultist,
+        GodStone
     };
 
     enum class BTID

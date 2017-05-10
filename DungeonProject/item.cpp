@@ -230,6 +230,48 @@ void BasiliskHorn::action(Player* player, unsigned int inventoryIndex)
 //-------------------------------------------------------
 
 //-------------------------------------------------------
+// GodStone Functions
+
+GodStone::GodStone(Game* pgame, Coordinate coord)
+    :RItem(pgame, ColorChar('*', dngutil::YELLOW), coord, "God's Stone",
+        true, false, false, dngutil::TID::GodStone, false, "Enhances the Hero's Blade when used")
+{
+
+}
+
+void GodStone::action(Player* player, unsigned int inventoryIndex)
+{
+    std::string output;
+    Coordinate mapCoord = getPGame()->getActiveRoom()->getRoomInfo().mapCoord;
+
+    if (player->hasItem(dngutil::TID::GodStone, true))
+    {
+        if (player->getPrimary().getAccuracy() != 100)
+        {
+            playSound(WavFile("FindItem", false, false));
+            player->getPrimaryMemory()->setAccuracy(100);
+            output = "The Hero's Blade now has 100% accuracy!";
+        }
+        else
+        {
+            output = "You have already enhanced the blade";
+        }
+    }
+    else
+    {
+        output = "You must have the blade equipped for the stone to work.";
+    }
+
+    int line = getPGame()->getVWin()->txtmacs.BOTTOM_DIVIDER_TEXT_LINE;
+
+    getPGame()->getVWin()->putcen(ColorString(output, dngutil::LIGHTGRAY), line);
+}
+
+//-------------------------------------------------------
+
+
+
+//-------------------------------------------------------
 // SunCharm Functions
 
 SunCharm::SunCharm(Game* pgame, Coordinate coord)
@@ -388,6 +430,11 @@ void Primary::action(Player* player, unsigned int inventoryIndex)
     }
 
     getPGame()->getVWin()->putcen(ColorString(output, dngutil::LIGHTGRAY), getPGame()->getVWin()->txtmacs.BOTTOM_DIVIDER_TEXT_LINE);
+}
+
+void Primary::setAccuracy(int amount)
+{
+    accuracy = amount;
 }
 
 const double& Primary::getDmgMultiplier() const

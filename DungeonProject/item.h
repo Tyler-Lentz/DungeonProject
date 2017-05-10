@@ -101,6 +101,8 @@ public:
     bool hit() const;
 
     dngutil::ClassType getClass() const;
+
+    void setAccuracy(int amount);
 private:
     // What class it can be equipped by
     dngutil::ClassType classType;
@@ -203,6 +205,14 @@ class BasiliskHorn : public RItem
 {
 public:
     BasiliskHorn(Game* pgame, Coordinate coord);
+
+    void action(Player* player, unsigned int inventoryIndex) override;
+};
+
+class GodStone : public RItem
+{
+public:
+    GodStone(Game* pgame, Coordinate coord);
 
     void action(Player* player, unsigned int inventoryIndex) override;
 };
