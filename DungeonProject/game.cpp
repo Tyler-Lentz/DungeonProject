@@ -368,7 +368,7 @@ void Game::titleScreen()
 
     vwin->txtmacs.drawDividers();
     vwin->txtmacs.clearDivider("bottom");
-    vwin->putcen(ColorString("The Harp of the Gods v1.1", dngutil::GREEN), vwin->txtmacs.DIVIDER_LINES[0] + 1);
+    vwin->putcen(ColorString("The Harp of the Gods v1.1.1", dngutil::GREEN), vwin->txtmacs.DIVIDER_LINES[0] + 1);
     Coordinate vcursor(0, vwin->txtmacs.DIVIDER_LINES[1] + 5);
     VirtualWindow* t = vwin;
     t->putcen(ColorString(R"(         ____                   )", dngutil::YELLOW), vcursor.y); vcursor.y++;

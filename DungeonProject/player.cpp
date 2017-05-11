@@ -450,8 +450,23 @@ ColorString Player::getExperienceBar()
 
     int numOfCircles = static_cast<int>(scaleFactor * exp);
 
-    std::string temp = std::string(MAXIMUM_CHARACTERS - numOfCircles, '-');
-    return ColorString(((std::string((unsigned int)numOfCircles, '=')) + temp), dngutil::MAGENTA);
+    std::string temp;
+    int color = dngutil::MAGENTA;
+    if ((MAXIMUM_CHARACTERS - numOfCircles) >= 0)
+    {
+        temp = std::string(MAXIMUM_CHARACTERS - numOfCircles, '-');
+    }
+    else
+    {
+        color = dngutil::LIGHTGREEN;
+    }
+
+    if (numOfCircles > MAXIMUM_CHARACTERS)
+    {
+        numOfCircles = MAXIMUM_CHARACTERS;
+    }
+
+    return ColorString(((std::string((unsigned int)numOfCircles, '=')) + temp), color);
 }
 
 void Player::addExperience(unsigned int experience, dngutil::EvType ev)
