@@ -74,7 +74,11 @@ Player::Player(
 
     this->exp = 0;
     this->expToLevel = getExpToLevel(getLvl());
-    inventory.push_back(new Potion(getPGame(), Coordinate(-1, -1), dngutil::POTION_HEAL));
+
+    for (int i = 0; i < 60; i++)
+    {
+        inventory.push_back(new Potion(getPGame(), Coordinate(-1, -1), dngutil::POTION_HEAL));
+    }
 
     armor = new BlueTunic(getPGame(), Coordinate(-1, -1));
     boots = new StandardBoots(getPGame(), Coordinate(-1, -1));
@@ -654,7 +658,7 @@ void Player::inventoryMenu() // How not to program in three easy steps. 1: Dont 
     v->putcen(ColorString("Press Esc to exit inventory", dngutil::WHITE), topline);
 
     const int PAGE_SIZE = 30;
-    double temp = static_cast<double>(inventory.size()) / (PAGE_SIZE - 1);
+    double temp = static_cast<double>(inventory.size()) / PAGE_SIZE;
     const int numberOfPages = static_cast<int>(ceil(temp));
 
     std::vector<std::vector<Item*>> invMenu;
@@ -713,11 +717,11 @@ void Player::inventoryMenu() // How not to program in three easy steps. 1: Dont 
         }
         if (page == (numberOfPages - 1))
         {
-            bottomcoord = topcoord + (PAGE_SIZE - ((numberOfPages * PAGE_SIZE) - (inventory.size())));
+            bottomcoord = topcoord + ((PAGE_SIZE - 1) - ((numberOfPages * PAGE_SIZE) - (inventory.size()))); // lol what
         }
         else
         {
-            bottomcoord = topcoord + 30;
+            bottomcoord = topcoord + (PAGE_SIZE - 1);
         }
 
         if (newPage)
@@ -752,23 +756,35 @@ void Player::inventoryMenu() // How not to program in three easy steps. 1: Dont 
         }
         if (keypress(VK_UP))
         {
+            Sleep(dngutil::MENU_DELAY);
+            v->put(ColorString("  ", dngutil::LIGHTGRAY), Coordinate(0, currentcoord));
+
             if (currentcoord > topcoord)
             {
-                Sleep(dngutil::MENU_DELAY);
-                v->put(ColorString("  ", dngutil::LIGHTGRAY), Coordinate(0, currentcoord));
                 currentcoord--;
-                continue;
             }
+            else
+            {
+                currentcoord = bottomcoord;
+            }
+
+            continue;
         }
         if (keypress(VK_DOWN))
         {
-            if (currentcoord < (bottomcoord - 1))
+            Sleep(dngutil::MENU_DELAY);
+            v->put(ColorString("  ", dngutil::LIGHTGRAY), Coordinate(0, currentcoord));
+
+            if (currentcoord < bottomcoord)
             {
-                Sleep(dngutil::MENU_DELAY);
-                v->put(ColorString("  ", dngutil::LIGHTGRAY), Coordinate(0, currentcoord));
                 currentcoord++;
-                continue;
             }
+            else
+            {
+                currentcoord = topcoord;
+            }
+
+            continue;
         }
         if (keypress(VK_RETURN) && !inventory.empty())
         {
