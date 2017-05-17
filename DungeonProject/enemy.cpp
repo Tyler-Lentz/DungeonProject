@@ -3477,7 +3477,7 @@ void DesertGoblin::printSelf()
     t->put(ColorString(R"(        / / _    \  /                 /`  /`)", color), vcursor); vcursor.y++;
     t->put(ColorString(R"(       / _\/(    | |                 /  .'_)", color), vcursor); vcursor.y++;
     t->put(ColorString(R"(      | ( \  '--'  \               .'  (__)`\)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(      \\\\  `-------'         jgs /________.')", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(      \\\\  `-------'             /________.')", color), vcursor); vcursor.y++;
     t->put(ColorString(R"(       `\\\)", color), vcursor); vcursor.y++;
     const int LONGEST_LINE_LENGTH = 50;
 
