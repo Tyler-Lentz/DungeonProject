@@ -115,7 +115,8 @@ namespace dngutil
         Cultist,
         GodStone,
         ZorlockImagePhase1,
-        ZorlockImagePhase2
+        ZorlockImagePhase2,
+        HerosBlade2
     };
 
     enum class BTID

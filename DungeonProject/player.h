@@ -97,6 +97,8 @@ public:
     void setMaxSpeedMultiplier(double amount);
 
     const double startingMaxSpeedMultiplier;
+
+    void upgradePrimary(dngutil::TID itemToUpgrade);
 private:
 
     Coordinate startingDungeonMapCoord;

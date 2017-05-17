@@ -249,5 +249,29 @@ public:
     }
 };
 
+class HerosBlade2 : public Primary
+{
+public:
+    HerosBlade2(Game* pgame, Coordinate coord) :
+        Primary(
+            pgame,
+            ColorChar('T', dngutil::YELLOW),
+            coord,
+            "Hero's Blade II",
+            false,
+            1.7,
+            4,
+            90,
+            true,
+            "Blade forged by the gods. It is at full strength.",
+            WavFile("HerosBladeAttack", false, false),
+            dngutil::ClassType::KNIGHT,
+            dngutil::TID::HerosBlade2
+        )
+    {
+
+    }
+};
+
 //-------------------------------------------------------------
 #endif

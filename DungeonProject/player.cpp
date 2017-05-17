@@ -338,6 +338,24 @@ void Player::removeFromInventory(unsigned int index)
     inventory.erase(it);
 }
 
+void Player::upgradePrimary(dngutil::TID itemToUpgrade)
+{
+    if (!hasItem(itemToUpgrade, true))
+    {
+        return;
+    }
+
+    switch (itemToUpgrade)
+    {
+    case dngutil::TID::HerosBlade:
+        delete getPrimaryMemory();
+        setPrimary(new HerosBlade2(getPGame(), Coordinate(-1, -1)));
+        break;
+    }
+
+    playSound(WavFile("FindItem", false, false));
+}
+
 void Player::setMaxSpeedMultiplier(double value)
 {
     maxSpeedMultiplier = value;

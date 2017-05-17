@@ -246,18 +246,15 @@ void GodStone::action(Player* player, unsigned int inventoryIndex)
 
     if (player->hasItem(dngutil::TID::HerosBlade, true))
     {
-        if (player->getPrimary().getAccuracy() != 100)
-        {
-            playSound(WavFile("FindItem", false, false));
-            player->getPrimaryMemory()->setAccuracy(100);
-            output = "The Hero's Blade now has 100% accuracy!";
-        }
-        else
-        {
-            output = "You have already enhanced the blade";
-        }
+        player->upgradePrimary(dngutil::TID::HerosBlade);
+
+        output = "The Hero's Blade has upgraded to level 2!";
     }
-    else
+    else if (player->hasItem(dngutil::TID::HerosBlade2, true))
+    {
+        output = "You have already upgraded this item";
+    }
+    else 
     {
         output = "You must have the blade equipped for the stone to work.";
     }
