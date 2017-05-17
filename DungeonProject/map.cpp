@@ -5382,7 +5382,9 @@ void Map::makeFireTemple(std::mutex& mut)
                 true,
                 "A very innacurate but powerful gun",
                 WavFile("GunAttack1", false, false),
-                dngutil::ClassType::RANGER
+                dngutil::ClassType::RANGER,
+                dngutil::TID::Primary,
+                false
             ));
         };
 

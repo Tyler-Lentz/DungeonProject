@@ -459,6 +459,11 @@ const bool& Primary::getStartReady() const
     return startReady;
 }
 
+const bool& Primary::getQuickAttack() const
+{
+    return canQuickAttack;
+}
+
 const WavFile& Primary::getHitsound() const
 {
     return hitsound;

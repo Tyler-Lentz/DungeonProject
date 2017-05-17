@@ -3758,11 +3758,18 @@ bool SegEnemy::battle(MapObject* t_enemy)
 
             vwin->txtmacs.outputBattleInfo(playerTimer, playerWeaponSpeed, enemyTimer, enemyWeaponSpeed);
 
-            if (playerTimer >= playerWeaponSpeed && keypress(VK_RETURN))
+            if (playerTimer >= 1 && keypress(VK_RETURN) && player->getPrimary().getQuickAttack())
             {
+                double damageMultiplier = (static_cast<double>(playerTimer) / playerWeaponSpeed);
+                if (playerTimer != playerWeaponSpeed)
+                {
+                    damageMultiplier *= 0.6; // slight negative for not charging all the way
+                }
+
                 playerTimer = 0;
 
                 Damage damage = player->getDamageDealt(enemy);
+                damage.damage *= damageMultiplier;
                 for (int i = 0; i < damage.damage; i++)
                 {
                     enemy->decreaseHealth(1);

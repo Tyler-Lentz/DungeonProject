@@ -79,7 +79,8 @@ public:
         std::string description,
         WavFile hitsound,
         dngutil::ClassType classType,
-        dngutil::TID tid = dngutil::TID::Primary
+        dngutil::TID tid = dngutil::TID::Primary,
+        bool quickAttack = true
     ) :RItem(pgame, mapRep, coord, name, true, rawoutput, false, tid, false, description)
     {
         this->dmgMultiplier = dmgMultiplier;
@@ -88,6 +89,7 @@ public:
         this->startReady = startReady;
         this->hitsound = hitsound;
         this->classType = classType;
+        this->canQuickAttack = quickAttack;
     }
 
     void action(Player* player, unsigned int inventoryIndex) override;
@@ -96,6 +98,7 @@ public:
     const int& getAttSpeed() const;
     const int& getAccuracy() const;
     const bool& getStartReady() const;
+    const bool& getQuickAttack() const;
     const WavFile& getHitsound() const;
 
     bool hit() const;
@@ -122,6 +125,8 @@ private:
 
     // wav file that plays when the weapon is used
     WavFile hitsound;
+
+    bool canQuickAttack;
 };
 
 class Secondary : public RItem
