@@ -871,12 +871,22 @@ Collision HeroSpirit::mapAction(MapObject* collider, std::list<MapObject*>::iter
         t.clearLine(l);
         t.clearLine(l + 1);
 
-        v->putcen(ColorString("After I fell to Zorlock I came here to wait for the one who would avenge me.", dngutil::WHITE), l, true);
+        v->putcen(ColorString("Let me tell you a tale from hundreds of generations ago....", dngutil::WHITE), l, true);
         pressEnter(Coordinate(0, l + 1), v);
         t.clearLine(l);
         t.clearLine(l + 1);
 
-        v->putcen(ColorString("My power is weakening - when I depart my spell on Zorlock will too.", dngutil::WHITE), l, true);
+        v->putcen(ColorString("A demon lord rose from the underworld and destroyed Bora.", dngutil::WHITE), l, true);
+        pressEnter(Coordinate(0, l + 1), v);
+        t.clearLine(l);
+        t.clearLine(l + 1);
+
+        v->putcen(ColorString("A hero, myself, slayed the beast and returned peace to Bora.", dngutil::WHITE), l, true);
+        pressEnter(Coordinate(0, l + 1), v);
+        t.clearLine(l);
+        t.clearLine(l + 1);
+
+        v->putcen(ColorString("You find yourself in the same position I once found myself in.", dngutil::WHITE), l, true);
         pressEnter(Coordinate(0, l + 1), v);
         t.clearLine(l);
         t.clearLine(l + 1);
@@ -891,13 +901,13 @@ Collision HeroSpirit::mapAction(MapObject* collider, std::list<MapObject*>::iter
 
         if (!getPGame()->getPlayer()->hasItem(dngutil::TID::HerosBlade))
         {
-            v->putcen(ColorString("Additionally - you should find the blade that I used to seal away Zorlock", dngutil::WHITE), l, true);
+            v->putcen(ColorString("Additionally, you should search for my legendary blade.", dngutil::WHITE), l, true);
             pressEnter(Coordinate(0, l + 1), v);
             t.clearLine(l);
             t.clearLine(l + 1);
 
-            v->putcen(ColorString("I returned it deep within the Korloma Forest - you will likely need", dngutil::WHITE), l, true);
-            v->putcen(ColorString("a lot of gear to retrieve it from its resting place.", dngutil::WHITE), l + 1, true);
+            v->putcen(ColorString("I left it deep within the Korloma Forest. You will likely need", dngutil::WHITE), l, true);
+            v->putcen(ColorString("many supplies to retrieve it from its resting place.", dngutil::WHITE), l + 1, true);
             pressEnter(Coordinate(0, l + 2), v);
             t.clearLine(l);
             t.clearLine(l + 1);
@@ -913,7 +923,7 @@ Collision HeroSpirit::mapAction(MapObject* collider, std::list<MapObject*>::iter
 
         
 
-        v->putcen(ColorString(getPGame()->getPlayer()->getName() + ", please avenge me...", dngutil::WHITE), l, true);
+        v->putcen(ColorString(getPGame()->getPlayer()->getName() + ", will the legends too speak of your name?", dngutil::WHITE), l, true);
         pressEnter(Coordinate(0, l + 1), v);
         t.clearLine(l);
         t.clearLine(l + 1);

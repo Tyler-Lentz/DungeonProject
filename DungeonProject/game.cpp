@@ -563,64 +563,27 @@ void Game::backgroundStory()
     t->put(ColorString(R"(      _            Y    Y                Y             )", color), vcursor); vcursor.y++;
     int topOfText = vcursor.y + 5;
 
-    t->putcen(ColorString("A long time ago in the Kingdom of Bora the people lived among the gods.", dngutil::WHITE), topOfText, true);
+    t->putcen(ColorString("The Kingdom of Bora, Generations Ago...", dngutil::WHITE), topOfText, true);
     Sleep(onelineTime);
     tm->clearLine(topOfText);
 
-    t->putcen(ColorString("They erected shrines all over the land to appease them,", dngutil::WHITE), topOfText, true);
-    t->putcen(ColorString("and in return the gods gave their people a gift-",dngutil::WHITE), topOfText + 1, true);
+    t->putcen(ColorString("In Bora the people worshiped four different gods:", dngutil::WHITE), topOfText, true);
+    t->putcen(ColorString("The gods of Wood, Water, Fire, and Spirit.",dngutil::WHITE), topOfText + 1, true);
     Sleep(onelineTime * 2);
     tm->clearLine(topOfText);
     tm->clearLine(topOfText + 1);
 
-    t->clearScreen();
-    vcursor.x = tlx;
-    vcursor.y = tly;
-    t->putcen(ColorString(R"(         ____                   )", dngutil::YELLOW), vcursor.y); vcursor.y++;
-    t->putcen(ColorString(R"(         SSSS____.              )", dngutil::YELLOW), vcursor.y); vcursor.y++;
-    t->putcen(ColorString(R"(         (WW);;;;;\             )", dngutil::YELLOW), vcursor.y); vcursor.y++;
-    t->putcen(ColorString(R"(         `WW'____ |     ,_____  )", dngutil::YELLOW), vcursor.y); vcursor.y++;
-    t->putcen(ColorString(R"(          UU ||||\ \___/,---. ) )", dngutil::YELLOW), vcursor.y); vcursor.y++;
-    t->putcen(ColorString(R"(          UU |||||\____/||| //  )", dngutil::YELLOW), vcursor.y); vcursor.y++;
-    t->putcen(ColorString(R"(          UU ||||||||||||" //   )", dngutil::YELLOW), vcursor.y); vcursor.y++;
-    t->putcen(ColorString(R"(          UU |||||||||||' //    )", dngutil::YELLOW), vcursor.y); vcursor.y++;
-    t->putcen(ColorString(R"(          UU |||||||||"  //     )", dngutil::YELLOW), vcursor.y); vcursor.y++;
-    t->putcen(ColorString(R"(          UU ||||||||'  //      )", dngutil::YELLOW), vcursor.y); vcursor.y++;
-    t->putcen(ColorString(R"(          UU |||||||"  //       )", dngutil::YELLOW), vcursor.y); vcursor.y++;
-    t->putcen(ColorString(R"(          UU ||||||'  //        )", dngutil::YELLOW), vcursor.y); vcursor.y++;
-    t->putcen(ColorString(R"(          UU ||||"   //         )", dngutil::YELLOW), vcursor.y); vcursor.y++;
-    t->putcen(ColorString(R"(          UU |||"   //          )", dngutil::YELLOW), vcursor.y); vcursor.y++;
-    t->putcen(ColorString(R"(          UU ||'   //           )", dngutil::YELLOW), vcursor.y); vcursor.y++;
-    t->putcen(ColorString(R"(          UU |"   //            )", dngutil::YELLOW), vcursor.y); vcursor.y++;
-    t->putcen(ColorString(R"(         ,UU,'   ||             )", dngutil::YELLOW), vcursor.y); vcursor.y++;
-    t->putcen(ColorString(R"(       (~~~~~~~~~~~~]""'        )", dngutil::YELLOW), vcursor.y); vcursor.y++;
-    t->putcen(ColorString(R"(~~~~~~~~~~~~~~~~~~~~~~~~~~~     )", dngutil::YELLOW), vcursor.y); vcursor.y++;
-
-    t->putcen(ColorString("The Harp of the Gods", dngutil::YELLOW), topOfText, true);
-    Sleep(onelineTime);
+    t->putcen(ColorString("There was a temple built for each god and a tower called", dngutil::WHITE), topOfText, true);
+    t->putcen(ColorString("The Tower of the Gods made for worship to all of the gods.", dngutil::WHITE), topOfText + 1, true);
+    Sleep(onelineTime * 2);
     tm->clearLine(topOfText);
+    tm->clearLine(topOfText + 1);
 
-    t->putcen(ColorString("Legends say it could grant what the user wanted the most by playing it", dngutil::WHITE), topOfText, true);
-    Sleep(static_cast<DWORD>(onelineTime * 1.5));
+    t->putcen(ColorString("Unfortunately... one day the kingdom was attacked.", dngutil::LIGHTRED), topOfText, true);
+    Sleep(onelineTime);
     tm->clearLine(topOfText);
 
     t->clearScreen();
-
-    t->putcen(ColorString("Of all the shrines in the land, the most important was the Tower of the Gods", dngutil::WHITE), topOfText, true);
-    Sleep(onelineTime);
-    tm->clearLine(topOfText);
-
-    t->putcen(ColorString("Sacred rituals were performed there, all using the Harp", dngutil::WHITE), topOfText, true);
-    Sleep(onelineTime);
-    tm->clearLine(topOfText);
-
-    t->putcen(ColorString("Bora was peaceful and prosperous.", dngutil::WHITE), topOfText, true);
-    Sleep(onelineTime);
-    tm->clearLine(topOfText);
-
-    t->putcen(ColorString("One day, however, this all changed...", dngutil::MAGENTA), topOfText, true);
-    Sleep(onelineTime);
-    tm->clearLine(topOfText);
 
     vcursor.x = tlx;
     vcursor.y = tly;
@@ -662,78 +625,65 @@ void Game::backgroundStory()
     Sleep(onelineTime);
     tm->clearLine(topOfText);
 
-    t->putcen(ColorString("He spawned monsters and spat a fireball at the castle - destroying it", dngutil::WHITE), topOfText, true);
-    Sleep(onelineTime);
-    tm->clearLine(topOfText);
-
-    t->putcen(ColorString("He attacked the Tower of the Gods and broke the Harp into 4 pieces", dngutil::WHITE), topOfText, true);
-    Sleep(onelineTime);
-    tm->clearLine(topOfText);
-
-    t->clearScreen();
-    vcursor.x = tlx;
-    vcursor.y = tly;
-    t->put(ColorString(R"(                         /\     /\)", dngutil::YELLOW), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                        (_ \   (  \)", dngutil::YELLOW), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                        (_ `\iRBNMMbn.)", dngutil::YELLOW), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                         \_  \VAPRBNMMb)", dngutil::YELLOW), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                           \o_)lI<= (=\)", dngutil::YELLOW), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                          / `   ) , _\ ))", dngutil::YELLOW), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                          )    /   (_(/)", dngutil::YELLOW), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                         /_ __( \ __ _|)", dngutil::YELLOW), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                            _|     |_)", dngutil::YELLOW), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                   ,edMMNBRB)\ \_  /(PRBNMMbn.)", dngutil::YELLOW), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                  dMMNBRPAV/o(_____)o\VAPRBNMMb)", dngutil::YELLOW), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                 fMMWBRYIli\ o  o  o /rlIPRBWMMj)", dngutil::YELLOW), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                 MMBRRSZIlti+._.-._.+ilIZSRRBMMM)", dngutil::YELLOW), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                 /_o__o_/KZYI0lLRBNWMMMN\_o___o_\)", dngutil::YELLOW), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                /_____/flZJlDYTPRKBBNWMM \ ___( \)", dngutil::YELLOW), vcursor); vcursor.y++;
-    t->put(ColorString(R"(          NNBR0PRRBNMMMMMMMlIPZSKRNWMMMV  \__._\ \)", dngutil::YELLOW), vcursor); vcursor.y++;
-    t->put(ColorString(R"(          NMBRR00PRBNNMMMMM_o___o___o__/   )_ __)o))", dngutil::YELLOW), vcursor); vcursor.y++;
-    t->put(ColorString(R"(          NMMBRR00PRRBNNMMM___o___o___/    /___/ /)", dngutil::YELLOW), vcursor); vcursor.y++;
-    t->put(ColorString(R"(          NMMBBRR00PRRBNNMM_/\_/\_/\_(  __/___x)/)", dngutil::YELLOW), vcursor); vcursor.y++;
-    t->put(ColorString(R"(          NMMBBRR00PRRBNNMM \/ \/ \/ __ )    /(`)", dngutil::YELLOW), vcursor); vcursor.y++;
-    t->put(ColorString(R"(        __NMMBBRR00PRRBNNMM_________|_ /   _'))", dngutil::YELLOW), vcursor); vcursor.y++;
-    t->put(ColorString(R"(       /__        ________        ___)(<  (====.)", dngutil::YELLOW), vcursor); vcursor.y++;
-    t->put(ColorString(R"(       \_____________________________)_\ __\---')", dngutil::YELLOW), vcursor); vcursor.y++;
-    t->put(ColorString(R"(            VMBBR00RBNMNV           |__|\/)", dngutil::YELLOW), vcursor); vcursor.y++;
-    t->put(ColorString(R"(             lMBRR00RNMV  )", dngutil::YELLOW), vcursor); vcursor.y++;
-    t->put(ColorString(R"(              VMB00BMNV   )", dngutil::YELLOW), vcursor); vcursor.y++;
-    t->put(ColorString(R"(               VMB0BMV   )", dngutil::YELLOW), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                b'ger  )", dngutil::YELLOW), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                 VMV     )", dngutil::YELLOW), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                  V     )", dngutil::YELLOW), vcursor); vcursor.y++;
-
-    t->putcen(ColorString("In a final confrontation he was attacked by a brave hero", dngutil::WHITE), topOfText, true);
-    Sleep(onelineTime);
-    tm->clearLine(topOfText);
-
-    t->putcen(ColorString("The hero fell to the demon...", dngutil::WHITE), topOfText, true);
-    Sleep(500);
-    t->putcen(ColorString("but before he died he cast a spell that would contain Zorlock to the tower...", dngutil::WHITE), topOfText + 1, true);
+    t->putcen(ColorString("He spawned a beast to occupy each of the four temples and", dngutil::WHITE), topOfText, true);
+    t->putcen(ColorString("himself occupied the Tower of the Gods", dngutil::WHITE), topOfText + 1, true);
     Sleep(onelineTime * 2);
     tm->clearLine(topOfText);
     tm->clearLine(topOfText + 1);
 
-    t->putcen(ColorString("Now, the only way to regain entry to the tower is to use the power of the harp.", dngutil::WHITE), topOfText, true);
+    t->putcen(ColorString("There is hope, however...", dngutil::WHITE), topOfText, true);
     Sleep(onelineTime);
     tm->clearLine(topOfText);
 
     t->clearScreen();
-    t->putcen(ColorString("Centuries past...", color), topOfText, true);
+
+    vcursor.x = tlx;
+    vcursor.y = tly;
+    t->putcen(ColorString(R"(         ____                   )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+    t->putcen(ColorString(R"(         SSSS____.              )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+    t->putcen(ColorString(R"(         (WW);;;;;\             )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+    t->putcen(ColorString(R"(         `WW'____ |     ,_____  )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+    t->putcen(ColorString(R"(          UU ||||\ \___/,---. ) )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+    t->putcen(ColorString(R"(          UU |||||\____/||| //  )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+    t->putcen(ColorString(R"(          UU ||||||||||||" //   )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+    t->putcen(ColorString(R"(          UU |||||||||||' //    )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+    t->putcen(ColorString(R"(          UU |||||||||"  //     )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+    t->putcen(ColorString(R"(          UU ||||||||'  //      )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+    t->putcen(ColorString(R"(          UU |||||||"  //       )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+    t->putcen(ColorString(R"(          UU ||||||'  //        )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+    t->putcen(ColorString(R"(          UU ||||"   //         )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+    t->putcen(ColorString(R"(          UU |||"   //          )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+    t->putcen(ColorString(R"(          UU ||'   //           )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+    t->putcen(ColorString(R"(          UU |"   //            )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+    t->putcen(ColorString(R"(         ,UU,'   ||             )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+    t->putcen(ColorString(R"(       (~~~~~~~~~~~~]""'        )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+    t->putcen(ColorString(R"(~~~~~~~~~~~~~~~~~~~~~~~~~~~     )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+
+    t->putcen(ColorString("The Harp of the Gods", dngutil::YELLOW), topOfText, true);
     Sleep(onelineTime);
     tm->clearLine(topOfText);
 
-    t->putcen(ColorString("People believe Zorlock's seal has begun to weaken...", color), topOfText, true);
-    Sleep(onelineTime);
+    t->putcen(ColorString("It is split into four fragments. One for each temple.", dngutil::WHITE), topOfText, true);
+    Sleep(static_cast<DWORD>(onelineTime * 1.5));
     tm->clearLine(topOfText);
 
-    t->putcen(ColorString("Oh, " + player->getName() + ", descendant of the brave hero,", color), topOfText, true);
-    t->putcen(ColorString("can you unite the Harp and destroy Zorlock for good before it's too late?", color), topOfText + 1, true);
-    Sleep(static_cast<DWORD>(onelineTime * 2.2));
+    t->clearScreen();
+
+    t->putcen(ColorString("If one were to aquire the harp they could gain entry", dngutil::WHITE), topOfText, true);
+    t->putcen(ColorString("to the tower and possibly defeat Zorlock.", dngutil::WHITE), topOfText + 1, true);
+    Sleep(onelineTime * 2);
     tm->clearLine(topOfText);
     tm->clearLine(topOfText + 1);
 
+    t->putcen(ColorString("The lands have waited many years for a courageous hero.", dngutil::WHITE), topOfText, true);
+    Sleep(onelineTime);
+    tm->clearLine(topOfText);
+
+    t->putcen(ColorString("Oh, " + player->getName() + ", brave hero", color), topOfText, true);
+    t->putcen(ColorString("can you unite the Harp return peace to Bora?", color), topOfText + 1, true);
+    Sleep(static_cast<DWORD>(onelineTime * 2.5));
+    tm->clearLine(topOfText);
+    tm->clearLine(topOfText + 1);
     t->clearScreen();
 
     playSound(WavFile("ExitToMap", false, true));
