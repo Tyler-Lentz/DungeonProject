@@ -1095,7 +1095,7 @@ TrueZorlock::TrueZorlock(
     unsigned int lvl
 ) : BEnemy(
     pgame,
-    ColorChar('A', dngutil::DARKGRAY),
+    ColorChar('H', dngutil::DARKGRAY),
     coord,
     "True Zorlock",
     false,
@@ -1198,27 +1198,27 @@ void TrueZorlock::beginingCutscene()
         if (i % 2 == 0)
         {
             vcursor.x = 0;
-            v->put(ColorString(R"(           _/          ,          .                                          )", dngutil::LIGHTRED), vcursor); vcursor.y++;
-            v->put(ColorString(R"(       , -' )         ( \-------.,')            (\_________________________  )", dngutil::LIGHTRED), vcursor); vcursor.y++;
-            v->put(ColorString(R"(     , ,-/ |          /\_) )     \/            ,' _.----------------------,\ )", dngutil::LIGHTRED), vcursor); vcursor.y++;
-            v->put(ColorString(R"(   ,',  /, |         /      >--. ,)           / /\\                          )", dngutil::LIGHTRED), vcursor); vcursor.y++;
-            v->put(ColorString(R"(  / ,  //|,'        /'     '\--'\\)          /,'  \\     `         `   ,     )", dngutil::LIGHTRED), vcursor); vcursor.y++;
-            v->put(ColorString(R"( / ,  // ||       ,'     (.--^( `')         //     \\                \       )", dngutil::LIGHTRED), vcursor); vcursor.y++;
-            v->put(ColorString(R"(( ,  //  ||,___,-'    (___\\  '^^^'        //       \\              ,        )", dngutil::LIGHTRED), vcursor); vcursor.y++;
-            v->put(ColorString(R"( \  //   ||--.__     (     \`^--)  _____.-'/         \\   `                  )", dngutil::LIGHTRED), vcursor); vcursor.y++;
-            v->put(ColorString(R"(  >'/    ||,        (       \|_(\-'      ,'           \\         \,          )", dngutil::LIGHTRED), vcursor); vcursor.y++;
-            v->put(ColorString(R"( /,'     ||          \           \      /              \\                    )", dngutil::LIGHTRED), vcursor); vcursor.y++;
-            v->put(ColorString(R"((/       ||           \           )  ,'(     `     `    \\      ,            )", dngutil::LIGHTRED), vcursor); vcursor.y++;
-            v->put(ColorString(R"( `       ||\           \      ) ,'  /_  )                \\    \             )", dngutil::LIGHTRED), vcursor); vcursor.y++;
-            v->put(ColorString(R"(         || `.          `.    ,'   /( `.\  \ , \ \,       \\   ,             )", dngutil::LIGHTRED), vcursor); vcursor.y++;
-            v->put(ColorString(R"(   `     || (_`.          ` .'   .'  )  `)'            ,   \\                )", dngutil::LIGHTRED), vcursor); vcursor.y++;
-            v->put(ColorString(R"(         ||  (_ `-v-------  ^--v' , )                      '\\,              )", dngutil::LIGHTRED), vcursor); vcursor.y++;
-            v->put(ColorString(R"(         ||    (    , _,-  /  -./ )'                         `)              )", dngutil::LIGHTRED), vcursor); vcursor.y++;
-            v->put(ColorString(R"(     `   '|     ),  ,'    '     )'                                           )", dngutil::LIGHTRED), vcursor); vcursor.y++;
-            v->put(ColorString(R"(        ' ;    /  ,'          ,'                                             )", dngutil::LIGHTRED), vcursor); vcursor.y++;
-            v->put(ColorString(R"(       /,'    /  /      '    /                                               )", dngutil::LIGHTRED), vcursor); vcursor.y++;
-            v->put(ColorString(R"(       \|    /  (          ,'                                                )", dngutil::LIGHTRED), vcursor); vcursor.y++;
-            v->put(ColorString(R"(       ('  ,'    `.    "  /                                                  )", dngutil::LIGHTRED), vcursor); vcursor.y++;
+            v->put(ColorString(R"(           _/          ,          .                                          )", dngutil::DARKGRAY), vcursor); vcursor.y++;
+            v->put(ColorString(R"(       , -' )         ( \-------.,')            (\_________________________  )", dngutil::DARKGRAY), vcursor); vcursor.y++;
+            v->put(ColorString(R"(     , ,-/ |          /\_) )     \/            ,' _.----------------------,\ )", dngutil::DARKGRAY), vcursor); vcursor.y++;
+            v->put(ColorString(R"(   ,',  /, |         /      >--. ,)           / /\\                          )", dngutil::DARKGRAY), vcursor); vcursor.y++;
+            v->put(ColorString(R"(  / ,  //|,'        /'     '\--'\\)          /,'  \\     `         `   ,     )", dngutil::DARKGRAY), vcursor); vcursor.y++;
+            v->put(ColorString(R"( / ,  // ||       ,'     (.--^( `')         //     \\                \       )", dngutil::DARKGRAY), vcursor); vcursor.y++;
+            v->put(ColorString(R"(( ,  //  ||,___,-'    (___\\  '^^^'        //       \\              ,        )", dngutil::DARKGRAY), vcursor); vcursor.y++;
+            v->put(ColorString(R"( \  //   ||--.__     (     \`^--)  _____.-'/         \\   `                  )", dngutil::DARKGRAY), vcursor); vcursor.y++;
+            v->put(ColorString(R"(  >'/    ||,        (       \|_(\-'      ,'           \\         \,          )", dngutil::DARKGRAY), vcursor); vcursor.y++;
+            v->put(ColorString(R"( /,'     ||          \           \      /              \\                    )", dngutil::DARKGRAY), vcursor); vcursor.y++;
+            v->put(ColorString(R"((/       ||           \           )  ,'(     `     `    \\      ,            )", dngutil::DARKGRAY), vcursor); vcursor.y++;
+            v->put(ColorString(R"( `       ||\           \      ) ,'  /_  )                \\    \             )", dngutil::DARKGRAY), vcursor); vcursor.y++;
+            v->put(ColorString(R"(         || `.          `.    ,'   /( `.\  \ , \ \,       \\   ,             )", dngutil::DARKGRAY), vcursor); vcursor.y++;
+            v->put(ColorString(R"(   `     || (_`.          ` .'   .'  )  `)'            ,   \\                )", dngutil::DARKGRAY), vcursor); vcursor.y++;
+            v->put(ColorString(R"(         ||  (_ `-v-------  ^--v' , )                      '\\,              )", dngutil::DARKGRAY), vcursor); vcursor.y++;
+            v->put(ColorString(R"(         ||    (    , _,-  /  -./ )'                         `)              )", dngutil::DARKGRAY), vcursor); vcursor.y++;
+            v->put(ColorString(R"(     `   '|     ),  ,'    '     )'                                           )", dngutil::DARKGRAY), vcursor); vcursor.y++;
+            v->put(ColorString(R"(        ' ;    /  ,'          ,'                                             )", dngutil::DARKGRAY), vcursor); vcursor.y++;
+            v->put(ColorString(R"(       /,'    /  /      '    /                                               )", dngutil::DARKGRAY), vcursor); vcursor.y++;
+            v->put(ColorString(R"(       \|    /  (          ,'                                                )", dngutil::DARKGRAY), vcursor); vcursor.y++;
+            v->put(ColorString(R"(       ('  ,'    `.    "  /                                                  )", dngutil::DARKGRAY), vcursor); vcursor.y++;
 
         }
         else
@@ -1256,7 +1256,7 @@ void TrueZorlock::beginingCutscene()
     playSound(WavFile("ZorlockAppears", false, false));
     t.clearLine(l);
 
-    v->putcen(ColorString("You have forced me to unleash my final form!", dngutil::LIGHTGREEN), l, true);
+    v->putcen(ColorString("Ugh, you have made me unleash my final form!", dngutil::LIGHTGREEN), l, true);
     pressEnter(Coordinate(0, l + 1), v);
     t.clearLine(l);
     t.clearLine(l + 1);
