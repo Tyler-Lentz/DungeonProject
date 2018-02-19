@@ -101,7 +101,7 @@ public:
     const bool& getQuickAttack() const;
     const WavFile& getHitsound() const;
 
-    bool hit() const;
+    bool hit();
 
     dngutil::ClassType getClass() const;
 

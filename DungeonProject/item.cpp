@@ -469,9 +469,76 @@ const WavFile& Primary::getHitsound() const
     return hitsound;
 }
 
-bool Primary::hit() const
+bool Primary::hit()
 {
-    return (random(99) < accuracy);
+    if (this != getPGame()->getPlayer()->getPrimaryMemory())
+    {
+        return (random(99) < accuracy);
+    }
+    else
+    {  
+        int adjustedAccuracy = (accuracy / 10);
+        std::vector<char> hitAmount;
+        int badSpaces = (10 - adjustedAccuracy);
+        for (int i = 0; i < adjustedAccuracy; i++)
+        {
+            hitAmount.push_back('O');
+        }
+        int badSpacesHalved = (badSpaces / 2);
+        int otherSideSpaces = (badSpaces - badSpacesHalved);
+        for (int i = 0; i < badSpacesHalved; i++)
+        {
+            auto itr = hitAmount.begin();
+            hitAmount.insert(itr, 'X');
+        }
+        for (int i = 0; i < otherSideSpaces; i++)
+        {
+            hitAmount.push_back('X');
+        }
+
+        // add extras
+        for (int i = 0; i < 5; i++)
+        {
+            auto itr = hitAmount.begin();
+            hitAmount.insert(itr, 'X');
+        }
+        for (int i = 0; i < 5; i++)
+        {
+            hitAmount.push_back('X');
+        }
+
+        int activeSlot = random(0, 19);
+        VirtualWindow* vwin = getPGame()->getVWin();
+        vwin->txtmacs.clearDivider("bottom");
+
+        vwin->put(ColorChar('*', dngutil::YELLOW), Coordinate(30, vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE));
+
+        vwin->put(ColorChar('*', dngutil::YELLOW), Coordinate(30 + 20, vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE));
+        do
+        {
+            activeSlot++;
+            if (activeSlot > (hitAmount.size() - 1))
+            {
+                activeSlot = 0;
+            }
+            for (int i = 0; i < 19; i++)
+            {
+                ColorChar slot;
+                if (i == activeSlot)
+                {
+                    slot.color = dngutil::GREEN;
+                }
+                else
+                {
+                    slot.color = dngutil::RED;
+                }
+                slot.character = hitAmount[i];
+                vwin->put(slot, Coordinate(31 + i, vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE));
+            }
+            Sleep(25);
+        } while (!keypress(VK_SPACE));
+        return (hitAmount[activeSlot] == 'O');
+    }
 }
 
 Secondary::Secondary(
