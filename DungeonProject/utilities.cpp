@@ -56,7 +56,7 @@ bool keypress(int key)
         return false;
     }
 
-    if (GetConsoleWindow() != GetForegroundWindow())
+    if (GetConsoleWindow() != GetForegroundWindow()) // if the window is not active (i.e. looking at something else)
     {
         return false;
     }

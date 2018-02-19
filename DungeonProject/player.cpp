@@ -934,10 +934,13 @@ void Player::mapMenu()
         }
         else
         {
-            toDraw.character = 'O';
             if (i.second->getMusic().getFilename() == "DungeonTheme" || !i.second->shouldDisplayOnMap())
             {
-                continue;
+                toDraw.character = ' ';
+            }
+            else
+            {
+                toDraw.character = '.';
             }
         }
 

@@ -415,6 +415,7 @@ VirtualWindow::VirtualWindow(unsigned int width, unsigned int height):
 void VirtualWindow::put(ColorChar colchar, Coordinate coord)
 {
     refreshMut.lock();
+
     if (vwin[coord.y][coord.x] != colchar)
     {
         vwin[coord.y][coord.x] = colchar;

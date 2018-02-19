@@ -401,20 +401,24 @@ void Game::titleScreen()
         switch (selection)
         {
         case 1:
-            vwin->putcen(ColorString("New Game", dngutil::LIGHTGRAY), vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE);
-            vwin->putcen(ColorString("    *--->", dngutil::LIGHTGRAY), vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE + 1);
+            vwin->putcen(ColorString("*------*                          ", dngutil::LIGHTGRAY), vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE - 1);
+            vwin->putcen(ColorString("New Game  Load Game  Credits  Quit", dngutil::LIGHTGRAY), vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE + 0);
+            vwin->putcen(ColorString("*------*                          ", dngutil::LIGHTGRAY), vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE + 1);
             break;
         case 2:
-            vwin->putcen(ColorString("Load Game", dngutil::LIGHTGRAY), vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE);
-            vwin->putcen(ColorString("<---*--->", dngutil::LIGHTGRAY), vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE + 1);
+            vwin->putcen(ColorString("          *-------*               ", dngutil::LIGHTGRAY), vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE - 1);
+            vwin->putcen(ColorString("New Game  Load Game  Credits  Quit", dngutil::LIGHTGRAY), vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE + 0);
+            vwin->putcen(ColorString("          *-------*               ", dngutil::LIGHTGRAY), vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE + 1);
             break;
         case 3:
-            vwin->putcen(ColorString("Credits", dngutil::LIGHTGRAY), vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE);
-            vwin->putcen(ColorString("<---*--->", dngutil::LIGHTGRAY), vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE + 1);
+            vwin->putcen(ColorString("                     *-----*     ", dngutil::LIGHTGRAY), vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE - 1);
+            vwin->putcen(ColorString("New Game  Load Game  Credits  Quit", dngutil::LIGHTGRAY), vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE + 0);
+            vwin->putcen(ColorString("                     *-----*      ", dngutil::LIGHTGRAY), vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE + 1);
             break;
         case 4:
-            vwin->putcen(ColorString("Quit", dngutil::LIGHTGRAY), vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE);
-            vwin->putcen(ColorString("<---*    ", dngutil::LIGHTGRAY), vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE + 1);
+            vwin->putcen(ColorString("                              *--*", dngutil::LIGHTGRAY), vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE - 1);
+            vwin->putcen(ColorString("New Game  Load Game  Credits  Quit", dngutil::LIGHTGRAY), vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE + 0);
+            vwin->putcen(ColorString("                              *--*", dngutil::LIGHTGRAY), vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE + 1);
             break;
         }
     };
