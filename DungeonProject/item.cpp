@@ -529,11 +529,28 @@ bool Primary::hit()
                 ColorChar slot;
                 if (i == activeSlot)
                 {
-                    slot.color = dngutil::GREEN;
+                    slot.color = dngutil::WHITE;
                 }
                 else
                 {
-                    slot.color = dngutil::RED;
+                    switch (hitAmount[i])
+                    {
+                    case 'O':
+                        slot.color = dngutil::GREEN;
+                        break;
+
+                    case 'x':
+                        slot.color = dngutil::YELLOW;
+                        break;
+
+                    case 'X':
+                        slot.color = dngutil::RED;
+                        break;
+
+                    default:
+                        slot.color = dngutil::LIGHTGREEN;
+                        break;
+                    }
                 }
                 slot.character = hitAmount[i];
 
