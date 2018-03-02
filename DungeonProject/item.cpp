@@ -514,9 +514,9 @@ bool Primary::hit()
 
         int leftMostSlot = ((dngutil::CONSOLEX - hitAmount.size()) / 2);
 
-        vwin->put(ColorChar('*', dngutil::YELLOW), Coordinate(leftMostSlot - 1, vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE));
+        vwin->put(ColorChar('*', dngutil::LIGHTCYAN), Coordinate(leftMostSlot - 1, vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE));
 
-        vwin->put(ColorChar('*', dngutil::YELLOW), Coordinate(leftMostSlot + hitAmount.size(), vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE));
+        vwin->put(ColorChar('*', dngutil::LIGHTCYAN), Coordinate(leftMostSlot + hitAmount.size(), vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE));
         do
         {
             activeSlot++;
