@@ -210,8 +210,8 @@ void BasiliskHorn::action(Player* player, unsigned int inventoryIndex)
     std::string output;
     Coordinate mapCoord = getPGame()->getActiveRoom()->getRoomInfo().mapCoord;
 
+    stopSound(SoundType::MP3);
     playSound(WavFile("BasiliskHorn", false, false));
-    output = "You stun everything in the room for 15 seconds starting now.";
 
     for (auto& i : getPGame()->getActiveRoom()->getCreatureList())
     {
@@ -221,10 +221,6 @@ void BasiliskHorn::action(Player* player, unsigned int inventoryIndex)
             i->increaseLastMoveTime(15000);
         }
     }
-
-    int line = getPGame()->getVWin()->txtmacs.BOTTOM_DIVIDER_TEXT_LINE;
-
-    getPGame()->getVWin()->putcen(ColorString(output, dngutil::LIGHTGRAY), line);
 }
 
 //-------------------------------------------------------
