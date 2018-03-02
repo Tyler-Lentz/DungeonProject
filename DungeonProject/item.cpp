@@ -486,34 +486,37 @@ bool Primary::hit()
         }
         int badSpacesHalved = (badSpaces / 2);
         int otherSideSpaces = (badSpaces - badSpacesHalved);
+        // bad spaces leave it up to a chance
         for (int i = 0; i < badSpacesHalved; i++)
         {
             auto itr = hitAmount.begin();
-            hitAmount.insert(itr, 'X');
+            hitAmount.insert(itr, 'x');
         }
         for (int i = 0; i < otherSideSpaces; i++)
         {
-            hitAmount.push_back('X');
+            hitAmount.push_back('x');
         }
 
-        // add extras
-        for (int i = 0; i < 5; i++)
+        // add extras which have a 0% chance for hitting
+        for (int i = 0; i < 10; i++)
         {
             auto itr = hitAmount.begin();
             hitAmount.insert(itr, 'X');
         }
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 10; i++)
         {
             hitAmount.push_back('X');
         }
 
-        int activeSlot = random(0, 19);
+        unsigned int activeSlot = random(0, 19);
         VirtualWindow* vwin = getPGame()->getVWin();
         vwin->txtmacs.clearDivider("bottom");
 
-        vwin->put(ColorChar('*', dngutil::YELLOW), Coordinate(30, vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE));
+        int leftMostSlot = ((dngutil::CONSOLEX - hitAmount.size()) / 2);
 
-        vwin->put(ColorChar('*', dngutil::YELLOW), Coordinate(30 + 20, vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE));
+        vwin->put(ColorChar('*', dngutil::YELLOW), Coordinate(leftMostSlot - 1, vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE));
+
+        vwin->put(ColorChar('*', dngutil::YELLOW), Coordinate(leftMostSlot + hitAmount.size(), vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE));
         do
         {
             activeSlot++;
@@ -521,7 +524,7 @@ bool Primary::hit()
             {
                 activeSlot = 0;
             }
-            for (int i = 0; i < 19; i++)
+            for (unsigned int i = 0; i < hitAmount.size(); i++) //19
             {
                 ColorChar slot;
                 if (i == activeSlot)
@@ -533,11 +536,30 @@ bool Primary::hit()
                     slot.color = dngutil::RED;
                 }
                 slot.character = hitAmount[i];
-                vwin->put(slot, Coordinate(31 + i, vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE));
+
+                vwin->put(slot, Coordinate(leftMostSlot + i, vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE));
             }
-            Sleep(25);
+            if (hitAmount[activeSlot] == 'O')
+            {
+                Sleep(20);
+            }
+            else
+            {
+                Sleep(30);
+            }
         } while (!keypress(VK_SPACE));
+        if (hitAmount[activeSlot] == 'X')
+        {
+            return false;
+        }
+        else if (hitAmount[activeSlot] == 'x')
+        {
+            return (random(99) < accuracy);
+        }
         return (hitAmount[activeSlot] == 'O');
+        {
+            return true;
+        }
     }
 }
 
