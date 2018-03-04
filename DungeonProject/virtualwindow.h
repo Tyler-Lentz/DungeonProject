@@ -105,6 +105,8 @@ public:
 
     const Console& getConsole() const;
 
+    ColorString getLine(unsigned int line) const;
+
     TextMacros txtmacs;
 private:
     // Vector that holds the updated information to draw to the console

@@ -44,6 +44,9 @@ struct ColorString : public std::vector<ColorChar>
 
     // Changes all of the characters color to the specified color
     void setColor(int color);
+
+    //erases a character at the position given
+    void popFront();
 };
 
 #endif

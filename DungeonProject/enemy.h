@@ -40,6 +40,7 @@ public:
     );
 
     virtual void printSelf() = 0;
+    virtual void dodgeAnimation();
     virtual std::string drop() = 0;
     virtual void beginingCutscene() {}
     Collision mapAction(MapObject* collider, std::list<MapObject*>::iterator& it) override;

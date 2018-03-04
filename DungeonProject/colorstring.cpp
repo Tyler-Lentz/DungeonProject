@@ -118,4 +118,9 @@ void ColorString::setColor(int color)
     }
 }
 
+
+void ColorString::popFront()
+{
+    erase(this->begin());
+}
 //---------------------------------------------------------------------

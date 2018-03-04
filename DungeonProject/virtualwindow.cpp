@@ -509,6 +509,11 @@ void VirtualWindow::putcenSlowScroll(ColorString colstr, unsigned int line)
     stopSound(SoundType::WAV);
 }
 
+ColorString VirtualWindow::getLine(unsigned int line) const
+{
+    return vwin[line];
+}
+
 void VirtualWindow::refresh()
 {
     refreshMut.lock();

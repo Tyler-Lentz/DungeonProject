@@ -827,6 +827,11 @@ Damage Creature::getDamageDealt(Creature* defender)
     {
         playSound(WavFile("WeaponMiss", false, true));
         canMiss = false;
+        Enemy* en = dynamic_cast<Enemy*>(defender);
+        if (en != nullptr)
+        {
+            //en->dodgeAnimation();
+        }
     }
 
     damage.damage = static_cast<int>(attack - defense);
