@@ -1363,7 +1363,7 @@ void TrueZorlock::deathSequence()
     Sleep(2500);
     t.clearLine(textLine);
 
-    v->putcenSlowScroll(ColorString("Curse all heroes!", dngutil::MAGENTA), textLine);
+    v->putcenSlowScroll(ColorString("Curse you " + name + "!", dngutil::MAGENTA), textLine);
     Sleep(2500);
     t.clearLine(textLine);
 
@@ -1378,7 +1378,7 @@ void TrueZorlock::deathSequence()
     t.clearLine(textLine + 1);
 
     v->putcenSlowScroll(ColorString("And I'll reserve a special place in hell", dngutil::RED), textLine);
-    v->putcenSlowScroll(ColorString("for both of you and all that oppose me!!", dngutil::RED), textLine + 1);
+    v->putcenSlowScroll(ColorString("for all that oppose me!!", dngutil::RED), textLine + 1);
     Sleep(3500);
     t.clearLine(textLine);
     t.clearLine(textLine + 1);
