@@ -76,6 +76,7 @@ Player::Player(
     this->expToLevel = getExpToLevel(getLvl());
 
     inventory.push_back(new Potion(getPGame(), Coordinate(-1, -1), dngutil::POTION_HEAL));
+    inventory.push_back(new Potion(getPGame(), Coordinate(-1, -1), dngutil::POTION_HEAL));
 
     armor = new BlueTunic(getPGame(), Coordinate(-1, -1));
     boots = new StandardBoots(getPGame(), Coordinate(-1, -1));

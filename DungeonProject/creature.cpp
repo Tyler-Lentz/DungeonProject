@@ -818,6 +818,7 @@ Damage Creature::getDamageDealt(Creature* defender)
             if (defenderClass == dngutil::ClassType::WIZARD)
             {
                 attack += static_cast<int>(attack / littleChange);
+                advantage = true;
             }
             else if (defenderClass == dngutil::ClassType::KNIGHT)
             {
