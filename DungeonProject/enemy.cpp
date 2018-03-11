@@ -84,21 +84,6 @@ void Enemy::dodgeAnimation()
     VirtualWindow* vwin = getPGame()->getVWin();
     int topLine = vwin->txtmacs.DIVIDER_LINES[1] + 1;
     int bottomLine = vwin->txtmacs.DIVIDER_LINES[2] - 1;
-    VWIN battleScene;
-
-    for (int i = 0; i < ((bottomLine - topLine) - 1); i++)
-    {
-        battleScene.push_back(vwin->getLine(i + topLine));
-    }
-
-    for (int x = 0; x < (dngutil::CONSOLEX / 3); x++)
-    {
-        for (int y = topLine; y < (battleScene.size()); y++)
-        {
-            battleScene[y].popFront();
-            vwin->put(battleScene[y - topLine], Coordinate(0, y));
-        }
-    }
 }
 
 void Enemy::printStats(int LONGEST_LINE_LENGTH, int startingCursorY)

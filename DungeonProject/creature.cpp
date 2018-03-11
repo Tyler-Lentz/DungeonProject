@@ -830,7 +830,7 @@ Damage Creature::getDamageDealt(Creature* defender)
         Enemy* en = dynamic_cast<Enemy*>(defender);
         if (en != nullptr)
         {
-            //en->dodgeAnimation();
+            en->dodgeAnimation();
         }
     }
 

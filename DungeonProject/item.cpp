@@ -494,12 +494,12 @@ bool Primary::hit()
         }
 
         // add extras which have a 0% chance for hitting
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 6; i++)
         {
             auto itr = hitAmount.begin();
             hitAmount.insert(itr, 'X');
         }
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 6; i++)
         {
             hitAmount.push_back('X');
         }
@@ -510,9 +510,9 @@ bool Primary::hit()
 
         int leftMostSlot = ((dngutil::CONSOLEX - hitAmount.size()) / 2);
 
-        vwin->put(ColorChar('*', dngutil::LIGHTCYAN), Coordinate(leftMostSlot - 1, vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE));
+        vwin->put(ColorChar('<', dngutil::LIGHTCYAN), Coordinate(leftMostSlot - 1, vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE));
 
-        vwin->put(ColorChar('*', dngutil::LIGHTCYAN), Coordinate(leftMostSlot + hitAmount.size(), vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE));
+        vwin->put(ColorChar('>', dngutil::LIGHTCYAN), Coordinate(leftMostSlot + hitAmount.size(), vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE));
         do
         {
             activeSlot++;
