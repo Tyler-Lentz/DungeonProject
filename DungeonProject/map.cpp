@@ -2730,13 +2730,19 @@ void Map::makeOverworld(std::mutex& mut)
         roomTemplate.push_back("                        "); 
         roomTemplate.push_back("####           ####  ###");
 
+        std::vector<ColorString> dialogue;
+
         std::map<Coordinate, MapObject*> specificObjects;
+
+        dialogue.push_back(ColorString("Close-combat beats ranged. Ranged beats magic. Magic beats close-combat.", dngutil::WHITE));
+        dialogue.push_back(ColorString("If you have the advantage, you may be able to attack twice.", dngutil::WHITE));
+
         specificObjects.emplace(Coordinate(7, 6), new Npc(
             pgame,
             ColorChar('A', dngutil::WHITE),
             Coordinate(7, 6),
             "John Baker",
-            ColorString("This is really wonderful weather we are having!", dngutil::WHITE)
+            dialogue
         ));
 
         specificObjects.emplace(Coordinate(17, 10), new Npc(
@@ -2746,8 +2752,7 @@ void Map::makeOverworld(std::mutex& mut)
             "Josh Chan",
             ColorString("This altar used to be the site of many important rituals.", dngutil::WHITE)
         ));
-
-        std::vector<ColorString> dialogue;
+        dialogue.clear();
         dialogue.push_back(ColorString("There used to be a ", dngutil::WHITE) + ColorString("temple", dngutil::TEXT_HIGHLIGHT_COLOR) + ColorString(" in the woods to the south,", dngutil::WHITE));
         dialogue.push_back(ColorString("but it got overrun when Zorlock attacked.", dngutil::WHITE));
         specificObjects.emplace(Coordinate(18, 4), new Npc(
