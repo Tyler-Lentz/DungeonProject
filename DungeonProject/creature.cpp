@@ -829,7 +829,6 @@ Damage Creature::getDamageDealt(Creature* defender)
     else
     {
         playSound(WavFile("WeaponMiss", false, true));
-        canMiss = false;
         Enemy* en = dynamic_cast<Enemy*>(defender);
         if (en != nullptr)
         {
