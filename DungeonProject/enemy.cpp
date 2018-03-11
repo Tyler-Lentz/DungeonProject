@@ -3661,13 +3661,13 @@ bool SegEnemy::battle(MapObject* t_enemy)
                 double damageMultiplier = (static_cast<double>(playerTimer) / playerWeaponSpeed);
                 if (playerTimer != playerWeaponSpeed)
                 {
-                    damageMultiplier *= 0.6; // slight negative for not charging all the way
+                    damageMultiplier /=2; // slight negative for not charging all the way
                 }
 
                 playerTimer = 0;
 
                 Damage damage = player->getDamageDealt(enemy);
-                damage.damage *= damageMultiplier;
+                damage.damage = static_cast<int>(damageMultiplier * static_cast<double>(damage.damage));
                 for (int i = 0; i < damage.damage; i++)
                 {
                     enemy->decreaseHealth(1);

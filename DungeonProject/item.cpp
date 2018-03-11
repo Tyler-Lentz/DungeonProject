@@ -8,6 +8,7 @@
 #include "virtualwindow.h"
 #include "room.h"
 #include "soundfile.h"
+#include "creature.h"
 
 #include <list>
 #include <string>
@@ -465,15 +466,15 @@ const WavFile& Primary::getHitsound() const
     return hitsound;
 }
 
-bool Primary::hit()
+bool Primary::hit(Creature* enemy)
 {
     if (this != getPGame()->getPlayer()->getPrimaryMemory())
     {
-        return (random(99) < accuracy);
+        return (random(99) < this->accuracy);
     }
     else
     {  
-        int adjustedAccuracy = (accuracy / 10);
+        int adjustedAccuracy = (this->accuracy / 10);
         std::vector<char> hitAmount;
         int badSpaces = (10 - adjustedAccuracy);
         for (int i = 0; i < adjustedAccuracy; i++)
@@ -508,7 +509,15 @@ bool Primary::hit()
         VirtualWindow* vwin = getPGame()->getVWin();
         vwin->txtmacs.clearDivider("bottom");
 
+        int timerLine = vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE + 2; // line on the screen where the timer is put
         int leftMostSlot = ((dngutil::CONSOLEX - hitAmount.size()) / 2);
+        auto startTime = GetTickCount();
+        int speedDifference = (getPGame()->getPlayer()->getSpd() - enemy->getSpd());
+        int attackDuration = (1500 + (speedDifference * 20)); // in miliseconds
+        if (attackDuration < 500)
+        {
+            attackDuration = 500;
+        }
 
         vwin->put(ColorChar('<', dngutil::LIGHTCYAN), Coordinate(leftMostSlot - 1, vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE));
 
@@ -552,6 +561,7 @@ bool Primary::hit()
 
                 vwin->put(slot, Coordinate(leftMostSlot + i, vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE));
             }
+            vwin->putcen(ColorString("   " + std::to_string(attackDuration - (GetTickCount() - startTime)) + "   ", dngutil::LIGHTGRAY), timerLine);
             if (hitAmount[activeSlot] == 'O')
             {
                 Sleep(20);
@@ -560,14 +570,21 @@ bool Primary::hit()
             {
                 Sleep(30);
             }
+
+            if (GetTickCount() > (startTime + attackDuration))
+            {
+                return false;
+            }
+
         } while (!keypress(VK_SPACE));
+        vwin->txtmacs.clearLine(timerLine);
         if (hitAmount[activeSlot] == 'X')
         {
             return false;
         }
         else if (hitAmount[activeSlot] == 'x')
         {
-            return (random(99) < accuracy);
+            return (random(99) < this->accuracy);
         }
         return (hitAmount[activeSlot] == 'O');
         {

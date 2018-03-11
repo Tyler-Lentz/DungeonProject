@@ -429,16 +429,17 @@ bool Creature::battle(MapObject* t_enemy)
 
             if (playerTimer >= 1 && keypress(VK_RETURN) && player->getPrimary().getQuickAttack())
             {
+                // takes the percentage of the bar charged (3/5) and takes half of that (3/10) and multiplies it by damage
                 double damageMultiplier = (static_cast<double>(playerTimer) / playerWeaponSpeed);
                 if (playerTimer != playerWeaponSpeed)
                 {
-                    damageMultiplier *= 0.6; // slight negative for not charging all the way
+                    damageMultiplier /= 2; // additional halved damage for not charging all the way
                 }
 
                 playerTimer = 0;
 
                 Damage damage = player->getDamageDealt(enemy);
-                damage.damage *= damageMultiplier;
+                damage.damage = static_cast<int>(damageMultiplier * static_cast<double>(damage.damage));
                 for (int i = 0; i < damage.damage; i++)
                 {
                     enemy->decreaseHealth(1);
@@ -765,7 +766,7 @@ Damage Creature::getDamageDealt(Creature* defender)
     attack += (random(static_cast<int>(attack / 3.0), static_cast<int>(attack / 2.0)));
     defense += (random(static_cast<int>(defense / 3.0), static_cast<int>(defense / 2.0)));
 
-    bool miss = !primary->hit() && canMiss;
+    bool miss = !primary->hit(defender) && canMiss;
 
     if (defender == getPGame()->getPlayer() && !miss)
     {
@@ -780,9 +781,11 @@ Damage Creature::getDamageDealt(Creature* defender)
         auto start = GetTickCount();
         int timeWindow = defender->getSecondary().getDeflectTime();
 
+        int numberOfSpaces = (timeWindow / 20);
+
         getPGame()->getVWin()->putcen(ColorString("!", dngutil::CYAN), getPGame()->getVWin()->txtmacs.BOTTOM_DIVIDER_TEXT_LINE + 1);
 
-        while ((start + timeWindow) > GetTickCount() && canDeflect)
+        while (((start + timeWindow) > GetTickCount()) && canDeflect)
         {
             if (keypress(VK_SPACE))
             {

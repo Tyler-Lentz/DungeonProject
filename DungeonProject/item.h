@@ -6,6 +6,7 @@
 #include "coordinate.h"
 #include "utilities.h"
 #include "soundfile.h"
+#include "creature.h"
 
 #include <string>
 
@@ -101,7 +102,7 @@ public:
     const bool& getQuickAttack() const;
     const WavFile& getHitsound() const;
 
-    bool hit();
+    bool hit(Creature* enemy);
 
     dngutil::ClassType getClass() const;
 
