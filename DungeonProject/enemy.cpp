@@ -103,6 +103,9 @@ void Enemy::printStats(int LONGEST_LINE_LENGTH, int startingCursorY)
     vwin->put(ColorString("Health: " + std::to_string(getHp()) + "    ", dngutil::GREEN), vcursor);
 
     vcursor.x = LONGEST_LINE_LENGTH + 1; vcursor.y++;
+    vwin->put(ColorString(getClassName(getPrimary().getClass()) + "    ", dngutil::GREEN), vcursor);
+
+    vcursor.x = LONGEST_LINE_LENGTH + 1; vcursor.y++;
     vwin->put(ColorString("Attack: " + std::to_string(getAtt()) + "    ", dngutil::GREEN), vcursor);
 
     vcursor.x = LONGEST_LINE_LENGTH + 1; vcursor.y++;

@@ -225,107 +225,6 @@ void Player::setExpToLevel(int value)
     expToLevel = value;
 }
 
-void Player::chooseClass()
-{
-    VirtualWindow* v = getPGame()->getVWin();
-    TextMacros& t = v->txtmacs;
-
-    t.clearMapArea(false, NULL);
-    t.clearDivider("bottom");
-    Coordinate vcursor(0, t.DIVIDER_LINES[1] + 5);
-
-    playSound(WavFile("Levelup", false, true));
-
-    v->putcen(ColorString("Choose your class:", dngutil::LIGHTBLUE), vcursor.y++);
-    vcursor.y++;
-
-    v->putcen(ColorString("(1) - Knight [+15 Health, Melee Weapons]", dngutil::WHITE), vcursor.y++);
-    vcursor.y += 2;
-
-    v->putcen(ColorString("(2) - Ranger [+50 Speed, +25 luck, Bows/Guns]", dngutil::WHITE), vcursor.y++);
-    vcursor.y += 2;
-
-    v->putcen(ColorString("(3) - Wizard [+5 Attack, +30 Speed, Magical Weapons]", dngutil::WHITE), vcursor.y++);
-
-    while (true)
-    {
-        if (keypress('1'))
-        {
-            setClass(dngutil::ClassType::KNIGHT);
-            increaseMaxhp(15);
-            increaseHealth(15);
-            inventory.push_back(
-                new Primary(
-                    getPGame(),
-                    ColorChar('I', dngutil::WHITE),
-                    Coordinate(-1, -1),
-                    "Lance",
-                    false,
-                    1.5,
-                    3,
-                    80,
-                    false,
-                    "A Knight's lance",
-                    WavFile("Attack3", false, false),
-                    dngutil::ClassType::KNIGHT
-                )
-            );
-            break;
-        }
-        if (keypress('2'))
-        {
-            setClass(dngutil::ClassType::RANGER);
-            increaseSpd(50);
-            increaseLck(25);
-            inventory.push_back(
-                new Primary(
-                    getPGame(),
-                    ColorChar('(', dngutil::GREEN),
-                    Coordinate(-1, -1),
-                    "Bow of the Wind",
-                    false,
-                    1.1,
-                    2,
-                    70,
-                    false,
-                    "A Ranger's bow, blessed by the wind",
-                    WavFile("BowAttack1", false, false),
-                    dngutil::ClassType::RANGER
-                )
-            );
-            break;
-        }
-        if (keypress('3'))
-        {
-            setClass(dngutil::ClassType::WIZARD);
-            increaseAtt(2);
-            increaseSpd(30);
-            inventory.push_back(
-                new Primary(
-                    getPGame(),
-                    ColorChar('i', dngutil::GREEN),
-                    Coordinate(-1, -1),
-                    "Wand",
-                    false,
-                    1.4,
-                    3,
-                    100,
-                    false,
-                    "A Wizard's magical wand",
-                    WavFile("MagicAttack1", false, false),
-                    dngutil::ClassType::WIZARD
-                )
-            );
-            break;
-        }
-    }
-    t.clearMapArea(false, NULL);
-
-    vcursor.y = t.BOTTOM_DIVIDER_TEXT_LINE;
-    v->putcen(ColorString("You have created a weapon for your new skills", dngutil::WHITE), vcursor.y++);
-    pressEnter(vcursor, v);
-}
-
 void Player::addToInventory(Item* item)
 {
     inventory.push_back(item);
@@ -964,15 +863,19 @@ void Player::statsMenu()
     v->txtmacs.clearMapArea(false, NULL);
     v->txtmacs.clearDivider("bottom");
     int line = v->txtmacs.DIVIDER_LINES[1] + 3;
-    v->putcen(ColorString(getPrimary().getName() + " Stats", dngutil::LIGHTRED), line++);
-    v->putcen(ColorString("Attack Speed: " + std::to_string(getPrimary().getAttSpeed()) + " seconds", dngutil::LIGHTRED), line++);
+    v->putcen(ColorString(getPrimary().getName() + " Stats", dngutil::LIGHTGRAY), line++);
+
+
+
+    v->putcen(ColorString("Attack Type: " + getClassName(getPrimary().getClass()), dngutil::LIGHTGREEN), line++);
+    v->putcen(ColorString("Attack Speed: " + std::to_string(getPrimary().getAttSpeed()) + " seconds", dngutil::LIGHTBLUE), line++);
     v->putcen(ColorString("Damage Multiplier: " + std::to_string(getPrimary().getDmgMultiplier()), dngutil::LIGHTRED), line++);
-    v->putcen(ColorString("Accuracy: " + std::to_string(getPrimary().getAccuracy()) + "%", dngutil::LIGHTRED), line++);
+    v->putcen(ColorString("Accuracy: " + std::to_string(getPrimary().getAccuracy()) + "%", dngutil::LIGHTMAGENTA), line++);
 
     line += 2;
-    v->putcen(ColorString(getSecondary().getName() + " Stats", dngutil::LIGHTBLUE), line++);
+    v->putcen(ColorString(getSecondary().getName() + " Stats", dngutil::LIGHTGRAY), line++);
     v->putcen(ColorString("Deflect Time: " + std::to_string(getSecondary().getDeflectTime()) + " miliseconds", dngutil::LIGHTBLUE), line++);
-    v->putcen(ColorString("Defense Multiplier: " + std::to_string(getSecondary().getDefenseBoost()), dngutil::LIGHTBLUE), line++);
+    v->putcen(ColorString("Defense Multiplier: " + std::to_string(getSecondary().getDefenseBoost()), dngutil::LIGHTRED), line++);
 
     line = v->txtmacs.BOTTOM_DIVIDER_TEXT_LINE;
 

@@ -246,4 +246,6 @@ void credits(dngutil::CreditType c, Game* pgame);
 void intro(VirtualWindow* vwin);
 
 void statIncreaseDisplay(int change, int prevValue, int color, std::string text, VirtualWindow* vwin, Coordinate& vcursor);
+
+std::string getClassName(dngutil::ClassType cl);
 #endif

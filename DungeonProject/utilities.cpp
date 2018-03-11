@@ -647,3 +647,22 @@ void statIncreaseDisplay(int change, int prevValue, int color, std::string text,
         Sleep(350);
     }
 }
+
+std::string getClassName(dngutil::ClassType cl)
+{
+    switch (cl)
+    {
+    case dngutil::ClassType::ADVENTURER:
+        return "Neutral";
+        break;
+    case dngutil::ClassType::WIZARD:
+        return "Magic";
+        break;
+    case dngutil::ClassType::KNIGHT:
+        return "Close-Combat";
+        break;
+    case dngutil::ClassType::RANGER:
+        return "Ranged";
+        break;
+    }
+}

@@ -65,8 +65,6 @@ public:
     void resetSteps();
     int getStepCount();
 
-    void chooseClass();
-
     int getExp() const;
     int getPlayersExpToLevel() const;
 

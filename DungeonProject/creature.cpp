@@ -562,34 +562,6 @@ void Creature::setCanMiss(bool value)
     canMiss = value;
 }
 
-std::string Creature::getClassName()
-{
-    std::string name;
-    switch (classType)
-    {
-    case dngutil::ClassType::KNIGHT:
-        name = "Knight";
-        break;
-    case dngutil::ClassType::WIZARD:
-        name = "Wizard";
-        break;
-    case dngutil::ClassType::RANGER:
-        name = "Ranger";
-        break;
-    case dngutil::ClassType::ADVENTURER:
-        name = "Adventurer";
-        break;
-    default:
-        name = "INVALID CLASS";
-        break;
-    }
-    if (lvl >= dngutil::PROMOTION_LEVEL)
-    {
-        name = "Master " + name;
-    }
-    return name;
-}
-
 bool Creature::adjustPosition(dngutil::Movement movement)
 {
     int newX, newY;
@@ -800,11 +772,58 @@ Damage Creature::getDamageDealt(Creature* defender)
     if (!miss)
     {
         canMiss = true;
-        int critChance = (dngutil::MAX_LCK + 100);
+        int critChance = (dngutil::MAX_LCK * 3);
         critChance -= getLck();
         if (critChance < 0)
         {
             critChance = 0;
+        }
+
+        dngutil::ClassType attackerClass = primary->getClass();
+        dngutil::ClassType defenderClass = defender->getPrimary().getClass();
+        bool advantage = false;
+
+        int littleChange = 5;
+        int moderateChange = 4;
+        int bigChange = 3;
+
+        switch (attackerClass)
+        {
+        case dngutil::ClassType::ADVENTURER:
+            // no attack changes
+            break;
+        case dngutil::ClassType::KNIGHT:
+            if (defenderClass == dngutil::ClassType::RANGER)
+            {
+                attack += static_cast<int>(attack / bigChange);
+                advantage = true;
+            }
+            else if (defenderClass == dngutil::ClassType::WIZARD)
+            {
+                attack -= static_cast<int>(attack / bigChange);
+            }
+            break;
+        case dngutil::ClassType::WIZARD:
+            if (defenderClass == dngutil::ClassType::KNIGHT)
+            {
+                attack += static_cast<int>(attack / bigChange);
+                advantage = true;
+            }
+            else if (defenderClass == dngutil::ClassType::RANGER)
+            {
+                attack -= static_cast<int>(attack / moderateChange);
+            }
+            break;
+        case dngutil::ClassType::RANGER:
+            if (defenderClass == dngutil::ClassType::WIZARD)
+            {
+                attack += static_cast<int>(attack / littleChange);
+            }
+            else if (defenderClass == dngutil::ClassType::KNIGHT)
+            {
+                attack -= static_cast<int>(attack / bigChange);
+            }
+            break;
         }
 
         bool crit = (random(critChance) == 0);
@@ -818,10 +837,20 @@ Damage Creature::getDamageDealt(Creature* defender)
         {
             if (getTypeId() == dngutil::TID::Player)
             {
+                if (advantage && (random(7) == 1))
+                {
+                    playSound(WavFile("EnemyHit", false, false));
+                    attack *= 1.5;
+                }
                 playSound(WavFile("EnemyHit", false, true));
             }
             else
             {
+                if (advantage && (random(7) == 1))
+                {
+                    playSound(WavFile("PlayerHit", false, false));
+                    attack *= 1.5;
+                }
                 playSound(WavFile("PlayerHit", false, true));
             }
         }

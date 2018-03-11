@@ -104,7 +104,6 @@ public:
 
     dngutil::Movement getLastMovement();
 
-    std::string getClassName();
     dngutil::ClassType getClass();
     void setClass(dngutil::ClassType classType);
 
