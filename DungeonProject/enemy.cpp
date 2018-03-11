@@ -219,7 +219,7 @@ std::string REnemy::drop()
         if (random(1) == 0)
         {
             itemToAdd = getPrimaryMemory();
-setPrimary(nullptr);
+            setPrimary(nullptr);
         }
         else
         {
