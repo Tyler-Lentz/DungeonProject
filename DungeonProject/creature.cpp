@@ -427,7 +427,7 @@ bool Creature::battle(MapObject* t_enemy)
 
             vwin->txtmacs.outputBattleInfo(playerTimer, playerWeaponSpeed, enemyTimer, enemyWeaponSpeed);
 
-            if (playerTimer >= 1 && keypress(VK_RETURN) && player->getPrimary().getQuickAttack())
+            if ((keypress(VK_RETURN)) && ((player->getPrimary().getQuickAttack() && playerTimer >= 1) || (playerTimer >= playerWeaponSpeed)))
             {
                 // takes the percentage of the bar charged (3/5) and takes half of that (3/10) and multiplies it by damage
                 double damageMultiplier = (static_cast<double>(playerTimer) / playerWeaponSpeed);

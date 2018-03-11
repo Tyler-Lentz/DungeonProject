@@ -3656,7 +3656,7 @@ bool SegEnemy::battle(MapObject* t_enemy)
 
             vwin->txtmacs.outputBattleInfo(playerTimer, playerWeaponSpeed, enemyTimer, enemyWeaponSpeed);
 
-            if (playerTimer >= 1 && keypress(VK_RETURN) && player->getPrimary().getQuickAttack())
+            if ((keypress(VK_RETURN)) && ((player->getPrimary().getQuickAttack() && playerTimer >= 1) || (playerTimer >= playerWeaponSpeed)))
             {
                 double damageMultiplier = (static_cast<double>(playerTimer) / playerWeaponSpeed);
                 if (playerTimer != playerWeaponSpeed)
