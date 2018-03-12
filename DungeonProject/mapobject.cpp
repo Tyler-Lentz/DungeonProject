@@ -174,7 +174,7 @@ Collision ExitObject::mapAction(MapObject* collider, std::list<MapObject*>::iter
                     getPGame()->clearDeletionList();
                     if (getPGame()->getActiveRoom()->hasPuzzle())
                     {
-                        playSound(WavFile("Puzzle", false, true));
+                        //playSound(WavFile("Puzzle", false, true));
                     }
                     if (getPGame()->getOverworldMusic().getFilename() != getPGame()->getActiveRoom()->getMusic().getFilename())
                     {
@@ -212,7 +212,7 @@ Collision ExitObject::mapAction(MapObject* collider, std::list<MapObject*>::iter
                     getPGame()->clearDeletionList();
                     if (getPGame()->getActiveRoom()->hasPuzzle())
                     {
-                        playSound(WavFile("Puzzle", false, true));
+                        //playSound(WavFile("Puzzle", false, true));
                     }
                     if (getPGame()->getOverworldMusic().getFilename() != getPGame()->getActiveRoom()->getMusic().getFilename())
                     {
@@ -927,6 +927,114 @@ Collision HeroSpirit::mapAction(MapObject* collider, std::list<MapObject*>::iter
         pressEnter(Coordinate(0, l + 1), v);
         t.clearLine(l);
         t.clearLine(l + 1);
+
+        t.clearDivider("bottom");
+        t.clearMapArea(false, NULL);
+        t.displayGame(getPGame());
+
+        getPGame()->getOverworldMusic().play();
+
+    }
+    return Collision(false, true);
+}
+
+//---------------------------------------------------------------
+
+//---------------------------------------------------------------
+// Eldest Sage functions
+
+EldestSage::EldestSage(Game* game, Coordinate coord)
+    :MapObject(
+        game,
+        ColorChar('A', dngutil::GREEN),
+        coord,
+        "Eldest Sage",
+        true,
+        false,
+        false,
+        dngutil::TID::EldestSage,
+        dngutil::P_WALL,
+        dngutil::BTID::None,
+        false
+    )
+{
+
+}
+
+Collision EldestSage::mapAction(MapObject* collider, std::list<MapObject*>::iterator& it)
+{
+    if (collider == getPGame()->getPlayer() && !getPGame()->getPlayer()->hasItem(dngutil::TID::HerosTunic))
+    {
+        stopSound(SoundType::MP3);
+        VirtualWindow* v = getPGame()->getVWin();
+        TextMacros& t = v->txtmacs;
+        Coordinate vcursor(10, t.DIVIDER_LINES[1] + 1);
+
+        t.clearMapArea(true, 10);
+        t.clearDivider("bottom");
+
+        int color = dngutil::GREEN;
+
+        v->put(ColorString(R"()", color), vcursor); vcursor.y++;
+        v->put(ColorString(R"()", color), vcursor); vcursor.y++;
+        v->put(ColorString(R"()", color), vcursor); vcursor.y++;
+        v->put(ColorString(R"(                             _,-'|)", color), vcursor); vcursor.y++;
+        v->put(ColorString(R"(                          ,-'._  |)", color), vcursor); vcursor.y++;
+        v->put(ColorString(R"(                .||,      |####\ |)", color), vcursor); vcursor.y++;
+        v->put(ColorString(R"(               \.`',/     \####| |)", color), vcursor); vcursor.y++;
+        v->put(ColorString(R"(               = ,. =      |###| |)", color), vcursor); vcursor.y++;
+        v->put(ColorString(R"(               / || \    ,-'\#/,'`.)", color), vcursor); vcursor.y++;
+        v->put(ColorString(R"(                 ||     ,'   `,,. `.)", color), vcursor); vcursor.y++;
+        v->put(ColorString(R"(                 ,|____,' , ,;' \| |)", color), vcursor); vcursor.y++;
+        v->put(ColorString(R"(                (3|\    _/|/'   _| |)", color), vcursor); vcursor.y++;
+        v->put(ColorString(R"(                 ||/,-''  | >-'' _,\\)", color), vcursor); vcursor.y++;
+        v->put(ColorString(R"(                 ||'      ==\ ,-'  ,')", color), vcursor); vcursor.y++;
+        v->put(ColorString(R"(                 ||       |  V \ ,|)", color), vcursor); vcursor.y++;
+        v->put(ColorString(R"(                 ||       |    |` |)", color), vcursor); vcursor.y++;
+        v->put(ColorString(R"(                 ||       |    |   \)", color), vcursor); vcursor.y++;
+        v->put(ColorString(R"(                 ||       |    \    \)", color), vcursor); vcursor.y++;
+        v->put(ColorString(R"(                 ||       |     |    \)", color), vcursor); vcursor.y++;
+        v->put(ColorString(R"(                 ||       |      \_,-')", color), vcursor); vcursor.y++;
+        v->put(ColorString(R"(                 ||       |___,,--")_\)", color), vcursor); vcursor.y++;
+        v->put(ColorString(R"(                 ||         |_|   ccc/)", color), vcursor); vcursor.y++;
+        v->put(ColorString(R"(                 ||        ccc/)", color), vcursor); vcursor.y++;
+        v->put(ColorString(R"(                 ||         )", color), vcursor); vcursor.y++;
+
+        int l = t.BOTTOM_DIVIDER_TEXT_LINE;
+
+        if (!getPGame()->getPlayer()->hasItem(dngutil::TID::Spellbook))
+        {
+            v->putcen(ColorString("I am the eldest of Bora's sages.", dngutil::WHITE), l, true);
+            pressEnter(Coordinate(0, l + 1), v);
+            t.clearLine(l);
+            t.clearLine(l + 1);
+
+            v->putcen(ColorString("Let me teach you my spell, use it freely as it has no cost.", dngutil::WHITE), l, true);
+            pressEnter(Coordinate(0, l + 1), v);
+            t.clearLine(l);
+            t.clearLine(l + 1);
+
+            v->putcen(ColorString("With this spellbook, all you need to do is cast \"Seal Revealer\"", dngutil::WHITE), l, true);
+            pressEnter(Coordinate(0, l + 1), v);
+            t.clearLine(l);
+            t.clearLine(l + 1);
+
+            playSound(WavFile("FindItem", false, false));
+            getPGame()->getPlayer()->addToInventory(new Spellbook(getPGame(), Coordinate(-1, -1)));
+
+
+            v->putcen(ColorString("There are more sages. Search for them. The rewards may be great.", dngutil::WHITE), l, true);
+            pressEnter(Coordinate(0, l + 1), v);
+            t.clearLine(l);
+            t.clearLine(l + 1);
+        }
+        else
+        {
+            v->putcen(ColorString("My spell is \"Seal-Revealer\"", dngutil::WHITE), l, true);
+            pressEnter(Coordinate(0, l + 1), v);
+            t.clearLine(l);
+            t.clearLine(l + 1);
+        }
 
         t.clearDivider("bottom");
         t.clearMapArea(false, NULL);

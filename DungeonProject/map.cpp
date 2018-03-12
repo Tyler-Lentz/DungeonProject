@@ -601,7 +601,7 @@ void Map::makeOverworld(std::mutex& mut)
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
 
         mut.lock();
-        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction), Mp3File("OverworldTheme")));
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction, "Great strength is required"), Mp3File("OverworldTheme")));
         mut.unlock();
 
     }
@@ -984,7 +984,7 @@ void Map::makeOverworld(std::mutex& mut)
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
 
         mut.lock();
-        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction), Mp3File("CaveTheme")));
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction, "Unknown origin"), Mp3File("CaveTheme")));
         mut.unlock();
 
     }
@@ -2532,7 +2532,7 @@ void Map::makeOverworld(std::mutex& mut)
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
 
         mut.lock();
-        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction), Mp3File("DangerTheme"), false));
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction, "Unknown origin"), Mp3File("DangerTheme"), false));
         mut.unlock();
 
     }
@@ -3304,7 +3304,7 @@ void Map::makeOverworld(std::mutex& mut)
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
 
         mut.lock();
-        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction), Mp3File("DangerTheme")));
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction, "Unknown origin. Pure evil detected."), Mp3File("DangerTheme")));
         mut.unlock();
 
     }
@@ -4006,7 +4006,7 @@ void Map::makeOverworld(std::mutex& mut)
         roomTemplate.push_back("#### ^ #################");
         roomTemplate.push_back("####   #################");
         roomTemplate.push_back("#      #################");
-        roomTemplate.push_back("# +    #################");
+        roomTemplate.push_back("# +  o #################");
         roomTemplate.push_back("#      #################");
         roomTemplate.push_back("########################");
         roomTemplate.push_back("########################");
@@ -4015,6 +4015,7 @@ void Map::makeOverworld(std::mutex& mut)
         roomTemplate.push_back("########################");
 
         std::map<Coordinate, MapObject*> specificObjects;
+        specificObjects.emplace(Coordinate(5, 6), new EldestSage(pgame, Coordinate(5, 6)));
 
         std::vector<dngutil::TID> possibleCreatures;
         possibleCreatures.push_back(dngutil::TID::Skeleton);
@@ -4167,7 +4168,7 @@ void Map::makeHerosTrial(std::mutex& mut)
             RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
 
             mut.lock();
-            gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction), Mp3File("DungeonTheme")));
+            gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction, "Slay the enemy"), Mp3File("DungeonTheme")));
             mut.unlock();
 
         }
@@ -4221,7 +4222,7 @@ void Map::makeHerosTrial(std::mutex& mut)
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
 
         mut.lock();
-        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction), Mp3File("DangerTheme")));
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction, "Unknown origin"), Mp3File("DangerTheme")));
         mut.unlock();
 
     }
@@ -4437,7 +4438,7 @@ void Map::makeHouses(std::mutex& mut)
         Coordinate mapCoord(200, 200);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
         mut.lock();
-        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction), Mp3File("SpiritTheme")));
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction, "Unknown origin"), Mp3File("SpiritTheme")));
         mut.unlock();
     }
 
@@ -4882,7 +4883,7 @@ void Map::makeTowerOfTheGods(std::mutex& mut)
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
 
         mut.lock();
-        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction), Mp3File("FinalDungeonTheme")));
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction, "Unknown origin"), Mp3File("FinalDungeonTheme")));
         mut.unlock();
 
     }
@@ -4929,7 +4930,7 @@ void Map::makeTowerOfTheGods(std::mutex& mut)
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
 
         mut.lock();
-        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction), Mp3File("FinalDungeonTheme")));
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction, "Unknown origin"), Mp3File("FinalDungeonTheme")));
         mut.unlock();
 
     }
@@ -4975,7 +4976,7 @@ void Map::makeTowerOfTheGods(std::mutex& mut)
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
 
         mut.lock();
-        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction), Mp3File("FinalDungeonTheme")));
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction, "Unknown origin"), Mp3File("FinalDungeonTheme")));
         mut.unlock();
 
     }
@@ -5021,7 +5022,7 @@ void Map::makeTowerOfTheGods(std::mutex& mut)
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
 
         mut.lock();
-        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction), Mp3File("FinalDungeonTheme")));
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction, "Unknown origin"), Mp3File("FinalDungeonTheme")));
         mut.unlock();
 
     }
@@ -5112,7 +5113,7 @@ void Map::makeTowerOfTheGods(std::mutex& mut)
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
 
         mut.lock();
-        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction), Mp3File("DangerTheme")));
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction, "Unknown origin. Pure evil detected."), Mp3File("DangerTheme")));
         mut.unlock();
 
     }
@@ -5211,7 +5212,7 @@ void Map::makeFireTemple(std::mutex& mut)
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
 
         mut.lock();
-        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction), Mp3File("DungeonTheme")));
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction, "Complete it."), Mp3File("DungeonTheme")));
         mut.unlock();
 
     }
@@ -5407,7 +5408,7 @@ void Map::makeFireTemple(std::mutex& mut)
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
 
         mut.lock();
-        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction), Mp3File("DungeonTheme")));
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction, "Be the last one standing"), Mp3File("DungeonTheme")));
         mut.unlock();
 
     }
@@ -5561,7 +5562,7 @@ void Map::makeFireTemple(std::mutex& mut)
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
 
         mut.lock();
-        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction), Mp3File("DangerTheme")));
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction, "Unknown origin"), Mp3File("DangerTheme")));
         mut.unlock();
 
     }
@@ -5706,7 +5707,7 @@ void Map::makeFireTemple(std::mutex& mut)
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
 
         mut.lock();
-        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction), Mp3File("DungeonTheme")));
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction, "Be the last one standing."), Mp3File("DungeonTheme")));
         mut.unlock();
 
     }
@@ -5875,7 +5876,7 @@ void Map::makeWaterTemple(std::mutex& mut)
         Coordinate mapCoord(-3, 8);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
         mut.lock();
-        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction), Mp3File("OverworldTheme"), false));
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction, "Unknown origin"), Mp3File("OverworldTheme"), false));
         mut.unlock();
     }
     {
@@ -5936,7 +5937,7 @@ pgame->getVWin()->txtmacs.displayGame(pgame);
         Coordinate mapCoord(-3, 9);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
         mut.lock();
-        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction), Mp3File("DungeonTheme"), false));
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction, "Slay the enemy"), Mp3File("DungeonTheme"), false));
         mut.unlock();
     }
     {
@@ -6152,7 +6153,7 @@ pgame->getVWin()->txtmacs.displayGame(pgame);
         Coordinate mapCoord(-2, 11);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
         mut.lock();
-        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction), Mp3File("DungeonTheme")));
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction, "Find the hidden switch."), Mp3File("DungeonTheme")));
         mut.unlock();
     }
     {
@@ -6238,7 +6239,7 @@ pgame->getVWin()->txtmacs.displayGame(pgame);
         Coordinate mapCoord(-4, 11);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
         mut.lock();
-        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction), Mp3File("DungeonTheme")));
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction, "Be the last one standing"), Mp3File("DungeonTheme")));
         mut.unlock();
     }
 
@@ -6390,7 +6391,7 @@ pgame->getVWin()->txtmacs.displayGame(pgame);
         Coordinate mapCoord(-3, 12);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
         mut.lock();
-        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction), Mp3File("DungeonTheme")));
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction, "Slay the enemy"), Mp3File("DungeonTheme")));
         mut.unlock();
     }
     {
@@ -6443,7 +6444,7 @@ pgame->getVWin()->txtmacs.displayGame(pgame);
         Coordinate mapCoord(-2, 12);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
         mut.lock();
-        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction), Mp3File("DangerTheme")));
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction, "Unknown origin"), Mp3File("DangerTheme")));
         mut.unlock();
     }
     {
@@ -6631,7 +6632,7 @@ void Map::makeSpiritTemple(std::mutex& mut)
         Coordinate mapCoord(200, 201);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
         mut.lock();
-        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction), Mp3File("DungeonTheme")));
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction, "The light is possessed."), Mp3File("DungeonTheme")));
         mut.unlock();
     }
     {
@@ -6724,7 +6725,7 @@ void Map::makeSpiritTemple(std::mutex& mut)
         Coordinate mapCoord(201, 201);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
         mut.lock();
-        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction), Mp3File("DungeonTheme")));
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction, "Be the last one standing."), Mp3File("DungeonTheme")));
         mut.unlock();
     }
     {
@@ -6856,7 +6857,7 @@ void Map::makeSpiritTemple(std::mutex& mut)
         Coordinate mapCoord(202, 200);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
         mut.lock();
-        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction), Mp3File("DungeonTheme")));
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction, "Unknown origin"), Mp3File("DungeonTheme")));
         mut.unlock();
     }
     {}
@@ -6899,7 +6900,7 @@ void Map::makeSpiritTemple(std::mutex& mut)
         Coordinate mapCoord(203, 200);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
         mut.lock();
-        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction), Mp3File("DungeonTheme")));
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction, "Slay the enemy."), Mp3File("DungeonTheme")));
         mut.unlock();
     }
     {
@@ -7011,7 +7012,7 @@ void Map::makeSpiritTemple(std::mutex& mut)
         Coordinate mapCoord(206, 200);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
         mut.lock();
-        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction), Mp3File("DangerTheme")));
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction, "Unknown origin"), Mp3File("DangerTheme")));
         mut.unlock();
     }
     {
@@ -7049,7 +7050,7 @@ void Map::makeSpiritTemple(std::mutex& mut)
         Coordinate mapCoord(204, 199);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
         mut.lock();
-        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction), Mp3File("DungeonTheme")));
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction, "Complete it."), Mp3File("DungeonTheme")));
         mut.unlock();
     }
     {
@@ -7236,7 +7237,7 @@ void Map::makeSpiritTemple(std::mutex& mut)
         Coordinate mapCoord(201, 199);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
         mut.lock();
-        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction), Mp3File("DungeonTheme")));
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction, "Unknown origin"), Mp3File("DungeonTheme")));
         mut.unlock();
     }
     {}
@@ -7346,7 +7347,7 @@ void Map::makeSpiritTemple(std::mutex& mut)
         Coordinate mapCoord(198, 200);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
         mut.lock();
-        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction), Mp3File("DungeonTheme")));
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction, "Be the last one standing."), Mp3File("DungeonTheme")));
         mut.unlock();
     }
     {
@@ -7415,7 +7416,7 @@ void Map::makeSpiritTemple(std::mutex& mut)
         Coordinate mapCoord(204, 201);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
         mut.lock();
-        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction), Mp3File("DungeonTheme")));
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction, "The lights are possessed."), Mp3File("DungeonTheme")));
         mut.unlock();
     }
 }
@@ -7466,7 +7467,7 @@ void Map::makeForestTemple(std::mutex& mut)
         Coordinate mapCoord(2, 3);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
         mut.lock();
-        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction), Mp3File("DungeonTheme")));
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction, "Unknown origin"), Mp3File("DungeonTheme")));
         mut.unlock();
     }
 
@@ -7602,7 +7603,7 @@ void Map::makeForestTemple(std::mutex& mut)
         Coordinate mapCoord(2, 2);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
         mut.lock();
-        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction), Mp3File("DungeonTheme")));
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction, "Be the last one standing."), Mp3File("DungeonTheme")));
         mut.unlock();
     }
     {
@@ -7660,7 +7661,7 @@ void Map::makeForestTemple(std::mutex& mut)
         Coordinate mapCoord(2, 1);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
         mut.lock();
-        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction), Mp3File("DungeonTheme")));
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction, "Be the last one standing."), Mp3File("DungeonTheme")));
         mut.unlock();
     }
     {
@@ -7743,7 +7744,7 @@ void Map::makeForestTemple(std::mutex& mut)
         Coordinate mapCoord(0, 2);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
         mut.lock();
-        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction), Mp3File("DangerTheme")));
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction, "Unknown origin"), Mp3File("DangerTheme")));
         mut.unlock();
     }
     {
@@ -7894,7 +7895,7 @@ void Map::makeForestTemple(std::mutex& mut)
         Coordinate mapCoord(3, 2);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
         mut.lock();
-        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction), Mp3File("DungeonTheme")));
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction, "Slay the enemy."), Mp3File("DungeonTheme")));
         mut.unlock();
     }
     {
@@ -7971,7 +7972,7 @@ void Map::makeForestTemple(std::mutex& mut)
         Coordinate mapCoord(0, 3);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
         mut.lock();
-        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction), Mp3File("DungeonTheme")));
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction, "Be the last one standing"), Mp3File("DungeonTheme")));
         mut.unlock();
     }
 }

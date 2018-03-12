@@ -81,15 +81,19 @@ struct Puzzle
 {
     Puzzle(
         std::function<bool(const std::list<Creature*>&, const GAMEMAP&)> solved,
-        std::function<void(std::list<Creature*>, GAMEMAP&)> action
+        std::function<void(std::list<Creature*>, GAMEMAP&)> action,
+        std::string hint
     )
     {
         isSolved = solved;
         puzzleAction = action;
+        this->hint = hint;
     }
 
     std::function<bool(const std::list<Creature*>&, const GAMEMAP&)> isSolved;
     std::function<void(std::list<Creature*>, GAMEMAP&)> puzzleAction;
+
+    std::string hint;
 };
 
 
@@ -138,6 +142,8 @@ public:
 
     // Returns true if there is a puzzle set
     bool hasPuzzle();
+
+    std::string getPuzzleHint();
 
     Mp3File getMusic() const;
 

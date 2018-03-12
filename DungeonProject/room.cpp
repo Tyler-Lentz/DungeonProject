@@ -439,4 +439,9 @@ bool Room::hasPuzzle()
     return (puzzle != nullptr);
 }
 
+std::string Room::getPuzzleHint()
+{
+    return puzzle->hint;
+}
+
 //---------------------------------------------------------------

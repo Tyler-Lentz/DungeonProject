@@ -116,7 +116,10 @@ namespace dngutil
         GodStone,
         ZorlockImagePhase1,
         ZorlockImagePhase2,
-        HerosBlade2
+        HerosBlade2,
+        Spellbook,
+        EldestSage,
+        Sage
     };
 
     enum class BTID
@@ -248,4 +251,6 @@ void intro(VirtualWindow* vwin);
 void statIncreaseDisplay(int change, int prevValue, int color, std::string text, VirtualWindow* vwin, Coordinate& vcursor);
 
 std::string getClassName(dngutil::ClassType cl);
+
+std::string safeInput(unsigned int maxSize);
 #endif

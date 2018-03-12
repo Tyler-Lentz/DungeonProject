@@ -355,5 +355,14 @@ public:
 private:
     Segboss* segboss;
 };
+
+class EldestSage : public MapObject
+{
+public:
+    EldestSage(Game* game, Coordinate coord);
+    Collision mapAction(MapObject* collider, std::list<MapObject*>::iterator& it) override;
+
+private:
+};
 //----------------------------------------------------
 #endif

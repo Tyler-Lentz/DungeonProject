@@ -279,5 +279,15 @@ public:
     }
 };
 
+
+class Spellbook : public RItem
+{
+public:
+    Spellbook(Game* pgame, Coordinate coord);
+
+    void action(Player* player, unsigned int inventoryIndex) override;
+private:
+    
+};
 //-------------------------------------------------------------
 #endif

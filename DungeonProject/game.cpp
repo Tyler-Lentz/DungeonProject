@@ -447,14 +447,7 @@ void Game::titleScreen()
                 vwin->putcen(ColorString("Enter - select    Shift+Enter - select and skip story", dngutil::WHITE), vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE);
 
                 vwin->put(ColorString("Enter your name: ", dngutil::WHITE), Coordinate(15, 20));
-                std::string name;
-                FlushConsoleInputBuffer(GetStdHandle(STD_INPUT_HANDLE));
-                std::cin >> name;
-                std::cin.ignore();
-                if (name.size() > 8)
-                {
-                    name.resize(8);
-                }
+                std::string name = safeInput(8);
 
                 player->setName(name);
 

@@ -375,6 +375,7 @@ Item* getItemFromId(dngutil::TID tid, Game* game, bool saving)
     case dngutil::TID::SunCharm: return new BasiliskHorn(game, Coordinate(-1, -1));
     case dngutil::TID::GodStone: return new GodStone(game, Coordinate(-1, -1));
     case dngutil::TID::HerosBlade2: return new HerosBlade2(game, Coordinate(-1, -1));
+    case dngutil::TID::Spellbook: return new Spellbook(game, Coordinate(-1, -1));
     }
 
     if (saving)

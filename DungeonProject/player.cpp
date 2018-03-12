@@ -31,7 +31,7 @@ Player::Player(
         10, // attack
         5, // defense
         1, // luck
-        20, // speed
+        10, // speed
         1, // level
         new Primary(
             pgame,

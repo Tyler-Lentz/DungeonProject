@@ -678,3 +678,54 @@ void MagicalPotion::action(Player* player, unsigned int inventoryIndex)
 }
 
 //-------------------------------------------------------
+
+//-------------------------------------------------------
+// Spellbook Functions
+
+Spellbook::Spellbook(Game* pgame, Coordinate coord)
+    :RItem(pgame, ColorChar(static_cast<unsigned char>(222), dngutil::MAGENTA), coord, "Spellbook",
+        true, false, false, dngutil::TID::Spellbook, false, "Used to cast spells one has heard of")
+{
+}
+
+void Spellbook::action(Player* player, unsigned int inventoryIndex)
+{
+    while (keypress(VK_RETURN));
+
+    VirtualWindow* vwin = getPGame()->getVWin();
+    vwin->put(ColorString("Spell Name: ", dngutil::LIGHTGRAY), Coordinate(dngutil::CONSOLEX / 4, vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE));
+    std::string spell = safeInput(25);
+    playSound(WavFile("Spellbook", false, false));
+    Sleep(500);
+
+    std::string output;
+
+    for (int i = 0; i < spell.size(); i++)
+    {
+        spell[i] = tolower(spell[i]);
+    }
+
+    if (spell == "seal-revealer")
+    {
+        if (getPGame()->getActiveRoom()->hasPuzzle())
+        {
+            playSound(WavFile("Puzzle", false, true));
+            std::string hint = getPGame()->getActiveRoom()->getPuzzleHint();
+            output = ("There is a seal in this area." + hint);
+        }
+        else
+        {
+            output = "There is not a seal in this area.";
+        }
+    }
+    else
+    {
+        playSound(WavFile("PuzzleError", false, true));
+        output = "The book lights up... but ultimately fades back and nothing happens...";
+    }
+
+    vwin->txtmacs.clearLine(vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE);
+    vwin->putcen(ColorString(output, dngutil::LIGHTMAGENTA), vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE);
+}
+
+//-------------------------------------------------------

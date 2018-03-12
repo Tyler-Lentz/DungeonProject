@@ -665,4 +665,18 @@ std::string getClassName(dngutil::ClassType cl)
         return "Ranged";
         break;
     }
+    return "INVALID";
+}
+
+std::string safeInput(unsigned int maxSize)
+{
+    std::string name;
+    FlushConsoleInputBuffer(GetStdHandle(STD_INPUT_HANDLE));
+    std::cin >> name;
+    std::cin.ignore();
+    if (name.size() > maxSize)
+    {
+        name.resize(maxSize);
+    }
+    return name;
 }

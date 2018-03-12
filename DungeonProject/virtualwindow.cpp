@@ -197,11 +197,6 @@ void TextMacros::screenScroll(dngutil::Movement direction, Room* oldRoom, Room* 
     }
     
     writeMapName(game);
-
-    if (newRoom->hasPuzzle())
-    {
-        playSound(WavFile("Puzzle", false, true));
-    }
 }
 
 void TextMacros::writeMapName(Game* game)
