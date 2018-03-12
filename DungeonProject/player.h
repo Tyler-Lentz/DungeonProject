@@ -48,6 +48,7 @@ public:
     ColorString getExperienceBar();
 
     void addExperience(unsigned int experience, dngutil::EvType ev);
+    bool takeExperience(double percentage);
 
     void inventoryMenu();
     void statsMenu();

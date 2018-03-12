@@ -364,5 +364,16 @@ public:
 
 private:
 };
+
+class Sage : public MapObject
+{
+public:
+    Sage(Game* game, Coordinate coord, std::string spellName, std::string advice);
+    Collision mapAction(MapObject* collider, std::list<MapObject*>::iterator& it) override;
+
+private:
+    std::string spellName;
+    std::string advice;
+};
 //----------------------------------------------------
 #endif

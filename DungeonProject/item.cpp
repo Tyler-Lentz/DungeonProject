@@ -718,6 +718,31 @@ void Spellbook::action(Player* player, unsigned int inventoryIndex)
             output = "There is not a seal in this area.";
         }
     }
+    else if (spell == "blessing-of-the-dragon")
+    {
+        if (player->takeExperience(.25))
+        {
+            int healthbarLine = getPGame()->getVWin()->txtmacs.DIVIDER_LINES[2] - 1;
+
+            playSound(WavFile("RefillHealth", true, true));
+            getPGame()->getVWin()->putcen(player->getHealthBar(), healthbarLine);
+
+            for (int i = 0; i < 50; i++)
+            {
+                player->increaseHealth(1);
+                getPGame()->getVWin()->putcen(player->getHealthBar(), healthbarLine);
+                Sleep(10);
+            }
+
+            stopSound(SoundType::WAV);
+
+            output = "You heal 50 hp for 25% xp";
+        }
+        else
+        {
+            output = "You dont have enough experience for this spell";
+        }
+    }
     else
     {
         playSound(WavFile("PuzzleError", false, true));

@@ -507,6 +507,17 @@ void Player::addExperience(unsigned int experience, dngutil::EvType ev)
     }
 }
 
+bool Player::takeExperience(double percentage)
+{
+    int percentageOfXp = (expToLevel * percentage);
+    if (percentageOfXp < exp)
+    {
+        exp -= percentageOfXp;
+        return true;
+    }
+    return false;
+}
+
 int Player::getExp() const
 {
     return exp;

@@ -963,7 +963,7 @@ EldestSage::EldestSage(Game* game, Coordinate coord)
 
 Collision EldestSage::mapAction(MapObject* collider, std::list<MapObject*>::iterator& it)
 {
-    if (collider == getPGame()->getPlayer() && !getPGame()->getPlayer()->hasItem(dngutil::TID::HerosTunic))
+    if (collider == getPGame()->getPlayer())
     {
         stopSound(SoundType::MP3);
         VirtualWindow* v = getPGame()->getVWin();
@@ -1035,6 +1035,97 @@ Collision EldestSage::mapAction(MapObject* collider, std::list<MapObject*>::iter
             t.clearLine(l);
             t.clearLine(l + 1);
         }
+
+        t.clearDivider("bottom");
+        t.clearMapArea(false, NULL);
+        t.displayGame(getPGame());
+
+        getPGame()->getOverworldMusic().play();
+
+    }
+    return Collision(false, true);
+}
+
+//---------------------------------------------------------------
+
+//---------------------------------------------------------------
+// Sage functions
+
+Sage::Sage(Game* game, Coordinate coord, std::string spellName, std::string advice)
+    :MapObject(
+        game,
+        ColorChar('A', dngutil::GREEN),
+        coord,
+        "Sage",
+        true,
+        false,
+        false,
+        dngutil::TID::EldestSage,
+        dngutil::P_WALL,
+        dngutil::BTID::None,
+        false
+    )
+{
+    this->spellName = spellName;
+    this->advice = advice;
+}
+
+Collision Sage::mapAction(MapObject* collider, std::list<MapObject*>::iterator& it)
+{
+    if (collider == getPGame()->getPlayer())
+    {
+        stopSound(SoundType::MP3);
+        VirtualWindow* v = getPGame()->getVWin();
+        TextMacros& t = v->txtmacs;
+        Coordinate vcursor(10, t.DIVIDER_LINES[1] + 1);
+
+        t.clearMapArea(true, 10);
+        t.clearDivider("bottom");
+
+        int color = dngutil::GREEN;
+
+        v->put(ColorString(R"()", color), vcursor); vcursor.y++;
+        v->put(ColorString(R"()", color), vcursor); vcursor.y++;
+        v->put(ColorString(R"()", color), vcursor); vcursor.y++;
+        v->put(ColorString(R"(                             _,-'|)", color), vcursor); vcursor.y++;
+        v->put(ColorString(R"(                          ,-'._  |)", color), vcursor); vcursor.y++;
+        v->put(ColorString(R"(                .||,      |####\ |)", color), vcursor); vcursor.y++;
+        v->put(ColorString(R"(               \.`',/     \####| |)", color), vcursor); vcursor.y++;
+        v->put(ColorString(R"(               = ,. =      |###| |)", color), vcursor); vcursor.y++;
+        v->put(ColorString(R"(               / || \    ,-'\#/,'`.)", color), vcursor); vcursor.y++;
+        v->put(ColorString(R"(                 ||     ,'   `,,. `.)", color), vcursor); vcursor.y++;
+        v->put(ColorString(R"(                 ,|____,' , ,;' \| |)", color), vcursor); vcursor.y++;
+        v->put(ColorString(R"(                (3|\    _/|/'   _| |)", color), vcursor); vcursor.y++;
+        v->put(ColorString(R"(                 ||/,-''  | >-'' _,\\)", color), vcursor); vcursor.y++;
+        v->put(ColorString(R"(                 ||'      ==\ ,-'  ,')", color), vcursor); vcursor.y++;
+        v->put(ColorString(R"(                 ||       |  V \ ,|)", color), vcursor); vcursor.y++;
+        v->put(ColorString(R"(                 ||       |    |` |)", color), vcursor); vcursor.y++;
+        v->put(ColorString(R"(                 ||       |    |   \)", color), vcursor); vcursor.y++;
+        v->put(ColorString(R"(                 ||       |    \    \)", color), vcursor); vcursor.y++;
+        v->put(ColorString(R"(                 ||       |     |    \)", color), vcursor); vcursor.y++;
+        v->put(ColorString(R"(                 ||       |      \_,-')", color), vcursor); vcursor.y++;
+        v->put(ColorString(R"(                 ||       |___,,--")_\)", color), vcursor); vcursor.y++;
+        v->put(ColorString(R"(                 ||         |_|   ccc/)", color), vcursor); vcursor.y++;
+        v->put(ColorString(R"(                 ||        ccc/)", color), vcursor); vcursor.y++;
+        v->put(ColorString(R"(                 ||         )", color), vcursor); vcursor.y++;
+
+        int l = t.BOTTOM_DIVIDER_TEXT_LINE;
+
+        v->putcen(ColorString("I am one of Bora's sages.", dngutil::WHITE), l, true);
+        pressEnter(Coordinate(0, l + 1), v);
+        t.clearLine(l);
+        t.clearLine(l + 1);
+
+        v->putcen(ColorString("My spell is " + spellName + ".", dngutil::WHITE), l, true);
+        pressEnter(Coordinate(0, l + 1), v);
+        t.clearLine(l);
+        t.clearLine(l + 1);
+
+
+        v->putcen(ColorString(advice, dngutil::WHITE), l, true);
+        pressEnter(Coordinate(0, l + 1), v);
+        t.clearLine(l);
+        t.clearLine(l + 1);
 
         t.clearDivider("bottom");
         t.clearMapArea(false, NULL);

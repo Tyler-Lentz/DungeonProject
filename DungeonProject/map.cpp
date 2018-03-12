@@ -213,7 +213,7 @@ void Map::makeOverworld(std::mutex& mut)
         roomTemplate.push_back("##        ##############");
         roomTemplate.push_back("## o     I #############");
         roomTemplate.push_back("##          ############");
-        roomTemplate.push_back("###    #################");
+        roomTemplate.push_back("###  o #################");
         roomTemplate.push_back("########################");
         roomTemplate.push_back("########################");
         roomTemplate.push_back("########################");
@@ -232,6 +232,7 @@ void Map::makeOverworld(std::mutex& mut)
             1.05,
             "Shield made of steel with a sharp point."
         ));
+        specificObjects.emplace(Coordinate(5, 7), new Sage(pgame, Coordinate(5, 7), "Blessing-Of-The-Dragon", "Use it wisely, for it heals the user but costs experience"));
 
         std::vector<dngutil::TID> possibleCreatures;
 
