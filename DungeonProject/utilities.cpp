@@ -680,3 +680,110 @@ std::string safeInput(unsigned int maxSize)
     }
     return name;
 }
+
+void printRandomTitlePic(Game* game)
+{
+    VirtualWindow* t = game->getVWin();
+    Coordinate vcursor(0, t->txtmacs.DIVIDER_LINES[1] + 5);
+    t->txtmacs.clearMapArea(false, 0);
+    switch (random(3))
+    {
+    case 0:
+        t->putcen(ColorString(R"(         ____                   )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+        t->putcen(ColorString(R"(         SSSS____.              )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+        t->putcen(ColorString(R"(         (WW);;;;;\             )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+        t->putcen(ColorString(R"(         `WW'____ |     ,_____  )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+        t->putcen(ColorString(R"(          UU ||||\ \___/,---. ) )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+        t->putcen(ColorString(R"(          UU |||||\____/||| //  )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+        t->putcen(ColorString(R"(          UU ||||||||||||" //   )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+        t->putcen(ColorString(R"(          UU |||||||||||' //    )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+        t->putcen(ColorString(R"(          UU |||||||||"  //     )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+        t->putcen(ColorString(R"(          UU ||||||||'  //      )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+        t->putcen(ColorString(R"(          UU |||||||"  //       )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+        t->putcen(ColorString(R"(          UU ||||||'  //        )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+        t->putcen(ColorString(R"(          UU ||||"   //         )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+        t->putcen(ColorString(R"(          UU |||"   //          )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+        t->putcen(ColorString(R"(          UU ||'   //           )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+        t->putcen(ColorString(R"(          UU |"   //            )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+        t->putcen(ColorString(R"(         ,UU,'   ||             )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+        t->putcen(ColorString(R"(       (~~~~~~~~~~~~]""'        )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+        t->putcen(ColorString(R"(~~~~~~~~~~~~~~~~~~~~~~~~~~~     )", dngutil::YELLOW), vcursor.y); vcursor.y++;
+        break;
+    case 1:
+        t->put(ColorString(R"(                  [\)",  dngutil::DARKGRAY), vcursor); vcursor.y++;
+        t->put(ColorString(R"(                  |\)                                ____)",  dngutil::DARKGRAY), vcursor); vcursor.y++;
+        t->put(ColorString(R"(                  |                               __(_   )__)",  dngutil::DARKGRAY), vcursor); vcursor.y++;
+        t->put(ColorString(R"(                  Y\          ___               _(          ))",  dngutil::DARKGRAY), vcursor); vcursor.y++;
+        t->put(ColorString(R"(                 T  \       __)  )--.          (     )-----`)",  dngutil::DARKGRAY), vcursor); vcursor.y++;
+        t->put(ColorString(R"(                J    \   ,-(         )_         `---')",  dngutil::DARKGRAY), vcursor); vcursor.y++;
+        t->put(ColorString(R"(               Y/T`-._\ (     (       _)                 __)",  dngutil::DARKGRAY), vcursor); vcursor.y++;
+        t->put(ColorString(R"(               /[|   ]|  `-(__  ___)-`  |\          ,-(  __))",  dngutil::DARKGRAY), vcursor); vcursor.y++;
+        t->put(ColorString(R"(               | |    |      (__)       J'         (     ))",  dngutil::DARKGRAY), vcursor); vcursor.y++;
+        t->put(ColorString(R"(   _           | |  ] |    _           /;\          `-  ')",  dngutil::DARKGRAY), vcursor); vcursor.y++;
+        t->put(ColorString(R"(  (,,)        [| |    |    L'         /;  \)",  dngutil::DARKGRAY), vcursor); vcursor.y++;
+        t->put(ColorString(R"(             /||.| /\ |   /\         /.,-._\        ___ _)",  dngutil::DARKGRAY), vcursor); vcursor.y++;
+        t->put(ColorString(R"(            /_|||| || |  /  \        | |{  |       (._.'_))",  dngutil::DARKGRAY), vcursor); vcursor.y++;
+        t->put(ColorString(R"(  L/\       | \| | '` |_ _ {|        | | U |   /\)",  dngutil::DARKGRAY), vcursor); vcursor.y++;
+        t->put(ColorString(R"( /v^v\/\   `|  Y | [  '-' '--''-''-"-'`'   | ,`^v\ /\,`\)",  dngutil::DARKGRAY), vcursor); vcursor.y++;
+        t->put(ColorString(R"(/ ,'./  \.` |[   |       [     __   L    ] |      /^v\  \)",  dngutil::DARKGRAY), vcursor); vcursor.y++;
+        t->put(ColorString(R"(,'     `    |    |           ,`##Y.   ]    |___Y Y____,_,,_,,_)",  dngutil::DARKGRAY), vcursor); vcursor.y++;
+        t->put(ColorString(R"(--   -----.-(] [ |   ]     o/####U|o      ]|| /`-, Y   _   Y  Y)",  dngutil::DARKGRAY), vcursor); vcursor.y++;
+        t->put(ColorString(R"(   Y Y  --;`~T   |      }   \####U|[\ _,.-(^) ,-'  _  (^)__  _)",  dngutil::DARKGRAY), vcursor); vcursor.y++;
+        t->put(ColorString(R"(  Y  YY   ;'~~l  |   L     [|\###U'E'\  \ \Y-` _  (^) _Y  _)",  dngutil::DARKGRAY), vcursor); vcursor.y++;
+        t->put(ColorString(R"( Y  Y Y   ;\~~/\{| [      _,'-\`= = '.\_ ,`   (^)(^) (^) (^))",  dngutil::DARKGRAY), vcursor); vcursor.y++;
+        t->put(ColorString(R"(     --   ;\~~~/\|  _,.-'`_  `.\_..-'"  _ . ,_ Y_ Y_ _Y  _Y__)",  dngutil::DARKGRAY), vcursor); vcursor.y++;
+        t->put(ColorString(R"(    _    _; \~~( Y``   Y (^) / `,      (^)      _   (^) (^))",  dngutil::DARKGRAY), vcursor); vcursor.y++;
+        t->put(ColorString(R"(   (^)  (^)`._~ /  L \  _.Y'`  _  ` --  Y - - -(^) - Y - Y -)",  dngutil::DARKGRAY), vcursor); vcursor.y++;
+        t->put(ColorString(R"(    Y    Y    `'--..,-'`      (^)   _  -    _   Y ____)",  dngutil::DARKGRAY), vcursor); vcursor.y++;
+        t->put(ColorString(R"(      --           _    _ --   Y   (^)   _ (^)  ===   ----)",  dngutil::DARKGRAY), vcursor); vcursor.y++;
+        t->put(ColorString(R"(          __   -  (^)  (^)      --- Y   (^) Y)",  dngutil::DARKGRAY), vcursor); vcursor.y++;
+        t->put(ColorString(R"(      _            Y    Y                Y             )", dngutil::DARKGRAY), vcursor); vcursor.y++;
+        break;
+    case 2:
+        t->put(ColorString(R"(           _/          ,          .                                          )", dngutil::MAGENTA), vcursor); vcursor.y++;
+        t->put(ColorString(R"(       , -' )         ( \-------.,')            (\_________________________  )", dngutil::MAGENTA), vcursor); vcursor.y++;
+        t->put(ColorString(R"(     , ,-/ |          /\_) )     \/            ,' _.----------------------,\ )", dngutil::MAGENTA), vcursor); vcursor.y++;
+        t->put(ColorString(R"(   ,',  /, |         /      >--. ,)           / /\\                          )", dngutil::MAGENTA), vcursor); vcursor.y++;
+        t->put(ColorString(R"(  / ,  //|,'        /'     '\--'\\)          /,'  \\     `         `   ,     )", dngutil::MAGENTA), vcursor); vcursor.y++;
+        t->put(ColorString(R"( / ,  // ||       ,'     (.--^( `')         //     \\                \       )", dngutil::MAGENTA), vcursor); vcursor.y++;
+        t->put(ColorString(R"(( ,  //  ||,___,-'    (___\\  '^^^'        //       \\              ,        )", dngutil::MAGENTA), vcursor); vcursor.y++;
+        t->put(ColorString(R"( \  //   ||--.__     (     \`^--)  _____.-'/         \\   `                  )", dngutil::MAGENTA), vcursor); vcursor.y++;
+        t->put(ColorString(R"(  >'/    ||,        (       \|_(\-'      ,'           \\         \,          )", dngutil::MAGENTA), vcursor); vcursor.y++;
+        t->put(ColorString(R"( /,'     ||          \           \      /              \\                    )", dngutil::MAGENTA), vcursor); vcursor.y++;
+        t->put(ColorString(R"((/       ||           \           )  ,'(     `     `    \\      ,            )", dngutil::MAGENTA), vcursor); vcursor.y++;
+        t->put(ColorString(R"( `       ||\           \      ) ,'  /_  )                \\    \             )", dngutil::MAGENTA), vcursor); vcursor.y++;
+        t->put(ColorString(R"(         || `.          `.    ,'   /( `.\  \ , \ \,       \\   ,             )", dngutil::MAGENTA), vcursor); vcursor.y++;
+        t->put(ColorString(R"(   `     || (_`.          ` .'   .'  )  `)'            ,   \\                )", dngutil::MAGENTA), vcursor); vcursor.y++;
+        t->put(ColorString(R"(         ||  (_ `-v-------  ^--v' , )                      '\\,              )", dngutil::MAGENTA), vcursor); vcursor.y++;
+        t->put(ColorString(R"(         ||    (    , _,-  /  -./ )'                         `)              )", dngutil::MAGENTA), vcursor); vcursor.y++;
+        t->put(ColorString(R"(     `   '|     ),  ,'    '     )'                                           )", dngutil::MAGENTA), vcursor); vcursor.y++;
+        t->put(ColorString(R"(        ' ;    /  ,'          ,'                                             )", dngutil::MAGENTA), vcursor); vcursor.y++;
+        break;
+    case 3:
+        int background = dngutil::DARKGRAY;
+        int cross = dngutil::WHITE;
+        t->putcen(ColorString(R"(	            .----------------------------._              )", background), vcursor.y++);
+        t->putcen(ColorString(R"(           _.-'          '-        .           '-._         )", background), vcursor.y++);
+        t->putcen(ColorString(R"(         .'      _|   .    . - .        ._         '.       )", background), vcursor.y++);
+        t->putcen(ColorString(R"(      _.'    '           .'     '.               _| |       )", background), vcursor.y++);
+        t->putcen(ColorString(R"(     /  _|        _|    ''       ''  |_     '    .  '.      )", background), vcursor.y++);
+        t->putcen(ColorString(R"(    |      . -- .      ''         ''      . -- .     |      )", background), vcursor.y++);
+        t->putcen(ColorString(R"(   .'    .'      '.   -||         ||    .'      '.   '.     )", background), vcursor.y++);
+        t->putcen(ColorString(R"(   | '  ''        ''   ||   )", background) + ColorString(".-.", cross) + ColorString(R"(   ||_  ''        ''   |     )", background), vcursor.y++);
+        t->putcen(ColorString(R"(   '.  ''          ''  ||   )", background) + ColorString("| |", cross) + ColorString(R"(   ||  ''          ''  |     )", background), vcursor.y++);
+        t->putcen(ColorString(R"(    | -||          ||- ')", background) + ColorString("____|!|____", cross) + ColorString(R"(' -||          ||- |     )", background), vcursor.y++);
+        t->putcen(ColorString(R"(    |  ||          ||  )", background) + ColorString("|____-+-____|", cross) + ColorString(R"(  ||          ||  '.    )", background), vcursor.y++);
+        t->putcen(ColorString(R"(   .' -||          ||_ ||   )", background) + ColorString("|!|", cross) + ColorString(R"(   ||  ||          ||  _|    )", background), vcursor.y++);
+        t->putcen(ColorString(R"(   |_.-||          ||  ||   )", background) + ColorString("| |", cross) + ColorString(R"(   || _||          ||-._|    )", background), vcursor.y++);
+        t->putcen(ColorString(R"(_.-' |_||          ||  ||   )", background) + ColorString("| |", cross) + ColorString(R"(   ||  ||          ||_| '-._ )", background), vcursor.y++);
+        t->putcen(ColorString(R"(_| |_  |:;;.,::;,.';|--|:;;.)", background) + ColorString("| |", cross) + ColorString(R"(,.';|--|:;;.,::;,.';|     |_ )", background), vcursor.y++);
+        t->putcen(ColorString(R"(         :;;.,::;,.';   :;;.)", background) + ColorString("| |", cross) + ColorString(R"(,.';    :;;.,::;,.';  _|   -')", background), vcursor.y++);
+        t->putcen(ColorString(R"(   |_                       )", background) + ColorString("| |", cross) + ColorString(R"(                         |_. )", background), vcursor.y++);
+        t->putcen(ColorString(R"( _      _|                __)", background) + ColorString("| |", cross) + ColorString(R"(__              |_     _     )", background), vcursor.y++);
+        t->putcen(ColorString(R"(|________________________/_______\___________________|______)", background), vcursor.y++);
+        t->putcen(ColorString(R"(,:.,:.,:.,:.,:.,:.,:.,:.,:.,:.,:.,:.,:.,:.,:.,:.,:.,:.,:.,:.)", background), vcursor.y++);
+        t->putcen(ColorString(R"(------------------------------------------------------------)", background), vcursor.y++);
+        break;
+    }
+    
+}

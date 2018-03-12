@@ -253,4 +253,6 @@ void statIncreaseDisplay(int change, int prevValue, int color, std::string text,
 std::string getClassName(dngutil::ClassType cl);
 
 std::string safeInput(unsigned int maxSize);
+
+void printRandomTitlePic(Game* game);
 #endif
