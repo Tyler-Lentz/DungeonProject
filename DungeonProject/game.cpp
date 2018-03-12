@@ -682,7 +682,7 @@ void Game::backgroundStory()
     tm->clearLine(topOfText);
 
     t->putcen(ColorString("Oh, " + player->getName() + ", brave hero", color), topOfText, true);
-    t->putcen(ColorString("can you unite the Harp return peace to Bora?", color), topOfText + 1, true);
+    t->putcen(ColorString("can you unite the Harp and return peace to Bora?", color), topOfText + 1, true);
     Sleep(static_cast<DWORD>(onelineTime * 2.5));
     tm->clearLine(topOfText);
     tm->clearLine(topOfText + 1);
