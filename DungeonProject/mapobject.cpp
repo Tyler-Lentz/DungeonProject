@@ -1014,7 +1014,7 @@ Collision EldestSage::mapAction(MapObject* collider, std::list<MapObject*>::iter
             t.clearLine(l);
             t.clearLine(l + 1);
 
-            v->putcen(ColorString("With this spellbook, all you need to do is cast \"Seal Revealer\"", dngutil::WHITE), l, true);
+            v->putcen(ColorString("With this spellbook, all you need to do is cast \"Seal-Revealer\"", dngutil::WHITE), l, true);
             pressEnter(Coordinate(0, l + 1), v);
             t.clearLine(l);
             t.clearLine(l + 1);
