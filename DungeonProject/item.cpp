@@ -519,6 +519,8 @@ bool Primary::hit(Creature* enemy)
             attackDuration = 500;
         }
 
+        vwin->putcen(ColorString("- SPACEBAR -", dngutil::LIGHTCYAN), vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE +1);
+
         vwin->put(ColorChar('<', dngutil::LIGHTCYAN), Coordinate(leftMostSlot - 1, vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE));
 
         vwin->put(ColorChar('>', dngutil::LIGHTCYAN), Coordinate(leftMostSlot + hitAmount.size(), vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE));
@@ -578,6 +580,7 @@ bool Primary::hit(Creature* enemy)
 
         } while (!keypress(VK_SPACE));
         vwin->txtmacs.clearLine(timerLine);
+        vwin->txtmacs.clearLine(timerLine-1);
         if (hitAmount[activeSlot] == 'X')
         {
             return false;
