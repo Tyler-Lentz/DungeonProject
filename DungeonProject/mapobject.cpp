@@ -174,7 +174,7 @@ Collision ExitObject::mapAction(MapObject* collider, std::list<MapObject*>::iter
                     getPGame()->clearDeletionList();
                     if (getPGame()->getActiveRoom()->hasPuzzle())
                     {
-                        //playSound(WavFile("Puzzle", false, true));
+                        playSound(WavFile("Puzzle", false, true));
                     }
                     if (getPGame()->getOverworldMusic().getFilename() != getPGame()->getActiveRoom()->getMusic().getFilename())
                     {
@@ -212,7 +212,7 @@ Collision ExitObject::mapAction(MapObject* collider, std::list<MapObject*>::iter
                     getPGame()->clearDeletionList();
                     if (getPGame()->getActiveRoom()->hasPuzzle())
                     {
-                        //playSound(WavFile("Puzzle", false, true));
+                        playSound(WavFile("Puzzle", false, true));
                     }
                     if (getPGame()->getOverworldMusic().getFilename() != getPGame()->getActiveRoom()->getMusic().getFilename())
                     {
