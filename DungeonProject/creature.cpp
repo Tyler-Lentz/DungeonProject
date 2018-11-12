@@ -827,21 +827,23 @@ Damage Creature::getDamageDealt(Creature* defender)
             break;
         }
 
-        bool crit = (random(critChance) == 0);
+        bool crit = getPGame()->getPlayer()->getCertainCrit() || (random(critChance) == 0);
+        getPGame()->getPlayer()->setCertainCrit(false);
 
         if (crit && this == getPGame()->getPlayer())
         {
-            attack *= 2;
+            attack *= 1.5;
             playSound(WavFile("CriticalHit", false, false));
         }
         else
         {
+            // if you have the attack type advantage you have a 1/7 chance to hit a double attack, which acts as a half crit
             if (getTypeId() == dngutil::TID::Player)
             {
                 if (advantage && (random(7) == 1))
                 {
                     playSound(WavFile("EnemyHit", false, false));
-                    attack *= 1.5;
+                    attack *= 1.25;
                 }
                 playSound(WavFile("EnemyHit", false, true));
             }
@@ -850,7 +852,7 @@ Damage Creature::getDamageDealt(Creature* defender)
                 if (advantage && (random(7) == 1))
                 {
                     playSound(WavFile("PlayerHit", false, false));
-                    attack *= 1.5;
+                    attack *= 1.25;
                 }
                 playSound(WavFile("PlayerHit", false, true));
             }
@@ -876,7 +878,7 @@ Damage Creature::getDamageDealt(Creature* defender)
 
     if (deflect)
     {
-        damage.damageDeflected = static_cast<int>(damage.damage * .33);
+        damage.damageDeflected = static_cast<int>(damage.damage * .5);
         damage.damage -= damage.damageDeflected;
     }
 

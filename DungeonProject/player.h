@@ -98,6 +98,9 @@ public:
     const double startingMaxSpeedMultiplier;
 
     void upgradePrimary(dngutil::TID itemToUpgrade);
+
+    void setCertainCrit(bool value);
+    bool getCertainCrit();
 private:
 
     Coordinate startingDungeonMapCoord;
@@ -128,6 +131,8 @@ private:
     Equipment* boots;
 
     int gold;
+
+    bool certainCrit = false;
 };
 
 #endif

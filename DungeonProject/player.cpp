@@ -920,4 +920,14 @@ int Player::getStepCount()
 {
     return steps;
 }
+
+void Player::setCertainCrit(bool value)
+{
+    certainCrit = value;
+}
+
+bool Player::getCertainCrit()
+{
+    return certainCrit;
+}
 //------------------------------------------------------------

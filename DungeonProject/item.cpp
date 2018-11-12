@@ -524,6 +524,10 @@ bool Primary::hit(Creature* enemy)
         vwin->put(ColorChar('<', dngutil::LIGHTCYAN), Coordinate(leftMostSlot - 1, vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE));
 
         vwin->put(ColorChar('>', dngutil::LIGHTCYAN), Coordinate(leftMostSlot + hitAmount.size(), vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE));
+
+        int centerSpace = hitAmount.size() / 2;
+        int currentCritSpot = centerSpace;
+        auto lastCritReset = GetTickCount64();
         do
         {
             activeSlot++;
@@ -560,17 +564,26 @@ bool Primary::hit(Creature* enemy)
                     }
                 }
                 slot.character = hitAmount[i];
+                if (activeSlot == 0 && lastCritReset + 20 < GetTickCount64()) // if it is reset and starting from the leftmost spot, reset the crit place half the time
+                {
+                    currentCritSpot += random(-1,1);
+                    lastCritReset = GetTickCount64();
+                }
+                if (currentCritSpot == i) // if in the center
+                {
+                    slot.color = dngutil::LIGHTMAGENTA; // set equal to light magenta to signify it should be a crit
+                }
 
                 vwin->put(slot, Coordinate(leftMostSlot + i, vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE));
             }
             vwin->putcen(ColorString("   " + std::to_string(attackDuration - (GetTickCount() - startTime)) + "   ", dngutil::LIGHTGRAY), timerLine);
             if (hitAmount[activeSlot] == 'O')
             {
-                Sleep(20);
+                Sleep(25);
             }
             else
             {
-                Sleep(30);
+                Sleep(25);
             }
 
             if (GetTickCount() > (startTime + attackDuration))
@@ -579,6 +592,7 @@ bool Primary::hit(Creature* enemy)
             }
 
         } while (!keypress(VK_SPACE));
+
         vwin->txtmacs.clearLine(timerLine);
         vwin->txtmacs.clearLine(timerLine-1);
         if (hitAmount[activeSlot] == 'X')
@@ -589,8 +603,12 @@ bool Primary::hit(Creature* enemy)
         {
             return (random(99) < this->accuracy);
         }
-        return (hitAmount[activeSlot] == 'O');
+        else // (hitAmount[activeSlot] == 'O');
         {
+            if (currentCritSpot == activeSlot) // if in the center on the crit space
+            {
+                getPGame()->getPlayer()->setCertainCrit(true);
+            }
             return true;
         }
     }
