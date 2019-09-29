@@ -352,7 +352,7 @@ void TextMacros::displayInventory(std::vector<Item*> menu, Player* player)
     clearMapArea(false, NULL);
     Coordinate vcursor(0, DIVIDER_LINES[1] + 2);
     
-    vwin->put(ColorString("   Gold: " + std::to_string(player->getGold()), dngutil::YELLOW), vcursor); vcursor.y++;
+    vwin->put(ColorString("   Gold: " + std::to_string(player->getGold()) + "  Harp Pieces: " + std::to_string(player->getNumberOfHarpPieces()) + "/4", dngutil::YELLOW), vcursor); vcursor.y++;
     // if top line changes change it in the player inventory function
     for (auto& i : menu)
     {

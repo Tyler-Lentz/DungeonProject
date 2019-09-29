@@ -104,6 +104,8 @@ public:
     void setCertainCrit(bool value);
     bool getCertainCrit();
 
+    int getNumberOfHarpPieces();
+
     void addSpell(Spell* spell);
 private:
 

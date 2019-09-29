@@ -961,4 +961,26 @@ void Player::addSpell(Spell* spell)
         }
     }
 }
+
+int Player::getNumberOfHarpPieces()
+{
+    int number = 0;
+    if (harp1)
+    {
+        number++;
+    }
+    if (harp2)
+    {
+        number++;
+    }
+    if (harp3)
+    {
+        number++;
+    }
+    if (harp4)
+    {
+        number++;
+    }
+    return number;
+}
 //------------------------------------------------------------
