@@ -62,6 +62,8 @@ void saveGame(Player* player, Game* game)
         << std::to_string(player->hasHarpPiece(4)) << std::endl
         << player->getMaxhp() << std::endl
         << player->getHp() << std::endl
+        << player->getMaxMana() << std::endl
+        << player->getMana() << std::endl
         << player->getAtt() << std::endl
         << player->getDef() << std::endl
         << player->getLck() << std::endl
@@ -253,6 +255,12 @@ bool loadGame(Game* game)
 
     std::getline(file, s);
     p->setHp(stoi(s));
+
+    std::getline(file, s);
+    p->setMaxMana(stoi(s));
+
+    std::getline(file, s);
+    p->setMana(stoi(s));
 
     std::getline(file, s);
     p->setAtt(stoi(s));
