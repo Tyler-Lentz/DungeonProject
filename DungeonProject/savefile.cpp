@@ -12,6 +12,7 @@
 #include "savefile.h"
 #include "equipment.h"
 #include "utilities.h"
+#include "spell.h"
 void xorFile()
 {
     std::fstream file("save.txt", std::ios::in);
@@ -103,6 +104,7 @@ std::string getInventoryItemText(Item& i)
     {
     case dngutil::TID::Primary: return getPrimarySaveText(dynamic_cast<Primary&>(i));
     case dngutil::TID::Secondary: return getSecondarySaveText(dynamic_cast<Secondary&>(i));
+    case dngutil::TID::Spellbook: return getSpellbookSaveText(dynamic_cast<Spellbook&>(i));
     default: return std::to_string(static_cast<int>(i.getTypeId()));
     }
 }
@@ -141,6 +143,52 @@ std::string getSecondarySaveText(Secondary& s)
     text += std::to_string(s.getDefenseBoost()) + "~";
 
     return text;
+}
+
+std::string getSpellbookSaveText(Spellbook& s)
+{
+    std::string text;
+
+    text += std::to_string(static_cast<int>(s.getTypeId())) + "~";
+    for (Spell* spell : s.getSpellList())
+    {
+        text += std::to_string(static_cast<int>(spell->getSpellId())) + "~";
+    }
+    text += "SPELLBOOKDONE";
+    return text;
+}
+
+Spellbook* getSpellbookFromSaveString(std::string str, Game* game, bool saving)
+{
+    std::stringstream ss(str);
+    std::string buff;
+    std::vector<std::string> tokens;
+    while (std::getline(ss, buff, '~'))
+    {
+        tokens.push_back(buff);
+    }
+
+    // if this changes change it in the plan text file too
+    // id - spell1 - spell 2 .....    SPELLBOOKEND
+    // 0    1         2              tokens.size() -1
+    Spellbook* spells = new Spellbook(game, Coordinate(-1, -1));
+    // need to skip zero
+    for (std::string tokStr : tokens)
+    {
+        if (tokStr == std::to_string(static_cast<int>(dngutil::SPELLTID::DragonBlessing)))
+        {
+            spells->addSpell(new DragonBlessingSpell());
+        }
+        else if (tokStr == std::to_string(static_cast<int>(dngutil::SPELLTID::SealRevealer)))
+        {
+            spells->addSpell(new SealRevealerSpell());
+        }
+        else if (tokStr == "SPELLBOOKDONE")
+        {
+            break;
+        }
+    }
+    return spells;
 }
 
 bool loadGame(Game* game)
@@ -274,6 +322,10 @@ bool loadGame(Game* game)
         {
             p->addToInventory(getSecondaryFromSaveString(s, game, true));
         }
+        else if (type == dngutil::TID::Spellbook)
+        {
+            p->addToInventory(getSpellbookFromSaveString(s, game, true));
+        }
         else
         {
             p->addToInventory(getItemFromId(type, game, true));
@@ -375,7 +427,6 @@ Item* getItemFromId(dngutil::TID tid, Game* game, bool saving)
     case dngutil::TID::SunCharm: return new BasiliskHorn(game, Coordinate(-1, -1));
     case dngutil::TID::GodStone: return new GodStone(game, Coordinate(-1, -1));
     case dngutil::TID::HerosBlade2: return new HerosBlade2(game, Coordinate(-1, -1));
-    case dngutil::TID::Spellbook: return new Spellbook(game, Coordinate(-1, -1));
     }
 
     if (saving)

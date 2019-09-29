@@ -2,13 +2,20 @@
 #include "player.h"
 #include "game.h"
 #include "room.h"
+#include "utilities.h"
 #include <string>
 #include <vector>
-Spell::Spell(std::string n, std::string d, int m)
+Spell::Spell(std::string n, std::string d, int m, dngutil::SPELLTID i)
 {
     name = n;
     manaReq = m;
     description = d;
+    id = i;
+}
+
+dngutil::SPELLTID Spell::getSpellId() const
+{
+    return id;
 }
 
 std::string Spell::getSpellDescription() const
@@ -27,7 +34,7 @@ int Spell::getManaReq() const
 }
 
 DragonBlessingSpell::DragonBlessingSpell()
-    :Spell("Dragon's Blessing", "Heals 50 HP", 30)
+    :Spell("Dragon's Blessing", "Heals 50 HP", 30, dngutil::SPELLTID::DragonBlessing)
 {
 }
 
@@ -46,7 +53,7 @@ void DragonBlessingSpell::playCastSound()
 }
 
 SealRevealerSpell::SealRevealerSpell()
-    :Spell("Seal Revealer", "Reveals any puzzles in the room", 0)
+    :Spell("Seal Revealer", "Reveals any puzzles in the room", 0, dngutil::SPELLTID::SealRevealer)
 {
 }
 

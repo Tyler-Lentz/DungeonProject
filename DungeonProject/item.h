@@ -287,6 +287,7 @@ public:
     Spellbook(Game* pgame, Coordinate coord);
     ~Spellbook();
 
+    std::vector<Spell*> getSpellList() const;
     void addSpell(Spell* newSpell);
     void action(Player* player, unsigned int inventoryIndex) override;
 private:

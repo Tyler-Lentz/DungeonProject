@@ -122,6 +122,12 @@ namespace dngutil
         Sage
     };
 
+    enum class SPELLTID
+    {
+        SealRevealer,
+        DragonBlessing
+    };
+
     enum class BTID
     {
         Creature,

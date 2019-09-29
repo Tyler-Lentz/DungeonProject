@@ -718,6 +718,11 @@ Spellbook::~Spellbook()
     }
 }
 
+std::vector<Spell*> Spellbook::getSpellList() const
+{
+    return spellList;
+}
+
 void Spellbook::addSpell(Spell* spell)
 {
     spellList.push_back(spell);
