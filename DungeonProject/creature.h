@@ -57,6 +57,10 @@ public:
     // depends on percentage of health compared to max health.
     ColorString getHealthBar() const;
 
+    // Returns the mana of the creature as a ColorString, color
+    // depends on percentage of mana compared to max mana.
+    ColorString getManaBar() const;
+
     virtual bool movement() = 0;
     virtual void printStats(int LONGEST_LINE_LENGTH, int startingCursorY) = 0;
     virtual bool battle(MapObject* enemy);
@@ -66,6 +70,8 @@ public:
     bool isDead() const;
     const unsigned int& getMaxhp() const;
     const int& getHp() const;
+    const unsigned int& getMaxMana() const;
+    const int& getMana() const;
     const unsigned int& getAtt() const;
     const unsigned int& getDef() const;
     const unsigned int& getLck() const;
@@ -79,9 +85,12 @@ public:
     void increaseSpd(unsigned int amount);
     void increaseLvl(unsigned int amount);
     void increaseLck(unsigned int amount);
+    void increaseMaxMana(unsigned int amount);
 
     void setMaxhp(unsigned int amount);
     void setHp(int amount);
+    void setMaxMana(unsigned int amount);
+    void setMana(int amount);
     void setAtt(unsigned int amount);
     void setDef(unsigned int amount);
     void setSpd(unsigned int amount);
@@ -90,6 +99,12 @@ public:
 
     unsigned int increaseHealth(unsigned int amount);
     unsigned int decreaseHealth(unsigned int amount);
+
+    unsigned int increaseMana(unsigned int amount);
+    
+    // returns true if can actually use that much mana
+    // returns false if not enough mana
+    bool useMana(unsigned int amount);
 
     void increaseLastMoveTime(unsigned long amount);
 
@@ -132,6 +147,8 @@ private:
     // Stats all creatures have
     unsigned int maxhp;
     int hp;
+    unsigned int maxMana;
+    int mana;
     unsigned int att;
     unsigned int def;
     unsigned int lck;

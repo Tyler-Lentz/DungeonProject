@@ -6,6 +6,8 @@
 #include "colorstring.h"
 #include "coordinate.h"
 #include "utilities.h"
+#include "player.h"
+
 #include <string>
 
 enum class EquipSlotId

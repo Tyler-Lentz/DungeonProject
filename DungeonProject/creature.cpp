@@ -8,6 +8,7 @@
 #include "virtualwindow.h"
 #include "room.h"
 #include "coordinate.h"
+#include "spell.h"
 
 #include <list>
 #include <string>
@@ -58,6 +59,9 @@ Creature::Creature(
     this->spd = spd;
     this->lvl = lvl;
 
+    mana = dngutil::STARTING_MANA;
+    maxMana = dngutil::STARTING_MANA;
+
     this->primary = primary;
     this->secondary = secondary;
 
@@ -100,6 +104,17 @@ const int& Creature::getHp() const
 {
     return hp;
 }
+
+const unsigned int& Creature::getMaxMana() const
+{
+    return maxMana;
+}
+
+const int& Creature::getMana() const
+{
+    return mana;
+}
+
 
 const unsigned int& Creature::getAtt() const
 {
@@ -185,6 +200,15 @@ void Creature::increaseMaxhp(unsigned int amount)
     }
 }
 
+void Creature::increaseMaxMana(unsigned int amount)
+{
+    maxMana += amount;
+    if (getMaxMana() > dngutil::MAX_MANA)
+    {
+        maxMana = dngutil::MAX_MANA;
+    }
+}
+
 void Creature::increaseAtt(unsigned int amount)
 {
     att += amount;
@@ -241,6 +265,24 @@ void Creature::setHp(int amount)
     if (hp > static_cast<int>(maxhp))
     {
         hp = maxhp;
+    }
+}
+
+void Creature::setMaxMana(unsigned int amount)
+{
+    maxMana = amount;
+    if (maxMana > dngutil::MAX_MANA)
+    {
+        maxMana = dngutil::MAX_MANA;
+    }
+}
+
+void Creature::setMana(int amount)
+{
+    mana = amount;
+    if (mana > static_cast<int>(maxMana))
+    {
+        mana = maxMana;
     }
 }
 
@@ -302,6 +344,27 @@ unsigned int Creature::decreaseHealth(unsigned int amount)
     return amount;
 }
 
+unsigned int Creature::increaseMana(unsigned int amount)
+{
+    unsigned int tempMana = mana;
+    mana += amount;
+    if (static_cast<unsigned int>(mana) > maxMana)
+    {
+        mana = maxMana;
+    }
+    return mana - tempMana;
+}
+
+bool Creature::useMana(unsigned int amount)
+{
+    if (amount <= mana)
+    {
+        mana -= amount;
+        return true;
+    }
+    return false;
+}
+
 ColorString Creature::getHealthBar() const
 {
     int adjustedHealth = hp;
@@ -333,6 +396,39 @@ ColorString Creature::getHealthBar() const
     }
 
     return ColorString(healthbar, color);
+}
+
+ColorString Creature::getManaBar() const
+{
+    int adjustedMana = mana;
+    if (adjustedMana < 0)
+    {
+        adjustedMana = 0;
+    }
+    const int MAXIMUM_CHARACTERS = static_cast<int>(dngutil::CONSOLEX / 2.0);
+
+    double scaleFactor = (MAXIMUM_CHARACTERS / (double)maxMana);
+
+    int numOfCircles = (int)(scaleFactor * adjustedMana);
+
+    std::string temp = std::string(MAXIMUM_CHARACTERS - numOfCircles, 'o');
+    std::string manaBar = temp + (std::string((unsigned int)numOfCircles, '0'));
+
+    int color;
+    if (hp > static_cast<int>(maxMana * .66))
+    {
+        color = dngutil::WHITE;
+    }
+    else if (hp > static_cast<int>(maxMana * .33))
+    {
+        color = dngutil::LIGHTGRAY;
+    }
+    else
+    {
+        color = dngutil::DARKGRAY;
+    }
+
+    return ColorString(manaBar, color);
 }
 
 bool Creature::battle(MapObject* t_enemy)
@@ -895,6 +991,10 @@ void Creature::levelUpStats()
     int healthIncrease = random(4, 8);
     increaseMaxhp(healthIncrease);
     increaseHealth(healthIncrease);
+
+    int manaIncrease = random(8, 12);
+    increaseMaxMana(manaIncrease);
+    increaseMana(manaIncrease);
 
     increaseAtt(random(3, 4));
 

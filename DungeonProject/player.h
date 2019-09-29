@@ -6,9 +6,11 @@
 #include "utilities.h"
 #include "coordinate.h"
 #include "item.h"
-#include "equipment.h"
+#include "spell.h"
 #include <vector>
+#include <list>
 
+class Equipment;
 class Game;
 
 struct Inventory : public std::vector<Item*>
@@ -101,6 +103,8 @@ public:
 
     void setCertainCrit(bool value);
     bool getCertainCrit();
+
+    void addSpell(Spell* spell);
 private:
 
     Coordinate startingDungeonMapCoord;

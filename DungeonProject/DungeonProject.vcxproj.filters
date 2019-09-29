@@ -69,6 +69,9 @@
     <ClInclude Include="npc.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="spell.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="colorstring.cpp">
@@ -117,6 +120,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="npc.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="spell.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

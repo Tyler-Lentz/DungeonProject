@@ -9,7 +9,8 @@
 #include "room.h"
 #include "virtualwindow.h"
 #include "savefile.h"
-
+#include "spell.h"
+#include "equipment.h"
 //------------------------------------------------------------
 // Player Functions
 
@@ -345,12 +346,13 @@ void Player::printStats(int startingXCoord, int startingCursorY)
     Coordinate vcursor(startingXCoord, startingCursorY);
 
     getPGame()->getVWin()->putcen(ColorString(
-        " Level: " + std::to_string(getLvl()) +
-        " Health: " + std::to_string(getHp()) + "/" + std::to_string(getMaxhp()) +
-        " Attack: " + std::to_string(getAtt()) +
-        " Defense: " + std::to_string(getDef()) +
-        " Luck: " + std::to_string(getLck()) +
-        " Speed: " + std::to_string(getSpd()), dngutil::WHITE), vcursor.y);
+        " LVL: " + std::to_string(getLvl()) +
+        " HP: " + std::to_string(getHp()) + "/" + std::to_string(getMaxhp()) +
+        " MANA: " + std::to_string(getMana()) + "/" + std::to_string(getMaxMana()) +
+        " ATT: " + std::to_string(getAtt()) +
+        " DEF: " + std::to_string(getDef()) +
+        " LCK: " + std::to_string(getLck()) +
+        " SPD: " + std::to_string(getSpd()), dngutil::WHITE), vcursor.y);
     vcursor.y++; vcursor.x = 0;
 
     getPGame()->getVWin()->putcen(ColorString(
@@ -455,6 +457,7 @@ void Player::addExperience(unsigned int experience, dngutil::EvType ev)
 
         int prevAtt = getAtt();
         int prevMaxhp = getMaxhp();
+        int prevMaxMana = getMaxMana();
         int prevDef = getDef();
         int prevLck = getLck();
         int prevSpd = getSpd();
@@ -463,6 +466,7 @@ void Player::addExperience(unsigned int experience, dngutil::EvType ev)
         getPGame()->adjustScore(dngutil::BASE_SCORE_INCREASE_LEVEL);
 
         int hpChange = getMaxhp() - prevMaxhp;
+        int manaChange = getMaxMana() - prevMaxMana;
         int attChange = getAtt() - prevAtt;
         int defChange = getDef() - prevDef;
         int lckChange = getLck() - prevLck;
@@ -471,6 +475,7 @@ void Player::addExperience(unsigned int experience, dngutil::EvType ev)
         vcursor.y += 2; vcursor.x = 0;
 
         statIncreaseDisplay(hpChange, prevMaxhp, dngutil::RED, "Max Health: ", vwin, vcursor);
+        statIncreaseDisplay(manaChange, prevMaxMana, dngutil::WHITE, "Max Mana: ", vwin, vcursor);
         statIncreaseDisplay(attChange, prevAtt, dngutil::GREEN, "Attack: ", vwin, vcursor);
         statIncreaseDisplay(defChange, prevDef, dngutil::BLUE, "Defense: ", vwin, vcursor);
         statIncreaseDisplay(lckChange, prevLck, dngutil::YELLOW, "Luck: ", vwin, vcursor);
@@ -483,6 +488,20 @@ void Player::addExperience(unsigned int experience, dngutil::EvType ev)
         {
             increaseHealth(1);
             vwin->putcen(getHealthBar(), vcursor.y);
+            if (!keypress(VK_RETURN))
+            {
+                Sleep(50);
+            }
+        }
+        stopSound(SoundType::WAV);
+
+        vcursor.y += 2;
+
+        playSound(WavFile("RefillHealth", true, true));
+        while (getMana() < static_cast<int>(getMaxMana()))
+        {
+            increaseMana(1);
+            vwin->putcen(getManaBar(), vcursor.y);
             if (!keypress(VK_RETURN))
             {
                 Sleep(50);
@@ -929,5 +948,17 @@ void Player::setCertainCrit(bool value)
 bool Player::getCertainCrit()
 {
     return certainCrit;
+}
+
+void Player::addSpell(Spell* spell)
+{
+    for (Item* i : inventory)
+    {
+        if (i->getTypeId() == dngutil::TID::Spellbook)
+        {
+            Spellbook* sb = dynamic_cast<Spellbook*>(i);
+            sb->addSpell(spell);
+        }
+    }
 }
 //------------------------------------------------------------

@@ -5,6 +5,7 @@
 #include "player.h"
 #include "virtualwindow.h"
 #include "colorstring.h"
+
 void Equipment::action(Player* player, unsigned int inventoryIndex)
 {
     std::string output;

@@ -7,6 +7,8 @@
 #include "virtualwindow.h"
 #include "enemy.h"
 #include "savefile.h"
+#include "equipment.h"
+#include "spell.h"
 
 #include <list>
 
@@ -1004,33 +1006,23 @@ Collision EldestSage::mapAction(MapObject* collider, std::list<MapObject*>::iter
 
         if (!getPGame()->getPlayer()->hasItem(dngutil::TID::Spellbook))
         {
-            v->putcen(ColorString("I am the eldest of Bora's sages.", dngutil::WHITE), l, true);
-            pressEnter(Coordinate(0, l + 1), v);
-            t.clearLine(l);
-            t.clearLine(l + 1);
-
-            v->putcen(ColorString("Let me teach you my spell, use it freely as it has no cost.", dngutil::WHITE), l, true);
-            pressEnter(Coordinate(0, l + 1), v);
-            t.clearLine(l);
-            t.clearLine(l + 1);
-
-            v->putcen(ColorString("With this spellbook, all you need to do is cast \"Seal-Revealer\"", dngutil::WHITE), l, true);
+            v->putcen(ColorString("It's dangerous to go alone. Take this spellbook.", dngutil::WHITE), l, true);
             pressEnter(Coordinate(0, l + 1), v);
             t.clearLine(l);
             t.clearLine(l + 1);
 
             playSound(WavFile("FindItem", false, false));
             getPGame()->getPlayer()->addToInventory(new Spellbook(getPGame(), Coordinate(-1, -1)));
+            getPGame()->getPlayer()->addSpell(new SealRevealerSpell());
 
-
-            v->putcen(ColorString("There are more sages. Search for them. The rewards may be great.", dngutil::WHITE), l, true);
+            v->putcen(ColorString("There are more sages like me. Search for them to discover more ancient spells.", dngutil::WHITE), l, true);
             pressEnter(Coordinate(0, l + 1), v);
             t.clearLine(l);
             t.clearLine(l + 1);
         }
         else
         {
-            v->putcen(ColorString("My spell is \"Seal-Revealer\"", dngutil::WHITE), l, true);
+            v->putcen(ColorString("My spell is Seal Revealer. It can reveal puzzles in rooms cursed with magic.", dngutil::WHITE), l, true);
             pressEnter(Coordinate(0, l + 1), v);
             t.clearLine(l);
             t.clearLine(l + 1);
@@ -1051,7 +1043,7 @@ Collision EldestSage::mapAction(MapObject* collider, std::list<MapObject*>::iter
 //---------------------------------------------------------------
 // Sage functions
 
-Sage::Sage(Game* game, Coordinate coord, std::string spellName, std::string advice)
+Sage::Sage(Game* game, Coordinate coord, Spell* s)
     :MapObject(
         game,
         ColorChar('A', dngutil::GREEN),
@@ -1066,8 +1058,15 @@ Sage::Sage(Game* game, Coordinate coord, std::string spellName, std::string advi
         false
     )
 {
-    this->spellName = spellName;
-    this->advice = advice;
+    spell = s;
+}
+
+Sage::~Sage()
+{
+    if (spell != nullptr)
+    {
+        delete spell;
+    }
 }
 
 Collision Sage::mapAction(MapObject* collider, std::list<MapObject*>::iterator& it)
@@ -1116,16 +1115,14 @@ Collision Sage::mapAction(MapObject* collider, std::list<MapObject*>::iterator& 
         t.clearLine(l);
         t.clearLine(l + 1);
 
-        v->putcen(ColorString("My spell is " + spellName + ".", dngutil::WHITE), l, true);
+        v->putcen(ColorString("My spell is " + spell->getSpellName() + ".", dngutil::WHITE), l, true);
         pressEnter(Coordinate(0, l + 1), v);
         t.clearLine(l);
         t.clearLine(l + 1);
 
-
-        v->putcen(ColorString(advice, dngutil::WHITE), l, true);
-        pressEnter(Coordinate(0, l + 1), v);
-        t.clearLine(l);
-        t.clearLine(l + 1);
+        playSound(WavFile("Levelup",false, false));
+        getPGame()->getPlayer()->addSpell(spell);
+        spell = nullptr;
 
         t.clearDivider("bottom");
         t.clearMapArea(false, NULL);

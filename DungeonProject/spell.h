@@ -1,0 +1,45 @@
+#ifndef SPELL_H
+#define SPELL_H
+
+#include "utilities.h"
+
+#include <string>
+
+class Player;
+class Game;
+
+class Spell
+{
+public:
+    Spell(std::string name, std::string description, int manaReq);
+
+    std::string getSpellName() const;
+    std::string getSpellDescription() const;
+    int getManaReq() const;
+
+    virtual std::string castSpell(Player* player, Game* game) = 0;
+    virtual void playCastSound() = 0;
+private:
+    std::string name;
+    std::string description;
+    int manaReq;
+};
+
+class SealRevealerSpell : public Spell
+{
+public:
+    SealRevealerSpell();
+
+    std::string castSpell(Player* player, Game* game) override;
+    void playCastSound() override;
+};
+
+class DragonBlessingSpell : public Spell
+{
+public:
+    DragonBlessingSpell();
+
+    std::string castSpell(Player* player, Game* game) override;
+    void playCastSound() override;
+};
+#endif

@@ -258,7 +258,7 @@ void TextMacros::displayOverworldInfo(Game* game)
 {
     Coordinate vcursor(0, DIVIDER_LINES[2] + 1);
     vwin->putcen(game->getPlayer()->getHealthBar(), vcursor.y);
-
+    vwin->putcen(game->getPlayer()->getManaBar(), ++vcursor.y);
     vwin->putcen(game->getPlayer()->getExperienceBar(), ++vcursor.y);
 
     game->getPlayer()->printStats(0, ++vcursor.y);
@@ -370,6 +370,8 @@ void TextMacros::displayLevelupStats(Coordinate cursor, Player* player)
     vwin->putcen(ColorString("**************************", dngutil::MAGENTA), cursor.y);
     cursor.y += 2;
     vwin->putcen(ColorString("Max Health " + std::to_string(player->getMaxhp()), dngutil::RED), cursor.y);
+    cursor.y += 2;
+    vwin->putcen(ColorString("Max Mana " + std::to_string(player->getMaxMana()), dngutil::WHITE), cursor.y);
     cursor.y += 2;
     vwin->putcen(ColorString("Attack " + std::to_string(player->getAtt()), dngutil::GREEN), cursor.y);
     cursor.y += 2;

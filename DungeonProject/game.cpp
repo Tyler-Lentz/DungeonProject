@@ -8,7 +8,7 @@
 #include "soundfile.h"
 #include "map.h"
 #include "savefile.h"
-
+#include "equipment.h"
 #include <iostream>
 #include <chrono>
 #include <string>

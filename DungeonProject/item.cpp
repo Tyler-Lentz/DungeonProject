@@ -9,6 +9,7 @@
 #include "room.h"
 #include "soundfile.h"
 #include "creature.h"
+#include "spell.h"
 
 #include <list>
 #include <string>
@@ -709,69 +710,115 @@ Spellbook::Spellbook(Game* pgame, Coordinate coord)
 {
 }
 
+Spellbook::~Spellbook()
+{
+    for (auto& i : spellList)
+    {
+        delete i;
+    }
+}
+
+void Spellbook::addSpell(Spell* spell)
+{
+    spellList.push_back(spell);
+}
+
 void Spellbook::action(Player* player, unsigned int inventoryIndex)
 {
+    
     while (keypress(VK_RETURN));
 
+    std::string output = "";
+    
     VirtualWindow* vwin = getPGame()->getVWin();
-    vwin->put(ColorString("Spell Name: ", dngutil::LIGHTGRAY), Coordinate(dngutil::CONSOLEX / 4, vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE));
-    std::string spell = safeInput(25);
-    playSound(WavFile("Spellbook", false, false));
-    Sleep(500);
+    
+    int currentLine = vwin->txtmacs.DIVIDER_LINES[1] + 3;
 
-    std::string output;
+    vwin->txtmacs.clearMapArea(false, 0);
+    
 
-    for (int i = 0; i < spell.size(); i++)
+    int currentMana = player->getMana();
+    int currentMaxMana = player->getMaxMana();
+    std::string manaIntsToText = std::to_string(currentMana) + "/" + std::to_string(currentMaxMana);
+    ColorString manaBar = player->getManaBar();
+    ColorString manaTxt(manaIntsToText, dngutil::WHITE);
+
+    vwin->putcen(manaBar, currentLine);
+    vwin->putcen(manaTxt, ++currentLine);
+    currentLine++;
+    vwin->putcenSlowScroll(ColorString("SPELL BOOK", dngutil::MAGENTA), ++currentLine);
+    vwin->putcen(ColorString("--------------------------------------------------------------", dngutil::BROWN), ++currentLine);
+
+    int spellNumber = 1;
+
+    for (Spell* spell : spellList)
     {
-        spell[i] = tolower(spell[i]);
+        std::string name = spell->getSpellName();
+        std::string description = spell->getSpellDescription();
+        int manaReq = spell->getManaReq();
+
+        std::string firstLine = std::to_string(spellNumber) + ". " + name + "(" + std::to_string(manaReq) + " mana) " + description;
+        vwin->putcen(ColorString(firstLine, dngutil::LIGHTGRAY), ++currentLine);
+        spellNumber++;
     }
+    vwin->putcen(ColorString("--------------------------------------------------------------", dngutil::BROWN), ++currentLine);
 
-    if (spell == "seal-revealer")
+    vwin->put(ColorString("Spell Number: ", dngutil::LIGHTGRAY), Coordinate(dngutil::CONSOLEX / 4, vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE));
+    std::string spell = safeInput(1);
+
+    int spellIndex = -1;
+    if (spell == "1" && spellList.size() >= 1)
     {
-        if (getPGame()->getActiveRoom()->hasPuzzle())
-        {
-            playSound(WavFile("Puzzle", false, true));
-            std::string hint = getPGame()->getActiveRoom()->getPuzzleHint();
-            output = ("There is a seal in this area." + hint);
-        }
-        else
-        {
-            output = "There is not a seal in this area.";
-        }
+        spellIndex = 1;
     }
-    else if (spell == "blessing-of-the-dragon")
+    else if (spell == "2" && spellList.size() >= 2)
     {
-        if (player->takeExperience(.25))
-        {
-            int healthbarLine = getPGame()->getVWin()->txtmacs.DIVIDER_LINES[2] - 1;
-
-            playSound(WavFile("RefillHealth", true, true));
-            getPGame()->getVWin()->putcen(player->getHealthBar(), healthbarLine);
-
-            for (int i = 0; i < 50; i++)
-            {
-                player->increaseHealth(1);
-                getPGame()->getVWin()->putcen(player->getHealthBar(), healthbarLine);
-                Sleep(10);
-            }
-
-            stopSound(SoundType::WAV);
-
-            output = "You heal 50 hp for 25% xp";
-        }
-        else
-        {
-            output = "You dont have enough experience for this spell";
-        }
+        spellIndex = 2;
+    }
+    else if (spell == "3" && spellList.size() >= 3)
+    {
+        spellIndex = 3;
+    }
+    else if (spell == "4" && spellList.size() >= 4)
+    {
+        spellIndex = 4;
+    }
+    else if (spell == "5" && spellList.size() >= 5)
+    {
+        spellIndex = 5;
+    }
+    else if (spell == "6" && spellList.size() >= 6)
+    {
+        spellIndex = 6;
     }
     else
     {
+        // still equal -1
         playSound(WavFile("PuzzleError", false, true));
-        output = "The book lights up... but ultimately fades back and nothing happens...";
+        output = "Invalid Spell";
+    }
+
+    if (spellIndex != -1)
+    {
+        Spell* theSpell = spellList[spellIndex-1];
+        int manaNeeded = theSpell->getManaReq();
+
+        if (player->useMana(manaNeeded)) // successful cast, mana is used
+        {
+            
+            theSpell->playCastSound();
+            output += theSpell->castSpell(player, player->getPGame());
+        }
+        else
+        {
+            output = "Not enough Mana...";
+            playSound(WavFile("PuzzleError", false, true));
+        }
     }
 
     vwin->txtmacs.clearLine(vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE);
     vwin->putcen(ColorString(output, dngutil::LIGHTMAGENTA), vwin->txtmacs.BOTTOM_DIVIDER_TEXT_LINE);
+
 }
 
 //-------------------------------------------------------

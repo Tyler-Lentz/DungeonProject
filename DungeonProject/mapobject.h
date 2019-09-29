@@ -10,6 +10,7 @@
 #include <list>
 
 class Game;
+class Spell;
 
 class MapObject
 {
@@ -368,12 +369,11 @@ private:
 class Sage : public MapObject
 {
 public:
-    Sage(Game* game, Coordinate coord, std::string spellName, std::string advice);
+    Sage(Game* game, Coordinate coord, Spell* spell);
     Collision mapAction(MapObject* collider, std::list<MapObject*>::iterator& it) override;
-
+    ~Sage();
 private:
-    std::string spellName;
-    std::string advice;
+    Spell* spell;
 };
 //----------------------------------------------------
 #endif

@@ -7,7 +7,8 @@
 #include "utilities.h"
 #include "soundfile.h"
 #include "creature.h"
-
+#include "spell.h"
+#include <vector>
 #include <string>
 
 class Game;
@@ -284,10 +285,12 @@ class Spellbook : public RItem
 {
 public:
     Spellbook(Game* pgame, Coordinate coord);
+    ~Spellbook();
 
+    void addSpell(Spell* newSpell);
     void action(Player* player, unsigned int inventoryIndex) override;
 private:
-    
+    std::vector<Spell*> spellList;
 };
 //-------------------------------------------------------------
 #endif

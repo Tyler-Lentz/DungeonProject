@@ -18,6 +18,7 @@
 #include "player.h"
 #include "virtualwindow.h"
 #include "enemy.h"
+#include "equipment.h"
 
 Map::Map(Game* game)
 {
@@ -232,7 +233,7 @@ void Map::makeOverworld(std::mutex& mut)
             1.05,
             "Shield made of steel with a sharp point."
         ));
-        specificObjects.emplace(Coordinate(5, 7), new Sage(pgame, Coordinate(5, 7), "Blessing-Of-The-Dragon", "Use it wisely, for it heals the user but costs experience"));
+        specificObjects.emplace(Coordinate(5, 7), new Sage(pgame, Coordinate(5, 7), new DragonBlessingSpell()));
 
         std::vector<dngutil::TID> possibleCreatures;
 

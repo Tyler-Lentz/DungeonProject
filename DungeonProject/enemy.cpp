@@ -10,7 +10,9 @@
 #include "virtualwindow.h"
 #include "room.h"
 #include "soundfile.h"
+#include "spell.h"
 
+#include <vector>
 #include <string>
 
 class Game;
