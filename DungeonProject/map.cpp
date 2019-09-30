@@ -3295,6 +3295,7 @@ void Map::makeOverworld(std::mutex& mut)
 
         std::map<Coordinate, MapObject*> specificObjects;
 
+
         std::vector<dngutil::TID> possibleCreatures;
         possibleCreatures.push_back(dngutil::TID::SSKnight);
         possibleCreatures.push_back(dngutil::TID::LSKnight);

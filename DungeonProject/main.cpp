@@ -8,7 +8,7 @@
 
 /*
   add more spells
-  fig out battle music (the 2 new tracks)
+X fig out battle music (the 2 new tracks)
   play through and test whole game
 X increase max health, att, def
 X buff dark knights

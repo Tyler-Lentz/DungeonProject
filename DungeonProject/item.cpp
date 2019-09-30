@@ -136,6 +136,51 @@ void Potion::action(Player* player, unsigned int inventoryIndex)
 
 //-------------------------------------------------------
 
+
+//-------------------------------------------------------
+// Mana Potion Functions
+
+ManaPotion::ManaPotion(Game* pgame, Coordinate coord, int healAmount)
+    :RItem(pgame, ColorChar('o', dngutil::BLUE), coord, "Mana Potion",
+        true, false, false, dngutil::TID::ManaPotion, true, "Restores " + std::to_string(healAmount) + "mana")
+{
+    this->healAmount = healAmount;
+}
+
+void ManaPotion::action(Player* player, unsigned int inventoryIndex)
+{
+    int healthbarLine = getPGame()->getVWin()->txtmacs.DIVIDER_LINES[2] - 1;
+    int amountHealed = 0;
+
+    playSound(WavFile("RefillHealth", true, true));
+    getPGame()->getVWin()->putcen(player->getManaBar(), healthbarLine);
+    Sleep(100);
+
+    for (; amountHealed < healAmount &&
+        static_cast<unsigned int>(player->getMana()) < player->getMaxMana();
+        amountHealed++)
+    {
+        player->increaseMana(1);
+        getPGame()->getVWin()->putcen(player->getManaBar(), healthbarLine);
+        if (!keypress(VK_RETURN))
+        {
+            Sleep(30);
+        }
+    }
+
+    stopSound(SoundType::WAV);
+
+    std::string output = "You restored ";
+    output += std::to_string(amountHealed);
+    output += " mana";
+
+    getPGame()->getVWin()->putcen(ColorString(output, dngutil::LIGHTGRAY), getPGame()->getVWin()->txtmacs.BOTTOM_DIVIDER_TEXT_LINE);
+
+    getPGame()->getVWin()->txtmacs.clearLine(healthbarLine);
+}
+
+//-------------------------------------------------------
+
 //-------------------------------------------------------
 // Flute Functions
 

@@ -122,7 +122,8 @@ namespace dngutil
         Sage,
         MaskVar1,
         MaskVar2,
-        DarkKnight
+        DarkKnight,
+        ManaPotion
     };
 
     enum class SPELLTID
@@ -217,6 +218,7 @@ namespace dngutil
     const int SCROLL_TIME = 30;
 
     const int POTION_HEAL = 50;
+    const int MANA_POTION_HEAL = 35;
 
     const int MENU_DELAY = 100;
 

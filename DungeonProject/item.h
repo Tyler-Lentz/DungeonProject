@@ -170,6 +170,16 @@ private:
     int healAmount;
 };
 
+class ManaPotion : public RItem
+{
+public:
+    ManaPotion(Game* pgame, Coordinate coord, int healAmount);
+
+    void action(Player* player, unsigned int inventoryIndex) override;
+private:
+    int healAmount;
+};
+
 class HerosClaim : public RItem
 {
 public:
