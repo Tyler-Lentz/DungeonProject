@@ -1578,7 +1578,7 @@ DarkKnight::DarkKnight(
     dngutil::ClassType::KNIGHT
 )
 {
-    setMaxhp(getHp() * 4);
+    setMaxhp(getHp() * 5);
     setHp(getMaxhp());
 }
 

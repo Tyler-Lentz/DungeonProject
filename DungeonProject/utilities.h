@@ -205,10 +205,10 @@ namespace dngutil
     const int STARTING_ENEMY_HP = 20;
 
     const int STARTING_MANA = 25;
-    const int MAX_HP = 999;
-    const int MAX_MANA = 250;
-    const unsigned int MAX_ATT = 255;
-    const unsigned int MAX_DEF = 200;
+    const int MAX_HP = 4999;
+    const int MAX_MANA = 999;
+    const unsigned int MAX_ATT = 999;
+    const unsigned int MAX_DEF = 989;
     const unsigned int MAX_LCK = 100;
     const unsigned int MAX_SPD = 220;
 

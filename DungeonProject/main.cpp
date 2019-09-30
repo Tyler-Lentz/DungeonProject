@@ -11,10 +11,10 @@
   fig out battle music (the 2 new tracks)
   play through and test whole game
   buff dark knights
-  change mana bar
-  nerf critical hits
-X mana potions  
-  scale health by x2?
+X change mana bar
+X nerf critical hits
+  mana potions  
+X scale health by x3
 */
 
 int main()
