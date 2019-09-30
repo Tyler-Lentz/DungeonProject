@@ -988,7 +988,7 @@ Damage Creature::getDamageDealt(Creature* defender)
 
 void Creature::levelUpStats()
 {
-    int healthIncrease = random(4, 8);
+    int healthIncrease = random(18, 20);
     increaseMaxhp(healthIncrease);
     increaseHealth(healthIncrease);
 
@@ -998,11 +998,11 @@ void Creature::levelUpStats()
 
     increaseAtt(random(3, 4));
 
-    increaseDef(random(2, 4));
+    increaseDef(random(3, 4));
 
     increaseLck(random(2, 6));
 
-    increaseSpd(random(4, 8));
+    increaseSpd(random(7, 8));
 }
 
 dngutil::Movement Creature::getLastMovement()
