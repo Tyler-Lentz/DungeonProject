@@ -2916,22 +2916,22 @@ void ZorlockImagePhase2::deathSequence()
 
         stopSound(SoundType::MP3);
 
-        v->putcen(ColorString("BEWARE THE IMPOSTER", dngutil::WHITE), l);
+        v->putcen(ColorString("ZORLOCK IS WAITING", dngutil::WHITE), l);
         playSound(WavFile("Attack4", false, false));
         t.clearLine(l);
         t.clearLine(l + 1);
 
-        v->putcen(ColorString("BEWARE THE IMPOSTER", dngutil::LIGHTMAGENTA), l);
+        v->putcen(ColorString("ZORLOCK IS WAITING", dngutil::LIGHTMAGENTA), l);
         playSound(WavFile("Attack4", false, false));
         t.clearLine(l);
         t.clearLine(l + 1);
 
-        v->putcen(ColorString("BEWARE THE IMPOSTER", dngutil::MAGENTA), l);
+        v->putcen(ColorString("ZORLOCK IS WAITING", dngutil::MAGENTA), l);
         playSound(WavFile("Attack4", false, false));
         t.clearLine(l);
         t.clearLine(l + 1);
 
-        v->putcen(ColorString("BEWARE THE IMPOSTER", dngutil::RED), l);
+        v->putcen(ColorString("ZORLOCK IS WAITING", dngutil::RED), l);
         playSound(WavFile("Attack4", false, false));
         Sleep(3500);
         t.clearLine(l);
