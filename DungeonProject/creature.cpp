@@ -928,7 +928,7 @@ Damage Creature::getDamageDealt(Creature* defender)
 
         if (crit && this == getPGame()->getPlayer())
         {
-            attack *= 1.5;
+            attack *= 1.25;
             playSound(WavFile("CriticalHit", false, false));
         }
         else
