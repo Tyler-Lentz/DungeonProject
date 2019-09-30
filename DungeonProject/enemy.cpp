@@ -3263,7 +3263,7 @@ Cultist::Cultist(
         1,
         "Aura from a cultist"
     ),
-    Mp3File("BattleTheme", "BattleThemeAlt"),
+    Mp3File("BattleTheme", "NewBattleThemeAlt"),
     random(60, 80),
     WavFile("EnemyDeath", false, false),
     dngutil::EvType::DEFENSE,
@@ -3353,7 +3353,7 @@ Imp::Imp(
         1.2,
         "Invisible shield from an imp"
     ),
-    Mp3File("BattleTheme", "BattleThemeAlt"),
+    Mp3File("NewBattleTheme", "BattleThemeAlt"),
     random(50, 65),
     WavFile("EnemyDeath", false, false),
     dngutil::EvType::SPEED,
