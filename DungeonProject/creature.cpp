@@ -621,7 +621,7 @@ bool Creature::battle(MapObject* t_enemy)
 
                         playSound(WavFile("MagicalPotion", false, false));
                         playSound(WavFile("RefillHealth", true, true));
-                        for (int i = 0; i < static_cast<int>(player->getMaxhp() * .75); i++)
+                        for (int i = 0; i < static_cast<int>(player->getMaxhp() * dngutil::MAGIC_POTION_PERCENT); i++)
                         {
                             player->increaseHealth(1);
                             vwin->txtmacs.displayHealthBars(enemy, player);

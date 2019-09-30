@@ -3850,7 +3850,7 @@ bool SegEnemy::battle(MapObject* t_enemy)
 
                         playSound(WavFile("MagicalPotion", false, false));
                         playSound(WavFile("RefillHealth", false, true));
-                        for (int i = 0; i < (player->getMaxhp() * .75); i++)
+                        for (int i = 0; i < (player->getMaxhp() * dngutil::MAGIC_POTION_PERCENT); i++)
                         {
                             player->increaseHealth(1);
                             vwin->txtmacs.displayHealthBars(enemy, player);

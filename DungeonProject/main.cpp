@@ -16,6 +16,7 @@ X change mana bar
 X nerf critical hits
   mana potions  
 X scale health by x3
+X   nerf magical potions to only heal to 25% hp
 */
 
 int main()

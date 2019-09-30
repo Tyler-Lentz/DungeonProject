@@ -714,7 +714,7 @@ const double& Secondary::getDefenseBoost() const
 
 MagicalPotion::MagicalPotion(Game* pgame, Coordinate coord)
     :RItem(pgame, ColorChar('o', dngutil::YELLOW), coord, "Magical Potion",
-        true, false, false, dngutil::TID::MagicalPotion, true, "Restores hp to max hp or heals 3/4 hp on death")
+        true, false, false, dngutil::TID::MagicalPotion, true, "Restores hp to max hp or heals 25% hp on death")
 {
 }
 
