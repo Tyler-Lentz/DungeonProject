@@ -190,6 +190,40 @@ public:
     void printSelf() override;
 };
 
+class MaskVar1 : public SmartEnemy
+{
+public:
+    MaskVar1(
+        Game* pgame,
+        Coordinate coord, 
+        int hp,
+        unsigned int att,
+        unsigned int def,
+        unsigned int lck,
+        unsigned int spd,
+        unsigned int lvl
+    );
+
+    void printSelf() override;
+};
+
+/*class MaskVar2 : public SmartEnemy
+{
+public:
+    MaskVar2(
+        Game* pgame,
+        Coordinate coord,
+        int hp,
+        unsigned int att,
+        unsigned int def,
+        unsigned int lck,
+        unsigned int spd,
+        unsigned int lvl
+    );
+
+    void printSelf() override;
+};*/
+
 class Mage : public SmartEnemy
 {
 public:
@@ -436,6 +470,24 @@ class WaterHorse : public BEnemy
 {
 public:
     WaterHorse(
+        Game* pgame,
+        Coordinate coord,
+        int hp,
+        unsigned int att,
+        unsigned int def,
+        unsigned int lck,
+        unsigned int spd,
+        unsigned int lvl
+    );
+
+    void printSelf() override;
+    ColorString getBattleInfo() const override;
+};
+
+class DarkKnight : public BEnemy
+{
+public:
+    DarkKnight(
         Game* pgame,
         Coordinate coord,
         int hp,

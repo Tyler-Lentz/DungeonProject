@@ -6,6 +6,17 @@
 #include <Windows.h>
 #include <memory>
 
+/*
+add more spells
+fig out battle music (the 2 new tracks)
+play through and test whole game
+buff dark knights
+change mana bar
+nerf critical hits
+mana potions  
+scale health by x2?
+*/
+
 int main()
 {
     std::unique_ptr<VirtualWindow> vwin(new VirtualWindow(dngutil::CONSOLEX, dngutil::CONSOLEY));

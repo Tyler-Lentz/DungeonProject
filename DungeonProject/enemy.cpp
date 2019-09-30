@@ -549,6 +549,90 @@ void BloodSkeleton::printSelf()
 
 //----------------------------------------------------------------
 
+//----------------------------------------------------------------
+// Mask Functions
+MaskVar1::MaskVar1(
+    Game* pgame,
+    Coordinate coord,
+    int hp,
+    unsigned int att,
+    unsigned int def,
+    unsigned int lck,
+    unsigned int spd,
+    unsigned int lvl
+) : SmartEnemy(
+    pgame,
+    ColorChar('V', dngutil::CYAN),
+    coord,
+    "Laughing Mask",
+    false,
+    dngutil::TID::MaskVar1,
+    hp, att, def, lck, spd, lvl,
+    new Primary(
+        pgame,
+        ColorChar('?', dngutil::WHITE),
+        coord,
+        "Piercing Voice",
+        false,
+        2,
+        5,
+        100,
+        false,
+        "The voice of a laughing mask",
+        WavFile("Attack4", false, false),
+        dngutil::ClassType::KNIGHT
+    ),
+    new Secondary(
+        pgame,
+        ColorChar('V', dngutil::CYAN),
+        coord,
+        "Mask",
+        false,
+        dngutil::TID::Secondary,
+        450,
+        1,
+        "A mask from a Laughing Mask"
+    ),
+    Mp3File("NewBattleTheme", "NewBattleThemeAlt"),
+    random(15,22),
+    WavFile("EnemyDeath", false, false),
+    dngutil::EvType::NONE,
+    dngutil::ClassType::KNIGHT
+)
+{
+
+}
+
+void MaskVar1::printSelf()
+{
+    Coordinate vcursor(20, getPGame()->getVWin()->txtmacs.DIVIDER_LINES[1] + 8);
+    VirtualWindow* t = getPGame()->getVWin();
+    int leftcolor = dngutil::MAGENTA;
+    int rightcolor = dngutil::CYAN;
+    t->put(ColorString(R"( ,;/)", leftcolor) + ColorString(R"(       \`.  )", rightcolor), vcursor); vcursor.y++;
+    t->put(ColorString(R"(::()", leftcolor) + ColorString(R"(         ) :)", rightcolor), vcursor); vcursor.y++;
+    t->put(ColorString(R"(|:::.___)", leftcolor) + ColorString(R"(__,'  |)", rightcolor), vcursor); vcursor.y++;
+    t->put(ColorString(R"(|:::::::)", leftcolor) + ColorString(R"(      |)", rightcolor), vcursor); vcursor.y++;
+    t->put(ColorString(R"(|:::::::)", leftcolor) + ColorString(R"(  _   |)", rightcolor), vcursor); vcursor.y++;
+    const int TOP_CURSOR_Y = vcursor.y;
+    t->put(ColorString(R"(|:<)_(>:)", leftcolor) + ColorString(R"(<)_(> |)", rightcolor), vcursor); vcursor.y++;
+    t->put(ColorString(R"(|::::::|)", leftcolor) + ColorString(R"(      |)", rightcolor), vcursor); vcursor.y++;
+    t->put(ColorString(R"(|::::::|)", leftcolor) + ColorString(R"(      |)", rightcolor), vcursor); vcursor.y++;
+    t->put(ColorString(R"(:::|.`:|)", leftcolor) + ColorString(R"(,'/|  :)", rightcolor), vcursor); vcursor.y++;
+    t->put(ColorString(R"(:::| `-')", leftcolor) + ColorString(R"(-' |  ;)", rightcolor), vcursor); vcursor.y++;
+    t->put(ColorString(R"( \::    )", leftcolor) + ColorString(R"(   ; /)", rightcolor), vcursor); vcursor.y++;
+    t->put(ColorString(R"(  \:\   )", leftcolor) + ColorString(R"(  / /)", rightcolor), vcursor); vcursor.y++;
+    t->put(ColorString(R"(   \::-.)", leftcolor) + ColorString(R"(-' / )", rightcolor), vcursor); vcursor.y++;
+    t->put(ColorString(R"(    `::|)", leftcolor) + ColorString(R"( ,')", rightcolor), vcursor); vcursor.y++;
+    t->put(ColorString(R"(     `:)", leftcolor) + ColorString(R"(')", rightcolor), vcursor); vcursor.y++;
+    
+    const int LONGEST_LINE_LENGTH = 62;
+
+    printStats(LONGEST_LINE_LENGTH, TOP_CURSOR_Y);
+}
+
+//----------------------------------------------------------------
+
 
 //----------------------------------------------------------------
 // Skeleton King Functions
@@ -1143,7 +1227,7 @@ TrueZorlock::TrueZorlock(
         1.4,
         "You cant get this so this doesnt matter"
     ),
-    Mp3File("ZorlockTheme"),
+    Mp3File("FinalBossTheme"),
     80,
     WavFile("ZorlockDying", false, false),
     dngutil::EvType::DEFENSE,
@@ -1268,91 +1352,12 @@ void TrueZorlock::beginingCutscene()
     playSound(WavFile("ZorlockAppears", false, false));
     t.clearLine(l);
 
-    v->putcen(ColorString("Ugh, you have made me unleash my final form!", dngutil::LIGHTGREEN), l, true);
+    v->putcen(ColorString("You will never seal me away!!", dngutil::LIGHTGREEN), l, true);
     pressEnter(Coordinate(0, l + 1), v);
     t.clearLine(l);
     t.clearLine(l + 1);
 
-    playSound(WavFile("ZorlockLaugh", false, false));
-
-    v->txtmacs.clearMapArea(false, NULL);
-    v->txtmacs.clearDivider("bottom");
-
-    Sleep(2000);
-    std::string name = getPGame()->getPlayer()->getName();
-    v->putcenSlowScroll(ColorString(name + "...", dngutil::DARKGRAY), l);
-    pressEnter(Coordinate(0, l + 1), v);
-    t.clearLine(l);
-    t.clearLine(l + 1);
-
-    v->putcenSlowScroll(ColorString(name + "!", dngutil::DARKGRAY), l);
-    pressEnter(Coordinate(0, l + 1), v);
-    t.clearLine(l);
-    t.clearLine(l + 1);
-
-    v->putcen(ColorString("It is I, The hero from generations past.", dngutil::DARKGRAY), l, true);
-    pressEnter(Coordinate(0, l + 1), v);
-    t.clearLine(l);
-    t.clearLine(l + 1);
-
-    v->putcen(ColorString("I can provide you one gift to defeat Zorlock...", dngutil::DARKGRAY), l, true);
-    pressEnter(Coordinate(0, l + 1), v);
-    t.clearLine(l);
-    t.clearLine(l + 1);
-
-    vcursor.y = t.DIVIDER_LINES[1] + 1;
-    v->putcen(ColorString(R"( _________________________ )", dngutil::YELLOW), vcursor.y++);
-    v->putcen(ColorString(R"(|<><><>     |  |    <><><>|)", dngutil::YELLOW), vcursor.y++);
-    v->putcen(ColorString(R"(|<>         |  |        <>|)", dngutil::YELLOW), vcursor.y++);
-    v->putcen(ColorString(R"(|           |  |          |)", dngutil::YELLOW), vcursor.y++);
-    v->putcen(ColorString(R"(|  (______ <\-/> ______)  |)", dngutil::YELLOW), vcursor.y++);
-    v->putcen(ColorString(R"(|  /_.-=-.\| " |/.-=-._\  |)", dngutil::YELLOW), vcursor.y++);
-    v->putcen(ColorString(R"(|   /_    \(o_o)/    _\   |)", dngutil::YELLOW), vcursor.y++);
-    v->putcen(ColorString(R"(|    /_  /\/ ^ \/\  _\    |)", dngutil::YELLOW), vcursor.y++);
-    v->putcen(ColorString(R"(|      \/ | / \ | \/      |)", dngutil::YELLOW), vcursor.y++);
-    v->putcen(ColorString(R"(|_______ /((( )))\ _______|)", dngutil::YELLOW), vcursor.y++);
-    v->putcen(ColorString(R"(|      __\ \___/ /__      |)", dngutil::YELLOW), vcursor.y++);
-    v->putcen(ColorString(R"(|--- (((---'   '---))) ---|)", dngutil::YELLOW), vcursor.y++);
-    v->putcen(ColorString(R"(|           |  |          |)", dngutil::YELLOW), vcursor.y++);
-    v->putcen(ColorString(R"(|           |  |          |)", dngutil::YELLOW), vcursor.y++);
-    v->putcen(ColorString(R"(:           |  |          :)", dngutil::YELLOW), vcursor.y++);
-    v->putcen(ColorString(R"( \<>        |  |       <>/ )", dngutil::YELLOW), vcursor.y++);
-    v->putcen(ColorString(R"(  \<>       |  |      <>/  )", dngutil::YELLOW), vcursor.y++);
-    v->putcen(ColorString(R"(   \<>      |  |     <>/   )", dngutil::YELLOW), vcursor.y++);
-    v->putcen(ColorString(R"(    `\<>    |  |   <>/'    )", dngutil::YELLOW), vcursor.y++);
-    v->putcen(ColorString(R"(      `\<>  |  |  <>/'     )", dngutil::YELLOW), vcursor.y++);
-    v->putcen(ColorString(R"(        `\<>|  |<>/'       )", dngutil::YELLOW), vcursor.y++);
-    v->putcen(ColorString(R"(          `-.  .-`         )", dngutil::YELLOW), vcursor.y++);
-    v->putcen(ColorString(R"(            '--'           )", dngutil::YELLOW), vcursor.y++);
-
-    v->putcenSlowScroll(ColorString("- The Hero's Shield -", dngutil::YELLOW), l);
-
-    getPGame()->getPlayer()->addToInventory(new Secondary(
-        getPGame(),
-        ColorChar('(', dngutil::YELLOW),
-        Coordinate(-1, -1),
-        "Hero's Shield",
-        false,
-        dngutil::TID::Secondary,
-        255,
-        1.3,
-        "A shield forged by the gods. Given in a time of need."
-    ));
-
-    playSound(Mp3File("FindVeryImportantItem"));
-    Sleep(10000);
-    stopSound(SoundType::MP3);
-
-    getPGame()->getPlayer()->swapSecondary(getPGame()->getPlayer()->getInventoryNotConst().back());
-
-    pressEnter(Coordinate(0, l + 1), v);
-    t.clearLine(l);
-    t.clearLine(l + 1);
-
-    v->putcenSlowScroll(ColorString("Go....", dngutil::DARKGRAY), l);
-    pressEnter(Coordinate(0, l + 1), v);
-    t.clearLine(l);
-    t.clearLine(l + 1);
+    playSound(WavFile("Laugh", false, false));
 
     v->txtmacs.clearMapArea(false, NULL);
     v->txtmacs.clearDivider("bottom");
@@ -1389,8 +1394,8 @@ void TrueZorlock::deathSequence()
     t.clearLine(textLine);
     t.clearLine(textLine + 1);
 
-    v->putcenSlowScroll(ColorString("And I'll reserve a special place in hell", dngutil::RED), textLine);
-    v->putcenSlowScroll(ColorString("for all that oppose me!!", dngutil::RED), textLine + 1);
+    v->putcenSlowScroll(ColorString("And I'll curse every last one of your descendents!", dngutil::RED), textLine);
+    v->putcenSlowScroll(ColorString("Mark my words!", dngutil::RED), textLine + 1);
     Sleep(3500);
     t.clearLine(textLine);
     t.clearLine(textLine + 1);
@@ -1401,7 +1406,7 @@ void TrueZorlock::deathSequence()
 
     Sleep(3500);
 
-    v->putcenSlowScroll(ColorString("Peace has been restored.", dngutil::YELLOW), textLine);
+    v->putcenSlowScroll(ColorString("Peace has been restored to Bora.", dngutil::YELLOW), textLine);
     playSound(Mp3File("Credits"));
     Sleep(10000);
     t.clearLine(textLine);
@@ -1516,6 +1521,105 @@ void WaterHorse::printSelf()
 
 //----------------------------------------------------------------
 
+//----------------------------------------------------------------
+// Dark Knight Functions
+
+DarkKnight::DarkKnight(
+    Game* pgame,
+    Coordinate coord,
+    int hp,
+    unsigned int att,
+    unsigned int def,
+    unsigned int lck,
+    unsigned int spd,
+    unsigned int lvl
+) : BEnemy(
+    pgame,
+    ColorChar('A', dngutil::BLACK),
+    coord,
+    "The Dark Knight",
+    false,
+    dngutil::TID::DarkKnight,
+    hp,
+    att,
+    def,
+    lck,
+    spd,
+    lvl,
+    new Primary(
+        pgame,
+        ColorChar('1', dngutil::MAGENTA),
+        coord,
+        "Dark Lance",
+        false,
+        2.1,
+        6,
+        99,
+        false,
+        "A lance embued with pulsating dark energy.",
+        WavFile("Attack4", false, false),
+        dngutil::ClassType::KNIGHT
+    ),
+    new Secondary(
+        pgame,
+        ColorChar('0', dngutil::MAGENTA),
+        coord,
+        "Dark Shield",
+        false,
+        dngutil::TID::Secondary,
+        150,
+        1.9,
+        "A Shield embued with pulsating dark energy"
+    ),
+    Mp3File("DarkKnightTheme"),
+    100,
+    WavFile("Screech", false, false),
+    dngutil::EvType::ATTACK,
+    dngutil::ClassType::KNIGHT
+)
+{
+    setMaxhp(getHp() * 4);
+    setHp(getMaxhp());
+}
+
+
+ColorString DarkKnight::getBattleInfo() const
+{
+    return ColorString("The Dark Knight emerges from the shadows", dngutil::MAGENTA);
+}
+
+void DarkKnight::printSelf()
+{
+    Coordinate vcursor(0, getPGame()->getVWin()->txtmacs.DIVIDER_LINES[1] + 1);
+    VirtualWindow* t = getPGame()->getVWin();
+    int color = dngutil::MAGENTA;
+
+    t->put(ColorString(R"(                   _.--.    .--._)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                 ."  ."      ".  ".)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                ;  ."    /\    ".  ;)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                ;  '._,-/  \-,_.`  ;)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                \  ,`  / /\ \  `,  /)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                 \/    \/  \/    \/)", color), vcursor); vcursor.y++;
+    const int TOP_CURSOR_Y = vcursor.y;
+    t->put(ColorString(R"(                 ,=_    \/\/    _=,)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                 |  "_   \/   _"  |)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                 |_   '"-..-"'   _|)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                 | "-.        .-" |)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                 |    "\    /"    |)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                 |      |  |      |)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(         ___     |      |  |      |     ___)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(     _,-",  ",   '_     |  |     _'   ,"  ,"-,_)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(   _(  \  \   \"=--"-.  |  |  .-"--="/   /  /  )_)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"( ,"  \  \  \   \      "-'--'-"      /   /  /  /  ".)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(!     \  \  \   \                  /   /  /  /     !)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(:      \  \  \   \                /   /  /  /       \)", color), vcursor); vcursor.y++;
+
+    const int LONGEST_LINE_LENGTH = 59;
+
+    printStats(LONGEST_LINE_LENGTH, TOP_CURSOR_Y);
+}
+
+//----------------------------------------------------------------
 
 //----------------------------------------------------------------
 // Bloodjaw Functions

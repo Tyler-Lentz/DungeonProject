@@ -340,6 +340,14 @@ Creature* Game::generateCreature(int difficulty, dngutil::TID tid)
     case dngutil::TID::DesertGryphon:
         enemy = new DesertGryphon(this, Coordinate(-1, -1), health, attack, defense, luck, speed, level);
         break;
+
+    case dngutil::TID::MaskVar1:
+        enemy = new MaskVar1(this, Coordinate(-1, -1), health, attack, defense, luck, speed, level);
+        break;
+
+    case dngutil::TID::DarkKnight:
+        enemy = new DarkKnight(this, Coordinate(-1, -1), health, attack, defense, luck, speed, level);
+        break;
     }
 
     if (enemy == nullptr)

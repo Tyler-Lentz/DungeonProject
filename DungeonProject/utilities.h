@@ -119,7 +119,10 @@ namespace dngutil
         HerosBlade2,
         Spellbook,
         EldestSage,
-        Sage
+        Sage,
+        MaskVar1,
+        MaskVar2,
+        DarkKnight
     };
 
     enum class SPELLTID

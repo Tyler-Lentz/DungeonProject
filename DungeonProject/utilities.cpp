@@ -344,8 +344,7 @@ void credits(dngutil::CreditType c, Game* pgame)
         credits.push_back(ColorString("- The Hero (Aegeus) -", color));
     }
     addEmptySpace(8);
-    credits.push_back(ColorString("Music: The Legend of Zelda 1, The Legend of Zelda 2, ", color));
-    credits.push_back(ColorString("Link to the Past, Link's Awakening and Ocarina of Time", color));
+    credits.push_back(ColorString("Music: The Legend of Zelda, Mario, Final Fantasy, ", color));
     if (c == dngutil::CreditType::VICTORY)
     {
         addEmptySpace(5);
@@ -389,7 +388,7 @@ void credits(dngutil::CreditType c, Game* pgame)
     {
         credits.push_back(ColorString("Peace has been restored to Bora", color2));
         credits.push_back(ColorString("Your quest is over...", color2));
-        addEmptySpace(32);
+        addEmptySpace(10);
     }        
     else
     {
@@ -422,73 +421,6 @@ void credits(dngutil::CreditType c, Game* pgame)
         stopSound(SoundType::MP3);
         v->clearScreen();
         Sleep(1500);
-        v->putcenSlowScroll(ColorString("Go on now, you know what to do. Play the Harp and restore peace.", dngutil::DARKGRAY), 40);
-        Sleep(3500);
-        v->txtmacs.clearLine(40);
-
-        Coordinate vcursor(0, v->txtmacs.DIVIDER_LINES[1] + 5);
-        v->putcen(ColorString(R"(         ____                   )", dngutil::YELLOW), vcursor.y); vcursor.y++;
-        v->putcen(ColorString(R"(         SSSS____.              )", dngutil::YELLOW), vcursor.y); vcursor.y++;
-        v->putcen(ColorString(R"(         (WW);;;;;\             )", dngutil::YELLOW), vcursor.y); vcursor.y++;
-        v->putcen(ColorString(R"(         `WW'____ |     ,_____  )", dngutil::YELLOW), vcursor.y); vcursor.y++;
-        v->putcen(ColorString(R"(          UU ||||\ \___/,---. ) )", dngutil::YELLOW), vcursor.y); vcursor.y++;
-        v->putcen(ColorString(R"(          UU |||||\____/||| //  )", dngutil::YELLOW), vcursor.y); vcursor.y++;
-        v->putcen(ColorString(R"(          UU ||||||||||||" //   )", dngutil::YELLOW), vcursor.y); vcursor.y++;
-        v->putcen(ColorString(R"(          UU |||||||||||' //    )", dngutil::YELLOW), vcursor.y); vcursor.y++;
-        v->putcen(ColorString(R"(          UU |||||||||"  //     )", dngutil::YELLOW), vcursor.y); vcursor.y++;
-        v->putcen(ColorString(R"(          UU ||||||||'  //      )", dngutil::YELLOW), vcursor.y); vcursor.y++;
-        v->putcen(ColorString(R"(          UU |||||||"  //       )", dngutil::YELLOW), vcursor.y); vcursor.y++;
-        v->putcen(ColorString(R"(          UU ||||||'  //        )", dngutil::YELLOW), vcursor.y); vcursor.y++;
-        v->putcen(ColorString(R"(          UU ||||"   //         )", dngutil::YELLOW), vcursor.y); vcursor.y++;
-        v->putcen(ColorString(R"(          UU |||"   //          )", dngutil::YELLOW), vcursor.y); vcursor.y++;
-        v->putcen(ColorString(R"(          UU ||'   //           )", dngutil::YELLOW), vcursor.y); vcursor.y++;
-        v->putcen(ColorString(R"(          UU |"   //            )", dngutil::YELLOW), vcursor.y); vcursor.y++;
-        v->putcen(ColorString(R"(         ,UU,'   ||             )", dngutil::YELLOW), vcursor.y); vcursor.y++;
-        v->putcen(ColorString(R"(       (~~~~~~~~~~~~]""'        )", dngutil::YELLOW), vcursor.y); vcursor.y++;
-        v->putcen(ColorString(R"(~~~~~~~~~~~~~~~~~~~~~~~~~~~     )", dngutil::YELLOW), vcursor.y); vcursor.y++;
-        playSound(Mp3File("TitleTheme"));
-        Sleep(13000);
-        stopSound(SoundType::MP3);
-        Sleep(1000);
-
-        v->clearScreen();
-        playSound(WavFile("Wish", false, false));
-
-        Sleep(1000);
-        playSound(WavFile("RebirthOfBora", false, true));
-
-        int timeToSleep = 900;
-        vcursor.x = 3;
-        vcursor.y = 1;
-        v->put(ColorString(R"(                  [\)", dngutil::WHITE), vcursor); vcursor.y++;
-        v->put(ColorString(R"(                  |\)                                ____)", dngutil::WHITE), vcursor); vcursor.y++; Sleep(timeToSleep);
-        v->put(ColorString(R"(                  |                               __(_   )__)", dngutil::WHITE), vcursor); vcursor.y++; Sleep(timeToSleep);
-        v->put(ColorString(R"(                  Y\          ___               _(          ))", dngutil::WHITE), vcursor); vcursor.y++; Sleep(timeToSleep);
-        v->put(ColorString(R"(                 T  \       __)  )--.          (     )-----`)", dngutil::WHITE), vcursor); vcursor.y++; Sleep(timeToSleep);
-        v->put(ColorString(R"(                J    \   ,-(         )_         `---')", dngutil::WHITE), vcursor); vcursor.y++; Sleep(timeToSleep);
-        v->put(ColorString(R"(               Y/T`-._\ (     (       _)                 __)", dngutil::WHITE), vcursor); vcursor.y++; Sleep(timeToSleep);
-        v->put(ColorString(R"(               /[|   ]|  `-(__  ___)-`  |\          ,-(  __))", dngutil::WHITE), vcursor); vcursor.y++; Sleep(timeToSleep);
-        v->put(ColorString(R"(               | |    |      (__)       J'         (     ))", dngutil::WHITE), vcursor); vcursor.y++; Sleep(timeToSleep);
-        v->put(ColorString(R"(   _           | |  ] |    _           /;\          `-  ')", dngutil::WHITE), vcursor); vcursor.y++; Sleep(timeToSleep);
-        v->put(ColorString(R"(  (,,)        [| |    |    L'         /;  \)", dngutil::WHITE), vcursor); vcursor.y++; Sleep(timeToSleep);
-        v->put(ColorString(R"(             /||.| /\ |   /\         /.,-._\        ___ _)", dngutil::WHITE), vcursor); vcursor.y++; Sleep(timeToSleep);
-        v->put(ColorString(R"(            /_|||| || |  /  \        | |{  |       (._.'_))", dngutil::WHITE), vcursor); vcursor.y++; Sleep(timeToSleep);
-        v->put(ColorString(R"(  L/\       | \| | '` |_ _ {|        | | U |   /\)", dngutil::WHITE), vcursor); vcursor.y++; Sleep(timeToSleep);
-        v->put(ColorString(R"( /v^v\/\   `|  Y | [  '-' '--''-''-"-'`'   | ,`^v\ /\,`\)", dngutil::WHITE), vcursor); vcursor.y++; Sleep(timeToSleep);
-        v->put(ColorString(R"(/ ,'./  \.` |[   |       [     __   L    ] |      /^v\  \)", dngutil::WHITE), vcursor); vcursor.y++; Sleep(timeToSleep);
-        v->put(ColorString(R"(,'     `    |    |           ,`##Y.   ]    |___Y Y____,_,,_,,_)", dngutil::WHITE), vcursor); vcursor.y++; Sleep(timeToSleep);
-        v->put(ColorString(R"(--   -----.-(] [ |   ]     o/####U|o      ]|| /`-, Y   _   Y  Y)", dngutil::WHITE), vcursor); vcursor.y++; Sleep(timeToSleep);
-        v->put(ColorString(R"(   Y Y  --;`~T   |      }   \####U|[\ _,.-(^) ,-'  _  (^)__  _)", dngutil::WHITE), vcursor); vcursor.y++; Sleep(timeToSleep);
-        v->put(ColorString(R"(  Y  YY   ;'~~l  |   L     [|\###U'E'\  \ \Y-` _  (^) _Y  _)", dngutil::WHITE), vcursor); vcursor.y++; Sleep(timeToSleep);
-        v->put(ColorString(R"( Y  Y Y   ;\~~/\{| [      _,'-\`= = '.\_ ,`   (^)(^) (^) (^))", dngutil::WHITE), vcursor); vcursor.y++; Sleep(timeToSleep);
-        v->put(ColorString(R"(     --   ;\~~~/\|  _,.-'`_  `.\_..-'"  _ . ,_ Y_ Y_ _Y  _Y__)", dngutil::WHITE), vcursor); vcursor.y++; Sleep(timeToSleep);
-        v->put(ColorString(R"(    _    _; \~~( Y``   Y (^) / `,      (^)      _   (^) (^))", dngutil::WHITE), vcursor); vcursor.y++; Sleep(timeToSleep);
-        v->put(ColorString(R"(   (^)  (^)`._~ /  L \  _.Y'`  _  ` --  Y - - -(^) - Y - Y -)", dngutil::WHITE), vcursor); vcursor.y++; Sleep(timeToSleep);
-        v->put(ColorString(R"(    Y    Y    `'--..,-'`      (^)   _  -    _   Y ____)", dngutil::WHITE), vcursor); vcursor.y++; Sleep(timeToSleep);
-        v->put(ColorString(R"(      --           _    _ --   Y   (^)   _ (^)  ===   ----)", dngutil::WHITE), vcursor); vcursor.y++; Sleep(timeToSleep);
-        v->put(ColorString(R"(          __   -  (^)  (^)      --- Y   (^) Y)", dngutil::WHITE), vcursor); vcursor.y++; Sleep(timeToSleep);
-        v->put(ColorString(R"(      _            Y    Y                Y             )", dngutil::WHITE), vcursor); vcursor.y++; Sleep(timeToSleep);
-        Sleep(6800);
         v->putcen(ColorString("Thank you for playing", dngutil::WHITE), v->txtmacs.BOTTOM_DIVIDER_TEXT_LINE);
         Sleep(5000);
     }

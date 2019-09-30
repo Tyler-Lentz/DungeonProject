@@ -90,6 +90,9 @@ Player::Player(
 
     gold = 0;
 
+    increaseAtt(9999);
+    increaseDef(9999);
+
     steps = pgame->getDifficulty().beastSteps;
 }
 
