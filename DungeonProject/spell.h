@@ -44,4 +44,13 @@ public:
     std::string castSpell(Player* player, Game* game) override;
     void playCastSound() override;
 };
+
+class SpiritRollerSpell : public Spell
+{
+public:
+    SpiritRollerSpell();
+
+    std::string castSpell(Player* player, Game* game) override;
+    void playCastSound() override;
+};
 #endif

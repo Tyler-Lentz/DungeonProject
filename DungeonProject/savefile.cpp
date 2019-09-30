@@ -185,6 +185,10 @@ Spellbook* getSpellbookFromSaveString(std::string str, Game* game, bool saving)
         {
             spells->addSpell(new SealRevealerSpell());
         }
+        else if (tokStr == std::to_string(static_cast<int>(dngutil::SPELLTID::SpiritRoller)))
+        {
+            spells->addSpell(new SpiritRollerSpell());
+        }
         else if (tokStr == "SPELLBOOKDONE")
         {
             break;

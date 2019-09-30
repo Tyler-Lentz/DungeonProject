@@ -129,7 +129,8 @@ namespace dngutil
     enum class SPELLTID
     {
         SealRevealer,
-        DragonBlessing
+        DragonBlessing,
+        SpiritRoller
     };
 
     enum class BTID
@@ -220,7 +221,7 @@ namespace dngutil
     const int POTION_HEAL = 50;
     const int MANA_POTION_HEAL = 35;
 
-    const int MAGIC_POTION_PERCENT = .25;
+    const double MAGIC_POTION_PERCENT = .25;
 
     const int MENU_DELAY = 100;
 

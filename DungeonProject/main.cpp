@@ -8,13 +8,14 @@
 
 /*
   add more spells
+  put mana potions on map
 X fig out battle music (the 2 new tracks)
   play through and test whole game
 X increase max health, att, def
 X buff dark knights
 X change mana bar
 X nerf critical hits
-  mana potions  
+X mana potions  
 X scale health by x3
 X   nerf magical potions to only heal to 25% hp
 */
