@@ -411,8 +411,8 @@ ColorString Creature::getManaBar() const
 
     int numOfCircles = (int)(scaleFactor * adjustedMana);
 
-    std::string temp = std::string(MAXIMUM_CHARACTERS - numOfCircles, 'o');
-    std::string manaBar = temp + (std::string((unsigned int)numOfCircles, '0'));
+    std::string temp = std::string(MAXIMUM_CHARACTERS - numOfCircles, '-');
+    std::string manaBar = temp + (std::string((unsigned int)numOfCircles, '*'));
 
     int color;
     if (hp > static_cast<int>(maxMana * .66))
