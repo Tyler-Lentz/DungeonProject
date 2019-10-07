@@ -2088,17 +2088,19 @@ void Map::makeOverworld(std::mutex& mut)
         roomTemplate.push_back("########################");
         roomTemplate.push_back("########################");
         roomTemplate.push_back("########################");
-        roomTemplate.push_back("#####     e     ########");
-        roomTemplate.push_back("###^              ######");
+        roomTemplate.push_back("#####           ########");
+        roomTemplate.push_back("###^         o    ######");
         roomTemplate.push_back("####             #######");
-        roomTemplate.push_back("#####     e      #######");
+        roomTemplate.push_back("#####            #######");
         roomTemplate.push_back("########################"); 
         roomTemplate.push_back("########################");
         roomTemplate.push_back("########################");
         roomTemplate.push_back("########################");
         roomTemplate.push_back("########################");
-
+        // 13, 5
         std::map<Coordinate, MapObject*> specificObjects;
+
+        specificObjects.emplace(Coordinate(13, 5), new Sage(pgame, Coordinate(13, 5), new SpiritRollerSpell()));
 
         std::vector<dngutil::TID> possibleCreatures;
         possibleCreatures.push_back(dngutil::TID::BloodSkeleton);
@@ -2135,7 +2137,7 @@ void Map::makeOverworld(std::mutex& mut)
 
         std::map<Coordinate, MapObject*> specificObjects;
         std::vector<ColorString> dialogue;
-        dialogue.push_back(ColorString("I'm lost... Have you seen my son - Rylan?", dngutil::WHITE));
+        dialogue.push_back(ColorString("I'm lost... Have you seen my son - Billy?", dngutil::WHITE));
         dialogue.push_back(ColorString("No? I guess I'll keep looking...", dngutil::WHITE));
         specificObjects.emplace(
             Coordinate(7, 4),
@@ -4840,7 +4842,7 @@ void Map::makeTowerOfTheGods(std::mutex& mut)
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
 
         mut.lock();
-        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("FinalDungeonTheme")));
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("DungeonTheme")));
         mut.unlock();
 
     }
@@ -4873,7 +4875,7 @@ void Map::makeTowerOfTheGods(std::mutex& mut)
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
 
         mut.lock();
-        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("FinalDungeonTheme")));
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("DungeonTheme")));
         mut.unlock();
 
     }
@@ -4908,7 +4910,7 @@ void Map::makeTowerOfTheGods(std::mutex& mut)
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
 
         mut.lock();
-        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("FinalDungeonTheme")));
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("DungeonTheme")));
         mut.unlock();
 
     }
@@ -4942,7 +4944,7 @@ void Map::makeTowerOfTheGods(std::mutex& mut)
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
 
         mut.lock();
-        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("FinalDungeonTheme")));
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("DungeonTheme")));
         mut.unlock();
 
     }
@@ -4977,7 +4979,7 @@ void Map::makeTowerOfTheGods(std::mutex& mut)
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
 
         mut.lock();
-        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("FinalDungeonTheme")));
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("DungeonTheme")));
         mut.unlock();
 
     }
@@ -5014,7 +5016,7 @@ void Map::makeTowerOfTheGods(std::mutex& mut)
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
 
         mut.lock();
-        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("FinalDungeonTheme")));
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("DungeonTheme")));
         mut.unlock();
 
     }
@@ -5047,7 +5049,7 @@ void Map::makeTowerOfTheGods(std::mutex& mut)
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
 
         mut.lock();
-        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("FinalDungeonTheme")));
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("DungeonTheme")));
         mut.unlock();
 
     }
@@ -5081,7 +5083,7 @@ void Map::makeTowerOfTheGods(std::mutex& mut)
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
 
         mut.lock();
-        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("FinalDungeonTheme")));
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("DungeonTheme")));
         mut.unlock();
 
     }
@@ -5116,7 +5118,7 @@ void Map::makeTowerOfTheGods(std::mutex& mut)
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
 
         mut.lock();
-        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("FinalDungeonTheme")));
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("DungeonTheme")));
         mut.unlock();
 
     }
@@ -5152,7 +5154,7 @@ void Map::makeTowerOfTheGods(std::mutex& mut)
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
 
         mut.lock();
-        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("FinalDungeonTheme")));
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("DungeonTheme")));
         mut.unlock();
 
     }
@@ -5185,7 +5187,7 @@ void Map::makeTowerOfTheGods(std::mutex& mut)
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
 
         mut.lock();
-        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("FinalDungeonTheme")));
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("DungeonTheme")));
         mut.unlock();
 
     }
@@ -5227,7 +5229,7 @@ void Map::makeTowerOfTheGods(std::mutex& mut)
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
 
         mut.lock();
-        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("FinalDungeonTheme")));
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("DungeonTheme")));
         mut.unlock();
 
     }
@@ -5264,7 +5266,7 @@ void Map::makeTowerOfTheGods(std::mutex& mut)
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
 
         mut.lock();
-        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("FinalDungeonTheme")));
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("DungeonTheme")));
         mut.unlock();
 
     }
@@ -5297,7 +5299,7 @@ void Map::makeTowerOfTheGods(std::mutex& mut)
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
 
         mut.lock();
-        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("FinalDungeonTheme")));
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("DungeonTheme")));
         mut.unlock();
 
     }
@@ -5330,7 +5332,7 @@ void Map::makeTowerOfTheGods(std::mutex& mut)
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
 
         mut.lock();
-        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("FinalDungeonTheme")));
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("DungeonTheme")));
         mut.unlock();
 
     }
@@ -5363,7 +5365,7 @@ void Map::makeTowerOfTheGods(std::mutex& mut)
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
 
         mut.lock();
-        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("FinalDungeonTheme")));
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("DungeonTheme")));
         mut.unlock();
 
     }
@@ -5396,7 +5398,7 @@ void Map::makeTowerOfTheGods(std::mutex& mut)
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
 
         mut.lock();
-        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("FinalDungeonTheme")));
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("DungeonTheme")));
         mut.unlock();
 
     }
@@ -5433,7 +5435,7 @@ void Map::makeTowerOfTheGods(std::mutex& mut)
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
 
         mut.lock();
-        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("FinalDungeonTheme")));
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("DungeonTheme")));
         mut.unlock();
 
     }
@@ -5499,29 +5501,19 @@ void Map::makeTowerOfTheGods(std::mutex& mut)
     tfloor--;
     {
         std::vector<std::string> roomTemplate;
-        roomTemplate.push_back("&&&&&&&&&&&&&&&&&&&&&&&&");
-        roomTemplate.push_back("&&&&&&&&&&&&&&&&&&&&&&&&");
-        roomTemplate.push_back("&&&&&&&           &&&&&&");
-        roomTemplate.push_back("&&&&&&&     e     &&&&&&");
-        roomTemplate.push_back("&&&&&&&           &&&&&&");
-        roomTemplate.push_back("&&&&&&&           &&&&&&");
-        roomTemplate.push_back("&&&&&&&           &&&&&&");
-        roomTemplate.push_back("&&&&&&&           &&&&&&");
-        roomTemplate.push_back("&&&&&&&           &&&&&&");
-        roomTemplate.push_back("&&&&&&&           &&&&&&");
-        roomTemplate.push_back("&&&&&&&           &&&&&&");
-        roomTemplate.push_back("&&&&&&&&&&&&&&&&&&&&&&&&");
-        roomTemplate.push_back("&&&&&&&&&&&&&&&&&&&&&&&&");
-        // 12, 5
-        auto puzzleSolved = [](const std::list<Creature*>& creatureList, const GAMEMAP& gameMap) -> bool
-        {
-            return false;
-        };
-
-        auto puzzleAction = [this](std::list<Creature*> creatureList, GAMEMAP& gameMap) -> void
-        {
-            
-        };
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
 
 
         std::map<Coordinate, MapObject*> specificObjects;
@@ -5529,13 +5521,1703 @@ void Map::makeTowerOfTheGods(std::mutex& mut)
         possibleCreatures.push_back(dngutil::TID::TrueZorlock);
 
         int difficulty = -5;
-        int backColor = dngutil::LIGHTRED;
-        std::string name = "The Demon Realm";
+        int backColor = dngutil::BLACK;
+        std::string name = "";
         Coordinate mapCoord(8, -4);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
 
         mut.lock();
-        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction, "Unknown origin. Pure evil detected."), Mp3File("DangerTheme")));
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("DemonTheme")));
+        mut.unlock();
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+
+
+        std::map<Coordinate, MapObject*> specificObjects;
+        std::vector<dngutil::TID> possibleCreatures;
+
+        int difficulty = -5;
+        int backColor = dngutil::BLACK;
+        std::string name = "The Demon Realm";
+        Coordinate mapCoord(8, -5);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("DemonTheme")));
+        mut.unlock();
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+
+
+        std::map<Coordinate, MapObject*> specificObjects;
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Imp);
+
+        int difficulty = -5;
+        int backColor = dngutil::BLACK;
+        std::string name = "The Demon Realm";
+        Coordinate mapCoord(8, -6);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("DemonTheme")));
+        mut.unlock();
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+
+
+        std::map<Coordinate, MapObject*> specificObjects;
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Imp);
+
+        int difficulty = -5;
+        int backColor = dngutil::BLACK;
+        std::string name = "The Demon Realm";
+        Coordinate mapCoord(8, -7);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("DemonTheme")));
+        mut.unlock();
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("&&&&&   &&    &&   &&&&&");
+        roomTemplate.push_back("&&&&&   &&    &&   &&&&&");
+        roomTemplate.push_back("&&&&&      ++      &&&&&");
+        roomTemplate.push_back("&&&&&   &&    &&   &&&&&");
+        roomTemplate.push_back("        &&    &&        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+
+
+        std::map<Coordinate, MapObject*> specificObjects;
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Imp);
+
+        int difficulty = -5;
+        int backColor = dngutil::BLACK;
+        std::string name = "The Demon Realm";
+        Coordinate mapCoord(8, -8);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("DemonTheme")));
+        mut.unlock();
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("&&&&&&&&&&&  &&&&&&&&&&&");
+        roomTemplate.push_back("&&&&&&&&&&    &&&&&&&&&&");
+        roomTemplate.push_back("&&&&&&&&        &&&&&&&&");
+        roomTemplate.push_back("&&&&&              &&&&&");
+        roomTemplate.push_back("&&&&&   &&    &&   &&&&&");
+        roomTemplate.push_back("&&&&&   &&    &&   &&&&&");
+        roomTemplate.push_back("&&&&&              &&&&&");
+        roomTemplate.push_back("&&&&&   &&    &&   &&&&&");
+        roomTemplate.push_back("&&&&&   &&    &&   &&&&&");
+        roomTemplate.push_back("&&&&&              &&&&&");
+        roomTemplate.push_back("&&&&&   &&    &&   &&&&&");
+        roomTemplate.push_back("&&&&&   &&    &&   &&&&&");
+        roomTemplate.push_back("&&&&&              &&&&&");
+
+
+        std::map<Coordinate, MapObject*> specificObjects;
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Imp);
+
+        int difficulty = -5;
+        int backColor = dngutil::BLACK;
+        std::string name = "The Demon Realm";
+        Coordinate mapCoord(8, -9);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("DemonTheme")));
+        mut.unlock();
+    }
+
+    int floorAtEntryToFort = tfloor;
+
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("&&&&&&&&&&&&&&&&&&&&&&&&");
+        roomTemplate.push_back("&&&&&&&&&&&&&&&&&&&&&&&&");
+        roomTemplate.push_back("&&&&&&&&&&&&&&&&&&&&&&&&");
+        roomTemplate.push_back("&&&&&&&&&&&oo&&&&&&&&&&&");
+        roomTemplate.push_back("&&&&&&&&&&&  &&&&&&&&&&&");
+        roomTemplate.push_back("&&&&&&&&&&&  &&&&&&&&&&&");
+        roomTemplate.push_back("&&&&&&&&&&&  &&&&&&&&&&&");
+        roomTemplate.push_back("&&&&&&&&&&&  &&&&&&&&&&&");
+        roomTemplate.push_back("&&&&&&&&&&&  &&&&&&&&&&&");
+        roomTemplate.push_back("&&&&&&&&&&&  &&&&&&&&&&&");
+        roomTemplate.push_back("&&&&&&&&&&&  &&&&&&&&&&&");
+        roomTemplate.push_back("&&&&&&&&&&&  &&&&&&&&&&&");
+        roomTemplate.push_back("&&&&&&&&&&&  &&&&&&&&&&&");
+        //11(12), 3
+
+        std::map<Coordinate, MapObject*> specificObjects;
+        specificObjects.emplace(Coordinate(11, 3), new HouseDoorObject(pgame, Coordinate(11, 3), Coordinate(0, 0), Coordinate(11, 1), dngutil::DEMON_FLOOR));
+        specificObjects.emplace(Coordinate(12, 3), new HouseDoorObject(pgame, Coordinate(12, 3), Coordinate(0, 0), Coordinate(12, 1), dngutil::DEMON_FLOOR));
+
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Imp);
+
+        int difficulty = -5;
+        int backColor = dngutil::BLACK;
+        std::string name = "";
+        Coordinate mapCoord(8, -10);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("DemonTheme")));
+        mut.unlock();
+    }
+
+    tfloor = dngutil::DEMON_FLOOR;
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("###########oo###########");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        //11(12), 3
+
+        std::map<Coordinate, MapObject*> specificObjects;
+        specificObjects.emplace(Coordinate(11, 1), new HouseDoorObject(pgame, Coordinate(11, 1), Coordinate(8, -10), Coordinate(11, 3), floorAtEntryToFort));
+        specificObjects.emplace(Coordinate(12, 1), new HouseDoorObject(pgame, Coordinate(12, 1), Coordinate(8, -10), Coordinate(12, 3), floorAtEntryToFort));
+
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Imp);
+
+        int difficulty = -5;
+        int backColor = dngutil::MAGENTA;
+        std::string name = "The Demon Fortress";
+        Coordinate mapCoord(0, 0);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("FinalDungeonTheme")));
+        mut.unlock();
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("##########    ##########");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("##########    ##########");
+        roomTemplate.push_back("########### ############");
+        roomTemplate.push_back("########### ############");
+        roomTemplate.push_back("########### ############");
+        roomTemplate.push_back("###########% ###########");
+        roomTemplate.push_back("###########  ###########");
+        //
+        // 11(12) 7
+        auto puzzleSolved = [](const std::list<Creature*>& creatureList, const GAMEMAP& gameMap) -> bool
+        {
+            if (gameMap[7][11].size() > 1 || gameMap[7][12].size() > 1)
+            {
+                return true;
+            }
+            return false;
+        };
+
+        auto puzzleAction = [this](std::list<Creature*> creatureList, GAMEMAP& gameMap) -> void
+        {
+            int x1 = 11;
+            int x2 = 12;
+            int y1 = 12;
+            for (int i = 0; i < 5; i++)
+            {
+                pgame->getVWin()->txtmacs.clearMapArea(false, false);
+                gameMap[y1 - i][x1].push_back(new WallObject(pgame, Coordinate(x1, y1 - i)));
+                gameMap[y1 - i][x2].push_back(new WallObject(pgame, Coordinate(x2, y1 - i)));
+                playSound(WavFile("UnlockDoor", false, false));
+            }
+        };
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Imp);
+
+        int difficulty = -5;
+        int backColor = dngutil::MAGENTA;
+        std::string name = "The Demon Fortress";
+        Coordinate mapCoord(0, -1);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction, "Unknown origin. Pure evil detected."), Mp3File("FinalDungeonTheme")));
+        mut.unlock();
+    }
+
+    //right
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("           e            ");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        
+
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::PossessedBowman);
+
+        int difficulty = -1;
+        int backColor = dngutil::MAGENTA;
+        std::string name = "The Demon Fortress";
+        Coordinate mapCoord(1, -1);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("FinalDungeonTheme")));
+        mut.unlock();
+    }
+
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("##########              ");
+        roomTemplate.push_back("##########   ###########");
+        roomTemplate.push_back("##########   ###########");
+        roomTemplate.push_back("##########   ###########");
+        roomTemplate.push_back("##########   ###########");
+        roomTemplate.push_back("           e            ");
+        roomTemplate.push_back("##########   ###########");
+        roomTemplate.push_back("##########   ###########");
+        roomTemplate.push_back("##########   ###########");
+        roomTemplate.push_back("##########   ###########");
+        roomTemplate.push_back("##########   ###########");
+        roomTemplate.push_back("##########   ###########");
+
+
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::PossessedBowman);
+
+        int difficulty = -1;
+        int backColor = dngutil::MAGENTA;
+        std::string name = "The Demon Fortress";
+        Coordinate mapCoord(2, -1);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("FinalDungeonTheme")));
+        mut.unlock();
+    }
+
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("##########   ###########");
+        roomTemplate.push_back("##########   ###########");
+        roomTemplate.push_back("##########   ###########");
+        roomTemplate.push_back("##########   ###########");
+        roomTemplate.push_back("##########   ###########");
+        roomTemplate.push_back("##########   ###########");
+        roomTemplate.push_back("########## e            ");
+        roomTemplate.push_back("##########   ###########");
+        roomTemplate.push_back("##########   ###########");
+        roomTemplate.push_back("##########   ###########");
+        roomTemplate.push_back("##########   ###########");
+        roomTemplate.push_back("##########   ###########");
+        roomTemplate.push_back("##########   ###########");
+
+
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::PossessedBowman);
+
+        int difficulty = -1;
+        int backColor = dngutil::MAGENTA;
+        std::string name = "The Demon Fortress";
+        Coordinate mapCoord(2, 0);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("FinalDungeonTheme")));
+        mut.unlock();
+    }
+
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("###         ##         #");
+        roomTemplate.push_back("### ####### ##    #### #");
+        roomTemplate.push_back("### #   ### #####   ## #");
+        roomTemplate.push_back("#   # # ###    # ## ## #");
+        roomTemplate.push_back("# # # # ###e## #  e ## #");
+        roomTemplate.push_back("  # # # ### ## # ## ##  ");
+        roomTemplate.push_back("###   # ### #### ## ####");
+        roomTemplate.push_back("#   ### ###      ##    #");
+        roomTemplate.push_back("# #####     ########## #");
+        roomTemplate.push_back("# # #########   #   ## #");
+        roomTemplate.push_back("#   #o        #   #    #");
+        roomTemplate.push_back("########################");
+
+        //5, 11
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        specificObjects.emplace(Coordinate(5, 11), new MagicalPotion(pgame, Coordinate(5, 11)));
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::PossessedBowman);
+
+        int difficulty = -1;
+        int backColor = dngutil::MAGENTA;
+        std::string name = "The Demon Fortress";
+        Coordinate mapCoord(3, 0);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("FinalDungeonTheme")));
+        mut.unlock();
+    }
+
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("##########   ###########");
+        roomTemplate.push_back("##########   ###########");
+        roomTemplate.push_back("##########   ###########");
+        roomTemplate.push_back("##########   ###########");
+        roomTemplate.push_back("##########   ###########");
+        roomTemplate.push_back("####               #####");
+        roomTemplate.push_back("####     #####   e #####");
+        roomTemplate.push_back("####  e  #####     #####");
+        roomTemplate.push_back("####     #####     #####");
+        roomTemplate.push_back("####  e  #####   e #####");
+        roomTemplate.push_back("####       o       #####");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+
+
+
+        std::map<Coordinate, MapObject*> specificObjects;
+        specificObjects.emplace(Coordinate(11, 10), new Primary(
+            pgame,
+            ColorChar(')', dngutil::RED),
+            Coordinate(11, 10),
+            "Demon Bow",
+            false,
+            1.7,
+            3,
+            50,
+            false,
+            "A bow embued with demonic energy. Shoots Fire.",
+            WavFile("FireAttack1", false, false),
+            dngutil::ClassType::RANGER
+        ));
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::PossessedBowman);
+
+        int difficulty = -2;
+        int backColor = dngutil::MAGENTA;
+        std::string name = "The Demon Fortress";
+        Coordinate mapCoord(2, 1);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("FinalDungeonTheme")));
+        mut.unlock();
+    }
+
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("##########   ###########");
+        roomTemplate.push_back("##########   ###########");
+        roomTemplate.push_back("##########   ###########");
+        roomTemplate.push_back("##########   ###########");
+        roomTemplate.push_back("           e            ");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+
+
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::PossessedBowman);
+
+        int difficulty = -1;
+        int backColor = dngutil::MAGENTA;
+        std::string name = "The Demon Fortress";
+        Coordinate mapCoord(3, -1);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("FinalDungeonTheme")));
+        mut.unlock();
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("                    ####");
+        roomTemplate.push_back("############### ### ####");
+        roomTemplate.push_back("############### ### ####");
+        roomTemplate.push_back("####        ### ### ####");
+        roomTemplate.push_back("####  ####  ### ### ####");
+        roomTemplate.push_back("          e ###  e      ");
+        roomTemplate.push_back("##########  ### ### ####");
+        roomTemplate.push_back("##########  ### ### ####");
+        roomTemplate.push_back("##########  ###         ");
+        roomTemplate.push_back("##########  ############");
+        roomTemplate.push_back("##########  ############");
+        roomTemplate.push_back("##########  ############");
+
+
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Cultist);
+
+        int difficulty = -1;
+        int backColor = dngutil::MAGENTA;
+        std::string name = "The Demon Fortress";
+        Coordinate mapCoord(4, -1);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("FinalDungeonTheme")));
+        mut.unlock();
+    }
+
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("##########  ############");
+        roomTemplate.push_back("##########          ####");
+        roomTemplate.push_back("##########     e    ####");
+        roomTemplate.push_back("##########  ### ### ####");
+        roomTemplate.push_back("##########  ### ### ####");
+        roomTemplate.push_back("##########  ### ### ####");
+        roomTemplate.push_back("            ### ### ####");
+        roomTemplate.push_back("############### ### ####");
+        roomTemplate.push_back("############### ### ####");
+        roomTemplate.push_back("###############  o  ####");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        //17, 9
+
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        specificObjects.emplace(Coordinate(17, 9), new ManaPotion(pgame, Coordinate(17, 9), dngutil::MANA_POTION_HEAL * 2));
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Cultist);
+
+        int difficulty = -1;
+        int backColor = dngutil::MAGENTA;
+        std::string name = "The Demon Fortress";
+        Coordinate mapCoord(4, 0);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("FinalDungeonTheme")));
+        mut.unlock();
+    }
+
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("####              e  ###");
+        roomTemplate.push_back("#### # # # # # # # # ###");
+        roomTemplate.push_back("####        e        ###");
+        roomTemplate.push_back("#### # # # # # # # # ###");
+        roomTemplate.push_back("      e              ###");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("                    #   ");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        // 16,5
+
+        //20,9
+        auto puzzleSolved = [this](const std::list<Creature*>& creatureList, const GAMEMAP& gameMap) -> bool
+        {
+            if (gameMap[5][16].size() > 1)
+            {
+                return true;
+            }
+            return false;
+        };
+
+        // 4,6 --> 19,6
+        auto puzzleAction = [this](std::list<Creature*> creatureList, GAMEMAP& gameMap) -> void
+        {
+            int y = 9;
+            int x = 20;
+            delete gameMap[y][x].back();
+            gameMap[y][x].pop_back();
+            playSound(WavFile("StepOnSwitch", false, false));
+        };
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::MaskVar1);
+
+        int difficulty = -2;
+        int backColor = dngutil::MAGENTA;
+        std::string name = "The Demon Fortress";
+        Coordinate mapCoord(5, -1);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction, "Find the hidden switch."), Mp3File("FinalDungeonTheme")));
+        mut.unlock();
+    }
+
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("#### o #################");
+        roomTemplate.push_back("####   #################");
+        roomTemplate.push_back("####   #################");
+        roomTemplate.push_back("####   #################");
+        roomTemplate.push_back("####   #################");
+        roomTemplate.push_back("####   #################");
+        roomTemplate.push_back("####   #################");
+        roomTemplate.push_back("       #################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        // 5, 2
+
+
+        std::map<Coordinate, MapObject*> specificObjects;
+        specificObjects.emplace(Coordinate(5, 2), new Key(pgame, Coordinate(5, 2)));
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::MaskVar1);
+
+        int difficulty = -2;
+        int backColor = dngutil::MAGENTA;
+        std::string name = "The Demon Fortress";
+        Coordinate mapCoord(6, -1);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("FinalDungeonTheme")));
+        mut.unlock();
+    }
+
+    // up
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("###########  ###########");
+        // x: 10-13
+        // y: 5
+        auto puzzleSolved = [this](const std::list<Creature*>& creatureList, const GAMEMAP& gameMap) -> bool
+        {
+
+            if (pgame->getPlayer()->hasItem(dngutil::TID::HerosClaim))
+            {
+                return true;
+            }
+            else if (gameMap[5][10].size() > 1 || gameMap[5][11].size() > 1 || gameMap[5][12].size() > 1 || gameMap[5][13].size() > 1)
+            {
+                playSound(WavFile("Spellbook", false, false));
+                pgame->getPlayer()->adjustPosition(dngutil::Movement::DOWN);
+                pgame->getPlayer()->adjustPosition(dngutil::Movement::DOWN);
+                pgame->getPlayer()->adjustPosition(dngutil::Movement::DOWN);
+            }
+            return false;
+        };
+
+        auto puzzleAction = [this](std::list<Creature*> creatureList, GAMEMAP& gameMap) -> void
+        {
+            // nada
+        };
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Imp);
+
+        int difficulty = -5;
+        int backColor = dngutil::BLACK;
+        std::string name = "Entrance To The Seal Room";
+        Coordinate mapCoord(0, -2);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction, "A large amount of energy is required."), Mp3File("FinalDungeonTheme")));
+        mut.unlock();
+    }
+
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("##########@@@@##########");
+        roomTemplate.push_back("##########@@@@##########");
+        roomTemplate.push_back("#########  e   #########");
+        roomTemplate.push_back("########        ########");
+        roomTemplate.push_back("########        ########");
+        roomTemplate.push_back("########        ########");
+        roomTemplate.push_back("########        ########");
+        roomTemplate.push_back("########        ########");
+        roomTemplate.push_back("#########      #########");
+        roomTemplate.push_back("##########    ##########");
+        roomTemplate.push_back("###########%%###########");
+        roomTemplate.push_back("###########  ###########");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::TrueZorlock);
+
+        int difficulty = -1;
+        int backColor = dngutil::BLACK;
+        std::string name = "The Seal Room";
+        Coordinate mapCoord(0, -3);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("DangerTheme")));
+        mut.unlock();
+    }
+
+    // left
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("##########  e  #########");
+        roomTemplate.push_back("##########  #  #########");
+        roomTemplate.push_back("##########  #  #########");
+        roomTemplate.push_back("            #           ");
+        roomTemplate.push_back("##########  #  #########");
+        roomTemplate.push_back("##########  #  #########");
+        roomTemplate.push_back("##########  e  #########");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Imp);
+
+        int difficulty = -1;
+        int backColor = dngutil::MAGENTA;
+        std::string name = "The Demon Fortress";
+        Coordinate mapCoord(-1, -1);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("FinalDungeonTheme")));
+        mut.unlock();
+    }
+
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########### v ##########");
+        roomTemplate.push_back("##########     #########");
+        roomTemplate.push_back("##########  e  #########");
+        roomTemplate.push_back("##########     #########");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Cultist);
+
+        int difficulty = -1;
+        int backColor = dngutil::MAGENTA;
+        std::string name = "The Demon Fortress";
+        Coordinate mapCoord(-2, -1);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("FinalDungeonTheme")));
+        mut.unlock();
+    }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("##########    ##########");
+        roomTemplate.push_back("           e            ");
+        roomTemplate.push_back("##########    ##########");
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Imp);
+
+        int difficulty = -1;
+        int backColor = dngutil::MAGENTA;
+        std::string name = "The Demon Fortress";
+        Coordinate mapCoord(-2, -1);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("FinalDungeonTheme")));
+        mut.unlock();
+    }
+
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("###XXXXXXXXXXXXXXXXXX###");
+        roomTemplate.push_back("###XXXXXXXXXXXXXXXXXX###");
+        roomTemplate.push_back("###XXXXXXXXXXXXXXXXXX###");
+        roomTemplate.push_back("###XXXXXXXXXXXXXXXXXX###");
+        roomTemplate.push_back("###XXXXXXXXXXXXXXXXXX###");
+        roomTemplate.push_back("    XXXXXXXXXXXXXXXX    ");
+        roomTemplate.push_back("###XXXXXXXXXXXXXXXXXX###");
+        roomTemplate.push_back("###XXXXXXXXXXXXXXXXXX###");
+        roomTemplate.push_back("###XXXXXXXXXXXXXXXXXX###");
+        roomTemplate.push_back("###XXXXXXXXXXXXXXXXXX###");
+        roomTemplate.push_back("###XXXXXXXXXXXXXXXXXX###");
+        roomTemplate.push_back("########################");
+        
+        auto puzzleSolved = [this](const std::list<Creature*>& creatureList, const GAMEMAP& gameMap) -> bool
+        {
+            if (pgame->getPlayer()->hasItem(dngutil::TID::HerosClaim))
+            {
+                return true;
+            }
+            return false;
+        };
+
+        // 4,6 --> 19,6
+        auto puzzleAction = [this](std::list<Creature*> creatureList, GAMEMAP& gameMap) -> void
+        {
+            int y = 6;
+            for (int x = 4; x <= 19; x++)
+            {
+                delete gameMap[y][x].back();
+                gameMap[y][x].pop_back();
+                playSound(WavFile("UnlockDoor", false, false));
+            }
+        };
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+
+        int difficulty = -5;
+        int backColor = dngutil::MAGENTA;
+        std::string name = "The Demon Fortress";
+        Coordinate mapCoord(-3, -1);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction, "Powerful energy is required to break this seal."), Mp3File("FinalDungeonTheme")));
+        mut.unlock();
+    }
+
+
+
+    // bottom floor
+    tfloor--;
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("##          ^         ##");
+        roomTemplate.push_back("## #######     ###### ##");
+        roomTemplate.push_back("## #######     ###### ##");
+        roomTemplate.push_back("## #######     ###### ##");
+        roomTemplate.push_back("            e           ");
+        roomTemplate.push_back("##                    ##");
+        roomTemplate.push_back("## ########   ####### ##");
+        roomTemplate.push_back("## ########   ####### ##");
+        roomTemplate.push_back("## ########   ####### ##");
+        roomTemplate.push_back("##          e         ##");
+        roomTemplate.push_back("############ ###########");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::MaskVar1);
+
+        int difficulty = -1;
+        int backColor = dngutil::MAGENTA;
+        std::string name = "The Demon Fortress";
+        Coordinate mapCoord(-2, -1);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("FinalDungeonTheme")));
+        mut.unlock();
+    }
+
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("##                    ##");
+        roomTemplate.push_back("            e           ");
+        roomTemplate.push_back("##                    ##");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Imp);
+
+        int difficulty = -1;
+        int backColor = dngutil::MAGENTA;
+        std::string name = "The Demon Fortress";
+        Coordinate mapCoord(-1, -1);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("FinalDungeonTheme")));
+        mut.unlock();
+    }
+
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("##          e         ##");
+        roomTemplate.push_back("##                    ##");
+        roomTemplate.push_back("## ################## ##");
+        roomTemplate.push_back("## ################## ##");
+        roomTemplate.push_back("##     wwwwwwwwww     ##");
+        roomTemplate.push_back("       wwwwiiwwww     ##");
+        roomTemplate.push_back("##     wwwwwwwwww     ##");
+        roomTemplate.push_back("## ################## ##");
+        roomTemplate.push_back("## ################## ##");
+        roomTemplate.push_back("##         e          ##");
+        roomTemplate.push_back("##                    ##");
+        roomTemplate.push_back("########################");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Imp);
+
+        int difficulty = -2;
+        int backColor = dngutil::MAGENTA;
+        std::string name = "The Demon Fortress";
+        Coordinate mapCoord(0, -1);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("FinalDungeonTheme")));
+        mut.unlock();
+    }
+
+   
+
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("############ ###########");
+        roomTemplate.push_back("############ ###########");
+        roomTemplate.push_back("###########   ##########");
+        roomTemplate.push_back("###########   ##########");
+        roomTemplate.push_back("###########   ##########");
+        roomTemplate.push_back("###########   ##########");
+        roomTemplate.push_back("############-###########");
+        roomTemplate.push_back("###########   ##########");
+        roomTemplate.push_back("############-###########");
+        roomTemplate.push_back("###########   ##########");
+        roomTemplate.push_back("###########   ##########");
+        roomTemplate.push_back("###########   ##########");
+        roomTemplate.push_back("############ ###########");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::MaskVar1);
+
+        int difficulty = -1;
+        int backColor = dngutil::MAGENTA;
+        std::string name = "The Demon Fortress";
+        Coordinate mapCoord(-2, 0);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("FinalDungeonTheme")));
+        mut.unlock();
+    }
+
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("############ ###########");
+        roomTemplate.push_back("############ ###########");
+        roomTemplate.push_back("###########   ##########");
+        roomTemplate.push_back("###########   ##########");
+        roomTemplate.push_back("###########   ##########");
+        roomTemplate.push_back("###########   ##########");
+        roomTemplate.push_back("###########   ##########");
+        roomTemplate.push_back("###########   ##########");
+        roomTemplate.push_back("###########   ##########");
+        roomTemplate.push_back("###########   ##########");
+        roomTemplate.push_back("###########   ##########");
+        roomTemplate.push_back("########### ^ ##########");
+        roomTemplate.push_back("########################");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::MaskVar1);
+
+        int difficulty = -1;
+        int backColor = dngutil::MAGENTA;
+        std::string name = "The Demon Fortress";
+        Coordinate mapCoord(-2,  1);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("FinalDungeonTheme")));
+        mut.unlock();
+    }
+
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("###                  ###");
+        roomTemplate.push_back("###      e           ###");
+        roomTemplate.push_back("###               e  ###");
+        roomTemplate.push_back("###   e   e          ###");
+        roomTemplate.push_back("###                  ###");
+        roomTemplate.push_back("###            e        ");
+        roomTemplate.push_back("###     e            ###");
+        roomTemplate.push_back("###                  ###");
+        roomTemplate.push_back("###           e      ###");
+        roomTemplate.push_back("###  o          e    ###");
+        roomTemplate.push_back("###                  ###");
+        roomTemplate.push_back("########################");
+        // 5,10
+        
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        specificObjects.emplace(Coordinate(5, 10), new ManaPotion(pgame, Coordinate(5, 10), dngutil::MANA_POTION_HEAL * 2));
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::MaskVar1);
+
+        int difficulty = -1;
+        int backColor = dngutil::MAGENTA;
+        std::string name = "The Demon Fortress";
+        Coordinate mapCoord(-3, -1);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("FinalDungeonTheme")));
+        mut.unlock();
+    }
+
+    // water floor
+    tfloor--;
+
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("##########    ##########");
+        roomTemplate.push_back("##########              ");
+        roomTemplate.push_back("##########    ##########");
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("###########  ###########");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Imp);
+
+        int difficulty = -2;
+        int backColor = dngutil::BLUE;
+        std::string name = "The Demon Fortress";
+        Coordinate mapCoord(-1, -1);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("DistortedFinalDungeonTheme")));
+        mut.unlock();
+    }
+
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("########### ############");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("##########    ##########");
+        roomTemplate.push_back("##########             #");
+        roomTemplate.push_back("##########    ##########");
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("###########  ###########");
+
+        auto puzzleSolved = [this](const std::list<Creature*>& creatureList, const GAMEMAP& gameMap) -> bool
+        {
+            if (gameMap[3][11].size() > 1)
+            {
+                return true;
+            }
+            return false;
+        };
+
+        auto puzzleAction = [this](std::list<Creature*> creatureList, GAMEMAP& gameMap) -> void
+        {
+            int y = 6;
+            int x = 23;
+            delete gameMap[y][x].back();
+            gameMap[y][x].pop_back();
+            playSound(WavFile("StepOnSwitch", false, false));
+        };
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Imp);
+
+        int difficulty = -2;
+        int backColor = dngutil::BLUE;
+        std::string name = "The Demon Fortress";
+        Coordinate mapCoord(-1, 0);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction, "Find the hidden switch."), Mp3File("DistortedFinalDungeonTheme")));
+        mut.unlock();
+    }
+
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("##########    ##########");
+        roomTemplate.push_back("##########              ");
+        roomTemplate.push_back("##########    ##########");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+
+        
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Imp);
+
+        int difficulty = -2;
+        int backColor = dngutil::BLUE;
+        std::string name = "The Demon Fortress";
+        Coordinate mapCoord(-1, 1);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("DistortedFinalDungeonTheme")));
+        mut.unlock();
+    }
+
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("##########    ##########");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("##########    ##########");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+
+
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Imp);
+
+        int difficulty = -2;
+        int backColor = dngutil::BLUE;
+        std::string name = "The Demon Fortress";
+        Coordinate mapCoord(0, 1);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("DistortedFinalDungeonTheme")));
+        mut.unlock();
+    }
+
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("##########    ##########");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("##########    ##########");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+
+
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Imp);
+
+        int difficulty = -2;
+        int backColor = dngutil::BLUE;
+        std::string name = "The Demon Fortress";
+        Coordinate mapCoord(1, 1);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("DistortedFinalDungeonTheme")));
+        mut.unlock();
+    }
+
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("##########    ##########");
+        roomTemplate.push_back("            o ##########");
+        roomTemplate.push_back("##########    ##########");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+
+        //12, 6
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        specificObjects.emplace(Coordinate(12, 6), new Key(pgame, Coordinate(12, 6)));
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Imp);
+
+        int difficulty = -2;
+        int backColor = dngutil::BLUE;
+        std::string name = "The Demon Fortress";
+        Coordinate mapCoord(2, 1);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("DistortedFinalDungeonTheme")));
+        mut.unlock();
+    }
+
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("##########    ##########");
+        roomTemplate.push_back("           II           ");
+        roomTemplate.push_back("##########    ##########");
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("###########  ###########");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Imp);
+
+        int difficulty = -2;
+        int backColor = dngutil::BLUE;
+        std::string name = "The Demon Fortress";
+        Coordinate mapCoord(0, -1);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("DistortedFinalDungeonTheme")));
+        mut.unlock();
+    }
+
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("##########    ##########");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("##########    ##########");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Imp);
+
+        int difficulty = -2;
+        int backColor = dngutil::BLUE;
+        std::string name = "The Demon Fortress";
+        Coordinate mapCoord(0, 0);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("DistortedFinalDungeonTheme")));
+        mut.unlock();
+    }
+
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("##########    ##########");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("##########    ##########");
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("###########  ###########");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Imp);
+
+        int difficulty = -2;
+        int backColor = dngutil::BLUE;
+        std::string name = "The Demon Fortress";
+        Coordinate mapCoord(1, -1);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("DistortedFinalDungeonTheme")));
+        mut.unlock();
+    }
+
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("##########    ##########");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("##########    ##########");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Imp);
+
+        int difficulty = -2;
+        int backColor = dngutil::BLUE;
+        std::string name = "The Demon Fortress";
+        Coordinate mapCoord(1, 0);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("DistortedFinalDungeonTheme")));
+        mut.unlock();
+    }
+
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("##########    ##########");
+        roomTemplate.push_back("              ##########");
+        roomTemplate.push_back("##########    ##########");
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("###########  ###########");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Imp);
+
+        int difficulty = -2;
+        int backColor = dngutil::BLUE;
+        std::string name = "The Demon Fortress";
+        Coordinate mapCoord(2, -1);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("DistortedFinalDungeonTheme")));
+        mut.unlock();
+    }
+
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("##########    ##########");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("##########    ##########");
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Imp);
+
+        int difficulty = -2;
+        int backColor = dngutil::BLUE;
+        std::string name = "The Demon Fortress";
+        Coordinate mapCoord(2, 0);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("DistortedFinalDungeonTheme")));
+        mut.unlock();
+    }
+
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("##########    ##########");
+        roomTemplate.push_back("           e   #########");
+        roomTemplate.push_back("##########    ##########");
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::PossessedBowman);
+
+        int difficulty = -2;
+        int backColor = dngutil::BLUE;
+        std::string name = "The Demon Fortress";
+        Coordinate mapCoord(3, 0);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("DistortedFinalDungeonTheme")));
+        mut.unlock();
+    }
+
+    // upper stories
+    tfloor = dngutil::DEMON_FLOOR;
+
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########### ^ ##########");
+        roomTemplate.push_back("###########   ##########");
+        roomTemplate.push_back("###########   ##########");
+        roomTemplate.push_back("########### e ##########");
+        roomTemplate.push_back("###########   ##########");
+        roomTemplate.push_back("########### e ##########");
+        roomTemplate.push_back("###########   ##########");
+        roomTemplate.push_back("########### e ##########");
+        roomTemplate.push_back("###########   ##########");
+        roomTemplate.push_back("########### v ##########");
+        roomTemplate.push_back("########################");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Cultist);
+
+        int difficulty = -2;
+        int backColor = dngutil::MAGENTA;
+        std::string name = "The Demon Fortress";
+        Coordinate mapCoord(-2, 1);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("FinalDungeonTheme")));
+        mut.unlock();
+    }
+
+    tfloor++;
+
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########### v ##########");
+        roomTemplate.push_back("####              e  # #");
+        roomTemplate.push_back("#### ######   ###### # #");
+        roomTemplate.push_back("##   ############### # #");
+        roomTemplate.push_back("## ######   e   #### # #");
+        roomTemplate.push_back("## ###### ##### #### # #");
+        roomTemplate.push_back("## ###### #     #### # #");
+        roomTemplate.push_back("## ###### #   ###### # #");
+        roomTemplate.push_back("##        #   ######## #");
+        roomTemplate.push_back("########### ^          #");
+        roomTemplate.push_back("########################");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::Cultist);
+
+        int difficulty = -2;
+        int backColor = dngutil::MAGENTA;
+        std::string name = "The Demon Fortress";
+        Coordinate mapCoord(-2, 1);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("FinalDungeonTheme")));
+        mut.unlock();
+    }
+
+    tfloor++;
+
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########### ^ ##########");
+        roomTemplate.push_back("########### # ##########");
+        roomTemplate.push_back("########### e ##########");
+        roomTemplate.push_back("########### # ##########");
+        roomTemplate.push_back("###########e  ##########");
+        roomTemplate.push_back("########### # ##########");
+        roomTemplate.push_back("###########  e##########");
+        roomTemplate.push_back("########### # ##########");
+        roomTemplate.push_back("###########   ##########");
+        roomTemplate.push_back("########### v ##########");
+        roomTemplate.push_back("########################");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::MaskVar1);
+
+        int difficulty = -2;
+        int backColor = dngutil::MAGENTA;
+        std::string name = "The Demon Fortress";
+        Coordinate mapCoord(-2, 1);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("FinalDungeonTheme")));
+        mut.unlock();
+    }
+
+    tfloor++;
+
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("########################");
+        roomTemplate.push_back("############v###########");
+        roomTemplate.push_back("############ ###########");
+        roomTemplate.push_back("############ ###########");
+        roomTemplate.push_back("############ ###########");
+        roomTemplate.push_back("############ ###########");
+        roomTemplate.push_back("############ ###########");
+        roomTemplate.push_back("############ ###########");
+        roomTemplate.push_back("########    e    #######");
+        roomTemplate.push_back("########    o    #######");
+        roomTemplate.push_back("########         #######");
+        roomTemplate.push_back("########################");
+        //12, 10
+        std::map<Coordinate, MapObject*> specificObjects;
+        specificObjects.emplace(Coordinate(12, 10), new HerosClaim(pgame, Coordinate(12, 10)));
+
+
+        std::vector<dngutil::TID> possibleCreatures;
+        possibleCreatures.push_back(dngutil::TID::DarkKnight2);
+
+        int difficulty = -3;
+        int backColor = dngutil::RED;
+        std::string name = "Sacred Chamber";
+        Coordinate mapCoord(-2, 1);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("FinalDungeonTheme")));
         mut.unlock();
     }
 
@@ -6081,7 +7763,7 @@ void Map::makeFireTemple(std::mutex& mut)
                 Coordinate(12, 6),
                 "Musket",
                 false,
-                1.8,
+                2.2,
                 8,
                 50,
                 true,

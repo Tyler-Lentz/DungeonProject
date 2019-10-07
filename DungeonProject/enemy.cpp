@@ -336,7 +336,15 @@ std::string BEnemy::drop()
     {
         for (int i = 0; i < numberOfPotions; i++)
         {
-            itemToAdd = new Potion(getPGame(), Coordinate(-1, -1), static_cast<int>(dngutil::POTION_HEAL * 1.2));
+            if (random(0, 1) == 1)
+            {
+                itemToAdd = new Potion(getPGame(), Coordinate(-1, -1), static_cast<int>(dngutil::POTION_HEAL));
+            }
+            else
+            {
+                itemToAdd = new ManaPotion(getPGame(), Coordinate(-1, -1), static_cast<int>(dngutil::MANA_POTION_HEAL));
+            }
+            
             getPGame()->getPlayer()->addToInventory(itemToAdd);
         }
         return "Potion (" + std::to_string(numberOfPotions) + ")";
@@ -348,6 +356,16 @@ std::string BEnemy::drop()
 bool BEnemy::movement()
 {
     return false;
+}
+
+void BEnemy::levelUpStats()
+{
+    Creature::levelUpStats();
+
+    // increase HP by 1.5 of current value because its a boss
+    int healthIncrease = random(dngutil::MIN_HP_GAIN / 2, dngutil::MAX_HP_GAIN / 2);
+    increaseMaxhp(healthIncrease);
+    increaseHealth(healthIncrease);
 }
 
 void BEnemy::deathSequence()
@@ -1193,7 +1211,7 @@ TrueZorlock::TrueZorlock(
     pgame,
     ColorChar('H', dngutil::DARKGRAY),
     coord,
-    "True Zorlock",
+    "Zorlock",
     false,
     dngutil::TID::TrueZorlock,
     hp,
@@ -1210,11 +1228,11 @@ TrueZorlock::TrueZorlock(
         false,
         2,
         6,
-        80,
+        90,
         false,
         "You cant get this so this doesnt matter",
         WavFile("FireAttack1", false, false),
-        dngutil::ClassType::WIZARD
+        dngutil::ClassType::ADVENTURER
     ),
     new Secondary(
         pgame,
@@ -1231,11 +1249,24 @@ TrueZorlock::TrueZorlock(
     80,
     WavFile("ZorlockDying", false, false),
     dngutil::EvType::DEFENSE,
-    dngutil::ClassType::KNIGHT
+    dngutil::ClassType::ADVENTURER
 )
 {
-    setMaxhp(getHp() * 12);
-    setHp(getMaxhp());
+    
+}
+
+void TrueZorlock::levelUpStats()
+{
+    BEnemy::levelUpStats();
+
+    int healthIncrease = random(dngutil::MIN_HP_GAIN * 3, dngutil::MAX_HP_GAIN * 3);
+    increaseMaxhp(healthIncrease);
+    increaseHealth(healthIncrease);
+
+    if (getLvl() % 2 == 0) // every other level 
+    {
+        increaseAtt(1);
+    }
 }
 
 ColorString TrueZorlock::getBattleInfo() const
@@ -1348,14 +1379,9 @@ void TrueZorlock::beginingCutscene()
 
     int l = t.BOTTOM_DIVIDER_TEXT_LINE;
 
-    v->putcen(ColorString("- True Zorlock - ", dngutil::LIGHTGREEN), l, true);
+    v->putcen(ColorString("You will never seal me away!", dngutil::LIGHTGREEN), l, true);
     playSound(WavFile("ZorlockAppears", false, false));
     t.clearLine(l);
-
-    v->putcen(ColorString("You will never seal me away!!", dngutil::LIGHTGREEN), l, true);
-    pressEnter(Coordinate(0, l + 1), v);
-    t.clearLine(l);
-    t.clearLine(l + 1);
 
     playSound(WavFile("Laugh", false, false));
 
@@ -1370,43 +1396,26 @@ void TrueZorlock::deathSequence()
     VirtualWindow* v = getPGame()->getVWin();
     TextMacros& t = v->txtmacs;
     v->clearScreen();
-    Sleep(2500);
     int textLine = 22;
 
-    playSound(Mp3File("DeathToTheDemon"));
 
-    std::string name = getPGame()->getPlayer()->getName();
-    v->putcenSlowScroll(ColorString("Curse you " + name + "!", dngutil::MAGENTA), textLine);
-    Sleep(2500);
-    t.clearLine(textLine);
+    v->putcen(ColorString("NOOOOOOOOOOOO!!!!!!!!", dngutil::LIGHTGREEN), textLine, true);
 
-    v->putcenSlowScroll(ColorString("Curse you " + name + "!", dngutil::MAGENTA), textLine);
-    Sleep(2500);
-    t.clearLine(textLine);
+    playSound(WavFile("ExplosionLoop", true, true));
 
-    v->putcenSlowScroll(ColorString("Do not think this ends here!", dngutil::MAGENTA), textLine);
-    Sleep(2500);
-    t.clearLine(textLine);
+    Sleep(2000);
 
-    v->putcenSlowScroll(ColorString("When I break free of this seal the Kingom of Bora", dngutil::MAGENTA), textLine);
-    v->putcenSlowScroll(ColorString("will be destroyed again. Mark my words!", dngutil::MAGENTA), textLine + 1);
-    Sleep(3500);
-    t.clearLine(textLine);
-    t.clearLine(textLine + 1);
-
-    v->putcenSlowScroll(ColorString("And I'll curse every last one of your descendents!", dngutil::RED), textLine);
-    v->putcenSlowScroll(ColorString("Mark my words!", dngutil::RED), textLine + 1);
-    Sleep(3500);
-    t.clearLine(textLine);
-    t.clearLine(textLine + 1);
-
-    stopSound(SoundType::MP3);
-
-    playSound(WavFile("ZorlockDeath", false, false));
+    stopSound(SoundType::WAV);
+    v->clearScreen();
+    playSound(WavFile("ExplosionFinale", false, false));
+    playSound(WavFile("Spellbook", false, false));
+    playSound(WavFile("SealCast2", false, false));
 
     Sleep(3500);
 
-    v->putcenSlowScroll(ColorString("Peace has been restored to Bora.", dngutil::YELLOW), textLine);
+    std::string playerName = getPGame()->getPlayer()->getName();
+
+    v->putcenSlowScroll(ColorString("Thank you " + playerName + ". Peace has been restored to Bora.", dngutil::YELLOW), textLine);
     playSound(Mp3File("Credits"));
     Sleep(10000);
     t.clearLine(textLine);
@@ -1537,9 +1546,109 @@ DarkKnight::DarkKnight(
     pgame,
     ColorChar('A', dngutil::BLACK),
     coord,
-    "The Dark Knight",
+    "Dark Knight",
     false,
     dngutil::TID::DarkKnight,
+    hp,
+    att,
+    def,
+    lck,
+    spd,
+    lvl,
+    new Primary(
+        pgame,
+        ColorChar('1', dngutil::MAGENTA),
+        coord,
+        "Dark Lance",
+        false,
+        2.1,
+        6,
+        99,
+        false,
+        "A lance embued with pulsating dark energy.",
+        WavFile("Attack4", false, false),
+        dngutil::ClassType::KNIGHT
+    ),
+    new Secondary(
+        pgame,
+        ColorChar('0', dngutil::MAGENTA),
+        coord,
+        "Dark Shield",
+        false,
+        dngutil::TID::Secondary,
+        150,
+        1.9,
+        "A Shield embued with pulsating dark energy"
+    ),
+    Mp3File("DarkKnightTheme"),
+    100,
+    WavFile("Screech", false, false),
+    dngutil::EvType::ATTACK,
+    dngutil::ClassType::KNIGHT
+)
+{
+    setMaxhp(getHp() * 4);
+    setHp(getMaxhp());
+}
+
+
+ColorString DarkKnight::getBattleInfo() const
+{
+    return ColorString("The Dark Knight emerges from the shadows", dngutil::MAGENTA);
+}
+
+void DarkKnight::printSelf()
+{
+    Coordinate vcursor(0, getPGame()->getVWin()->txtmacs.DIVIDER_LINES[1] + 1);
+    VirtualWindow* t = getPGame()->getVWin();
+    int color = dngutil::MAGENTA;
+
+    t->put(ColorString(R"(                   _.--.    .--._)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                 ."  ."      ".  ".)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                ;  ."    /\    ".  ;)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                ;  '._,-/  \-,_.`  ;)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                \  ,`  / /\ \  `,  /)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                 \/    \/  \/    \/)", color), vcursor); vcursor.y++;
+    const int TOP_CURSOR_Y = vcursor.y;
+    t->put(ColorString(R"(                 ,=_    \/\/    _=,)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                 |  "_   \/   _"  |)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                 |_   '"-..-"'   _|)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                 | "-.        .-" |)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                 |    "\    /"    |)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                 |      |  |      |)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(         ___     |      |  |      |     ___)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(     _,-",  ",   '_     |  |     _'   ,"  ,"-,_)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(   _(  \  \   \"=--"-.  |  |  .-"--="/   /  /  )_)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"( ,"  \  \  \   \      "-'--'-"      /   /  /  /  ".)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(!     \  \  \   \                  /   /  /  /     !)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(:      \  \  \   \                /   /  /  /       \)", color), vcursor); vcursor.y++;
+
+    const int LONGEST_LINE_LENGTH = 59;
+
+    printStats(LONGEST_LINE_LENGTH, TOP_CURSOR_Y);
+}
+
+//----------------------------------------------------------------
+
+//----------------------------------------------------------------
+// Dark Knight2 Functions
+
+DarkKnight2::DarkKnight2(
+    Game* pgame,
+    Coordinate coord,
+    int hp,
+    unsigned int att,
+    unsigned int def,
+    unsigned int lck,
+    unsigned int spd,
+    unsigned int lvl
+) : BEnemy(
+    pgame,
+    ColorChar('A', dngutil::RED),
+    coord,
+    "Dark Knight 2",
+    false,
+    dngutil::TID::DarkKnight2,
     hp,
     att,
     def,
@@ -1583,17 +1692,17 @@ DarkKnight::DarkKnight(
 }
 
 
-ColorString DarkKnight::getBattleInfo() const
+ColorString DarkKnight2::getBattleInfo() const
 {
-    return ColorString("The Dark Knight emerges from the shadows", dngutil::MAGENTA);
+    return ColorString("The Dark Knight materializes from nothingness!", dngutil::MAGENTA);
 }
 
-void DarkKnight::printSelf()
+void DarkKnight2::printSelf()
 {
     Coordinate vcursor(0, getPGame()->getVWin()->txtmacs.DIVIDER_LINES[1] + 1);
     VirtualWindow* t = getPGame()->getVWin();
     int color = dngutil::MAGENTA;
-
+    int eyeColor = dngutil::RED;
     t->put(ColorString(R"(                   _.--.    .--._)", color), vcursor); vcursor.y++;
     t->put(ColorString(R"(                 ."  ."      ".  ".)", color), vcursor); vcursor.y++;
     t->put(ColorString(R"(                ;  ."    /\    ".  ;)", color), vcursor); vcursor.y++;
@@ -1601,11 +1710,11 @@ void DarkKnight::printSelf()
     t->put(ColorString(R"(                \  ,`  / /\ \  `,  /)", color), vcursor); vcursor.y++;
     t->put(ColorString(R"(                 \/    \/  \/    \/)", color), vcursor); vcursor.y++;
     const int TOP_CURSOR_Y = vcursor.y;
-    t->put(ColorString(R"(                 ,=_    \/\/    _=,)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                 |  "_   \/   _"  |)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                 |_   '"-..-"'   _|)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                 | "-.        .-" |)", color), vcursor); vcursor.y++;
-    t->put(ColorString(R"(                 |    "\    /"    |)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                 ,=_    \/\/    _=,)", eyeColor), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                 |  "_   \/   _"  |)", eyeColor), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                 |_   '"-..-"'   _|)", eyeColor), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                 | "-.        .-" |)", eyeColor), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                 |    "\    /"    |)", eyeColor), vcursor); vcursor.y++;
     t->put(ColorString(R"(                 |      |  |      |)", color), vcursor); vcursor.y++;
     t->put(ColorString(R"(         ___     |      |  |      |     ___)", color), vcursor); vcursor.y++;
     t->put(ColorString(R"(     _,-",  ",   '_     |  |     _'   ,"  ,"-,_)", color), vcursor); vcursor.y++;
@@ -1620,6 +1729,7 @@ void DarkKnight::printSelf()
 }
 
 //----------------------------------------------------------------
+
 
 //----------------------------------------------------------------
 // Bloodjaw Functions
@@ -3264,7 +3374,7 @@ Cultist::Cultist(
         "Aura from a cultist"
     ),
     Mp3File("BattleTheme", "NewBattleThemeAlt"),
-    random(60, 80),
+    random(30, 31),
     WavFile("EnemyDeath", false, false),
     dngutil::EvType::DEFENSE,
     dngutil::ClassType::WIZARD
@@ -3553,6 +3663,100 @@ void Bowman::printSelf()
     int color = dngutil::GREEN;
     int bowcolor = dngutil::BROWN;
     int arrowcolor = dngutil::WHITE;
+    t->put(ColorString(R"(                                                         /|.)", bowcolor), vcursor); vcursor.y++;
+    const int TOP_CURSOR_Y = vcursor.y;
+    t->put(ColorString(R"(                                                       /  `|.)", bowcolor), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                                                     /     |.)", bowcolor), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                                                   /       |.)", bowcolor), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                                                 /         `|.)", bowcolor), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                                               /            |.)", bowcolor), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                                             /              |.)", bowcolor), vcursor); vcursor.y++;
+    t->put(ColorString(R"(                                           /                |.)", bowcolor), vcursor); vcursor.y++;
+    t->put(ColorString(R"(      __                                 /                  `|.)", bowcolor), vcursor); vcursor.y++;
+    t->put(ColorString(R"(       -\                              /                     |.)", bowcolor), vcursor); vcursor.y++;
+    t->put(ColorString(R"(         \\                          /                       |.)", bowcolor), vcursor); vcursor.y++;
+    t->put(ColorString(R"(           \\                      /                         |.)", bowcolor), vcursor); vcursor.y++;
+    t->put(ColorString(R"(            \|                   /                           |\)", bowcolor), vcursor); vcursor.y++;
+    t->put(ColorString(R"(              \#####\    )", color) + ColorString(R"(      /                             ||)", bowcolor), vcursor); vcursor.y++;
+    t->put(ColorString(R"(          ==###########>  )", color) + ColorString(R"(   /                               ||)", bowcolor), vcursor); vcursor.y++;
+    t->put(ColorString(R"(           \##==      \  )", color) + ColorString(R"(  /                                 ||)", bowcolor), vcursor); vcursor.y++;
+    t->put(ColorString(R"(      ______ =       =|__)", color) + ColorChar('/', bowcolor) + ColorString(R"(___                                ||)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(  ,--' ,----`-,__ ___/'  --,-`-)", color) + ColorString(R"(==============================##==========>)", arrowcolor), vcursor); vcursor.y++;
+    t->put(ColorString(R"( \               '        ##_______ ______   ______,--,____,=##,__)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(  `,    __==    ___,-,__,--'#'  ==='      `-'              | ##,-/)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(    `-,____,---'       \####)", color) + ColorChar('\\', bowcolor) + ColorString(R"(              |        ____,--\_##,/)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(        #_              |##   )", color) + ColorChar('\\', bowcolor) + ColorString(R"(  _____,---==,__,---'         ##)", color), vcursor); vcursor.y++;
+    t->put(ColorString(R"(         #              ]===--==)", color) + ColorString(R"(\                            ||)", bowcolor), vcursor); vcursor.y++;
+    t->put(ColorString(R"(         #,             ]         )", color) + ColorString(R"(\                          ||)", bowcolor), vcursor); vcursor.y++;
+    t->put(ColorString(R"(          #_            |           )", color) + ColorString(R"(\                        ||)", bowcolor), vcursor); vcursor.y++;
+    t->put(ColorString(R"(           ##_       __/'             )", color) + ColorString(R"(\                      ||)", bowcolor), vcursor); vcursor.y++;
+    const int LONGEST_LINE_LENGTH = 10;
+
+    printStats(LONGEST_LINE_LENGTH, TOP_CURSOR_Y);
+}
+//----------------------------------------------------------------
+
+//----------------------------------------------------------------
+// PossessedBowman
+PossessedBowman::PossessedBowman(
+    Game* pgame,
+    Coordinate coord,
+    int hp,
+    unsigned int att,
+    unsigned int def,
+    unsigned int lck,
+    unsigned int spd,
+    unsigned int lvl
+) : REnemy(
+    pgame,
+    ColorChar('A', dngutil::LIGHTMAGENTA),
+    coord,
+    "Possessed Bowman",
+    false,
+    dngutil::TID::PossessedBowman,
+    hp, att, def, lck, spd, lvl,
+    new Primary(
+        pgame,
+        ColorChar(')', dngutil::WHITE),
+        coord,
+        "Possessed Bow",
+        false,
+        1.6,
+        3,
+        99,
+        false,
+        "A bow pulsating with dark energy",
+        WavFile("BowAttack1", false, false),
+        dngutil::ClassType::RANGER
+    ),
+    new Secondary(
+        pgame,
+        ColorChar('U', dngutil::LIGHTMAGENTA),
+        coord,
+        "Possessed Armor",
+        false,
+        dngutil::TID::Secondary,
+        100,
+        1.4,
+        "Armor pulsating with dark energy"
+    ),
+    Mp3File("NewBattleTheme", "NewBattleThemeAlt"),
+    random(20, 21),
+    WavFile("EnemyDeath", false, false),
+    dngutil::EvType::ATTACK,
+    dngutil::ClassType::RANGER
+)
+{
+
+}
+
+void PossessedBowman::printSelf()
+{
+    Coordinate vcursor(0, getPGame()->getVWin()->txtmacs.DIVIDER_LINES[1] + 1);
+    VirtualWindow* t = getPGame()->getVWin();
+    int color = dngutil::LIGHTMAGENTA;
+    int bowcolor = dngutil::WHITE;
+    int arrowcolor = dngutil::RED;
     t->put(ColorString(R"(                                                         /|.)", bowcolor), vcursor); vcursor.y++;
     const int TOP_CURSOR_Y = vcursor.y;
     t->put(ColorString(R"(                                                       /  `|.)", bowcolor), vcursor); vcursor.y++;

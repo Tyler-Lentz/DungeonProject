@@ -348,6 +348,14 @@ Creature* Game::generateCreature(int difficulty, dngutil::TID tid)
     case dngutil::TID::DarkKnight:
         enemy = new DarkKnight(this, Coordinate(-1, -1), health, attack, defense, luck, speed, level);
         break;
+
+    case dngutil::TID::DarkKnight2:
+        enemy = new DarkKnight2(this, Coordinate(-1, -1), health, attack, defense, luck, speed, level);
+        break;
+
+    case dngutil::TID::PossessedBowman:
+        enemy = new PossessedBowman(this, Coordinate(-1, -1), health, attack, defense, luck, speed, level);
+        break;
     }
 
     if (enemy == nullptr)

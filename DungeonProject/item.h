@@ -242,6 +242,8 @@ public:
     void action(Player* player, unsigned int inventoryIndex) override;
 };
 
+
+
 class HerosBlade : public Primary
 {
 public:
@@ -296,7 +298,6 @@ class Spellbook : public RItem
 public:
     Spellbook(Game* pgame, Coordinate coord);
     ~Spellbook();
-
     std::vector<Spell*> getSpellList() const;
     void addSpell(Spell* newSpell);
     void action(Player* player, unsigned int inventoryIndex) override;

@@ -962,6 +962,26 @@ void Player::addSpell(Spell* spell)
     }
 }
 
+bool Player::hasSpell(dngutil::SPELLTID spellToCheck)
+{
+    for (Item* i : inventory)
+    {
+        if (i->getTypeId() == dngutil::TID::Spellbook)
+        {
+            Spellbook* sb = dynamic_cast<Spellbook*>(i);
+            
+            for (auto* i : sb->getSpellList())
+            {
+                if (i->getSpellId() == spellToCheck)
+                {
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
+}
+
 int Player::getNumberOfHarpPieces()
 {
     int number = 0;

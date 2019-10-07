@@ -292,6 +292,23 @@ public:
     void printSelf() override;
 };
 
+class PossessedBowman : public REnemy
+{
+public:
+    PossessedBowman(
+        Game* pgame,
+        Coordinate coord,
+        int hp,
+        unsigned int att,
+        unsigned int def,
+        unsigned int lck,
+        unsigned int spd,
+        unsigned int lvl
+    );
+
+    void printSelf() override;
+};
+
 class DesertGoblin : public REnemy
 {
 public:
@@ -357,6 +374,8 @@ public:
     bool movement() override;
 
     void deathSequence() override;
+
+    void levelUpStats() override;
 };
 
 class SkeletonKing : public BEnemy 
@@ -464,6 +483,7 @@ public:
     void printSelf() override;
     void beginingCutscene() override;
     void deathSequence() override;
+    void levelUpStats() override;
 };
 
 class WaterHorse : public BEnemy
@@ -488,6 +508,24 @@ class DarkKnight : public BEnemy
 {
 public:
     DarkKnight(
+        Game* pgame,
+        Coordinate coord,
+        int hp,
+        unsigned int att,
+        unsigned int def,
+        unsigned int lck,
+        unsigned int spd,
+        unsigned int lvl
+    );
+
+    void printSelf() override;
+    ColorString getBattleInfo() const override;
+};
+
+class DarkKnight2 : public BEnemy
+{
+public:
+    DarkKnight2(
         Game* pgame,
         Coordinate coord,
         int hp,

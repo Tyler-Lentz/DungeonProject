@@ -34,14 +34,14 @@ int Spell::getManaReq() const
 }
 
 DragonBlessingSpell::DragonBlessingSpell()
-    :Spell("Dragon's Blessing", "Heals 50 HP", 30, dngutil::SPELLTID::DragonBlessing)
+    :Spell("Dragon's Blessing", "Heals 150 HP", 50, dngutil::SPELLTID::DragonBlessing)
 {
 }
 
 std::string DragonBlessingSpell::castSpell(Player* player, Game* game)
 {
     int prevHp = player->getHp();
-    player->increaseHealth(50);
+    player->increaseHealth(150);
     int newHp = player->getHp();
     std::string output = "Health increased from " + std::to_string(prevHp) + " to " + std::to_string(newHp);
     return output;

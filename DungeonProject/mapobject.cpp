@@ -544,6 +544,13 @@ Collision DungeonCheck::mapAction(MapObject* collider, std::list<MapObject*>::it
             getPGame()->setDungeonLevel(getPGame()->getPlayer()->getLvl());
             return Collision(true, false, true);
         }
+        else if (harpNumber = 666)
+        {
+            playSound(WavFile("Laugh", false, true));
+            getPGame()->getPlayer()->setDungeonStart();
+            getPGame()->setDungeonLevel(getPGame()->getPlayer()->getLvl());
+            return Collision(true, false, true);
+        }
         else if (!getPGame()->getPlayer()->hasHarpPiece(harpNumber))
         {
             getPGame()->getPlayer()->setDungeonStart();
@@ -1071,7 +1078,10 @@ Sage::~Sage()
 
 Collision Sage::mapAction(MapObject* collider, std::list<MapObject*>::iterator& it)
 {
-    if (collider == getPGame()->getPlayer())
+    if (collider == getPGame()->getPlayer() &&
+        spell != nullptr &&
+        !getPGame()->getPlayer()->hasSpell(spell->getSpellId()) &&
+        getPGame()->getPlayer()->hasItem(dngutil::TID::Spellbook))
     {
         stopSound(SoundType::MP3);
         VirtualWindow* v = getPGame()->getVWin();

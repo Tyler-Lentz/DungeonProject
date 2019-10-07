@@ -107,6 +107,7 @@ public:
     int getNumberOfHarpPieces();
 
     void addSpell(Spell* spell);
+    bool hasSpell(dngutil::SPELLTID sp);
 private:
 
     Coordinate startingDungeonMapCoord;

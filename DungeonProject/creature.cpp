@@ -443,6 +443,8 @@ bool Creature::battle(MapObject* t_enemy)
         {
             enemy->increaseLvl(1);
             enemy->levelUpStats();
+
+            
         }
     }
     else if (getPGame()->getActiveRoom()->getRoomInfo().difficulty == -999)
@@ -798,6 +800,10 @@ bool Creature::adjustPosition(dngutil::Movement movement)
                 stopSound(SoundType::MP3);
                 getPGame()->getOverworldMusic().play();
             }
+            if (getPGame()->getActiveRoom()->hasPuzzle())
+            {
+                playSound(WavFile("Puzzle", false, true));
+            }
             return true;
         }
 
@@ -879,46 +885,28 @@ Damage Creature::getDamageDealt(Creature* defender)
         dngutil::ClassType defenderClass = defender->getPrimary().getClass();
         bool advantage = false;
 
-        int littleChange = 5;
-        int moderateChange = 4;
-        int bigChange = 3;
 
         switch (attackerClass)
         {
         case dngutil::ClassType::ADVENTURER:
-            // no attack changes
+            
             break;
         case dngutil::ClassType::KNIGHT:
             if (defenderClass == dngutil::ClassType::RANGER)
             {
-                attack += static_cast<int>(attack / bigChange);
                 advantage = true;
-            }
-            else if (defenderClass == dngutil::ClassType::WIZARD)
-            {
-                attack -= static_cast<int>(attack / bigChange);
             }
             break;
         case dngutil::ClassType::WIZARD:
             if (defenderClass == dngutil::ClassType::KNIGHT)
             {
-                attack += static_cast<int>(attack / bigChange);
                 advantage = true;
-            }
-            else if (defenderClass == dngutil::ClassType::RANGER)
-            {
-                attack -= static_cast<int>(attack / moderateChange);
             }
             break;
         case dngutil::ClassType::RANGER:
             if (defenderClass == dngutil::ClassType::WIZARD)
             {
-                attack += static_cast<int>(attack / littleChange);
                 advantage = true;
-            }
-            else if (defenderClass == dngutil::ClassType::KNIGHT)
-            {
-                attack -= static_cast<int>(attack / bigChange);
             }
             break;
         }
@@ -928,7 +916,7 @@ Damage Creature::getDamageDealt(Creature* defender)
 
         if (crit && this == getPGame()->getPlayer())
         {
-            attack *= 1.25;
+            attack *= 1.55;
             playSound(WavFile("CriticalHit", false, false));
         }
         else
@@ -988,21 +976,21 @@ Damage Creature::getDamageDealt(Creature* defender)
 
 void Creature::levelUpStats()
 {
-    int healthIncrease = random(18, 20);
+    int healthIncrease = random(dngutil::MIN_HP_GAIN, dngutil::MAX_HP_GAIN);
     increaseMaxhp(healthIncrease);
     increaseHealth(healthIncrease);
 
-    int manaIncrease = random(8, 12);
+    int manaIncrease = random(dngutil::MIN_MANA_GAIN, dngutil::MAX_MANA_GAIN);
     increaseMaxMana(manaIncrease);
     increaseMana(manaIncrease);
 
-    increaseAtt(random(3, 4));
+    increaseAtt(random(dngutil::MIN_ATT_GAIN, dngutil::MAX_ATT_GAIN));
 
-    increaseDef(random(3, 4));
+    increaseDef(random(dngutil::MIN_DEF_GAIN, dngutil::MAX_DEF_GAIN));
 
-    increaseLck(random(2, 6));
+    increaseLck(random(dngutil::MIN_LCK_GAIN, dngutil::MAX_LCK_GAIN));
 
-    increaseSpd(random(7, 8));
+    increaseSpd(random(dngutil::MIN_SPD_GAIN, dngutil::MAX_SPD_GAIN));
 }
 
 dngutil::Movement Creature::getLastMovement()

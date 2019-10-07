@@ -205,6 +205,10 @@ Room::Room(Game* t_game_pointer, RoomInfo roomToGenerate, Puzzle* puzzle, Mp3Fil
             case '5':
                 gameMap[i][j].push_back(new DungeonCheck(game_pointer, Coordinate(j, i), 5));
                 break;
+
+            case '%':
+                gameMap[i][j].push_back(new DungeonCheck(game_pointer, Coordinate(j, i), 666));
+                break;
             }
         }
     }

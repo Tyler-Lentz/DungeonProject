@@ -123,7 +123,9 @@ namespace dngutil
         MaskVar1,
         MaskVar2,
         DarkKnight,
-        ManaPotion
+        ManaPotion,
+        PossessedBowman,
+        DarkKnight2
     };
 
     enum class SPELLTID
@@ -207,19 +209,33 @@ namespace dngutil
     const int STARTING_ENEMY_HP = 20;
 
     const int STARTING_MANA = 25;
-    const int MAX_HP = 4999;
+    const int MAX_HP = 9999;
     const int MAX_MANA = 999;
     const unsigned int MAX_ATT = 999;
     const unsigned int MAX_DEF = 989;
     const unsigned int MAX_LCK = 100;
     const unsigned int MAX_SPD = 220;
 
+    const int MIN_HP_GAIN = 18;
+    const int MAX_HP_GAIN = 20;
+    const int MIN_MANA_GAIN = 8;
+    const int MAX_MANA_GAIN = 12;
+    const int MIN_ATT_GAIN = 3;
+    const int MAX_ATT_GAIN = 4;
+    const int MIN_DEF_GAIN = 3;
+    const int MAX_DEF_GAIN = 4;
+    const int MIN_LCK_GAIN = 2;
+    const int MAX_LCK_GAIN = 6;
+    const int MIN_SPD_GAIN = 7;
+    const int MAX_SPD_GAIN = 8;
+
+
     const int TEXT_SCROLL_TIME = 40;
 
     const int SCROLL_TIME = 30;
 
-    const int POTION_HEAL = 50;
-    const int MANA_POTION_HEAL = 35;
+    const int POTION_HEAL = 75;
+    const int MANA_POTION_HEAL = 50;
 
     const double MAGIC_POTION_PERCENT = .25;
 
@@ -238,6 +254,8 @@ namespace dngutil
     const int MOVEMENT_RANDOM_CHANCE = 100;
 
     const int HOUSE_FLOOR = 14;
+
+    const int DEMON_FLOOR = 7;
 }
 
 void errorMessage(std::string error, int line, std::string file);
