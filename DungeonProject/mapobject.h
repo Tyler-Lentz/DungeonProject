@@ -326,13 +326,14 @@ public:
 class HouseDoorObject : public MapObject
 {
 public:
-    HouseDoorObject(Game* game, Coordinate coord, Coordinate newMapCoord, Coordinate newRoomCoord, int floor);
+    HouseDoorObject(Game* game, Coordinate coord, Coordinate newMapCoord, Coordinate newRoomCoord, int floor, bool portal = false);
     Collision mapAction(MapObject* collider, std::list<MapObject*>::iterator& it) override;
 
 private:
     Coordinate newMapCoord;
     Coordinate newRoomCoord;
     int floor;
+    bool portal;
 };
 
 

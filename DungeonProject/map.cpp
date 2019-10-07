@@ -70,7 +70,7 @@ void Map::makeOverworld(std::mutex& mut)
 
         int difficulty = 0;
         int backColor = dngutil::GREEN;
-        std::string name = "Begining";
+        std::string name = "Beginning";
         Coordinate mapCoord(0, 0);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
 
@@ -5716,16 +5716,28 @@ void Map::makeTowerOfTheGods(std::mutex& mut)
         roomTemplate.push_back("&&&&&   &&    &&   &&&&&");
         roomTemplate.push_back("        &&    &&        ");
         roomTemplate.push_back("                        ");
+        roomTemplate.push_back("&&&E                    ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("&&&                     ");
         roomTemplate.push_back("                        ");
         roomTemplate.push_back("                        ");
         roomTemplate.push_back("                        ");
         roomTemplate.push_back("                        ");
-        roomTemplate.push_back("                        ");
-        roomTemplate.push_back("                        ");
-        roomTemplate.push_back("                        ");
-
+        //3, 6
 
         std::map<Coordinate, MapObject*> specificObjects;
+        std::vector<ColorString> dialogue;
+        dialogue.push_back(ColorString("Beyond this passage lies a portal that will return you to the overworld", dngutil::LIGHTRED));
+        dialogue.push_back(ColorString("Beware, however, as you will never be able to return in this life", dngutil::LIGHTRED));
+        specificObjects.emplace(Coordinate(3, 6), new Npc(
+            pgame,
+            ColorChar('A', dngutil::WHITE),
+            Coordinate(3, 6),
+            "Grim Reaper",
+            dialogue,
+            false
+        ));
+
         std::vector<dngutil::TID> possibleCreatures;
         possibleCreatures.push_back(dngutil::TID::Imp);
 
@@ -5739,6 +5751,75 @@ void Map::makeTowerOfTheGods(std::mutex& mut)
         gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("DemonTheme")));
         mut.unlock();
     }
+
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("                       #");
+        roomTemplate.push_back("                       #");
+        roomTemplate.push_back("                       #");
+        roomTemplate.push_back("                       #");
+        roomTemplate.push_back("                       #");
+        roomTemplate.push_back("                       #");
+        roomTemplate.push_back("&&&&&&&&&&&&&&&&&&&&&&&&");
+        roomTemplate.push_back("x                       ");
+        roomTemplate.push_back("&&&&&&&&&&&&&&&&&&&&&&&&");
+        roomTemplate.push_back("                       #");
+        roomTemplate.push_back("                       #");
+        roomTemplate.push_back("                       #");
+        roomTemplate.push_back("                       #");
+        //3, 6
+
+        std::map<Coordinate, MapObject*> specificObjects;
+        specificObjects.emplace(Coordinate(3, 4), new HouseDoorObject(pgame, Coordinate(3, 4), Coordinate(0, -2), Coordinate(6, 9), 2));
+
+        std::vector<dngutil::TID> possibleCreatures;
+
+        int difficulty = -5;
+        int backColor = dngutil::BLACK;
+        std::string name = "The Demon Realm";
+        Coordinate mapCoord(7, -8);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("DemonTheme")));
+        mut.unlock();
+    }
+
+    tfloor--;
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("     o                  ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        roomTemplate.push_back("                        ");
+        //3, 6
+
+        std::map<Coordinate, MapObject*> specificObjects;
+        specificObjects.emplace(Coordinate(5, 5), new HouseDoorObject(pgame, Coordinate(5, 5), Coordinate(0, 0), Coordinate(5, 5), 2, true));
+
+        std::vector<dngutil::TID> possibleCreatures;
+
+        int difficulty = -5;
+        int backColor = dngutil::BLACK;
+        std::string name = "Beginning?";
+        Coordinate mapCoord(7, -8);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("DemonTheme")));
+        mut.unlock();
+    }
+    tfloor++;
+
     {
         std::vector<std::string> roomTemplate;
         roomTemplate.push_back("&&&&&&&&&&&  &&&&&&&&&&&");

@@ -1249,7 +1249,7 @@ Collision HarpPiece::mapAction(MapObject* collider, std::list<MapObject*>::itera
 //---------------------------------------------------------------
 // house door functions
 
-HouseDoorObject::HouseDoorObject(Game* game, Coordinate coord, Coordinate mapc, Coordinate roomc, int floor)
+HouseDoorObject::HouseDoorObject(Game* game, Coordinate coord, Coordinate mapc, Coordinate roomc, int floor, bool portal)
     :MapObject(
         game,
         ColorChar(' ', getColor(dngutil::YELLOW, dngutil::YELLOW)),
@@ -1264,6 +1264,7 @@ HouseDoorObject::HouseDoorObject(Game* game, Coordinate coord, Coordinate mapc, 
         false
     )
 {
+    this->portal = portal;
     newRoomCoord = roomc;
     newMapCoord = mapc;
     this->floor = floor;
@@ -1283,6 +1284,14 @@ Collision HouseDoorObject::mapAction(MapObject* collider, std::list<MapObject*>:
         getPGame()->setActiveRoom(newMapCoord, floor);
         getPGame()->getPlayer()->setPosition(newRoomCoord);
         playSound(WavFile("UnlockDoor", false, false));
+
+        if (portal)
+        {
+            stopSound(SoundType::MP3);
+            playSound(getPGame()->getActiveRoom()->getMusic());
+            getPGame()->getVWin()->txtmacs.displayOverworldInfo(getPGame());
+        }
+
         return Collision(true, true, true);
     }
     return Collision(false, true);

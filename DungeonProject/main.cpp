@@ -22,8 +22,8 @@ X put spirit roller spell on map
 X reduce number of enemies in tower of gods & demon fort if needed
 X change weapon sterngths to be triangle // no crazy benefits only a little
 X fix tower room in demon tower that looks dumb
-  add room to left of bridge in demon temple and upper room
-? make it so cant get same spell more than once
+X add room to left of bridge in demon temple and upper room
+X make it so cant get same spell more than once
 X make final dungeon giant demon temple thing ,
   & put save point before and a way to leave
 X fix hp on the cheat save file so it matches up
