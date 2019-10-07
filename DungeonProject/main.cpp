@@ -27,7 +27,7 @@ X make it so cant get same spell more than once
 X make final dungeon giant demon temple thing ,
 X & put save point before and a way to leave
 X fix hp on the cheat save file so it matches up
-  put mana potions on map
+X put mana potions on map
 X fig out battle music (the 2 new tracks)
   play through and test whole game
 X increase max health, att, def
