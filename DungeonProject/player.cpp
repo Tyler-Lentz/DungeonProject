@@ -79,6 +79,9 @@ Player::Player(
     inventory.push_back(new Potion(getPGame(), Coordinate(-1, -1), dngutil::POTION_HEAL));
     inventory.push_back(new Potion(getPGame(), Coordinate(-1, -1), dngutil::POTION_HEAL));
 
+    increaseSpd(9999);
+    harp3 = true;
+
     armor = new BlueTunic(getPGame(), Coordinate(-1, -1));
     boots = new StandardBoots(getPGame(), Coordinate(-1, -1));
 

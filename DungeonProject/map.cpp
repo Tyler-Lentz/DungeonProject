@@ -1271,11 +1271,33 @@ void Map::makeOverworld(std::mutex& mut)
         roomTemplate.push_back("##W&&&&&&&&&&&&&&&&&&W##");
         roomTemplate.push_back("##WWWWW&&&&&&&&&&WWWWW##");
         roomTemplate.push_back("#WWwWWW&&&&&&&&&&WWWWWW#");
-        roomTemplate.push_back("#WW&&&&&&&&o&&&&&&&&&WW#");
+        roomTemplate.push_back("#WW&&&&&&&&v&&&&&&&&&WW#");
         roomTemplate.push_back("#WW&&&&&   E    &&&&&WW#");
         roomTemplate.push_back("#WW&&&&&        &&&&&WW#");
         roomTemplate.push_back("#                      #");
         roomTemplate.push_back("#                      #");
+        //11,9 ->12, 9
+        auto puzzleSolved = [this](const std::list<Creature*>& creatureList, const GAMEMAP& gameMap) -> bool
+        {
+            return (pgame->getPlayer()->hasHarpPiece(3)); // fire temple
+        };
+
+        auto puzzleAction = [this](std::list<Creature*> creatureList, GAMEMAP& gameMap) -> void
+        {
+           /* Npc* wall = dynamic_cast<Npc*>(gameMap[9][11].back());
+
+            if (wall == nullptr)
+            {
+                errorMessage("error in puzzle", __LINE__, __FILE__);
+            }
+
+            gameMap[9][11].remove(wall);
+            wall->removeFromMap(true);*/
+            
+            Npc* guard = dynamic_cast<Npc*>(gameMap[9][11].back());
+            guard->adjustPosition(dngutil::Movement::RIGHT);
+            guard->changeDialogue(ColorString("Thank you for defeating the Fire Dragon! The king would like to see you.", dngutil::WHITE));
+        };
 
         std::map<Coordinate, MapObject*> specificObjects;
         specificObjects.emplace(Coordinate(11, 9), new Npc(
@@ -1283,14 +1305,8 @@ void Map::makeOverworld(std::mutex& mut)
             ColorChar('A', dngutil::WHITE),
             Coordinate(11, 9),
             "Guard",
-            ColorString("You cannot enter here without permission of the King", dngutil::WHITE),
+            ColorString("The king cannot endanger himself outside while the Fire Dragon runs rampant.", dngutil::WHITE),
             false
-        ));
-        specificObjects.emplace(Coordinate(11, 8), new HouseDoorObject(
-            pgame, Coordinate(11, 8),
-            Coordinate(-8, -5),
-            Coordinate(11, 12),
-            2
         ));
 
         std::vector<dngutil::TID> possibleCreatures;
@@ -1302,10 +1318,87 @@ void Map::makeOverworld(std::mutex& mut)
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
 
         mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, new Puzzle(puzzleSolved, puzzleAction, "Defeat the fire Dragon."), Mp3File("VillageTheme")));
+        mut.unlock();
+
+    }
+    tfloor--;
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("&&  &&            &&  &&");
+        roomTemplate.push_back("&&                    &&");
+        roomTemplate.push_back("&&  &&            &&  &&");
+        roomTemplate.push_back("&&                    &&");
+        roomTemplate.push_back("&&  &&            &&  &&");
+        roomTemplate.push_back("&&                    &&");
+        roomTemplate.push_back("&&  &&            &&  &&");
+        roomTemplate.push_back("&&                    &&");
+        roomTemplate.push_back("&&  &&     ^      &&  &&");
+        roomTemplate.push_back("&&                    &&");
+        roomTemplate.push_back("&&  &&            &&  &&");
+        roomTemplate.push_back("&&                    &&");
+        roomTemplate.push_back("&&&&&&&&&&&&&&&&&&&&&&&&");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+
+        std::vector<dngutil::TID> possibleCreatures;
+
+        int difficulty = 4;
+        int backColor = dngutil::DARKGRAY;
+        std::string name = "Royal Chamber";
+        Coordinate mapCoord(-8, -5);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
         gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("VillageTheme")));
         mut.unlock();
 
     }
+    {
+        std::vector<std::string> roomTemplate;
+        roomTemplate.push_back("&&&&&&&&&&&&&&&&&&&&&&&&");
+        roomTemplate.push_back("&&&&&&&&        &&&&&&&&");
+        roomTemplate.push_back("&&&&&&     E      &&&&&&");
+        roomTemplate.push_back("&&                    &&");
+        roomTemplate.push_back("&&  && o          &&  &&");
+        roomTemplate.push_back("&&                    &&");
+        roomTemplate.push_back("&&  &&            &&  &&");
+        roomTemplate.push_back("&&                    &&");
+        roomTemplate.push_back("&&  &&            &&  &&");
+        roomTemplate.push_back("&&                    &&");
+        roomTemplate.push_back("&&  &&            &&  &&");
+        roomTemplate.push_back("&&                    &&");
+        roomTemplate.push_back("&&  &&            &&  &&");
+
+        std::map<Coordinate, MapObject*> specificObjects;
+        specificObjects.emplace(Coordinate(7, 4), new Sage(pgame, Coordinate(7, 4), new DragonShieldSpell()));
+
+        std::vector<ColorString> dialogue;
+        dialogue.push_back(ColorString("We are forever in debt to you good sir!", dngutil::WHITE));
+        dialogue.push_back(ColorString("My royal advisor over there has a reward for you.", dngutil::WHITE));
+        specificObjects.emplace(Coordinate(11, 2), new Npc(
+            pgame,
+            ColorChar('A', dngutil::YELLOW),
+            Coordinate(11, 2),
+            "King",
+            dialogue,
+            false
+        ));
+
+        std::vector<dngutil::TID> possibleCreatures;
+
+        int difficulty = 4;
+        int backColor = dngutil::DARKGRAY;
+        std::string name = "Royal Chamber";
+        Coordinate mapCoord(-8, -6);
+        RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
+
+        mut.lock();
+        gamespace[tfloor].emplace(mapCoord, new Room(pgame, rminfo, nullptr, Mp3File("VillageTheme")));
+        mut.unlock();
+
+    }
+    tfloor++;
 
     // Glorian Plains
     {
@@ -1334,7 +1427,7 @@ void Map::makeOverworld(std::mutex& mut)
                 pgame,
                 ColorChar('A', dngutil::WHITE),
                 Coordinate(9, 2),
-                "Rylan Wadkins",
+                "Billy Wadkins",
                 dialogue
             ));
 
@@ -4350,22 +4443,15 @@ void Map::makeHouses(std::mutex& mut)
         // ID: 0XAE
         std::vector<std::string> roomTemplate;
         roomTemplate.push_back("########");
-        roomTemplate.push_back("#   E  #");
+        roomTemplate.push_back("#   o  #");
         roomTemplate.push_back("#      #");
         roomTemplate.push_back("#o######");
 
         std::map<Coordinate, MapObject*> specificObjects;
         specificObjects.emplace(Coordinate(1, 3), new HouseDoorObject(pgame, Coordinate(1, 3), Coordinate(0, -4), Coordinate(12, 10), 2));
 
-        specificObjects.emplace(
-            Coordinate(4, 1),
-            new Npc(
-                pgame,
-                ColorChar('A', dngutil::WHITE),
-                Coordinate(4, 1),
-                "Lolan Sanchez",
-                ColorString("I just had the strangest dream - I imagined the world without me.", dngutil::WHITE)
-            ));
+        
+        specificObjects.emplace(Coordinate(4, 1), new Sage(pgame, Coordinate(4, 1), new MeditationSpell()));
         std::vector<dngutil::TID> possibleCreatures;
 
         int difficulty = 0;

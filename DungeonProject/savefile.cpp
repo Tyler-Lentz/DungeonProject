@@ -94,10 +94,10 @@ void saveGame(Player* player, Game* game)
     std::ifstream in("save.txt");
     std::string str;
     std::getline(in, str, std::string::traits_type::to_char_type(
-        std::string::traits_type::eof()));
-    in.close();
-    file << str;
-    file.close();
+std::string::traits_type::eof()));
+in.close();
+file << str;
+file.close();
 }
 
 std::string getInventoryItemText(Item& i)
@@ -188,6 +188,14 @@ Spellbook* getSpellbookFromSaveString(std::string str, Game* game, bool saving)
         else if (tokStr == std::to_string(static_cast<int>(dngutil::SPELLTID::SpiritRoller)))
         {
             spells->addSpell(new SpiritRollerSpell());
+        }
+        else if (tokStr == std::to_string(static_cast<int>(dngutil::SPELLTID::Meditation)))
+        {
+            spells->addSpell(new MeditationSpell());
+        }
+        else if (tokStr == std::to_string(static_cast<int>(dngutil::SPELLTID::DragonShield)))
+        {
+            spells->addSpell(new DragonShieldSpell());
         }
         else if (tokStr == "SPELLBOOKDONE")
         {

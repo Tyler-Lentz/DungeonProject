@@ -144,3 +144,48 @@ void SpiritRollerSpell::playCastSound()
 {
     playSound(WavFile("Spellbook", false, false));
 }
+
+
+
+
+
+
+MeditationSpell::MeditationSpell()
+    :Spell("Meditation", "Heals 50 HP", 25, dngutil::SPELLTID::Meditation)
+{
+}
+
+std::string MeditationSpell::castSpell(Player* player, Game* game)
+{
+    int prevHp = player->getHp();
+    player->increaseHealth(50);
+    int newHp = player->getHp();
+    std::string output = "Health increased from " + std::to_string(prevHp) + " to " + std::to_string(newHp);
+    return output;
+}
+
+void MeditationSpell::playCastSound()
+{
+    playSound(WavFile("Spellbook", false, false));
+}
+
+
+
+
+DragonShieldSpell::DragonShieldSpell()
+    :Spell("Dragon Shield", "Guards against next attack", 80, dngutil::SPELLTID::DragonShield)
+{
+}
+
+std::string DragonShieldSpell::castSpell(Player* player, Game* game)
+{
+    player->setGuardedStatus(true);
+
+    std::string output = "You are guarded against the next attack";
+    return output;
+}
+
+void DragonShieldSpell::playCastSound()
+{
+    playSound(WavFile("Spellbook", false, false));
+}

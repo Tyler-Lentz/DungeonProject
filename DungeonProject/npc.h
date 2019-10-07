@@ -35,6 +35,8 @@ public:
     Collision mapAction(MapObject* collider, std::list<MapObject*>::iterator& it) override;
 
     void levelUpStats() override {}
+
+    void changeDialogue(ColorString newDialogue);
 private:
     std::vector<ColorString> dialogue;
     bool move;

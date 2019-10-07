@@ -11,8 +11,8 @@
 X all bosses more hp
 X bosses drop mana pots too
 X make puzzle sound upon entering room
-  add more spells
-    make lower level healing spell & hihger
+X add more spells
+X   make lower level healing spell         
 X make dragons breath spell better & add lower level heal ^
 X scale up potions slightly ^
   make statsIncreaseDisplay easier to read

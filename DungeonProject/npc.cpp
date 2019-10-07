@@ -104,3 +104,9 @@ Collision Npc::mapAction(MapObject* collider, std::list<MapObject*>::iterator& i
     }
     return Collision(false, true, false);
 }
+
+void Npc::changeDialogue(ColorString newDialogue)
+{
+    dialogue.clear();
+    dialogue.push_back(newDialogue);
+}

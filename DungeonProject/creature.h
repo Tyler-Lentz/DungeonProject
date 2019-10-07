@@ -129,10 +129,15 @@ public:
 
     void setLastMoveTime(unsigned long amount);
     void setCanMiss(bool value);
+
+    bool isGuarded();
+    void setGuardedStatus(bool status);
 private:
     dngutil::ClassType classType;
 
     bool canMiss;
+
+    bool guardedAgainstNextAttack;
 
     dngutil::Movement lastMovement;
 

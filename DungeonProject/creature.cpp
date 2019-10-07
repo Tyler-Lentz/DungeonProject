@@ -62,6 +62,8 @@ Creature::Creature(
     mana = dngutil::STARTING_MANA;
     maxMana = dngutil::STARTING_MANA;
 
+    guardedAgainstNextAttack = false;
+
     this->primary = primary;
     this->secondary = secondary;
 
@@ -970,8 +972,24 @@ Damage Creature::getDamageDealt(Creature* defender)
     {
         damage.damage = 0;
     }
+    if (defender->isGuarded())
+    {
+        playSound(WavFile("DragonGuard", false, false));
+        damage.damage = 0;
+        defender->setGuardedStatus(false);
+    }
 
     return damage;
+}
+
+bool Creature::isGuarded()
+{
+    return guardedAgainstNextAttack;
+}
+
+void Creature::setGuardedStatus(bool status)
+{
+    guardedAgainstNextAttack = status;
 }
 
 void Creature::levelUpStats()

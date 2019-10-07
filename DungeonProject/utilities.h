@@ -132,7 +132,9 @@ namespace dngutil
     {
         SealRevealer,
         DragonBlessing,
-        SpiritRoller
+        SpiritRoller,
+        Meditation,
+        DragonShield
     };
 
     enum class BTID
