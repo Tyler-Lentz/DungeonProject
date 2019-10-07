@@ -15,9 +15,10 @@ X add more spells
 X   make lower level healing spell         
 X make dragons breath spell better & add lower level heal ^
 X scale up potions slightly ^
+X desert town vender sells mana potions instead of magical potions
   make statsIncreaseDisplay easier to read
-  better scale potions with new hp system
-  put spirit roller spell on map
+X better scale potions with new hp system
+X put spirit roller spell on map
 X reduce number of enemies in tower of gods & demon fort if needed
 X change weapon sterngths to be triangle // no crazy benefits only a little
 X fix tower room in demon tower that looks dumb

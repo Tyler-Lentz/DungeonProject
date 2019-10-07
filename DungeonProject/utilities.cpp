@@ -558,26 +558,17 @@ void intro(VirtualWindow* vwin)
 
 void statIncreaseDisplay(int change, int prevValue, int color, std::string text, VirtualWindow* vwin, Coordinate& vcursor)
 {
-    playSound(WavFile("Experience", true, true));
     vwin->putcen(ColorString("*---------------------------------*", color), vcursor.y - 1);
     vwin->putcen(ColorString("*---------------------------------*", color), vcursor.y + 1);
-    for (int i = 0; i <= change; i++)
-    {
-        vwin->putcen(ColorString(text + std::to_string(prevValue + i), color), vcursor.y);
-        if (!keypress(VK_RETURN))
-        {
-            Sleep(250);
-        }
-    }
-    stopSound(SoundType::WAV);
+
+    vwin->putcen(ColorString(text + " + " + std::to_string(change), color), vcursor.y);
+    
 
     vcursor.y += 3;
 
-    if (!keypress(VK_RETURN))
-    {
-        playSound(WavFile("PickupItem", false, false));
-        Sleep(350);
-    }
+    playSound(WavFile("PickupItem", false, false));
+
+    Sleep(500);
 }
 
 std::string getClassName(dngutil::ClassType cl)

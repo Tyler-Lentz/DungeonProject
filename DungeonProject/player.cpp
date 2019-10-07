@@ -79,8 +79,6 @@ Player::Player(
     inventory.push_back(new Potion(getPGame(), Coordinate(-1, -1), dngutil::POTION_HEAL));
     inventory.push_back(new Potion(getPGame(), Coordinate(-1, -1), dngutil::POTION_HEAL));
 
-    increaseSpd(9999);
-    harp3 = true;
 
     armor = new BlueTunic(getPGame(), Coordinate(-1, -1));
     boots = new StandardBoots(getPGame(), Coordinate(-1, -1));
@@ -480,7 +478,7 @@ void Player::addExperience(unsigned int experience, dngutil::EvType ev)
         statIncreaseDisplay(hpChange, prevMaxhp, dngutil::RED, "Max Health: ", vwin, vcursor);
         statIncreaseDisplay(manaChange, prevMaxMana, dngutil::WHITE, "Max Mana: ", vwin, vcursor);
         statIncreaseDisplay(attChange, prevAtt, dngutil::GREEN, "Attack: ", vwin, vcursor);
-        statIncreaseDisplay(defChange, prevDef, dngutil::BLUE, "Defense: ", vwin, vcursor);
+        statIncreaseDisplay(defChange, prevDef, dngutil::LIGHTRED, "Defense: ", vwin, vcursor);
         statIncreaseDisplay(lckChange, prevLck, dngutil::YELLOW, "Luck: ", vwin, vcursor);
         statIncreaseDisplay(spdChange, prevSpd, dngutil::CYAN, "Speed: ", vwin, vcursor);
         
