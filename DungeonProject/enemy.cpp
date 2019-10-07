@@ -3892,7 +3892,7 @@ void SegEnemy::deathSequence()
     getPGame()->getVWin()->txtmacs.clearMapArea(true, 10);
     getPGame()->getVWin()->txtmacs.clearDivider("bottom");
     playSound(Mp3File("Win"));
-    Sleep(10500);
+    Sleep(6000);
     stopSound(SoundType::MP3);
     Enemy::deathSequence();
 }
