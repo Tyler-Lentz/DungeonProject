@@ -10172,7 +10172,7 @@ void Map::makeForestTemple(std::mutex& mut)
                 gameMap[i.y][i.x].remove(wall);
                 wall->removeFromMap(true);
                 pgame->getVWin()->txtmacs.displayGame(pgame);
-                Sleep(50);
+                Sleep(5);
             }
             stopSound(SoundType::WAV);
         };
@@ -10181,7 +10181,7 @@ void Map::makeForestTemple(std::mutex& mut)
         std::vector<dngutil::TID> possibleCreatures;
         possibleCreatures.push_back(dngutil::TID::Bowman);
 
-        int difficulty = -1;
+        int difficulty = -3;
         int backColor = dngutil::BROWN;
         std::string name = "The Forest Temple";
         Coordinate mapCoord(2, 2);
@@ -10239,7 +10239,7 @@ void Map::makeForestTemple(std::mutex& mut)
         std::vector<dngutil::TID> possibleCreatures;
         possibleCreatures.push_back(dngutil::TID::Bowman);
 
-        int difficulty = -2;
+        int difficulty = -5;
         int backColor = dngutil::BROWN;
         std::string name = "The Forest Temple";
         Coordinate mapCoord(2, 1);
@@ -10322,7 +10322,7 @@ void Map::makeForestTemple(std::mutex& mut)
 
         std::vector<dngutil::TID> possibleCreatures;
 
-        int difficulty = -4;
+        int difficulty = -5;
         int backColor = dngutil::BLACK;
         std::string name = "The Forest Temple";
         Coordinate mapCoord(0, 2);
