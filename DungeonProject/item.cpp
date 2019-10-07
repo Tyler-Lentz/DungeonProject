@@ -141,7 +141,7 @@ void Potion::action(Player* player, unsigned int inventoryIndex)
 // Mana Potion Functions
 
 ManaPotion::ManaPotion(Game* pgame, Coordinate coord, int healAmount)
-    :RItem(pgame, ColorChar('o', dngutil::BLUE), coord, "Mana Potion",
+    :RItem(pgame, ColorChar('o', dngutil::WHITE), coord, "Mana Potion",
         true, false, false, dngutil::TID::ManaPotion, true, "Restores " + std::to_string(healAmount) + "mana")
 {
     this->healAmount = healAmount;

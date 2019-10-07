@@ -4179,7 +4179,7 @@ void Map::makeHerosTrial(std::mutex& mut)
         roomTemplate.push_back("########################");
 
         std::map<Coordinate, MapObject*> specificObjects;
-        specificObjects.emplace(Coordinate(6, 3), new Potion(pgame, Coordinate(6, 3), dngutil::POTION_HEAL));
+        specificObjects.emplace(Coordinate(6, 3), new ManaPotion(pgame, Coordinate(6, 3), dngutil::MANA_POTION_HEAL));
         specificObjects.emplace(Coordinate(15, 5), new MagicalPotion(pgame, Coordinate(15, 5)));
 
         std::vector<dngutil::TID> possibleCreatures;
@@ -4748,8 +4748,8 @@ void Map::makeHouses(std::mutex& mut)
         specificObjects.emplace(Coordinate(4, 1), new VenderObject(
             pgame,
             Coordinate(4, 1),
-            ColorString("a Mana Potion", dngutil::BLUE),
-            ColorChar('o', dngutil::BLUE),
+            ColorString("a Mana Potion", dngutil::WHITE),
+            ColorChar('o', dngutil::WHITE),
             dngutil::TID::ManaPotion,
             50
         ));
@@ -4917,7 +4917,7 @@ void Map::makeTowerOfTheGods(std::mutex& mut)
         specificObjects.emplace(Coordinate(3, 2), new MagicalPotion(pgame, Coordinate(3, 2)));
 
         specificObjects.emplace(Coordinate(2, 10), new Potion(pgame, Coordinate(2, 10), dngutil::POTION_HEAL + 20));
-        specificObjects.emplace(Coordinate(3, 10), new Potion(pgame, Coordinate(3, 10), dngutil::POTION_HEAL + 20));
+        specificObjects.emplace(Coordinate(3, 10), new ManaPotion(pgame, Coordinate(3, 10), dngutil::MANA_POTION_HEAL + 20));
 
         std::vector<dngutil::TID> possibleCreatures;
 
@@ -5509,8 +5509,8 @@ void Map::makeTowerOfTheGods(std::mutex& mut)
         std::map<Coordinate, MapObject*> specificObjects;
         specificObjects.emplace(Coordinate(4, 3), new Potion(pgame, Coordinate(4, 3), dngutil::POTION_HEAL * 2));
         specificObjects.emplace(Coordinate(5, 3), new Potion(pgame, Coordinate(5, 3), dngutil::POTION_HEAL * 2));
-        specificObjects.emplace(Coordinate(4, 4), new Potion(pgame, Coordinate(4, 4), dngutil::POTION_HEAL * 2));
-        specificObjects.emplace(Coordinate(5, 4), new Potion(pgame, Coordinate(5, 4), dngutil::POTION_HEAL * 2));
+        specificObjects.emplace(Coordinate(4, 4), new ManaPotion(pgame, Coordinate(4, 4), dngutil::MANA_POTION_HEAL * 2));
+        specificObjects.emplace(Coordinate(5, 4), new ManaPotion(pgame, Coordinate(5, 4), dngutil::MANA_POTION_HEAL * 2));
 
         std::vector<dngutil::TID> possibleCreatures;
 
@@ -8012,8 +8012,8 @@ void Map::makeFireTemple(std::mutex& mut)
         roomTemplate.push_back("&&&&&&&&&&&&&&&&&&&&&&&&");
 
         std::map<Coordinate, MapObject*> specificObjects;
-        specificObjects.emplace(Coordinate(2, 2), new Potion(pgame, Coordinate(2, 2), dngutil::POTION_HEAL + 15));
-        specificObjects.emplace(Coordinate(2, 1), new Potion(pgame, Coordinate(2, 1), dngutil::POTION_HEAL + 15));
+        specificObjects.emplace(Coordinate(2, 2), new Potion(pgame, Coordinate(2, 2), dngutil::POTION_HEAL));
+        specificObjects.emplace(Coordinate(2, 1), new ManaPotion(pgame, Coordinate(2, 1), dngutil::MANA_POTION_HEAL));
 
         std::vector<dngutil::TID> possibleCreatures;
         possibleCreatures.push_back(dngutil::TID::BloodSkeleton);
@@ -8467,7 +8467,7 @@ void Map::makeWaterTemple(std::mutex& mut)
         roomTemplate.push_back("############ ###########");
         roomTemplate.push_back("############ ###########");
         roomTemplate.push_back("############ ###########");
-        roomTemplate.push_back("########o        #######");
+        roomTemplate.push_back("########oo       #######");
         roomTemplate.push_back("########         #######");
         roomTemplate.push_back("########         #######");
         roomTemplate.push_back("########         #######");
@@ -8510,6 +8510,7 @@ pgame->getVWin()->txtmacs.displayGame(pgame);
 
         std::map<Coordinate, MapObject*> specificObjects;
         specificObjects.emplace(Coordinate(8, 3), new Potion(pgame, Coordinate(8, 3), dngutil::POTION_HEAL));
+        specificObjects.emplace(Coordinate(9, 3), new ManaPotion(pgame, Coordinate(9, 3), dngutil::MANA_POTION_HEAL));
 
         std::vector<dngutil::TID> possibleCreatures;
         possibleCreatures.push_back(dngutil::TID::Mage);
@@ -8877,7 +8878,7 @@ pgame->getVWin()->txtmacs.displayGame(pgame);
         //21,9
         std::map<Coordinate, MapObject*> specificObjects;
         specificObjects.emplace(Coordinate(4, 1), new MagicalPotion(pgame, Coordinate(4, 1)));
-        specificObjects.emplace(Coordinate(21, 9), new Potion(pgame, Coordinate(21, 9), dngutil::POTION_HEAL));
+        specificObjects.emplace(Coordinate(21, 9), new ManaPotion(pgame, Coordinate(21, 9), dngutil::MANA_POTION_HEAL));
 
         std::vector<dngutil::TID> possibleCreatures;
         possibleCreatures.push_back(dngutil::TID::LSKnight);
@@ -9203,7 +9204,7 @@ void Map::makeSpiritTemple(std::mutex& mut)
         };
 
         std::map<Coordinate, MapObject*> specificObjects;
-        specificObjects.emplace(Coordinate(19, 5), new Potion(pgame, Coordinate(19, 5), dngutil::POTION_HEAL));
+        specificObjects.emplace(Coordinate(19, 5), new ManaPotion(pgame, Coordinate(19, 5), dngutil::MANA_POTION_HEAL));
         specificObjects.emplace(Coordinate(3, 11), new MagicalPotion(pgame, Coordinate(3, 11)));
 
         std::vector<dngutil::TID> possibleCreatures;
@@ -10377,7 +10378,7 @@ void Map::makeForestTemple(std::mutex& mut)
         roomTemplate.push_back("########################");
 
         std::map<Coordinate, MapObject*> specificObjects;
-        specificObjects.emplace(Coordinate(15, 10), new Potion(pgame, Coordinate(15, 10), dngutil::POTION_HEAL));
+        specificObjects.emplace(Coordinate(15, 10), new ManaPotion(pgame, Coordinate(15, 10), dngutil::MANA_POTION_HEAL));
         specificObjects.emplace(Coordinate(20, 10), new Primary(
             pgame,
             ColorChar('i', dngutil::WHITE),
