@@ -4743,15 +4743,15 @@ void Map::makeHouses(std::mutex& mut)
             ColorString("a Potion", dngutil::RED),
             ColorChar('o', dngutil::RED),
             dngutil::TID::Potion,
-            85
+            50
         ));
         specificObjects.emplace(Coordinate(4, 1), new VenderObject(
             pgame,
             Coordinate(4, 1),
-            ColorString("a Magical Potion", dngutil::YELLOW),
-            ColorChar('o', dngutil::YELLOW),
-            dngutil::TID::MagicalPotion,
-            255
+            ColorString("a Mana Potion", dngutil::BLUE),
+            ColorChar('o', dngutil::BLUE),
+            dngutil::TID::ManaPotion,
+            50
         ));
         specificObjects.emplace(Coordinate(6, 1), new VenderObject(
             pgame,
