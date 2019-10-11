@@ -34,7 +34,7 @@ int Spell::getManaReq() const
 }
 
 DragonBlessingSpell::DragonBlessingSpell()
-    :Spell("Dragon's Blessing", "Heals 150 HP", 50, dngutil::SPELLTID::DragonBlessing)
+    :Spell("Dragon's Blessing", "Heals 150 HP", 75, dngutil::SPELLTID::DragonBlessing)
 {
 }
 
@@ -151,7 +151,7 @@ void SpiritRollerSpell::playCastSound()
 
 
 MeditationSpell::MeditationSpell()
-    :Spell("Meditation", "Heals 50 HP", 25, dngutil::SPELLTID::Meditation)
+    :Spell("Meditation", "Heals 50 HP", 30, dngutil::SPELLTID::Meditation)
 {
 }
 
@@ -173,7 +173,7 @@ void MeditationSpell::playCastSound()
 
 
 DragonShieldSpell::DragonShieldSpell()
-    :Spell("Dragon Shield", "Guards against next attack", 80, dngutil::SPELLTID::DragonShield)
+    :Spell("Dragon Shield", "Guards against next attack", 50, dngutil::SPELLTID::DragonShield)
 {
 }
 

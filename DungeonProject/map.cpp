@@ -6377,6 +6377,18 @@ void Map::makeTowerOfTheGods(std::mutex& mut)
         roomTemplate.push_back("###########  ###########");
         roomTemplate.push_back("###########  ###########");
         roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("###########  ###########");
+        roomTemplate.push_back("###########  ###########");
         // x: 10-13
         // y: 5
         auto puzzleSolved = [this](const std::list<Creature*>& creatureList, const GAMEMAP& gameMap) -> bool
@@ -6386,7 +6398,7 @@ void Map::makeTowerOfTheGods(std::mutex& mut)
             {
                 return true;
             }
-            else if (gameMap[5][10].size() > 1 || gameMap[5][11].size() > 1 || gameMap[5][12].size() > 1 || gameMap[5][13].size() > 1)
+            else if (gameMap[5][11].size() > 1 || gameMap[5][12].size() > 1)
             {
                 playSound(WavFile("Spellbook", false, false));
                 pgame->getPlayer()->adjustPosition(dngutil::Movement::DOWN);
