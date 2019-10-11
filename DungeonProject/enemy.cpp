@@ -3170,7 +3170,7 @@ SSKnight::SSKnight(
         coord,
         "Cursed Shortsword",
         false,
-        1,
+        1.3,
         2,
         85,
         false,
