@@ -365,7 +365,7 @@ void Map::makeOverworld(std::mutex& mut)
         std::vector<dngutil::TID> possibleCreatures;
         possibleCreatures.push_back(dngutil::TID::DesertGoblin);
 
-        int difficulty = 3;
+        int difficulty = 10;
         int backColor = dngutil::BROWN;
         std::string name = "Boranian Desert";
         Coordinate mapCoord(-3, -1);
@@ -397,7 +397,7 @@ void Map::makeOverworld(std::mutex& mut)
         std::vector<dngutil::TID> possibleCreatures;
         possibleCreatures.push_back(dngutil::TID::DesertGoblin);
 
-        int difficulty = 3;
+        int difficulty = 10;
         int backColor = dngutil::BROWN;
         std::string name = "Boranian Desert";
         Coordinate mapCoord(-4, -1);
@@ -429,7 +429,7 @@ void Map::makeOverworld(std::mutex& mut)
         std::vector<dngutil::TID> possibleCreatures;
         possibleCreatures.push_back(dngutil::TID::DesertGoblin);
 
-        int difficulty = 3;
+        int difficulty = 10;
         int backColor = dngutil::BROWN;
         std::string name = "Boranian Desert";
         Coordinate mapCoord(-5, -1);
@@ -461,7 +461,7 @@ void Map::makeOverworld(std::mutex& mut)
         std::vector<dngutil::TID> possibleCreatures;
         possibleCreatures.push_back(dngutil::TID::DesertGoblin);
 
-        int difficulty = 3;
+        int difficulty = 10;
         int backColor = dngutil::BROWN;
         std::string name = "Boranian Desert";
         Coordinate mapCoord(-6, -1);
@@ -494,13 +494,13 @@ void Map::makeOverworld(std::mutex& mut)
             ColorChar('A', dngutil::WHITE),
             Coordinate(22, 6),
             "Trey Hidalgo",
-            ColorString("The desert is inhabited by goblins, the only human area is Desert Town.", dngutil::WHITE)
+            ColorString("The desert is inhabited by dangerous goblins.", dngutil::WHITE)
         ));
 
         std::vector<dngutil::TID> possibleCreatures;
         possibleCreatures.push_back(dngutil::TID::DesertGoblin);
 
-        int difficulty = 3;
+        int difficulty = 7;
         int backColor = dngutil::BROWN;
         std::string name = "Boranian Desert";
         Coordinate mapCoord(-3, -2);
@@ -532,7 +532,7 @@ void Map::makeOverworld(std::mutex& mut)
         std::vector<dngutil::TID> possibleCreatures;
         possibleCreatures.push_back(dngutil::TID::DesertGoblin);
 
-        int difficulty = 3;
+        int difficulty = 8;
         int backColor = dngutil::BROWN;
         std::string name = "Boranian Desert";
         Coordinate mapCoord(-4, -2);
@@ -628,7 +628,7 @@ void Map::makeOverworld(std::mutex& mut)
         std::vector<dngutil::TID> possibleCreatures;
         possibleCreatures.push_back(dngutil::TID::DesertGoblin);
 
-        int difficulty = 3;
+        int difficulty = 9;
         int backColor = dngutil::BROWN;
         std::string name = "Boranian Desert";
         Coordinate mapCoord(-6, -2);
@@ -660,7 +660,7 @@ void Map::makeOverworld(std::mutex& mut)
         std::vector<dngutil::TID> possibleCreatures;
         possibleCreatures.push_back(dngutil::TID::DesertGoblin);
 
-        int difficulty = 3;
+        int difficulty = 10;
         int backColor = dngutil::BROWN;
         std::string name = "Boranian Desert";
         Coordinate mapCoord(-3, -3);
@@ -692,7 +692,7 @@ void Map::makeOverworld(std::mutex& mut)
         std::vector<dngutil::TID> possibleCreatures;
         possibleCreatures.push_back(dngutil::TID::DesertGoblin);
 
-        int difficulty = 3;
+        int difficulty = 10;
         int backColor = dngutil::BROWN;
         std::string name = "Boranian Desert";
         Coordinate mapCoord(-4, -3);
@@ -724,7 +724,7 @@ void Map::makeOverworld(std::mutex& mut)
         std::vector<dngutil::TID> possibleCreatures;
         possibleCreatures.push_back(dngutil::TID::DesertGoblin);
 
-        int difficulty = 3;
+        int difficulty = 9;
         int backColor = dngutil::BROWN;
         std::string name = "Boranian Desert";
         Coordinate mapCoord(-5, -3);
@@ -804,7 +804,7 @@ void Map::makeOverworld(std::mutex& mut)
         std::vector<dngutil::TID> possibleCreatures;
         possibleCreatures.push_back(dngutil::TID::DesertGoblin);
 
-        int difficulty = 3;
+        int difficulty = 10;
         int backColor = dngutil::BROWN;
         std::string name = "Boranian Desert";
         Coordinate mapCoord(-3, -4);
@@ -836,7 +836,7 @@ void Map::makeOverworld(std::mutex& mut)
         std::vector<dngutil::TID> possibleCreatures;
         possibleCreatures.push_back(dngutil::TID::DesertGoblin);
 
-        int difficulty = 3;
+        int difficulty = 10;
         int backColor = dngutil::BROWN;
         std::string name = "Boranian Desert";
         Coordinate mapCoord(-4, -4);
@@ -868,7 +868,7 @@ void Map::makeOverworld(std::mutex& mut)
         std::vector<dngutil::TID> possibleCreatures;
         possibleCreatures.push_back(dngutil::TID::DesertGoblin);
 
-        int difficulty = 5;
+        int difficulty = 11;
         int backColor = dngutil::BROWN;
         std::string name = "Boranian Desert";
         Coordinate mapCoord(-5, -4);
@@ -900,7 +900,7 @@ void Map::makeOverworld(std::mutex& mut)
         std::vector<dngutil::TID> possibleCreatures;
         possibleCreatures.push_back(dngutil::TID::DesertGoblin);
 
-        int difficulty = 4;
+        int difficulty = 9;
         int backColor = dngutil::BROWN;
         std::string name = "Boranian Desert";
         Coordinate mapCoord(-6, -4);
@@ -934,7 +934,7 @@ void Map::makeOverworld(std::mutex& mut)
         std::vector<dngutil::TID> possibleCreatures;
         possibleCreatures.push_back(dngutil::TID::BloodSkeleton);
 
-        int difficulty = 8;
+        int difficulty = 11;
         int backColor = dngutil::LIGHTGRAY;
         std::string name = "Desert Cave";
         Coordinate mapCoord(-5, -5);
@@ -979,7 +979,7 @@ void Map::makeOverworld(std::mutex& mut)
         std::vector<dngutil::TID> possibleCreatures;
         possibleCreatures.push_back(dngutil::TID::BloodSkeleton);
 
-        int difficulty = 8;
+        int difficulty = 11;
         int backColor = dngutil::LIGHTGRAY;
         std::string name = "Desert Cave";
         Coordinate mapCoord(-5, -6);

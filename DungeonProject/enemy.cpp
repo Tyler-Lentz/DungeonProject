@@ -2882,7 +2882,7 @@ void ZorlockImagePhase1::beginingCutscene()
     t.clearDivider("bottom");
 
     int l = t.BOTTOM_DIVIDER_TEXT_LINE;
-    v->putcen(ColorString("I present thee with a challenge made by the Gods.", dngutil::WHITE), l, true);
+    v->putcen(ColorString("I present you with a challenge made by the Gods.", dngutil::WHITE), l, true);
     pressEnter(Coordinate(0, l + 1), v);
     t.clearLine(l);
     t.clearLine(l + 1);
@@ -2994,12 +2994,12 @@ void ZorlockImagePhase2::deathSequence()
     int l = t.BOTTOM_DIVIDER_TEXT_LINE;
     if (getPGame()->getPlayer()->hasItem(dngutil::TID::GodStone))
     {
-        v->putcen(ColorString("Thou has done well", dngutil::WHITE), l, true);
+        v->putcen(ColorString("You have done well", dngutil::WHITE), l, true);
         pressEnter(Coordinate(0, l + 1), v);
         t.clearLine(l);
         t.clearLine(l + 1);
 
-        v->putcen(ColorString("I present thee with a prize - 150 Gold", dngutil::WHITE), l, true);
+        v->putcen(ColorString("I present you with a prize - 150 Gold", dngutil::WHITE), l, true);
         pressEnter(Coordinate(0, l + 1), v);
         t.clearLine(l);
         t.clearLine(l + 1);
@@ -3011,12 +3011,12 @@ void ZorlockImagePhase2::deathSequence()
     }
     else
     {
-        v->putcen(ColorString("Thou has done well", dngutil::WHITE), l, true);
+        v->putcen(ColorString("You have done well", dngutil::WHITE), l, true);
         pressEnter(Coordinate(0, l + 1), v);
         t.clearLine(l);
         t.clearLine(l + 1);
 
-        v->putcen(ColorString("I present thee with a prize - The God's Stone", dngutil::WHITE), l, true);
+        v->putcen(ColorString("I present you with a prize - The God's Stone", dngutil::WHITE), l, true);
         pressEnter(Coordinate(0, l + 1), v);
         t.clearLine(l);
         t.clearLine(l + 1);
