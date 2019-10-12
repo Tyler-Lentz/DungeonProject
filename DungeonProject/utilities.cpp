@@ -306,7 +306,7 @@ void credits(dngutil::CreditType c, Game* pgame)
     }
     addEmptySpace(8);
     credits.push_back(ColorString("Playtesting: Tyler Lentz, Thomas Westenhofer, Collin Werth,", color));
-    credits.push_back(ColorString("Kristian Rascon, Danny Hernandez and Zachary Fineberg", color));
+    credits.push_back(ColorString("Kristian Rascon, and Zachary Fineberg", color));
     if (c == dngutil::CreditType::VICTORY)
     {
         addEmptySpace(5);
