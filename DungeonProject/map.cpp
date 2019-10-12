@@ -4743,7 +4743,7 @@ void Map::makeHouses(std::mutex& mut)
             ColorString("a Potion", dngutil::RED),
             ColorChar('o', dngutil::RED),
             dngutil::TID::Potion,
-            50
+            15
         ));
         specificObjects.emplace(Coordinate(4, 1), new VenderObject(
             pgame,
@@ -4751,7 +4751,7 @@ void Map::makeHouses(std::mutex& mut)
             ColorString("a Mana Potion", dngutil::WHITE),
             ColorChar('o', dngutil::WHITE),
             dngutil::TID::ManaPotion,
-            50
+            15
         ));
         specificObjects.emplace(Coordinate(6, 1), new VenderObject(
             pgame,
@@ -4759,7 +4759,7 @@ void Map::makeHouses(std::mutex& mut)
             ColorString("some Reinforced Boots", dngutil::BROWN),
             ColorChar('*', dngutil::BROWN),
             dngutil::TID::ReinforcedBoots,
-            155
+            150
         ));
         specificObjects.emplace(Coordinate(2, 3), new HouseDoorObject(pgame, Coordinate(2, 3), Coordinate(-7, -4), Coordinate(5, 7), 2));
         specificObjects.emplace(Coordinate(8, 2), new Npc(
