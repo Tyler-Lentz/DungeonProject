@@ -895,7 +895,22 @@ Collision HeroSpirit::mapAction(MapObject* collider, std::list<MapObject*>::iter
         t.clearLine(l);
         t.clearLine(l + 1);
 
-        v->putcen(ColorString("You find yourself in the same position I once found myself in.", dngutil::WHITE), l, true);
+        v->putcen(ColorString("However, I failed to successfully seal away the demon.", dngutil::WHITE), l, true);
+        pressEnter(Coordinate(0, l + 1), v);
+        t.clearLine(l);
+        t.clearLine(l + 1);
+
+        v->putcen(ColorString("Many years later, he reemerged from the Demon Realm and attacked Bora.", dngutil::WHITE), l, true);
+        pressEnter(Coordinate(0, l + 1), v);
+        t.clearLine(l);
+        t.clearLine(l + 1);
+
+        v->putcen(ColorString("He killed me, and now we find ourselves in the same situation.", dngutil::WHITE), l, true);
+        pressEnter(Coordinate(0, l + 1), v);
+        t.clearLine(l);
+        t.clearLine(l + 1);
+
+        v->putcen(ColorString("To destroy Zorlock once and for all, you will need to seal him away.", dngutil::WHITE), l, true);
         pressEnter(Coordinate(0, l + 1), v);
         t.clearLine(l);
         t.clearLine(l + 1);
