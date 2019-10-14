@@ -126,7 +126,9 @@ namespace dngutil
         ManaPotion,
         PossessedBowman,
         DarkKnight2,
-        StrangeStone
+        StrangeStone,
+        SuperPotion,
+        SuperManaPotion
     };
 
     enum class SPELLTID

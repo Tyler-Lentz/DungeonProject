@@ -4773,18 +4773,18 @@ void Map::makeHouses(std::mutex& mut)
         specificObjects.emplace(Coordinate(2, 1), new VenderObject(
             pgame,
             Coordinate(2, 1),
-            ColorString("a Potion", dngutil::RED),
+            ColorString("a Super Potion (x3)", dngutil::RED),
             ColorChar('o', dngutil::RED),
-            dngutil::TID::Potion,
-            15
+            dngutil::TID::SuperPotion,
+            40
         ));
         specificObjects.emplace(Coordinate(4, 1), new VenderObject(
             pgame,
             Coordinate(4, 1),
-            ColorString("a Mana Potion", dngutil::WHITE),
+            ColorString("a Super Mana Potion (x3)", dngutil::WHITE),
             ColorChar('o', dngutil::WHITE),
-            dngutil::TID::ManaPotion,
-            15
+            dngutil::TID::SuperManaPotion,
+            40
         ));
         specificObjects.emplace(Coordinate(6, 1), new VenderObject(
             pgame,
