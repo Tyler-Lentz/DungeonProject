@@ -499,7 +499,7 @@ Item* getItemFromId(dngutil::TID tid, Game* game, bool saving)
     case dngutil::TID::HerosClaim: return new HerosClaim(game, Coordinate(-1, -1));
     case dngutil::TID::Key: return new Key(game, Coordinate(-1, -1));
     case dngutil::TID::MagicalPotion: return new MagicalPotion(game, Coordinate(-1, -1));
-    //case dngutil::TID::Potion: return new Potion(game, Coordinate(-1, -1), dngutil::POTION_HEAL);
+    case dngutil::TID::Potion: return new Potion(game, Coordinate(-1, -1), dngutil::POTION_HEAL);
     case dngutil::TID::Waterboots: return new Waterboots(game, Coordinate(-1, -1));
     case dngutil::TID::Speedboots: return new Speedboots(game, Coordinate(-1, -1));
     case dngutil::TID::BlueTunic: return new BlueTunic(game, Coordinate(-1, -1));
@@ -514,7 +514,7 @@ Item* getItemFromId(dngutil::TID tid, Game* game, bool saving)
     case dngutil::TID::GodStone: return new GodStone(game, Coordinate(-1, -1));
     case dngutil::TID::HerosBlade2: return new HerosBlade2(game, Coordinate(-1, -1));
     case dngutil::TID::StrangeStone: return new StrangeStone(game, Coordinate(-1, -1));
-    //case dngutil::TID::ManaPotion: return new ManaPotion(game, Coordinate(-1, -1), dngutil::MANA_POTION_HEAL);
+    case dngutil::TID::ManaPotion: return new ManaPotion(game, Coordinate(-1, -1), dngutil::MANA_POTION_HEAL);
     }
 
     if (saving)
