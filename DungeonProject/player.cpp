@@ -871,7 +871,7 @@ void Player::mapMenu()
             }
             else
             {
-                toDraw.character = '.';
+                toDraw.character = '#';
             }
         }
 
