@@ -3816,7 +3816,7 @@ Robber::Robber(
         "Dagger",
         false,
         1.2,
-        2,
+        4,
         90,
         false,
         "A very light dagger.",
