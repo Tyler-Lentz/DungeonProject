@@ -23,10 +23,17 @@ std::string getSecondarySaveText(Secondary& s);
 
 std::string getSpellbookSaveText(Spellbook& s);
 
+std::string getHealthPotionSaveText(Potion& s);
+std::string getManaPotionSaveText(ManaPotion& s);
+
 bool loadGame(Game* game);
 
 Primary* getPrimaryFromSaveString(std::string, Game* game, bool saving);
 Secondary* getSecondaryFromSaveString(std::string, Game* game, bool saving);
 Item* getItemFromId(dngutil::TID, Game* game, bool saving);
+
+// type: 0 for health potion, 1 for mana potion
+Item* getPotionFromSaveString(std::string, Game* game, bool saving, int type);
+
 Spellbook* getSpellbookFromSaveString(std::string, Game* game, bool saving);
 #endif

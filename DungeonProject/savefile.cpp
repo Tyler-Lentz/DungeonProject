@@ -107,6 +107,8 @@ std::string getInventoryItemText(Item& i)
     case dngutil::TID::Primary: return getPrimarySaveText(dynamic_cast<Primary&>(i));
     case dngutil::TID::Secondary: return getSecondarySaveText(dynamic_cast<Secondary&>(i));
     case dngutil::TID::Spellbook: return getSpellbookSaveText(dynamic_cast<Spellbook&>(i));
+    case dngutil::TID::Potion: return getHealthPotionSaveText(dynamic_cast<Potion&>(i));
+    case dngutil::TID::ManaPotion: return getManaPotionSaveText(dynamic_cast<ManaPotion&>(i));
     default: return std::to_string(static_cast<int>(i.getTypeId()));
     }
 }
@@ -157,6 +159,22 @@ std::string getSpellbookSaveText(Spellbook& s)
         text += std::to_string(static_cast<int>(spell->getSpellId())) + "~";
     }
     text += "SPELLBOOKDONE";
+    return text;
+}
+
+std::string getHealthPotionSaveText(Potion& s)
+{
+    std::string text;
+    text += std::to_string(static_cast<int>(s.getTypeId())) + "~";
+    text += std::to_string(s.getHealAmount());
+    return text;
+}
+
+std::string getManaPotionSaveText(ManaPotion& s)
+{
+    std::string text;
+    text += std::to_string(static_cast<int>(s.getTypeId())) + "~";
+    text += std::to_string(s.getHealAmount());
     return text;
 }
 
@@ -346,6 +364,16 @@ bool loadGame(Game* game)
         {
             p->addToInventory(getSpellbookFromSaveString(s, game, true));
         }
+        else if (type == dngutil::TID::Potion)
+        {
+            // 0 is for reg potion
+            p->addToInventory(getPotionFromSaveString(s, game, true, 0));
+        }
+        else if (type == dngutil::TID::ManaPotion)
+        {
+            // 1 is for mana potion
+            p->addToInventory(getPotionFromSaveString(s, game, true, 1));
+        }
         else
         {
             p->addToInventory(getItemFromId(type, game, true));
@@ -424,6 +452,44 @@ Secondary* getSecondaryFromSaveString(std::string str, Game* game, bool saving)
         tokens[2]
     );
 }
+//int type: 0 = health potion 1 = mana potion
+Item* getPotionFromSaveString(std::string str, Game* game, bool saving, int type)
+{
+    std::stringstream ss(str);
+    std::string buff;
+    std::vector<std::string> tokens;
+    while (std::getline(ss, buff, '~'))
+    {
+        tokens.push_back(buff);
+    }
+    
+    if (tokens.size() == 1) // old save file where health amount is not saved
+    {
+        if (type == 0) // health potion
+        {
+            return new Potion(game, Coordinate(-1, -1), dngutil::POTION_HEAL);
+        }
+        else // must be 1, mana potion
+        {
+            return new ManaPotion(game, Coordinate(-1, -1), dngutil::MANA_POTION_HEAL);
+        }
+    }
+    else // new save file where health is saved
+    {
+        if (type == 0) // health potion
+        {
+            return new Potion(game, Coordinate(-1, -1), stoi(tokens[1]));
+        }
+        else // must be 1, mana potion
+        {
+            return new ManaPotion(game, Coordinate(-1, -1), stoi(tokens[1]));
+        }
+    } // tokens[1] is the heal amount stored
+
+    // if this changes change it in the plan text file too
+    // id - heal amount
+    // 0    1         
+}
 
 Item* getItemFromId(dngutil::TID tid, Game* game, bool saving)
 {
@@ -433,7 +499,7 @@ Item* getItemFromId(dngutil::TID tid, Game* game, bool saving)
     case dngutil::TID::HerosClaim: return new HerosClaim(game, Coordinate(-1, -1));
     case dngutil::TID::Key: return new Key(game, Coordinate(-1, -1));
     case dngutil::TID::MagicalPotion: return new MagicalPotion(game, Coordinate(-1, -1));
-    case dngutil::TID::Potion: return new Potion(game, Coordinate(-1, -1), dngutil::POTION_HEAL);
+    //case dngutil::TID::Potion: return new Potion(game, Coordinate(-1, -1), dngutil::POTION_HEAL);
     case dngutil::TID::Waterboots: return new Waterboots(game, Coordinate(-1, -1));
     case dngutil::TID::Speedboots: return new Speedboots(game, Coordinate(-1, -1));
     case dngutil::TID::BlueTunic: return new BlueTunic(game, Coordinate(-1, -1));
@@ -448,7 +514,7 @@ Item* getItemFromId(dngutil::TID tid, Game* game, bool saving)
     case dngutil::TID::GodStone: return new GodStone(game, Coordinate(-1, -1));
     case dngutil::TID::HerosBlade2: return new HerosBlade2(game, Coordinate(-1, -1));
     case dngutil::TID::StrangeStone: return new StrangeStone(game, Coordinate(-1, -1));
-    case dngutil::TID::ManaPotion: return new ManaPotion(game, Coordinate(-1, -1), dngutil::MANA_POTION_HEAL);
+    //case dngutil::TID::ManaPotion: return new ManaPotion(game, Coordinate(-1, -1), dngutil::MANA_POTION_HEAL);
     }
 
     if (saving)

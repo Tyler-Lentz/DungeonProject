@@ -166,6 +166,8 @@ public:
     Potion(Game* pgame, Coordinate coord, int healAmount);
 
     void action(Player* player, unsigned int inventoryIndex) override;
+
+    int getHealAmount() const;
 private:
     int healAmount;
 };
@@ -174,6 +176,8 @@ class ManaPotion : public RItem
 {
 public:
     ManaPotion(Game* pgame, Coordinate coord, int healAmount);
+
+    int getHealAmount() const;
 
     void action(Player* player, unsigned int inventoryIndex) override;
 private:

@@ -102,6 +102,11 @@ Potion::Potion(Game* pgame, Coordinate coord, int healAmount)
     this->healAmount = healAmount;
 }
 
+int Potion::getHealAmount() const
+{
+    return healAmount;
+}
+
 void Potion::action(Player* player, unsigned int inventoryIndex)
 {
     int healthbarLine = getPGame()->getVWin()->txtmacs.DIVIDER_LINES[2] - 1;
@@ -145,6 +150,11 @@ ManaPotion::ManaPotion(Game* pgame, Coordinate coord, int healAmount)
         true, false, false, dngutil::TID::ManaPotion, true, "Restores " + std::to_string(healAmount) + "mana")
 {
     this->healAmount = healAmount;
+}
+
+int ManaPotion::getHealAmount() const
+{
+    return healAmount;
 }
 
 void ManaPotion::action(Player* player, unsigned int inventoryIndex)
