@@ -218,6 +218,14 @@ private:
     const int HEALTH_DECREASE = 30;
 };
 
+class StrangeStone : public RItem
+{
+public:
+    StrangeStone(Game* pgame, Coordinate coord);
+
+    void action(Player* player, unsigned int inventoryIndex) override;
+};
+
 class BasiliskHorn : public RItem
 {
 public:

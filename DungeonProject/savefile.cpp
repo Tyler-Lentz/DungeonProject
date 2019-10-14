@@ -447,6 +447,7 @@ Item* getItemFromId(dngutil::TID tid, Game* game, bool saving)
     case dngutil::TID::SunCharm: return new SunCharm(game, Coordinate(-1, -1));
     case dngutil::TID::GodStone: return new GodStone(game, Coordinate(-1, -1));
     case dngutil::TID::HerosBlade2: return new HerosBlade2(game, Coordinate(-1, -1));
+    case dngutil::TID::StrangeStone: return new StrangeStone(game, Coordinate(-1, -1));
     case dngutil::TID::ManaPotion: return new ManaPotion(game, Coordinate(-1, -1), dngutil::MANA_POTION_HEAL);
     }
 

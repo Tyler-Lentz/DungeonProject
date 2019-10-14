@@ -273,6 +273,43 @@ void BasiliskHorn::action(Player* player, unsigned int inventoryIndex)
 //-------------------------------------------------------
 
 //-------------------------------------------------------
+// Strange Stone Functions
+
+StrangeStone::StrangeStone(Game* pgame, Coordinate coord)
+    :RItem(pgame, ColorChar('*', dngutil::LIGHTRED), coord, "Strange Stone",
+        true, false, false, dngutil::TID::StrangeStone, true, "A stone that seems to house radiating energy.")
+{
+
+}
+
+void StrangeStone::action(Player* player, unsigned int inventoryIndex)
+{
+    std::string output = "The stone crumbles, and inside you find a magical wand!";
+    Coordinate mapCoord = getPGame()->getActiveRoom()->getRoomInfo().mapCoord;
+
+    int line = getPGame()->getVWin()->txtmacs.BOTTOM_DIVIDER_TEXT_LINE;
+
+    player->addToInventory(new Primary(
+        getPGame(),
+        ColorChar('|', dngutil::WHITE),
+        Coordinate(-1, -1),
+        "Phoenix Wand",
+        false,
+        1.35,
+        3,
+        100,
+        false,
+        "A wand embued with the energy of a pheonix.",
+        WavFile("MagicAttack1", false, false),
+        dngutil::ClassType::WIZARD
+    ));
+
+    getPGame()->getVWin()->putcen(ColorString(output, dngutil::LIGHTGRAY), line);
+}
+
+//-------------------------------------------------------
+
+//-------------------------------------------------------
 // GodStone Functions
 
 GodStone::GodStone(Game* pgame, Coordinate coord)

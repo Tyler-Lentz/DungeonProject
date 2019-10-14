@@ -4333,19 +4333,52 @@ void Map::makeHouses(std::mutex& mut)
         // ID: 0XAA
         std::vector<std::string> roomTemplate;
         roomTemplate.push_back("#######");
+        roomTemplate.push_back("#o o o#");
         roomTemplate.push_back("#     #");
-        roomTemplate.push_back("#     #");
-        roomTemplate.push_back("#     #");
+        roomTemplate.push_back("# E   #");
         roomTemplate.push_back("###o###");
 
         std::map<Coordinate, MapObject*> specificObjects;
         specificObjects.emplace(Coordinate(3, 4), new HouseDoorObject(pgame, Coordinate(3, 4), Coordinate(0, -2), Coordinate(6, 9), 2));
+        specificObjects.emplace(Coordinate(2, 3), new Npc(
+            pgame,
+            ColorChar('A', dngutil::WHITE),
+            Coordinate(2, 3),
+            "Storekeep",
+            ColorString("Welcome to the Lullin General Store.", dngutil::WHITE),
+            false
+        ));
+
+        specificObjects.emplace(Coordinate(1, 1), new VenderObject(
+            pgame,
+            Coordinate(1, 1),
+            ColorString("a Potion", dngutil::RED),
+            ColorChar('o', dngutil::RED),
+            dngutil::TID::Potion,
+            15
+        ));
+        specificObjects.emplace(Coordinate(3, 1), new VenderObject(
+            pgame,
+            Coordinate(3, 1),
+            ColorString("a Mana Potion", dngutil::WHITE),
+            ColorChar('o', dngutil::WHITE),
+            dngutil::TID::ManaPotion,
+            15
+        ));
+        specificObjects.emplace(Coordinate(5, 1), new VenderObject(
+            pgame,
+            Coordinate(5, 1),
+            ColorString("a Strange Stone", dngutil::LIGHTRED),
+            ColorChar('*', dngutil::LIGHTRED),
+            dngutil::TID::StrangeStone,
+            100
+        ));
 
         std::vector<dngutil::TID> possibleCreatures;
 
         int difficulty = 0;
         int backColor = dngutil::BROWN;
-        std::string name = "House";
+        std::string name = "General Store";
         Coordinate mapCoord(-100, -100);
         RoomInfo rminfo(roomTemplate, specificObjects, name, difficulty, backColor, possibleCreatures, tfloor, mapCoord);
         mut.lock();
